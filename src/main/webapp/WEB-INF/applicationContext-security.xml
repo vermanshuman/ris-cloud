@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+			 xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			 xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-5.6.xsd">
+
+	<global-method-security secured-annotations="enabled">
+	</global-method-security>
+
+	<http pattern="/rest/**" use-expressions="false" entry-point-ref="restAuthEntryPoint">
+		<intercept-url pattern="/rest/spvoiceLogin" access="IS_AUTHENTICATED_FULLY" />
+		<intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+
+		<headers disabled="true"/>
+		<csrf disabled="true"/>
+	</http>
+
+	<http auto-config="true" use-expressions="false" disable-url-rewriting="false">
+		<intercept-url pattern="/monitoring" access="ROLE_USER" />
+		<intercept-url pattern="/" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+
+		<form-login login-processing-url="/j_spring_security_check"
+					username-parameter="j_username"
+					password-parameter="j_password"
+					login-page="/Login.jsf"
+					default-target-url="/Common/Index.jsf"
+					authentication-success-handler-ref="authenticationSuccessHandlerEx"
+					authentication-failure-url="/Login.jsf" />
+
+		<logout logout-url="/j_spring_security_logout" logout-success-url="/" />
+
+		<access-denied-handler error-page="/Common/AccessDenied.jsf" />
+		<headers disabled="true"/>
+		<csrf disabled="true"/>
+	</http>
+
+	<beans:bean id="restAuthEntryPoint"
+				class="org.springframework.security.web.authentication.HttpStatusEntryPoint">
+		<beans:constructor-arg name="httpStatus" value="FORBIDDEN"/>
+	</beans:bean>
+
+	<beans:bean id="securityControllerBean"
+		class="it.nexera.ris.common.security.beans.PersistSecurityBean">
+	</beans:bean>
+
+	<beans:bean id="securityInfoProcBean"
+		class="it.nexera.ris.common.security.beans.SecurityInfoProcBean">
+	</beans:bean>
+
+	<beans:bean id="authUserDetailsBean"
+		class="it.nexera.ris.common.security.beans.AuthUserDetailsBean">
+		<beans:property name="securityController" ref="securityControllerBean" />
+		<beans:property name="securityInfoProc" ref="securityInfoProcBean" />
+	</beans:bean>
+
+	<beans:bean id="authenticationSuccessHandlerEx"
+		class="it.nexera.ris.common.security.beans.AuthenticationSuccessHandlerEx">
+	</beans:bean>
+
+	<beans:bean id="bcryptPasswordEncoder"
+				class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
+	<beans:bean id="md5PasswordEncoder"
+				class="org.springframework.security.crypto.password.MessageDigestPasswordEncoder">
+		<beans:constructor-arg value="MD5"/>
+	</beans:bean>
+
+	<beans:bean id="passwordEncoder"
+				class="org.springframework.security.crypto.password.DelegatingPasswordEncoder">
+		<beans:constructor-arg name="idForEncode" value="bcrypt" />
+		<beans:constructor-arg name="idToPasswordEncoder">
+			<beans:map>
+				<beans:entry key="bcrypt" value-ref="bcryptPasswordEncoder" />
+			</beans:map>
+		</beans:constructor-arg>
+		<beans:property name="defaultPasswordEncoderForMatches" ref="md5PasswordEncoder"/>
+	</beans:bean>
+
+	<authentication-manager>
+		<authentication-provider user-service-ref="authUserDetailsBean">
+			<password-encoder ref="passwordEncoder"/>
+		</authentication-provider>
+	</authentication-manager>
+
+</beans:beans>
+

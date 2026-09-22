@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head>
+	<title><h:outputText value="#{empty mainTitle ? msg.title : mainTitle}" /></title>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<meta http-equiv="refresh"
+		content="#{session.maxInactiveInterval};url=#{facesContext.externalContext.requestContextPath}/login/?reason=expired" />
+
+	<link
+		href="#{facesContext.externalContext.requestContextPath}/resources/styles/default.css"
+		media="all" rel="stylesheet" type="text/css" />
+	<link
+		href="#{facesContext.externalContext.requestContextPath}/resources/styles/custom-styles.css"
+		media="all" rel="stylesheet" type="text/css" />
+	<link
+			href="#{facesContext.externalContext.requestContextPath}/resources/fontawesome-free-5.0.11/css/fontawesome-all.css"
+			media="all" rel="stylesheet" type="text/css" />
+	<script type="text/javascript"
+		src="#{facesContext.externalContext.requestContextPath}/resources/javascript/field-formatters.js"></script>
+	<script type="text/javascript"
+		src="#{facesContext.externalContext.requestContextPath}/resources/javascript/locale.js"></script>
+
+	<script
+		src="#{facesContext.externalContext.requestContextPath}/resources/javascript/cookie-manager.js"
+		type="text/javascript"></script>
+	<script
+		src="#{facesContext.externalContext.requestContextPath}/resources/javascript/Cookie.js"
+		type="text/javascript"></script>
+	<script type="text/javascript"
+		src="#{facesContext.externalContext.requestContextPath}/resources/javascript/jquery.maskedinput.js"></script>
+	<script type="text/javascript"
+		src="#{facesContext.externalContext.requestContextPath}/resources/javascript/javascript_helper.js"></script>
+
+	<script
+		src="#{facesContext.externalContext.requestContextPath}/resources/javascript/menu-manager.js"
+		type="text/javascript"></script>
+
+	<script src="#{facesContext.externalContext.requestContextPath}/resources/javascript/atmosphere-min.js"
+			type="text/javascript"></script>
+</h:head>
+
+<h:body>
+	<f:view locale="#{localizeBean.locale}">
+		<script type="text/javascript">
+			$(document)
+					.ready(
+							function () {
+								PrimeFaces.widget.DefaultCommand = PrimeFaces.widget.BaseWidget
+										.extend({
+											init: function (b) {
+												this.cfg = b;
+												this.id = this.cfg.id;
+												this.jqId = PrimeFaces
+														.escapeClientId(this.id);
+												this.jqTarget = $(PrimeFaces
+														.escapeClientId(this.cfg.target));
+												var a = this;
+												this.jqTarget
+														.parents("form:first")
+														.keypress(
+																function (d) {
+																	var c = $.ui.keyCode;
+																	if (d.which == c.ENTER) {
+																		a.jqTarget
+																				.click();
+																		d
+																				.preventDefault()
+																	}
+																});
+												$(this.jqId + "_s").remove()
+											}
+										});
+							});
+
+			// old versions of Firefox treated Backspace as 'go back' button when
+			// text input was not focused, this code disables this behaviour
+			if (navigator.userAgent.toLowerCase().indexOf("firefox") !== -1) {
+				document.addEventListener('keydown', preventBackspaceDefaultBehaviour);
+			}
+		</script>
+
+		<p:outputPanel id="rootPanel"
+			styleClass="root_panel">
+			<div class="admin_part">
+				<div class="footer_down">
+					<ui:include src="/resources/tpl/Admin/Include/Header.xhtml"></ui:include>
+
+					<div class="main">
+						<!-- BOF left part //-->
+						<ui:fragment rendered="#{request.getParameterMap().containsKey('password_expired') ? false : empty renderMenu ? true : renderMenu}">
+							<div class="left_part">
+
+								<ui:include src="/resources/tpl/Admin/Include/Menu.xhtml"></ui:include>
+
+								<ui:insert name="draggable_body"></ui:insert>
+							</div>
+						</ui:fragment>
+						<div style="margin-left: #{request.getParameterMap().containsKey('password_expired') ? '0' : ''};"
+							class="#{empty centerPartStyleClass ? 'center_part' : centerPartStyleClass}">
+							<ui:insert name="top_content"></ui:insert>
+							<ui:insert name="body">
+							</ui:insert>
+
+							<ui:remove> <!-- TEMP disable for prod, task ART_RIS-809 -->
+							<h:form id="alertSession" prependId="false">
+								<p:poll interval="#{timeoutControlSessionBean.sessionInactiveInterval}"
+										update="alertForExpiringSession"
+										listener="#{timeoutControlSessionBean.handleExpirition}" />
+								<p:dialog id="alertForExpiringSession" modal="true"
+										  closable="false" resizable="false" widgetVar="alertForExpiringSessionWV"
+										  visible="#{timeoutControlSessionBean.showWindow}">
+									<span class="alert-expiring-session">
+										<h:outputText value="#{msg.warningSessionExpire}" style="padding-right: 5px;" />
+										<pe:timer id="timerAlert" timeout="#{timeoutControlSessionBean.timerInterval}"
+												  forward="false" singleRun="true"
+												  rendered="#{timeoutControlSessionBean.showWindow}"
+												  listener="#{timeoutControlSessionBean.onTimerComplete}"/>
+										<h:outputText style="margin-left: 5px; vertical-align: center" value="#{msg.warningSessionExpire2}" />
+									</span>
+									<div class="btn_line">
+										<p:commandButton value="#{msg.ok}" action="#{timeoutControlSessionBean.submitSessionExtension}" />
+									</div>
+								</p:dialog>
+							</h:form>
+							</ui:remove>
+
+							<h:form prependId="false">
+								<h:inputHidden id="logoutSocketHidden"
+									value="#{logoutSessionBean.sessionLogoutId}" />
+								<h:inputHidden id="urgentDataMsg"
+									value="#{urgencyMessageBean.data}" />
+								<p:remoteCommand name="checkLogoutSessionSocket"
+									action="#{logoutSessionBean.checkNeedLogout}" />
+								<p:remoteCommand name="closeSession" action="#{logoutSessionBean.closeSession}" />
+								<p:remoteCommand name="onUrgencyReceived" action="#{urgencyMessageBean.processMessage}"
+												 update="receiveUrgentRequestPanel"/>
+
+								<p:dialog id="invalidateSessionDlg" modal="true"
+									closable="false" resizable="false" onShow="disconnectSocket();closeSession();"
+									rendered="#{logoutSessionBean.needRendered}" draggable="false"
+									widgetVar="invalidateSessionDlgWV">
+
+									<h:outputText value="#{msg.onInvalidateSession}" />
+									<div class="btn_line">
+										<p:commandButton value="#{msg.ok}" action="#{logoutSessionBean.redirectOnLogout}"
+										oncomplete="PF('invalidateSessionDlgWV').hide();"/>
+									</div>
+								</p:dialog>
+								<p:dialog modal="true" closable="false" resizable="false" draggable="false"
+										  widgetVar="receiveUrgentRequestDlgWv"
+										  header="#{msg.urgencyReceiveNewRequest}">
+									<h:panelGrid id="receiveUrgentRequestPanel" columns="2">
+										<h:panelGrid>
+											<h:outputText value="#{urgencyMessageBean.patientFullName}"/>
+											<h:outputText value="#{urgencyMessageBean.asapSectorDescription}"/>
+											<h:outputText value="#{urgencyMessageBean.itemsDescription}" escape="false"/>
+										</h:panelGrid>
+										<h:graphicImage alt="#{urgencyMessageBean.urgency.iconName}" width="25"
+														height="25" value="#{urgencyMessageBean.urgency.iconUrlTemp}"/>
+									</h:panelGrid>
+									<div class="btn_line">
+										<p:commandButton value="#{msg.ok}"
+														 onclick="PF('receiveUrgentRequestDlgWv').hide();"/>
+									</div>
+								</p:dialog>
+							</h:form>
+
+							<div class="clear"></div>
+						</div>
+
+					</div>
+					<p:outputPanel rendered="#{empty renderMenu ? true : renderMenu}">
+						<div class="empty_block">
+							<h:inputHidden id="menuItemHidden" value="#{bean.currentMenuItem}"/>
+						</div>
+					</p:outputPanel>
+				</div>
+				<ui:fragment rendered="#{empty renderFooter ? true : renderFooter}">
+					<ui:include src="/resources/tpl/Admin/Include/Footer.xhtml"></ui:include>
+				</ui:fragment>
+			</div>
+			<script type="text/javascript">
+				GetSideMenuCookie("sideMenu");
+
+				window.onload = function() {
+					onPageLoadGetMenuItem();
+					var pageType = '#{bean.currentPage}';
+					if(pageType !== 'LOGIN') {
+						window.mainSocket = openWebsocket();
+					}
+				};
+
+				function openWebsocket() {
+					const socket = window.atmosphere;
+
+					const endpoint = '#{facesContext.externalContext.requestContextPath}/ws/notify'
+					const request = {
+						url: getAbsoluteServerUrl(endpoint).replace('/^http/', 'ws'),
+						contentType: "application/json",
+						logLevel: 'info',
+						transport: 'websocket',
+						fallbackTransport: 'long-polling',
+						onMessage: (response) => {
+							const data = response.responseBody;
+							handleMessageSocket(data);
+						}
+					};
+					return socket.subscribe(request);
+				}
+
+				function handleMessageSocket(data) {
+					if(data.startsWith('receiveUrgentRequest')){
+						$('#urgentDataMsg')[0].value = data;
+						onUrgencyReceived();
+					} else {
+						$('#logoutSocketHidden')[0].value = data;
+						checkLogoutSessionSocket();
+					}
+			    }
+
+				window.onbeforeunload = function (e) {
+					disconnectSocket();
+				}
+
+				function disconnectSocket() {
+					var pageType = '#{bean.currentPage}';
+					if(pageType !== 'LOGIN') {
+						window.atmosphere.unsubscribe();
+					}
+				}
+			</script>
+			<ui:insert name="applets"></ui:insert>
+		</p:outputPanel>
+	</f:view>
+
+</h:body>
+
+</html>

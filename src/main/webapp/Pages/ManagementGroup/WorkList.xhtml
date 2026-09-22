@@ -1,0 +1,1448 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+>
+<ui:composition template="/resources/tpl/Admin/LazyListTabBase.xhtml">
+	<ui:param name="bean" value="#{workListBean}" />
+	<ui:param name="list_title" value="#{msg.workList}" />
+	<ui:param name="renderTitle" value="false" />
+	<ui:param name="showEdit" value="false" />
+	<ui:param name="showDelete" value="false" />
+	<ui:param name="displayControlPanel" value="false" />
+	<ui:param name="renderMenu" value="false" />
+	<ui:param name="centerPartStyleClass" value="false" />
+
+	<style type="text/css">
+.ui-selectcheckboxmenu-trigger>.ui-icon {
+	display: none !important;
+}
+
+.ui-selectcheckboxmenu-header>.ui-chkbox.ui-widget>.ui-chkbox-box.ui-widget.ui-corner-all.ui-state-default
+	{
+	display: none !important;
+}
+</style>
+
+	<ui:define name="list_body">
+
+		<script type="text/javascript">
+			function checkDates() {
+				var dateFrom = $('#filterDateFrom_input').val();
+				var dateTo = $('#filterDateTo_input').val();
+
+				var dFrom = new Date(dateFrom.substring(6) + '-'
+						+ dateFrom.substring(3, 5) + '-'
+						+ dateFrom.substring(0, 2));
+				var dTo = new Date(dateTo.substring(6) + '-'
+						+ dateTo.substring(3, 5) + '-' + dateTo.substring(0, 2));
+
+				if (dFrom > dTo) {
+					$('#filterDateTo_input').val(
+							$('#filterDateFrom_input').val());
+					updateCalendarTo();
+				}
+			}
+
+            function disableApplet() {
+                setTimeout(function() {
+                    hideApplet();
+                }, 1000);
+            }
+
+			var xOffset = 0;
+			var yOffset = 0;
+
+			function initPosition() {
+				xOffset = PF('contextMenuWV').jq.position().left;
+				yOffset = PF('contextMenuWV').jq.position().top;
+			}
+
+			function fixContextMenu() {
+
+				PF('contextMenuWV').jq.show();
+				PF('contextMenuWV').jq.css('left', xOffset);
+				PF('contextMenuWV').jq.css('top', yOffset);
+			}
+
+			function beforeShow() {
+				PF('contextMenuWV').jq.empty()
+			}
+		</script>
+		<p:remoteCommand name="updateContextMenu" update=":form:contextMenu" />
+		<p:remoteCommand name="hideApplet" action="#{bean.hideApplet}" />
+		<p:remoteCommand name="recheckCheckBoxes" action="#{bean.recheckCheckBoxes}" update="selectedRadiologyExamTable"/>
+		<p:remoteCommand name="updateCalendarTo" update=":form:filterDateTo" />
+		<p:remoteCommand name="openPrintRequestsDialog" action="#{bean.openPrintRequestsDialog}" />
+		<p:outputPanel id="searchPanel">
+
+			<h:panelGrid columns="2" style="width: 100%">
+				<h:panelGrid columns="7">
+					<h:outputText value="#{msg.workListDataFrom}:"/>
+					<p:datePicker id="filterDateFrom"
+								  onkeypress="if(!searchOnEnter(event, 'searchButton')) return true;"
+								  styleClass="search_group" pattern="dd/MM/yyyy"
+								  locale="it" showIcon="true" focusOnSelect="true"
+								  onblur="setTimeout(function(){checkDates();}, 500);check_date(this);"
+								  value="#{bean.dateFrom}" monthNavigator="true"
+                                  yearNavigator="select"/>
+
+					<h:outputText value="#{msg.workListDataTo}:"/>
+					<p:datePicker id="filterDateTo"
+								  onkeypress="if(!searchOnEnter(event, 'searchButton')) return false;"
+								  styleClass="search_group" pattern="dd/MM/yyyy"
+								  locale="it" showIcon="true" focusOnSelect="true"
+								  onblur="check_date(this)" value="#{bean.dateTo}"
+                                  monthNavigator="true" yearNavigator="select"/>
+
+					<p:commandButton id="diagnosticsShow"
+									 value="#{msg.worklistDiagnostica}" type="button"
+									 onclick="PF('diagnosticsCheckboxWV').show(); event.stopImmediatePropagation();"
+									 update="table:examTypesDatatable"/>
+
+					<p:overlayPanel id="diagnosticsCheckboxPanel" for="diagnosticsShow"
+									widgetVar="diagnosticsCheckboxWV" onHide="filterTableFromPanel();"
+									style="widht:300px;">
+
+						<p:dataTable id="diagnosticsDatatable" var="diagnostic"
+									 value="#{bean.allDiagnostics}" selectionMode="single"
+									 selection="#{bean.selectedDiagnosticForFilter}"
+									 rowKey="#{diagnostic.diagnosticId}" lazy="false">
+
+							<p:ajax event="rowSelect"
+									listener="#{workListBean.selectDiagnosticForFilter}"
+									update="diagnosticsDatatable"/>
+
+							<p:column style="width:18px">
+								<f:facet name="header">
+									<p:selectBooleanCheckbox
+											value="#{bean.selectedAllDiagnosticsOnPanel}">
+										<p:ajax update="diagnosticsDatatable" event="change"/>
+									</p:selectBooleanCheckbox>
+								</f:facet>
+								<p:selectBooleanCheckbox value="#{diagnostic.selected}">
+									<p:ajax update="diagnosticsDatatable" event="change"/>
+								</p:selectBooleanCheckbox>
+							</p:column>
+
+							<p:column headerText="#{msg.worklistDiagnostica}">
+								<h:outputText value="#{diagnostic.value}"/>
+							</p:column>
+						</p:dataTable>
+					</p:overlayPanel>
+
+					<p:commandButton value="#{msg.workListShow}" id="searchButton"
+									 onclick="checkDates(); filterTableFromPanel();"
+									 update=":form:examTypesDatatable,searchPanel"/>
+
+				</h:panelGrid>
+				<h:panelGrid columns="2" style="float: right;">
+					<p:commandButton value="#{msg.reopenLastReport}" rendered="#{bean.currentUser.reopenLastReport}"
+									 action="#{bean.reopenLastReport}" update=":form:messages"/>
+
+					<p:commandButton value="#{msg.printDailyReport}" rendered="#{bean.currentUser.printDailyReport}"
+									 action="#{bean.openPrintRequestsDialog}"
+									 update=":form:messages"/>
+				</h:panelGrid>
+			</h:panelGrid>
+		</p:outputPanel>
+
+		<p:remoteCommand name="filterTableFromPanel"
+			action="#{bean.filterTableFromPanel}"
+			update=":form:table, :form:table:size" />
+
+		<p:remoteCommand name="callFilterTableFromPanel"
+			action="#{bean.callFilterTable}" />
+
+		<p:remoteCommand name="showPopUp" action="#{bean.showPopUp}"
+			update=":form:messages" />
+
+		<p:remoteCommand name="updateTableSize" update=":form:table:size" />
+
+		<p:remoteCommand name="updateSelectedTemplateId" update="template" />
+
+		<p:remoteCommand name="startProduceCD" onstart="PF('showProgressBarDlgWv').show();"
+						 oncomplete="PF('showProgressBarDlgWv').hide();"
+						 action="#{bean.produceCD}" update=":dialogForm:dicomInfoMsg"/>
+
+		<p:blockUI block="form" widgetVar="blockTable" />
+
+		<p:dataTable var="item" id="table" styleClass="workListTable"
+					 emptyMessage="#{msg.noRecordsFound}" selection="#{bean.selectedRow}"
+					 selectionMode="single"
+					 value="#{bean.showShortView ? bean.shortLazyModel : bean.lazyModel}" lazy="true" paginator="true"
+					 rowKey="#{item.id}" rows="#{bean.rows}" rowIndexVar="rowIndex"
+					 paginatorAlwaysVisible="true"
+					 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					 rowsPerPageTemplate="10,20,50" widgetVar="tableWV"
+					 sortBy="#{workListBean.defaultSortBy}">
+
+			<f:facet name="header">
+				<h:outputText value="#{msg.worklistListSize} [#{bean.listSize}]"
+					id="size" />
+			</f:facet>
+
+			<p:ajax event="rowToggle" listener="#{workListBean.onRowToggle}" />
+			<p:ajax event="filter" oncomplete="updateTableSize();" />
+			<p:ajax event="contextMenu" onsuccess="initPosition();"
+				oncomplete="fixContextMenu();" update=":form:contextMenu" />
+
+			<p:column style="width:16px" exportable="false">
+				<p:rowToggler />
+			</p:column>
+
+			<p:column filterBy="#{item.surname}" sortBy="#{item.surname}"
+					  filterStyleClass="smallFilter" headerText="#{msg.workListSurname}">
+				<div style="display: inline-flex !important;">
+					<h:outputText value="#{item.surname}"
+								  style="font-weight: bold; font-size: 1.1em;"/>
+					<h:graphicImage value="/resources/images/warning.png" style="padding-left: 10px; width: 18px;"
+									rendered="#{item.allergyAlert > 0}"/>
+				</div>
+			</p:column>
+
+			<p:column filterBy="#{item.name}" sortBy="#{item.name}"
+				filterStyleClass="smallFilter" headerText="#{msg.workListName}">
+				<h:outputText value="#{item.name}"
+					style="font-weight: bold; font-size: 1.1em;" />
+			</p:column>
+
+			<p:column sortBy="#{item.birthDate}"
+				headerText="#{msg.workListBirthDate}">
+				<h:outputText value="#{item.birthDate}"
+					converter="dateTimeConverter" styleClass="workListSmall" />
+			</p:column>
+
+			<p:column sortBy="#{item.asapSectorDescription}"
+				filterStyleClass="smallFilter" headerText="#{msg.workListSector}"
+				filterBy="#{item.asapSectorDescription}">
+				<span style="font-weight: bold;" class="workListSmall">#{item.asapActivityLine != null ? item.asapActivityLine:''}</span>
+				<span>#{item.asapActivityLine != null ? '-':''}</span>
+				<span class="workListSmall">#{item.asapSectorDescription}</span>
+			</p:column>
+
+			<p:column headerText="#{msg.workListEsame}" exportable="false"
+					  filterBy="#{item.itemsDescription}" sortBy="#{item.itemsDescription}"
+					  filterStyleClass="smallFilter">
+				<h:outputText value="#{item.itemsDescription}" style="display: none"/>
+				<p:dataGrid value="#{item.items}" columns="1"
+					styleClass="myGrid verticalGrid" var="exam">
+					<p:column>
+						<h:outputText value="#{exam}"
+							style="font-size: 1.1em; font-weight:bold;" />
+					</p:column>
+				</p:dataGrid>
+			</p:column>
+
+			<p:column exportable="true" style="display:none;">
+				<f:facet name="header">
+					<h:outputText value="#{msg.workListEsame}" />
+				</f:facet>
+				<h:outputText value="#{item.radiologyExamRequestItemsString}" />
+			</p:column>
+
+			<p:column headerText="#{msg.workListStanza}"
+				sortBy="#{item.examTypeDescription}" styleClass="centered">
+				<f:facet name="header">
+					<p:commandButton id="examTypesShow" value="#{msg.workListStanza}"
+						type="button"
+						onclick="PF('examTypeCheckboxWV').show(); event.stopImmediatePropagation();" />
+				</f:facet>
+				<h:outputText value="#{item.examTypeDescription}"
+					styleClass="statusLabel" style="#{item.backgroundStyle}" />
+			</p:column>
+
+			<p:column exportable="true" style="display:none;">
+				<f:facet name="header">
+					<h:outputText value="#{msg.workListStanza}" />
+				</f:facet>
+				<h:outputText value="#{item.examTypeDescription}" />
+			</p:column>
+
+			<p:column styleClass="centered"
+					  filterBy="#{item.accessNumber}" sortBy="#{item.accessNumber}">
+				<f:facet name="header">
+					<h:outputText value="#{msg.workListAccessNumber}" />
+				</f:facet>
+				<h:outputText value="#{item.accessNumber}"
+					style="color: red; font-weight: bold;"
+					rendered="#{item.needToShowAccessNumber}" />
+			</p:column>
+
+			<p:column sortBy="#{item.latestActionPerformDate}"
+				headerText="#{msg.workListData}" styleClass="centered">
+				<h:outputText value="#{item.latestActionPerformDate}"
+							  converter="dateTimeConverterWithMinutes" styleClass="workListSmall_newLine" />
+				<br/>
+				<h:outputText value="#{item.reserveDate}" rendered="#{bean.currentUser.showOrderDate}"
+							  style="font-size: smaller"
+							  converter="dateTimeConverterBrackets"/>
+				<h:outputText value=" *" styleClass="red" rendered="#{item.showAsterisk}"/>
+			</p:column>
+
+			<p:column sortBy="#{item.urgencyId}" headerText="#{msg.workListUrg}"
+				styleClass="centered">
+				<f:facet name="header">
+					<p:commandButton id="urgencySelectCheckboxShow"
+						value="#{msg.workListUrg}" type="button"
+						onclick="PF('urgencySelectCheckboxWV').show(); event.stopImmediatePropagation();" />
+				</f:facet>
+
+				<h:graphicImage alt="#{item.urgency.iconName}" width="25"
+					height="25" value="#{item.urgency.iconUrlTemp}" />
+			</p:column>
+
+			<p:column headerText="#{msg.workListEtich}" styleClass="centered">
+				<p:commandLink icon="ui-icon-print" action="#{bean.chooseTemplate}"
+					ajax="false" update=":form:messages">
+					<p:graphicImage value="/resources/images/print.png" />
+					<f:setPropertyActionListener value="#{item}"
+						target="#{bean.selectedRequestView}" />
+				</p:commandLink>
+			</p:column>
+
+			<p:column sortBy="#{item.waitingListRegistrationState}"
+				headerText="#{msg.workListStato}">
+				<f:facet name="header">
+					<p:commandButton id="stateSelectCheckboxShow"
+						onclick="PF('stateSelectCheckboxWV').show(); event.stopImmediatePropagation();"
+						value="#{msg.workListStato}" type="button" />
+				</f:facet>
+
+				<h:outputText value="#{item.waitingListRegistrationState}"
+					converter="enumConverter" styleClass="statusLabel"
+					style="background-color: #{item.waitingListRegistrationState.stateColor}" />
+			</p:column>
+
+			<p:column styleClass="action_column" exportable="false"
+				headerText="#{msg.workListAzione}" width="125">
+				<p:commandButton value="#{item.actionBtnTitle}" id="actionBut" widgetVar="actionButton#{rowIndex}"
+					update=":form:aggregationDlg, :form:messages"
+					action="#{bean.moveToNextState}" process="@this"
+					oncomplete="callFilterTableFromPanel();"
+					onclick="PF('blockTable').show(); PF('actionButton#{rowIndex}').disable()"
+					rendered="#{!empty item.actionBtnTitle}"
+					disabled="#{!bean.getActionButtonDisablability(item)}">
+					<f:setPropertyActionListener value="#{item}"
+						target="#{bean.selectedRequestView}" />
+					<f:setPropertyActionListener
+						value="#{item.waitingListRegistrationState}"
+						target="#{bean.selectedRequestState}" />
+				</p:commandButton>
+			</p:column>
+
+			<p:column headerText="#{msg.workListDoctore}"
+				sortBy="#{item.referringDoctor}" filterBy="#{item.referringDoctor}"
+				filterStyleClass="smallFilter" styleClass="centered">
+				<h:outputText value="#{item.referringDoctor}" />
+			</p:column>
+
+			<p:rowExpansion styleClass="expansion">
+				<p:panel header="#{item.expansionRowTitle}">
+
+					<h:panelGrid columns="4" style="width:50%; margin:0 auto;"
+						columnClasses="label, value, label, value" styleClass="information-in-expanded-row">
+
+						<h:outputText value="#{msg.workListAssignUsername}:" />
+						<h:outputText
+							value="#{item.assignUsername}"
+							styleClass="worklist-expansion-value" style="font-size: 1.2em;" />
+						<h:outputText value="#{msg.workListAssignDate}:" />
+						<h:outputText
+							value="#{item.assignDate}"
+							converter="dateTimeConverterWithMinutes"
+							styleClass="worklist-expansion-value" style="font-size: 1.2em;" />
+
+						<h:outputText value="#{msg.workListOperator}:" />
+						<h:outputText
+							value="#{item.radiologyExamRequestItems[0].operator}"
+							styleClass="worklist-expansion-value" style="font-size: 1.2em;" />
+						<h:outputText value="#{msg.workListAcceptDate}:" />
+						<h:outputText
+							value="#{item.radiologyExamRequestItems[0].acceptDate}"
+							converter="dateTimeConverterWithMinutes"
+							styleClass="worklist-expansion-value" style="font-size: 1.2em;" />
+
+
+						<h:outputText value="#{msg.workListTSRM}:" />
+						<h:outputText value="#{item.radiologyExamRequestItems[0].trsm}"
+							styleClass="worklist-expansion-value" style="font-size: 1.2em;" />
+
+						<h:outputText value="#{msg.workListPerformDate}:" />
+						<h:outputText
+							value="#{item.radiologyExamRequestItems[0].performDate}"
+							converter="dateTimeConverterWithMinutes"
+							styleClass="worklist-expansion-value" style="font-size: 1.2em;" />
+
+						<h:outputText value="#{msg.workListDoctore}:" />
+						<h:outputText value="#{item.referringDoctor}"
+							styleClass="worklist-expansion-value" style="font-size: 1.2em;" />
+
+						<h:outputText value="#{msg.workListReportDate}:" />
+						<h:outputText
+							value="#{item.radiologyExamRequestItems[0].reportDate}"
+							converter="dateTimeConverterWithMinutes"
+							styleClass="worklist-expansion-value" style="font-size: 1.2em;" />
+
+						<h:outputText value="#{msg.workListSector}:" />
+						<h:outputText value="#{item.asapSectorWithActivity}"
+							styleClass="worklist-expansion-value" style="font-size: 1.2em;" />
+
+						<h:outputText value="#{msg.workListTransport}:" />
+						<h:outputText value="#{item.transport}"
+									  styleClass="worklist-expansion-value" style="font-size: 1.2em;" />
+						<h:outputText value="" />
+					</h:panelGrid>
+
+					<h:panelGrid columns="1" cellpadding="3" cellspacing="0"
+						styleClass="expandTable2 #{rowIndex}">
+
+						<p:dataTable var="itemExp"
+							value="#{item.radiologyExamRequestItems}" id="expTable"
+							paginator="false" rowKey="#{itemExp.id}" rowIndexVar="rowIndex" lazy="false">
+
+							<p:column style="width:18px" rendered="#{item.showCheckBox}">
+								<f:facet name="header">
+									<p:selectBooleanCheckbox value="#{item.selectedAll}">
+										<p:ajax update="expTable" event="change" />
+									</p:selectBooleanCheckbox>
+								</f:facet>
+								<p:selectBooleanCheckbox value="#{itemExp.selected}">
+									<p:ajax update="expTable" event="change" />
+								</p:selectBooleanCheckbox>
+							</p:column>
+
+							<p:column disabled="#{item.renderPdf}" style="width:25px;">
+								<p:commandLink action="#{itemExp.downloadPdf}" ajax="false"
+									disabled="true">
+									<p:graphicImage value="/resources/images/pdf_small.png" />
+								</p:commandLink>
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="#{msg.workListEsame}" />
+								</f:facet>
+								<h:outputText value="#{itemExp.radiologyExam.description}"
+									styleClass="worklist-expansion-value" />
+							</p:column>
+
+							<p:column styleClass="bold_column">
+								<f:facet name="header">
+									<h:outputText value="#{msg.workListDiagnosticQuestion}" />
+								</f:facet>
+								<h:outputText value="#{itemExp.diagnosticQuestion}"
+									style="font-size: 1.25em" />
+							</p:column>
+
+							<p:column styleClass="bold_column">
+								<f:facet name="header">
+									<h:outputText value="#{msg.workListNote}" />
+								</f:facet>
+								<h:outputText value="#{itemExp.note}" style="font-size: 1.25em" />
+							</p:column>
+
+							<p:column style="text-align: center;">
+								<f:facet name="header">
+									<h:outputText value="#{msg.workListUserFullname}" />
+								</f:facet>
+								<h:outputText value="#{itemExp.requestingDoctor}" />
+							</p:column>
+
+							<p:column style="width: 50px; text-align: center;">
+								<f:facet name="header">
+									<h:outputText value="#{msg.workListReserveDate}" />
+								</f:facet>
+								<h:outputText value="#{itemExp.reserveDate}"
+									converter="dateTimeConverterWithMinutes" />
+							</p:column>
+
+							<p:column style="width: 50px; text-align: center;">
+								<f:facet name="header">
+									<h:outputText value="#{msg.workListRequestDate}" />
+								</f:facet>
+								<h:outputText value="#{itemExp.requestDate}"
+									converter="dateTimeConverterWithMinutes" />
+							</p:column>
+
+						</p:dataTable>
+					</h:panelGrid>
+
+					<h:panelGrid columns="1" cellpadding="3" cellspacing="0"
+						styleClass="expandTable2" rendered="#{!empty item.requestNotes}">
+						<p:dataTable var="itemNoteExp" value="#{item.requestNotes}"
+							id="expNoteTable" paginator="false" rowKey="#{itemNoteExp.id}" lazy="false">
+
+							<p:column styleClass="action_column" exportable="false">
+								<p:commandButton icon="ui-icon ui-icon-pencil"
+									disabled="#{!itemNoteExp.canEditAndDelete}"
+									update=":form:inputNote" action="#{bean.showNoteDlg}">
+									<f:setPropertyActionListener value="#{itemNoteExp.id}"
+										target="#{bean.noteId}" />
+								</p:commandButton>
+							</p:column>
+
+							<p:column styleClass="action_column" exportable="false">
+								<p:commandButton icon="ui-icon ui-icon-close"
+									oncomplete="PF('deleteNoteWV').show();"
+									disabled="#{!itemNoteExp.canEditAndDelete}">
+									<f:setPropertyActionListener value="#{itemNoteExp.id}"
+										target="#{bean.noteId}" />
+								</p:commandButton>
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="#{msg.workListNote}" />
+								</f:facet>
+								<h:outputText value="#{itemNoteExp.note}" />
+							</p:column>
+
+							<p:column style="text-align: center;">
+								<f:facet name="header">
+									<h:outputText value="#{msg.workListCreateUser}" />
+								</f:facet>
+								<h:outputText value="#{itemNoteExp.createUserFullName}" />
+							</p:column>
+
+							<p:column style="text-align: center;">
+								<f:facet name="header">
+									<h:outputText value="#{msg.workListDate}" />
+								</f:facet>
+								<h:outputText converter="dateTimeConverterWithMinutes"
+									value="#{itemNoteExp.performDate != null ? itemNoteExp.performDate : itemNoteExp.createDate }" />
+							</p:column>
+
+
+						</p:dataTable>
+					</h:panelGrid>
+
+					<h:panelGrid columns="1" cellpadding="3" cellspacing="0"
+								 styleClass="expandTable2" rendered="#{!empty item.allergies}">
+						<p:dataTable id="allegies" var="itemAller" value="#{item.allergies}" rowKey="#{itemAller.id}">
+							<p:column styleClass="action_column" exportable="false">
+								<p:commandButton icon="ui-icon ui-icon-pencil" update=":form:allergyPanel, :form:validationPanel"
+												 oncomplete="PF('addAllergyNoteWV').show()"
+												 disabled="#{!itemAller.canEditAndDelete}"
+												 action="#{bean.editAllergyDlg(item ,itemAller.id)}" lazy="false"/>
+							</p:column>
+							<p:column styleClass="action_column" exportable="false">
+								<p:commandButton icon="ui-icon ui-icon-close"
+												 update=":form:table" oncomplete="PF('tableWV').collapseAllRows()"
+												 disabled="#{!itemAller.canEditAndDelete}"
+												 action="#{item.removeAllergy(itemAller.id)}"/>
+							</p:column>
+							<p:column headerText="#{msg.workListAddAllergy}" style="text-align: center;">
+								<h:outputText value="#{itemAller.allergy}"/>
+							</p:column>
+							<p:column headerText="#{msg.workListCreateUser}" style="text-align: center;">
+								<h:outputText value="#{itemAller.createUserName}"/>
+							</p:column>
+							<p:column headerText="#{msg.workListDate}" style="text-align: center;">
+								<h:outputText value="#{itemAller.date}" style="padding-left: 20px"
+                                              converter="dateTimeConverter"/>
+							</p:column>
+						</p:dataTable>
+					</h:panelGrid>
+				</p:panel>
+
+				<div class="btn_line">
+					<p:commandButton value="#{msg.worklistToReported}" icon="ui-icon-check"
+						oncomplete="filterTableFromPanel();" update=":form:messages"
+						styleClass="details-button-worklist"
+						action="#{bean.moveToNextState}" rendered="#{item.isAccepted}"
+						disabled="#{!bean.getActionButtonDisablability(item)}">
+						<f:setPropertyActionListener value="#{item}"
+							target="#{bean.selectedRequestView}" />
+						<f:setPropertyActionListener
+							value="#{item.waitingListRegistrationState}"
+							target="#{bean.selectedRequestState}" />
+					</p:commandButton>
+
+					<p:commandButton value="#{msg.worklistPostponedExecution}"
+									 icon="ui-icon-check"
+									 rendered="#{item.isAccepted}"
+									 disabled="#{!bean.canPerformWorklist}"
+									 styleClass="details-button-worklist"
+									 oncomplete="PF('postponedExecutionWV').show();">
+						<f:setPropertyActionListener value="#{item}"
+													 target="#{bean.selectedRequestView}"/>
+						<f:setPropertyActionListener
+								value="#{item.waitingListRegistrationState}"
+								target="#{bean.selectedRequestState}"/>
+					</p:commandButton>
+
+					<p:commandButton id="cancel" value="#{msg.reset}"
+						action="#{bean.fillTemplates}"
+						disabled="#{item.disableCancelAndModifiBtnOnWorklist || !bean.canCancelWorklist || item.forwarded}"
+						update=":form:cancelDlg" oncomplete="PF('cancelDlgWV').show();"
+						styleClass="details-button-worklist" icon="ui-icon-trash">
+						<f:setPropertyActionListener value="#{item}"
+							target="#{bean.selectedRequestView}" />
+					</p:commandButton>
+
+					<p:commandButton value="#{msg.edit}"
+						disabled="#{item.disableCancelAndModifiBtnOnWorklist || !bean.canModifyWorklist}"
+						action="#{bean.beforeLoadModifyDlg}" update=":form:modifyDateDlg"
+						oncomplete="PF('modifyDateDlgWV').show();"
+						styleClass="details-button-worklist" icon="ui-icon-pencil">
+						<f:setPropertyActionListener value="#{item}"
+							target="#{bean.selectedRequestView}" />
+					</p:commandButton>
+
+					<p:commandButton value="#{item.annulateButtonName}"
+						update=":form:actionOnAnnulateExecution, :form:messages"
+						action="#{bean.checkBeforeCancel}"
+						rendered="#{item.renderAnnulateBtnOnWorklist}"
+						disabled="#{!item.canAnnulateAction}" styleClass="details-button-worklist"
+						icon="ui-icon-arrowrefresh-1-n">
+						<f:setPropertyActionListener value="#{item}"
+							target="#{bean.selectedRequestView}" />
+					</p:commandButton>
+
+					<p:commandButton value="#{msg.workListProduceCD}" icon="far fa-dot-circle"
+									 action="#{bean.checkHistoryProduceCD}" disabled="#{not bean.canProduceCD}"
+									 styleClass="details-button-worklist fa-fix"
+									 update=":form:messages, :dialogForm:selectRobotDlgPanel">
+						<f:setPropertyActionListener value="#{item}" target="#{bean.selectedRequestView}"/>
+                    </p:commandButton>
+
+					<p:commandButton value="#{msg.workListOpenCC}" icon="ui-icon-folder-collapsed"
+						styleClass="details-button-worklist" disabled="#{!item.havePSDNumber}"
+						action="#{bean.openPSD}" update=":form:messages">
+						<f:setPropertyActionListener value="#{item}"
+							target="#{bean.selectedRequestView}" />
+					</p:commandButton>
+					<p:commandButton id="addNote" value="#{msg.workListAddNote}" icon="fas fa-th-list"
+						update=":form:addNoteDlg" disabled="#{item.isReported}"
+						styleClass="details-button-worklist fa-fix" oncomplete="PF('addNoteWV').show();">
+						<f:setPropertyActionListener target="#{bean.requestIdToAddNote}"
+							value="#{item.id}" />
+					</p:commandButton>
+
+					<p:commandButton rendered="#{item.isPartAccepted}"
+						value="#{msg.worklistPartAccSendAgain}"
+						styleClass="details-button-worklist"
+						action="#{bean.resendDicomAgain}" update="table">
+						<f:setPropertyActionListener
+							target="#{bean.requestIdToPartAcceptActions}" value="#{item.id}" />
+					</p:commandButton>
+
+					<p:commandButton value="#{msg.worklistGeneratePDF}" icon="fas fa-file-pdf"
+						update=":form:messages" action="#{bean.chooseTemplate}" styleClass="details-button-worklist fa-fix"
+						oncomplete="updateSelectedTemplateId()" ajax="false">
+						<f:setPropertyActionListener value="#{item}"
+							target="#{bean.selectedRequestView}" />
+						<f:setPropertyActionListener value="true"
+							target="#{bean.tepmlatesForReservedState}" />
+					</p:commandButton>
+
+					<p:commandButton id="addAllegies" value="#{msg.workListAdd}" icon="fas fa-th-list"
+									 update=":form:allergyPanel,:form:validationPanel" action="#{bean.addNewAllergy(item)}"
+									 styleClass="details-button-worklist fa-fix"
+                                     oncomplete="PF('addAllergyNoteWV').show();"/>
+
+                    <p:commandButton value="#{msg.documentGenerationAddReportButton}" update=":dialogForm:addReportPanel"
+									 disabled="#{not item.canAddReport}" process="@this"
+									 onclick="PF('addReportDialogWV').show();"
+									 icon="fas fa-file-pdf" styleClass="details-button-worklist fa-fix">
+						<f:setPropertyActionListener value="#{item}" target="#{bean.selectedRequestView}"/>
+					</p:commandButton>
+				</div>
+				<br />
+
+			</p:rowExpansion>
+		</p:dataTable>
+
+		<p:contextMenu for="table" id="contextMenu" widgetVar="contextMenuWV"
+					   beforeShow="beforeShow();">
+
+			<p:menuitem value="#{bean.selectedRow.actionBtnTitle}"
+						update=":form:aggregationDlg, :form:messages"
+						action="#{bean.moveToNextState}" icon="ui-icon-check"
+						oncomplete="callFilterTableFromPanel();"
+						onclick="PF('blockTable').show()" styleClass="details-button-worklist"
+						rendered="#{!empty bean.selectedRow.actionBtnTitle}"
+						disabled="#{!bean.getActionButtonDisablability(bean.selectedRow)}">
+				<f:setPropertyActionListener value="#{bean.selectedRow}"
+											 target="#{bean.selectedRequestView}" />
+				<f:setPropertyActionListener
+						value="#{bean.selectedRow.waitingListRegistrationState}"
+						target="#{bean.selectedRequestState}" />
+			</p:menuitem>
+
+			<p:menuitem value="#{msg.worklistToReported}"
+						oncomplete="filterTableFromPanel();" update=":form:messages"
+						action="#{bean.moveToNextState}" icon="ui-icon-check"
+						rendered="#{bean.selectedRow.isAccepted}" styleClass="details-button-worklist"
+						disabled="#{!bean.getActionButtonDisablability(bean.selectedRow)}">
+				<f:setPropertyActionListener value="#{bean.selectedRow}"
+											 target="#{bean.selectedRequestView}" />
+				<f:setPropertyActionListener
+						value="#{bean.selectedRow.waitingListRegistrationState}"
+						target="#{bean.selectedRequestState}" />
+			</p:menuitem>
+
+			<p:menuitem value="#{msg.reset}" action="#{bean.fillTemplates}"
+						rendered="#{not bean.selectedRow.disableCancelAndModifiBtnOnWorklist and bean.canCancelWorklist}"
+						update=":form:cancelDlg" oncomplete="PF('cancelDlgWV').show();"
+						styleClass="details-button" icon="ui-icon-trash">
+				<f:setPropertyActionListener value="#{bean.selectedRow}"
+											 target="#{bean.selectedRequestView}" />
+			</p:menuitem>
+
+			<p:menuitem value="#{msg.edit}"
+						rendered="#{not bean.selectedRow.disableCancelAndModifiBtnOnWorklist and bean.canModifyWorklist}"
+						action="#{bean.beforeLoadModifyDlg}" update=":form:modifyDateDlg"
+						oncomplete="PF('modifyDateDlgWV').show();"
+						styleClass="details-button" icon="ui-icon-pencil">
+				<f:setPropertyActionListener value="#{bean.selectedRow}"
+											 target="#{bean.selectedRequestView}" />
+			</p:menuitem>
+
+			<p:menuitem value="#{bean.selectedRow.annulateButtonName}"
+						update=":form:actionOnAnnulateExecution"
+						oncomplete="PF('actionOnAnnulateExecution').show();"
+						rendered="#{bean.selectedRow.renderAnnulateBtnOnWorklist and bean.selectedRow.canAnnulateAction}"
+						styleClass="details-button" icon="ui-icon-arrowrefresh-1-n">
+				<f:setPropertyActionListener value="#{bean.selectedRow}"
+											 target="#{bean.selectedRequestView}" />
+			</p:menuitem>
+
+			<p:menuitem value="#{msg.workListProduceCD}" icon="far fa-dot-circle" action="#{bean.checkHistoryProduceCD}"
+						styleClass="details-button fa-fix" rendered="#{bean.canProduceCD}"
+						update=":form:messages, :dialogForm:selectRobotDlgPanel">
+				<f:setPropertyActionListener value="#{bean.selectedRow}"
+											 target="#{bean.selectedRequestView}"/>
+			</p:menuitem>
+
+			<p:menuitem value="#{msg.workListOpenCC}" styleClass="details-button"
+						rendered="#{bean.selectedRow.havePSDNumber}" icon="ui-icon-folder-collapsed"
+						action="#{bean.openPSD}" update=":form:messages">
+				<f:setPropertyActionListener value="#{bean.selectedRow}"
+											 target="#{bean.selectedRequestView}"/>
+			</p:menuitem>
+
+			<p:menuitem value="#{msg.workListAddNote}" icon="fas fa-th-list"
+						rendered="#{not bean.selectedRow.isReported}" update="addNoteDlg"
+						styleClass="details-button fa-fix" oncomplete="PF('addNoteWV').show();">
+				<f:setPropertyActionListener target="#{bean.requestIdToAddNote}"
+											 value="#{bean.selectedRow.id}"/>
+			</p:menuitem>
+
+			<p:menuitem rendered="#{bean.selectedRow.isPartAccepted}"
+						value="#{msg.worklistPartAccSendAgain}"
+						action="#{bean.resendDicomAgain}" update="table">
+				<f:setPropertyActionListener
+						target="#{bean.requestIdToPartAcceptActions}"
+						value="#{bean.selectedRow.id}"/>
+			</p:menuitem>
+
+			<p:menuitem value="#{msg.worklistGeneratePDF}" icon="fas fa-file-pdf"
+						update=":form:messages" action="#{bean.chooseTemplate}"
+						styleClass="details-button-worklist fa-fix"
+						oncomplete="updateSelectedTemplateId()" ajax="false">
+				<f:setPropertyActionListener value="#{bean.selectedRow}"
+											 target="#{bean.selectedRequestView}"/>
+				<f:setPropertyActionListener value="true"
+											 target="#{bean.tepmlatesForReservedState}"/>
+			</p:menuitem>
+
+			<p:menuitem value="#{msg.workListAdd}" icon="fas fa-th-list"
+						update=":form:allergyPanel,:form:validationPanel"
+						action="#{bean.addNewAllergy(bean.selectedRow)}"
+						styleClass="details-button-worklist fa-fix"
+						oncomplete="PF('addAllergyNoteWV').show();"/>
+
+			<p:menuitem value="#{msg.documentGenerationAddReportButton}" update=":dialogForm:addReportPanel"
+						rendered="#{bean.selectedRow.canAddReport}" process="@this"
+						onclick="PF('addReportDialogWV').show();"
+						icon="fas fa-file-pdf" styleClass="details-button-worklist fa-fix">
+				<f:setPropertyActionListener value="#{bean.selectedRow}" target="#{bean.selectedRequestView}"/>
+			</p:menuitem>
+
+		</p:contextMenu>
+
+		<!-- Applet -->
+
+		<p:outputPanel id="appletPanel" rendered="#{bean.showApplet}">
+			<p:autoUpdate />
+			<applet name="print"
+					archive="#{facesContext.externalContext.requestContextPath}/resources/applets/print.jar"
+					code="PrintApplet.class" width="0" height="0">
+				<param name="path" value="#{bean.printFile}"></param>
+
+
+				<param name="printer"
+					   value="#{bean.printerName}"></param>
+				<param name="counter"
+					   value="#{bean.printCount}"></param>
+
+			</applet>
+		</p:outputPanel>
+
+
+		<!-- Panels -->
+
+		<p:overlayPanel id="stateSelectCheckboxPanel"
+			widgetVar="stateSelectCheckboxWV" for="table:stateSelectCheckboxShow"
+			            onHide="filterTableFromPanel();" style="widht:300px;">
+
+			<p:dataTable id="stateSelectCheckboxPanelDataTable" var="state"
+				value="#{bean.allStates}" selectionMode="single"
+				selection="#{bean.selectedStateForFilter}" rowKey="#{state.value}" lazy="false">
+
+				<p:ajax event="rowSelect"
+					listener="#{workListBean.selectStateForFilter}"
+					update="stateSelectCheckboxPanelDataTable" />
+
+				<p:column style="width:18px">
+					<f:facet name="header">
+						<p:selectBooleanCheckbox value="#{bean.selectedAllStatesOnPanel}">
+							<p:ajax update="stateSelectCheckboxPanelDataTable" event="change" />
+						</p:selectBooleanCheckbox>
+					</f:facet>
+					<p:selectBooleanCheckbox value="#{state.selected}">
+						<p:ajax update="stateSelectCheckboxPanelDataTable" event="change" />
+					</p:selectBooleanCheckbox>
+				</p:column>
+
+				<p:column headerText="#{msg.waitingListRegistrationState}">
+					<h:outputText value="#{state.value}" />
+				</p:column>
+			</p:dataTable>
+		</p:overlayPanel>
+
+		<p:overlayPanel id="urgencySelectCheckboxPanel"
+			for="table:urgencySelectCheckboxShow"
+			widgetVar="urgencySelectCheckboxWV"
+			    onHide="filterTableFromPanel();" style="widht:300px;">
+
+			<p:dataTable id="urgencySelectCheckboxPanelDataTable" var="urg"
+				value="#{bean.allUrgencies}" selectionMode="single"
+				selection="#{bean.selectedUrgencyForFilter}" rowKey="#{urg.id}" lazy="false">
+
+				<p:ajax event="rowSelect"
+					listener="#{workListBean.selectUrgencyForFilter}"
+					update="urgencySelectCheckboxPanelDataTable" />
+
+				<p:column style="width:18px">
+					<f:facet name="header">
+						<p:selectBooleanCheckbox
+							value="#{bean.selectedAllUrgenciesOnPanel}">
+							<p:ajax update="urgencySelectCheckboxPanelDataTable"
+								event="change" />
+						</p:selectBooleanCheckbox>
+					</f:facet>
+					<p:selectBooleanCheckbox value="#{urg.selected}">
+						<p:ajax update="urgencySelectCheckboxPanelDataTable"
+							event="change" />
+					</p:selectBooleanCheckbox>
+				</p:column>
+
+				<p:column headerText="#{msg.waitingListRegistrationUrgence}">
+					<h:outputText value="#{urg.value}" />
+				</p:column>
+			</p:dataTable>
+		</p:overlayPanel>
+
+		<p:overlayPanel id="examTypesCheckboxPanel" for="table:examTypesShow"
+			widgetVar="examTypeCheckboxWV"
+			    onHide="filterTableFromPanel();" style="widht:300px;">
+
+			<p:dataTable id="examTypesDatatable" var="examType"
+				value="#{bean.allExamTypes}" selectionMode="single"
+				selection="#{bean.selectedTypeForFilter}" rowKey="#{examType.id}" lazy="false">
+
+				<p:ajax event="rowSelect"
+					listener="#{workListBean.selectExamTypeForFilter}"
+					update="examTypesDatatable" />
+
+				<p:column style="width:18px">
+					<f:facet name="header">
+						<p:selectBooleanCheckbox
+							value="#{bean.selectedAllExamTypesOnPanel}">
+							<p:ajax update="examTypesDatatable" event="change" />
+						</p:selectBooleanCheckbox>
+					</f:facet>
+					<p:selectBooleanCheckbox value="#{examType.selected}">
+						<p:ajax update="examTypesDatatable" event="change" />
+					</p:selectBooleanCheckbox>
+
+				</p:column>
+				<p:column headerText="#{msg.workListStanza}">
+					<h:outputText value="#{examType.value}" />
+				</p:column>
+			</p:dataTable>
+		</p:overlayPanel>
+
+		<!-- Dialogs -->
+		<p:remoteCommand name="updateTable" update="table"/>
+
+		<p:dialog widgetVar="addAllergyNoteWV" resizable="false" modal="true"
+				  header="#{msg.workListAddAllergyDialogHeader}">
+			<p:outputPanel id="allergyPanel">
+				<p:outputPanel id="validationPanel">
+					<p:autoUpdate disabled="#{not empty renderValidationMessages}" />
+					<ui:decorate template="/resources/tpl/common/ValidationMessageList.xhtml"/>
+				</p:outputPanel>
+				<h:outputText value="#{msg.workListDate}: "/>
+				<p:datePicker value="#{bean.editItem.editAllergy.date}"
+							  styleClass="schedule_date"
+							  rendered="#{bean.editItem != null}"
+							  datePattern="dd/MM/yyyy" locale="it" showOnFocus="false"
+							  focusOnSelect="true" showIcon="true"
+							  monthNavigator="true" />
+				<br/>
+				<h:outputText value="#{msg.workListAddAllergy}"/>
+				<br/>
+				<p:inputTextarea id="allergyStrId" value="#{bean.editItem.editAllergy.allergy}"
+								 rendered="#{bean.editItem != null}"
+								 label="#{msg.workListAddAllergy}"
+								 maxlength="2048"/>
+			</p:outputPanel>
+			<div class="btn_line">
+				<p:commandButton value="#{msg.workListAddNoteSave}"
+								 action="#{bean.saveAllergy()}" />
+				<p:commandButton oncomplete="PF('addAllergyNoteWV').hide();"
+								 value="#{msg.workListAddNoteCancel}" />
+			</div>
+		</p:dialog>
+
+		<p:dialog widgetVar="postponedExecutionWV" id="postponedExecutionDlg"
+				  resizable="false" modal="true"
+				  header="#{msg.worklistPostponedExecutionDlg}">
+			<h:panelGrid columns="2" id="postponedExecutionPanel">
+				<h:outputText value="#{msg.worklistPostponedExecutionDate}:" />
+				<p:datePicker id="postponedExecutionDate"
+							  pattern="dd/MM/yyyy" maxdate="#{bean.postponedExecutionDate}"
+							  locale="it" showIcon="true" focusOnSelect="true"
+							  value="#{bean.postponedExecutionDate}"
+                              monthNavigator="true" yearNavigator="select"/>
+				<h:outputText value="#{msg.worklistPostponedExecutionTime}:"/>
+				<p:inputMask mask="99:99" value="#{bean.postponedExecutionTime}"
+							 widgetVar="timepicker" id="endTime" converter="dateConverterMaskHHmm"
+							 onkeyup="hour_minutes_only(this)"/>
+				<h:outputText value="#{msg.worklistPostponedExecutionReason}:"/>
+				<p:inputTextarea id="postponedExecutionReason" rows="6" value="#{bean.postponedExecutionReason}"/>
+			</h:panelGrid>
+
+			<div class="btn_line">
+				<p:commandButton value="#{msg.worklistPostponedExecutionConfirm}"
+								 action="#{bean.postponedExecution}" update="postponedExecutionPanel"/>
+				<p:commandButton value="#{msg.worklistPostponedExecutionCancel}"
+								 action="#{bean.resetPostponedExecutionDlg}" update="postponedExecutionPanel"/>
+			</div>
+		</p:dialog>
+
+		<p:dialog widgetVar="addNoteWV" id="addNoteDlg" resizable="false"
+			onHide="onHideNote();" modal="true"
+			header="#{msg.workListAddNoteDialogHeader}">
+			<ui:include src="/resources/tpl/common/ValidationMessages.xhtml" />
+
+			<h:outputText value="#{msg.workListInputNote}" />
+			<br />
+			<p:inputTextarea id="inputNote" value="#{bean.beanWrapper.note.note}"
+				maxlength="1024" />
+			<div class="btn_line">
+				<p:commandButton update="inputNote"
+								 value="#{msg.workListAddNoteSave}" action="#{bean.addNote}" />
+				<p:commandButton oncomplete="PF('addNoteWV').hide();"
+					value="#{msg.workListAddNoteCancel}" />
+			</div>
+		</p:dialog>
+
+		<p:dialog header="#{msg.deleteConfirmationHeader}"
+			widgetVar="deleteNoteWV" modal="true" resizable="false">
+                               #{msg.deleteConfirmation}<br />
+			<br />
+			<div class="btn_line">
+				<p:commandButton value="#{msg.yes}" action="#{bean.deleteNote}"
+								 oncomplete="PF('deleteNoteWV').hide(); PF('tableWV').collapseAllRows()"
+								 update="table" />
+				<p:commandButton value="#{msg.no}"
+					onclick="PF('deleteNoteWV').hide()" />
+			</div>
+		</p:dialog>
+
+		<p:dialog widgetVar="actionOnAnnulateExecution"
+			id="actionOnAnnulateExecution" resizable="false"
+			header="#{bean.dialogNameToAnnulate}" modal="true">
+
+			<div class="btn_line">
+				<p:commandButton value="#{msg.ok}"
+					action="#{bean.annulateExecution}"
+					update=":form:messages,:form:table, :form:table:size"
+					onclick="PF('actionOnAnnulateExecution').hide()" />
+				<p:commandButton value="#{msg.cancel}"
+					onclick="PF('actionOnAnnulateExecution').hide()" />
+			</div>
+		</p:dialog>
+
+		<p:dialog widgetVar="actionOnPerformWV" id="actionOnPerform"
+			resizable="false" header="#{msg.workListConfirmPerformTitle}"
+			modal="true">
+
+			<div class="btn_line">
+				<p:commandButton value="#{msg.workListConfirmPerformYes}"
+					action="#{bean.confirmedPerform}"
+					update=":form:messages,:form:table, :form:table:size"
+					onclick="PF('actionOnPerformWV').hide();" />
+
+				<p:commandButton value="#{msg.workListConfirmPerformNo}"
+					onclick="PF('actionOnPerformWV').hide()" />
+			</div>
+		</p:dialog>
+
+		<p:dialog widgetVar="templates" resizable="false"
+			header="#{msg.docTemplates}" modal="true">
+
+			<p:selectOneMenu value="#{bean.selectedEtichTemplateId}"
+				style="width:150px;">
+				<f:selectItems value="#{bean.etichTemplates}" />
+			</p:selectOneMenu>
+
+			<div class="btn_line">
+				<p:commandButton value="#{msg.ok}" ajax="false"
+					actionListener="#{bean.generate}" onclick="PF('templates').hide()"
+					update=":form:messages" />
+				<p:commandButton value="#{msg.cancel}"
+					onclick="PF('templates').hide()" />
+			</div>
+		</p:dialog>
+
+		<p:dialog resizable="false" position="center" id="modifyDateDlg"
+			modal="true" widgetVar="modifyDateDlgWV"
+			header="#{msg.workListModifyDlgTitle}" width="550">
+
+			<h:panelGrid columns="2" width="500">
+				<h:outputText value="#{msg.workListModifyDlgAccessNumber}: " />
+				<h:outputText
+					value="#{bean.beanWrapper.selectedRequest.radiologyExamRequestItems[0].accessNumber}" />
+
+				<h:outputText value="#{msg.workListModifyDlgPatient}: " />
+				<h:outputText value="#{bean.beanWrapper.selectedRequest.patient.fullName}" />
+
+				<h:outputText value="#{msg.workListModifyDlgExamDate}:" />
+				<h:outputText converter="dateTimeConverter"
+					value="#{bean.beanWrapper.selectedRequest.radiologyExamRequestItems[0].dateForModify}" />
+
+				<h:outputText value="#{msg.workListModifyDlgSector}: " />
+				<p:selectOneMenu value="#{bean.sectorId}" style="width:300px">
+					<f:selectItems value="#{bean.sectors}" />
+				</p:selectOneMenu>
+			</h:panelGrid>
+
+			<p:dataTable var="exam" id="examsModifyTable"
+				value="#{bean.tempItemsList}" paginator="true" rows="10"
+				selection="#{bean.selectedModifyExamWrapper}" rowKey="#{exam.id}"
+				selectionMode="single" lazy="false">
+
+				<p:column headerText="#{msg.workListModifyDlgExamList}"
+					style="width:25%">
+					<h:outputText value="#{exam.radiologyExam.description}" />
+				</p:column>
+			</p:dataTable>
+
+			<h:panelGrid columns="2" style="width:100%;" id="panelWithCombobox">
+				<p:selectOneMenu value="#{bean.examId}" style="width:400px;">
+					<f:selectItems value="#{bean.exams}" />
+				</p:selectOneMenu>
+				<p:commandButton value="#{msg.edit}" update="examsModifyTable"
+					action="#{bean.changeRequestItem}" />
+			</h:panelGrid>
+
+			<div class="btn_line">
+				<p:commandButton value="#{msg.apply}" update=":form:messages"
+					action="#{bean.saveModifiedReqest}"
+					oncomplete="PF('modifyDateDlgWV').hide(); filterTableFromPanel();" />
+				<p:commandButton value="#{msg.cancel}"
+					onclick="PF('modifyDateDlgWV').hide()" />
+			</div>
+		</p:dialog>
+
+		<p:dialog resizable="false" position="center" id="cancelDlg"
+			widgetVar="cancelDlgWV" header="#{msg.workListCancelDlgTitle}"
+			modal="true" width="700" height="500">
+
+			<p:fieldset legend="#{msg.workListCancelPatientData}">
+
+				<p:dataTable var="ptItem" id="patientTable"
+					value="#{bean.selectedToTable}" paginator="false"
+					rowKey="#{ptItem.id}" rows="1" rowIndexVar="rowIndex"
+					widgetVar="patientTableWV" lazy="false">
+
+					<p:column headerText="#{msg.workListCancelPatientSurname}">
+						<h:outputText value="#{ptItem.patient.surname}" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListCancelPatientName}">
+						<h:outputText value="#{ptItem.patient.name}" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListCancelPatientBirthDate}">
+						<h:outputText value="#{ptItem.patient.birthDate}"
+							converter="dateTimeConverter" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListCancelPatientSector}">
+						<h:outputText value="#{ptItem.asapSectorDescription}" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListCancelPatientStanza}">
+						<h:outputText value="#{ptItem.examType.description}" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListCancelPatientAccessNumber}">
+						<h:outputText
+							value="#{ptItem.radiologyExamRequestItems[0].accessNumber}" />
+					</p:column>
+				</p:dataTable>
+			</p:fieldset>
+
+			<p:fieldset legend="#{msg.workListCancelExam}">
+				<p:dataTable var="examItem" id="examsTable"
+					value="#{bean.selectedRequestView.radiologyExamRequestItems}"
+					paginator="false" rowKey="#{examItem.id}" rowIndexVar="rowIndex"
+					widgetVar="examsTableWV" lazy="false">
+
+					<p:column headerText="#{msg.workListCancelExamId}">
+						<h:outputText value="#{examItem.id}" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListCancelExamDescription}">
+						<h:outputText value="#{examItem.radiologyExam.description}" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListCancelExamDate}">
+						<h:outputText
+							value="#{examItem.latestActionDate}"
+							converter="dateTimeConverter" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListCancelExamOra}">
+						<h:outputText converter="dateTimeConverterHHmm"
+							value="#{examItem.latestActionDate}" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListCancelExamSelect}"
+						style="text-align: center;">
+						<p:selectBooleanCheckbox value="#{examItem.selected}">
+							<p:ajax update="@this" event="change" />
+						</p:selectBooleanCheckbox>
+					</p:column>
+				</p:dataTable>
+			</p:fieldset>
+
+			<p:fieldset legend="#{msg.workListCancelComment}">
+				<p:inputTextarea id="comment" label="#{msg.workListCancelComment}"
+					onkeypress="return text_area_limit(this, event, 4000)"
+					onkeyup="text_area_check(this,4000);"
+					style="width:99%;height:65px;" value="#{bean.comment}" />
+			</p:fieldset>
+
+			<h:panelGrid columns="2" columnClasses="label, value"
+				style="text-align: center;width: 100%;">
+				<span><span class="red">*</span>
+					#{msg.workListCancelTemplate}:</span>
+
+				<p:selectOneMenu id="template" value="#{bean.selectedTemplateId}"
+					disabled="#{bean.disableTemplates}">
+					<f:selectItems value="#{bean.templates}" />
+				</p:selectOneMenu>
+			</h:panelGrid>
+
+			<div class="btn_line">
+				<p:commandButton value="#{msg.workListCancelViewReport}"
+					action="#{bean.showReport}" update=":form:messages" id="showReport" />
+
+				<p:commandButton value="#{msg.workListCancelDeselect}"
+					update="examsTable" action="#{bean.deselectToCancel}" />
+
+				<p:commandButton value="#{msg.workListCancelApply}"
+					action="#{bean.cancel}" update=":form:messages, :form:table" />
+
+				<p:commandButton value="#{msg.cancel}"
+					onclick="PF('cancelDlgWV').hide();" />
+			</div>
+		</p:dialog>
+
+
+		<!-- Aggregation -->
+
+		<p:dialog resizable="true" position="center" id="aggregationDlg"
+			widgetVar="aggregationDlgWV"
+			header="#{msg.workListAggregationDialogTitle}" modal="true"
+			width="700" height="500" onShow="selectAllOnAggregation();recheckCheckBoxes();">
+
+			<p:fieldset legend="#{msg.workListAggregationPatientTitle}">
+
+				<p:dataTable var="ptAggItem" id="patientAggregationTable"
+					value="#{bean.selectedRequestWrapper}" paginator="false"
+					rowKey="#{ptAggItem.id}" rows="1" rowIndexVar="rowIndex"
+					widgetVar="patientTableWV" lazy="false">
+
+					<p:column headerText="#{msg.workListAggregationPatientSurname}">
+						<h:outputText value="#{ptAggItem.patient.surname}" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListAggregationPatientName}">
+						<h:outputText value="#{ptAggItem.patient.name}" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListAggregationPatientBirthDate}">
+						<h:outputText value="#{ptAggItem.patient.birthDate}"
+							converter="dateTimeConverter" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListAggregationPatientSector}">
+						<h:outputText value="#{ptAggItem.asapSectorDescription}" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListAggregationPatientStanza}">
+						<h:outputText value="#{ptAggItem.examType.description}" />
+					</p:column>
+				</p:dataTable>
+			</p:fieldset>
+
+			<p:fieldset legend="#{msg.workListAggregationRadExamSelectedTitle}">
+				<p:dataTable var="selectedRadiologyExamItem"
+					value="#{bean.selectedRequestWrapper.radExamRequestItemWrappers}"
+					id="selectedRadiologyExamTable" paginator="false"
+					rowKey="#{selectedRadiologyExamItem.id}" rowIndexVar="rowIndex" lazy="false">
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.workListEsame}" />
+						</f:facet>
+						<h:outputText
+							value="#{selectedRadiologyExamItem.radiologyExam.description}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.workListUserFullname}" />
+						</f:facet>
+						<h:outputText
+							value="#{selectedRadiologyExamItem.requestingDoctor}" />
+					</p:column>
+
+					<p:column style="width: 50px;">
+						<f:facet name="header">
+							<h:outputText value="#{msg.workListReserveDate}" />
+						</f:facet>
+						<h:outputText value="#{selectedRadiologyExamItem.reserveDate}"
+							converter="dateTimeConverterWithMinutes" />
+					</p:column>
+
+					<p:column style="width: 50px;">
+						<f:facet name="header">
+							<h:outputText value="#{msg.workListRequestDate}" />
+						</f:facet>
+						<h:outputText value="#{selectedRadiologyExamItem.requestDate}"
+							converter="dateTimeConverterWithMinutes" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListAggregationRadExamSelect}"
+						width="20">
+						<p:selectBooleanCheckbox
+							value="#{selectedRadiologyExamItem.selected}" disabled="#{selectedRadiologyExamItem.disabled}">
+							<p:ajax update="@this" event="change" oncomplete="recheckCheckBoxes()"/>
+						</p:selectBooleanCheckbox>
+					</p:column>
+				</p:dataTable>
+			</p:fieldset>
+
+			<p:fieldset legend="#{msg.workListAggregationRadExamForAggregation}">
+
+				<p:dataTable var="selectedRadiologyExamsItem"
+					value="#{bean.forAggregationRequestsItemsWrappers}"
+					id="agregationRadiologyExamsTable" paginator="false"
+					rowKey="#{selectedRadiologyExamsItem.id}" rowIndexVar="rowIndex">
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.workListEsame}" />
+						</f:facet>
+						<h:outputText
+							value="#{selectedRadiologyExamsItem.radiologyExam.description}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.workListUserFullname}" />
+						</f:facet>
+						<h:outputText
+							value="#{selectedRadiologyExamsItem.requestingDoctor}" />
+					</p:column>
+
+					<p:column style="width: 50px;">
+						<f:facet name="header">
+							<h:outputText value="#{msg.workListReserveDate}" />
+						</f:facet>
+						<h:outputText value="#{selectedRadiologyExamsItem.reserveDate}"
+							converter="dateTimeConverterWithMinutes" />
+					</p:column>
+
+					<p:column style="width: 50px;">
+						<f:facet name="header">
+							<h:outputText value="#{msg.workListRequestDate}" />
+						</f:facet>
+						<h:outputText value="#{selectedRadiologyExamsItem.requestDate}"
+							converter="dateTimeConverterWithMinutes" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListAggregationRadExamSelect}"
+						width="20">
+						<p:selectBooleanCheckbox
+							value="#{selectedRadiologyExamsItem.selected}">
+							<p:ajax update="@this" event="change" />
+						</p:selectBooleanCheckbox>
+					</p:column>
+
+				</p:dataTable>
+
+			</p:fieldset>
+
+			<div class="btn_line">
+				<p:commandButton value="#{msg.workListAggregationRadExamUnselect}"
+					update="agregationRadiologyExamsTable"
+					action="#{bean.unselectItemsForAggregation}" />
+
+				<p:commandButton value="#{bean.aggregationButtonName}"
+					id="aggregateBtn" action="#{bean.aggregateAction}"
+					update=":form:messages"
+					oncomplete="PF('aggregationDlgWV').hide(); filterTableFromPanel();"
+					ajax="false" />
+
+				<p:commandButton value="#{msg.cancel}"
+					onclick="PF('aggregationDlgWV').hide()" />
+			</div>
+		</p:dialog>
+
+		<p:remoteCommand name="onHideNote" action="#{bean.onHideNoteDlg}" />
+
+		<p:remoteCommand name="updateAggregationsDatatables"
+			update="patientAggregationTable, selectedRadiologyExamTable, agregationRadiologyExamsTable" />
+
+		<p:remoteCommand name="selectAllOnAggregation"
+			action="#{bean.selectAllItemsForAggregation}"
+			update="agregationRadiologyExamsTable, selectedRadiologyExamTable" />
+
+		<!-- Aggregation -->
+
+	</ui:define>
+
+	<ui:define name="dialog_body">
+		<p:dialog widgetVar="confirmDicomHistoryDlgWv" resizable="false" closable="false" draggable="false"
+				  modal="true">
+			<h:outputText value="#{msg.documentGenerationConfirmDicomHistory}"/>
+			<div class="btn_line">
+				<p:commandButton value="#{msg.yes}" action="#{bean.checkProduceCD}"
+								 oncomplete="PF('confirmDicomHistoryDlgWv').hide();"/>
+				<p:commandButton value="#{msg.no}" oncomplete="PF('confirmDicomHistoryDlgWv').hide();"/>
+			</div>
+		</p:dialog>
+		<p:dialog widgetVar="dicomInfoDlgWv" resizable="false" closable="false" draggable="false" modal="true">
+			<h:outputText value="#{bean.dicomInfoMsg}" id="dicomInfoMsg"/>
+			<div class="btn_line">
+				<p:commandButton value="#{msg.ok}" oncomplete="PF('dicomInfoDlgWv').hide();"/>
+			</div>
+		</p:dialog>
+		<p:dialog widgetVar="showProgressBarDlgWv" resizable="false" closable="false" draggable="false" modal="true"
+				  header="#{msg.documentGenerationProduceCDInProgress}">
+			<p:graphicImage value="/resources/images/ajax-loader_big.gif"/>
+		</p:dialog>
+		<p:dialog widgetVar="selectRobotDlgWv" resizable="false" modal="true"
+				  closable="false" id="selectRobotDlg">
+			<h:panelGrid columns="2" columnClasses="label,value" styleClass="grid" id="selectRobotDlgPanel">
+				<h:outputText value="#{msg.documentGenerationRobots}:"/>
+				<p:selectOneMenu value="#{bean.selectRobotId}">
+					<f:selectItems value="#{bean.robots}" var="r" itemLabel="#{r.description}" itemValue="#{r.id}"/>
+				</p:selectOneMenu>
+			</h:panelGrid>
+			<div class="btn_line">
+				<p:commandButton value="#{msg.ok}" oncomplete="PF('selectRobotDlgWv').hide();startProduceCD();"/>
+				<p:commandButton value="#{msg.cancel}" oncomplete="PF('selectRobotDlgWv').hide();"/>
+			</div>
+		</p:dialog>
+		<p:dialog widgetVar="addReportDialogWV" resizable="false" width="500" height="600"
+				  header="#{msg.documentGenerationAddReportDialog}" modal="true"
+				  closable="false" id="addReportDialog">
+			<p:outputPanel id="addReportPanel" style="width: 100%;">
+				<h:panelGrid columns="2" columnClasses="label_worklist, value" styleClass="grid0">
+					<ui:fragment><span><span class="red">*</span><h:outputText
+							value="#{msg.documentGenerationAddReportReferringDoctor}:"/></span></ui:fragment>
+					<p:inputText value="#{bean.referringDoctor}" id="referringDoctor" style="width: 97%"/>
+
+					<ui:fragment><span><span class="red">*</span><h:outputText
+							value="#{msg.documentGenerationAddReportReferringDate}:"/></span></ui:fragment>
+                    <p:datePicker value="#{bean.referringDate}" style="width: 97%"
+                                  pattern="dd/MM/yyyy" id="referringDate" styleClass="calendar"
+                                  locale="it" showIcon="true" focusOnSelect="true"
+                                  monthNavigator="true" yearNavigator="select">
+                        <p:ajax event="dateSelect" update="referringDate"/>
+                    </p:datePicker>
+
+					<ui:fragment><span><span class="red">*</span><h:outputText
+							value="#{msg.documentGenerationAddReportExamType}:"/></span></ui:fragment>
+					<p:selectOneMenu value="#{bean.selectedDocExamTypeId}" id="selectedDocExamTypeId"
+									 style="width: 323px !important;">
+						<f:selectItems value="#{bean.docExamTypes}"/>
+						<p:ajax listener="#{bean.onExamTypeSelect}" update="selectedDocExamId"/>
+					</p:selectOneMenu>
+
+					<ui:fragment><span><span class="red">*</span><h:outputText
+							value="#{msg.documentGenerationAddReportExam}:"/></span></ui:fragment>
+					<p:selectManyMenu id="selectedDocExamId" value="#{bean.selectedDocExamIds}" scrollHeight="189"
+									  showCheckbox="true" style="width: 98% !important;" filter="true">
+						<f:selectItems value="#{bean.docExams}"/>
+					</p:selectManyMenu>
+
+					<ui:fragment><span><span class="red">*</span><h:outputText
+							value="#{msg.documentGenerationAddReportDoc}:"/></span></ui:fragment>
+					<ui:fragment>
+						<p:fileUpload id="filePdfUploader" auto="true"
+									  style="width: 100%;" widgetVar="filePdfUploaderVar"
+									  cancelLabel="#{msg.cancel}" uploadLabel="#{msg.upload}"
+									  label="#{msg.choose}"
+									  listener="#{bean.handleDocUpload}"
+									  update="docFileName">
+							<p:validateFile allowTypes="/(\.|\/)(pdf)$/" />
+						</p:fileUpload>
+						<p:message for="filePdfUploader" showDetail="true"/>
+						<br/>
+						<h:outputText value="#{bean.docFileName}" id="docFileName"
+									  style="min-height: 27px !important;"/>
+					</ui:fragment>
+
+				</h:panelGrid>
+				<p:panel header="#{msg.workListLoadingImages}">
+					<h:panelGrid columns="2" columnClasses="label_worklist, value" styleClass="grid0">
+						<h:outputText value="#{msg.documentGenerationAddReportAccessionNumber}:"/>
+						<p:inputText value="#{bean.accessNumber}" style="width: 97%"/>
+
+						<h:outputText value="#{msg.documentGenerationAddReportSector}:"/>
+						<p:selectOneMenu value="#{bean.selectedSectorId}" style="width: 299px !important;">
+							<f:selectItems value="#{bean.docSectors}"/>
+						</p:selectOneMenu>
+					</h:panelGrid>
+				</p:panel>
+			</p:outputPanel>
+			<div class="btn_line">
+				<p:commandButton value="#{msg.save}" widgetVar="saveHistoricalReportWV" process="@form"
+								 action="#{bean.saveNewHistoricalReport}" update="addReportPanel, :form:messages"
+								 onclick="PF('saveHistoricalReportWV').disable();PF('cancelHistoricalReportWV').disable();"
+								 oncomplete="PF('saveHistoricalReportWV').enable();PF('cancelHistoricalReportWV').enable();"/>
+				<p:commandButton value="#{msg.cancel}" action="#{bean.cleanHistoricalReportFields}"
+								 widgetVar="cancelHistoricalReportWV" update="addReportPanel" process="@form"
+								 onclick="PF('saveHistoricalReportWV').disable();PF('cancelHistoricalReportWV').disable();"
+								 oncomplete="PF('saveHistoricalReportWV').enable();PF('cancelHistoricalReportWV').enable();PF('addReportDialogWV').hide();"/>
+			</div>
+		</p:dialog>
+	</ui:define>
+
+</ui:composition>
+</html>

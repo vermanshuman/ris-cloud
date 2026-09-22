@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/resources/tpl/Admin/ViewBase.xhtml">
+	<ui:param name="view_title" value="#{msg.viewPatient}" />
+	<ui:param name="bean" value="#{patientViewBean}" />
+
+	<ui:define name="view_body">
+		<p:fieldset legend="#{msg.patientStandartInfo}">
+			<h:panelGrid columns="2" columnClasses="label,value"
+				styleClass="grid view_grid">
+				<span> #{msg.patientSurname}:</span>
+				<h:outputText value="#{patientViewBean.entity.surname}" />
+
+				<span> #{msg.patientName}:</span>
+				<h:outputText value="#{patientViewBean.entity.name}" />
+
+				<span> #{msg.patientSex}:</span>
+				<h:outputText value="#{patientViewBean.sex}" />
+
+				<span> #{msg.patientMaritalStatus}:</span>
+				<h:outputText value="#{patientViewBean.maritalStatus}" />
+
+				<span> #{msg.patientNationality}:</span>
+				<h:outputText value="#{patientViewBean.nationality}" />
+
+				<span> #{msg.patientIstatNationality}:</span>
+				<h:outputText id="istatNationality"
+					value="#{patientViewBean.entity.istatCodeNationality}" />
+
+				<span> #{msg.patientFiscalCode}:</span>
+				<h:outputText value="#{patientViewBean.entity.fiscalCode}" />
+
+				<span> #{msg.patientBirthDate}:</span>
+				<h:outputText value="#{patientViewBean.entity.birthDate}"
+					converter="dateTimeConverter" />
+
+				<span> #{msg.patientBirthProvince}:</span>
+				<h:outputText value="#{patientViewBean.birthProvince}" />
+
+				<span> #{msg.patientBirthCity}: </span>
+				<h:outputText value="#{patientViewBean.birthCity}" />
+
+				<span> #{msg.patientCapBirth}:</span>
+				<h:outputText value="#{patientViewBean.entity.capBirth}" />
+
+				<span> #{msg.patientBirthIstat}:</span>
+				<h:outputText value="#{patientViewBean.entity.istatCodeBirth}" />
+			</h:panelGrid>
+		</p:fieldset>
+
+		<p:fieldset legend="#{msg.patientRegionalHealthData}">
+			<h:panelGrid columns="2" columnClasses="label,value"
+				styleClass="grid view_grid">
+
+				<span> #{msg.patientId}:</span>
+				<h:outputText value="#{patientViewBean.entity.id}" />
+
+				<span> #{msg.patientHealthCardNumber}:</span>
+				<h:outputText value="#{patientViewBean.entity.healthCardNumber}" />
+
+				<span> #{msg.patientAslRegion}:</span>
+				<h:outputLabel value="#{patientViewBean.aslRegion}" />
+
+				<span> #{msg.patientAslName}:</span>
+				<h:outputLabel value="#{patientViewBean.asl}" />
+
+				<span> #{msg.patientDoctor}:</span>
+				<h:outputText value="#{patientViewBean.entity.doctor}" />
+
+			</h:panelGrid>
+		</p:fieldset>
+
+		<p:fieldset legend="#{msg.patientAddressInfo}">
+			<h:panelGrid columns="2" columnClasses="label,value"
+				styleClass="grid view_grid">
+
+				<span> #{msg.patientAddress}:</span>
+				<h:outputText value="#{patientViewBean.entity.address}" />
+
+				<span> #{msg.patientAddressNumber}:</span>
+				<h:outputText value="#{patientViewBean.entity.addressNumber}" />
+
+				<span> #{msg.patientProvince}:</span>
+				<h:outputText value="#{patientViewBean.province}" />
+
+				<span> #{msg.patientCity}: </span>
+				<h:outputText value="#{patientViewBean.city}" />
+
+				<span> #{msg.patientDistrict}:</span>
+				<h:outputText value="#{patientViewBean.entity.district}" />
+
+				<span> #{msg.patientCap}:</span>
+				<h:outputText value="#{patientViewBean.entity.cap}" />
+
+				<span> #{msg.patientIstat}:</span>
+				<h:outputText value="#{patientViewBean.entity.istatCode}" />
+
+			</h:panelGrid>
+		</p:fieldset>
+
+		<p:fieldset legend="#{msg.patientAddressInfoAlt}">
+			<h:panelGrid columns="2" columnClasses="label,value"
+				styleClass="grid view_grid">
+
+				<span> #{msg.patientAddress}:</span>
+				<h:outputText value="#{patientViewBean.entity.address1}" />
+
+				<span> #{msg.patientAddressNumber}:</span>
+				<h:outputText value="#{patientViewBean.entity.addressNumber1}" />
+
+				<span> #{msg.patientProvince}:</span>
+				<h:outputText value="#{patientViewBean.province1}" />
+
+				<span> #{msg.patientCity}: </span>
+				<h:outputText value="#{patientViewBean.city1}" />
+
+				<span> #{msg.patientDistrict}:</span>
+				<h:outputText value="#{patientViewBean.entity.district1}" />
+
+				<span> #{msg.patientCap}:</span>
+				<h:outputText value="#{patientViewBean.entity.cap1}" />
+
+				<span> #{msg.patientIstat}:</span>
+				<h:outputText value="#{patientViewBean.entity.istatCode1}" />
+
+			</h:panelGrid>
+		</p:fieldset>
+
+		<p:fieldset legend="#{msg.patientContactsInfo}">
+			<h:panelGrid columns="2" columnClasses="label,value"
+				styleClass="grid view_grid">
+
+				<span> #{msg.patientPhone}:</span>
+				<h:outputText value="#{patientViewBean.entity.phone}" />
+
+				<span> #{msg.patientCell}:</span>
+				<h:outputText value="#{patientViewBean.entity.cell}" />
+
+				<span> #{msg.patientSecondPhone}:</span>
+				<h:outputText value="#{patientViewBean.entity.secondPhone}" />
+
+				<span> #{msg.patientEmail}:</span>
+				<h:outputText value="#{patientViewBean.entity.mail}" />
+
+			</h:panelGrid>
+		</p:fieldset>
+	</ui:define>
+
+</ui:composition>
+</html>

@@ -1,0 +1,128 @@
+.workListSmall {
+	font-size: 0.9em;
+}
+
+.workListSmall_newLine {
+	font-size: 0.9em;
+	display: inline-block;
+}
+
+.worklist-expansion-value {
+	font-weight: bold;
+}
+
+.workListTable .ui-widget-content span:first-child {
+	font-family: "Calibri";
+	font-size: 1.13em;
+}
+
+.centered {
+	text-align: center;
+	vertical-align: middle;
+}
+
+.details-button {
+	margin: 7px;
+	width: 190px;
+}
+
+.expansion .ui-panel-title {
+	display: block;
+	text-align: center;
+}
+
+/* RadiologyExamRequestEdit page */
+.radiology_exam_request_edit_panel {
+	font-size: 11px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.radiology_exam_request_edit_panel .ui-paginator-top {
+	display: none;
+}
+
+.radiology_exam_request_edit_panel .ui-datatable-data {
+	text-align: center;
+}
+
+#glossaryExamType_panel, #glossaryExam_panel, #glossaryResult_panel {
+	width: 180px;
+}
+
+.search_group_report .hasDatepicker, .search_grid .search_group_report .hasDatepicker
+	{
+	width: 150px;
+}
+
+.ui-layout-resizer-west-closed-hover {
+	width: 26px !important;
+	background:
+		url("")
+		repeat-y left;
+}
+
+.ui-layout-toggler-west-closed {
+	position: static !important;
+	border-radius: 6px;
+	top: 0px !important;
+	left: 10% !important;
+	width: 16px !important;
+	height: 16px !important;
+	border: 1px solid #AED0EA;
+	background: #D7EBF9
+		url("/RIS/javax.faces.resource/images/ui-bg_glass_80_d7ebf9_1x400.png.jsf?ln=primefaces-cupertino")
+		repeat-x scroll 50% 50%;
+	font-weight: bold;
+	color: #2779AA;
+	background-position: -16px -80px;
+	background-image:
+		url("/RIS/javax.faces.resource/images/ui-icons_3d80b3_256x240.png.jsf?ln=primefaces-cupertino")
+		!important;
+}
+
+.ui-layout-resizer-west-open-hover {
+	width: 26px !important;
+	background:
+		url("")
+		repeat-y left;
+}
+
+.ui-layout-resizer-east-open-hover {
+	width: 26px !important;
+	background:
+		url("")
+		repeat-y left;
+}
+
+.ui-layout-toggler-west-open {
+	position: static !important;
+	border-radius: 6px;
+	top: 0px !important;
+	left: 10% !important;
+	width: 16px !important;
+	height: 16px !important;
+	border: 1px solid #AED0EA;
+	background: #D7EBF9
+		url("/RIS/javax.faces.resource/images/ui-bg_glass_80_d7ebf9_1x400.png.jsf?ln=primefaces-cupertino")
+		repeat-x scroll 50% 50%;
+	font-weight: bold;
+	color: #2779AA;
+	background-position: -96px -16px;
+	background-image:
+		url("/RIS/javax.faces.resource/images/ui-icons_3d80b3_256x240.png.jsf?ln=primefaces-cupertino")
+		!important;
+}
+
+.ui-accordion .ui-accordion-content {
+    padding: 0.3em;
+    border-top: 0px none;
+    margin-top: -2px;
+    position: relative;
+    top: 1px;
+    margin-bottom: 2px;
+    overflow: auto;
+}
+
+.details-button-worklist {
+	margin: 7px;
+}

@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:custom="http://java.sun.com/jsf/composite/components/custom"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/resources/tpl/Admin/EmptyBase.xhtml">
+	<ui:param name="bean" value="#{pdfBrowsingPageBean}" />
+	<ui:param name="centerPartStyleClass" value="false" />
+	<ui:param name="renderMenu" value="false" />
+
+	<ui:define name="view_body">
+
+	<p:remoteCommand name="showWarningDicom" action="#{bean.showWarningDicom}" update="messages"/>
+
+		<p:accordionPanel value="#{bean.historyDocuments}" var="history"
+			style="width:30%;float:right;">
+			<p:tab title="#{history.title}">
+
+				<h:panelGrid columns="1" width="100%">
+					<p:outputLabel value="#{msg.historyDoctor}: ">
+						<span style="font-weight: bold;">#{history.doctor}</span>
+					</p:outputLabel>
+					<p:outputLabel value="#{msg.historySector}: #{history.sectorDescription}" />
+					
+					<p:outputLabel styleClass="text_center"
+						value="#{history.description}" />
+
+					<p:outputLabel value="#{history.text}" escape="false"/>
+
+					<h:column>
+						<div class="btn_line">
+							<p:commandButton value="#{msg.historyImmagini}"
+								disabled="#{bean.disableDICOMButton}"
+								action="#{bean.openDicomForHistory}">
+								<f:setPropertyActionListener target="#{bean.selectedHistoryId}"
+									value="#{history.id}" />
+							</p:commandButton>
+
+							<p:commandButton value="#{msg.view}"
+								action="#{bean.viewExitingReport}">
+								<f:setPropertyActionListener target="#{bean.selectedHistoryId}"
+									value="#{history.id}" />
+							</p:commandButton>
+						</div>
+					</h:column>
+				</h:panelGrid>
+			</p:tab>
+		</p:accordionPanel>
+
+		<div style="margin-right: 30%; display: block;">
+			<object type="application/pdf" data="#{bean.pathToFile}"
+				style="width: 100%;" class="object_pdf">
+
+				<h:outputText
+					value="Your browser can't display pdf, download pdf instead." />
+
+				<p:commandLink
+					action="#{bean.radiologyExamRequest.radiologyExamRequestItems[0].downloadPdf}"
+					ajax="false">
+					<p:graphicImage value="/resources/images/pdf_small.png" />
+				</p:commandLink>
+			</object>
+		</div>
+
+		<style>
+.content {
+	margin-top: 0;
+}
+
+.header {
+	display: none;
+}
+
+.empty_block {
+	height: 25px;
+}
+</style>
+		<script>
+				$(document).ready(function(){
+					$(".object_pdf").height($(window).height()-30);
+					
+				});
+				$(window).resize(function(){
+					$(".object_pdf").height($(window).height()-30);
+					
+				});
+
+				function openWeasis(urls) {
+					var res = urls.split("%_del_%");
+					
+					var i = 0;
+					do {
+						if(res[i] === ''){
+							showWarningDicom();
+						} else {
+							window.open(res[i], '_blank');
+						}
+						++i;
+						} while (res[i] != null);
+				};
+			</script>
+
+	</ui:define>
+</ui:composition>
+</html>

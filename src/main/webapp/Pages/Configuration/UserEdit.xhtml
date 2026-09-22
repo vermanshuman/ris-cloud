@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/resources/tpl/Admin/EditBase.xhtml">
+	<ui:param name="edit_title" value="#{msg.editUser}" />
+	<ui:param name="bean" value="#{userEditBean}" />
+	<ui:define name="edit_body">
+		<h:outputScript>
+
+			PrimeFaces.widget.Password.prototype.testStrength = function (str) {
+				var passRegExp = /((?=.*[a-z])(?=.*\d)(?=.*[A-Z])(?=.*[.,&lt;&gt;?^&amp;*()=/@#$%!]).{8,40})/;
+				if (str.match(passRegExp) != null) {
+					return 100;
+				} else {
+					return 10;
+				}
+			}
+			$(document).ready(function() {
+				$("#password").attr("autocomplete", "new-password");
+			});
+		</h:outputScript>
+
+		<p:fieldset legend="#{msg.general}">
+			<h:panelGrid columns="2" columnClasses="label, value"
+				styleClass="grid">
+				<span><span class="red">*</span> #{msg.firstname}:</span>
+				<p:inputText id="firstname" maxlength="20"
+					value="#{bean.entity.firstName}" label="#{msg.firstname}"
+					onkeypress="numbers_letters_only('#firstname');" />
+
+				<span><span class="red">*</span> #{msg.lastname}:</span>
+				<p:inputText id="lastname" maxlength="20"
+					value="#{bean.entity.lastName}" label="#{msg.lastname}"
+					onkeypress="numbers_letters_only('#lastname');" />
+
+				<span><span class="red">*</span> #{msg.role}:</span>
+				<h:selectManyMenu id="role" value="#{bean.selectedRoles}"
+					styleClass="ui-corner-all" label="#{msg.role}">
+					<f:selectItems value="#{bean.roles}" var="role"
+						itemValue="#{role.id}" />
+				</h:selectManyMenu>
+
+				<span><span class="red">*</span> #{msg.userSector}:</span>
+				<h:selectManyMenu id="sectors" value="#{bean.selectedSectors}"
+					styleClass="ui-corner-all" label="#{msg.userSector}">
+					<p:ajax listener="#{userEditBean.selectedSectorChange}"
+						update="prSector, diagnostics" />
+					<f:selectItems value="#{bean.sectors}" var="sector"
+						itemValue="#{sector.id}" />
+				</h:selectManyMenu>
+
+				<span><span class="red">*</span> #{msg.userEditDiagnostic}:</span>
+				<h:selectManyMenu id="diagnostics"
+					value="#{bean.selectedDiagnostics}" styleClass="ui-corner-all"
+					label="#{msg.userEditDiagnostic}">
+					<f:selectItems value="#{bean.diagnostics}" var="diagnosticVar"
+						itemValue="#{diagnosticVar.id}" />
+				</h:selectManyMenu>
+
+				<span><span class="red">*</span> #{msg.login}:</span>
+				<p:inputText id="login" maxlength="20" autocomplete="false"
+					value="#{bean.entity.login}" label="#{msg.login}"
+					onkeypress="numbers_letters_dot_dash('#login');" />
+
+				<p:outputPanel style="display: inline-flex;">
+					<span><span class="red">*</span> #{msg.password}:</span>
+					<p:outputPanel id="passwordIco">
+						<i class="ui-icon ui-c ui-icon-info"/>
+					</p:outputPanel>
+					<p:tooltip id="passwordTooltip" for="passwordIco" value="#{val.passwordFormatError}" escape="false"/>
+				</p:outputPanel>
+				<p:outputPanel>
+					<p:password id="password" maxlength="40" autocomplete="off"
+								redisplay="true" feedback="true" value="#{bean.pwd}"
+								label="#{msg.password}" weakLabel="#{msg.passwordFeedbackWeak}"
+								strongLabel="#{msg.passwordFeedbackStrong}"
+								promptLabel="#{msg.passwordFeedbackPrompt}"/>
+				</p:outputPanel>
+
+				<ui:fragment>
+					<span><span class="red">*</span> #{msg.confirmPassword}:</span>
+				</ui:fragment>
+				<ui:fragment>
+					<p:password id="c_password" maxlength="40" autocomplete="false"
+								redisplay="true" value="#{bean.confirmPwd}"
+								label="#{msg.confirmPassword}" />
+				</ui:fragment>
+
+				<span> #{msg.email}: </span>
+				<p:inputText id="email" maxlength="129" value="#{bean.entity.email}" />
+
+				<span> #{msg.userCode}: </span>
+				<p:inputText id="userCode" maxlength="30"
+					value="#{bean.entity.userCode}"
+					onkeypress="numbers_letters_only('#userCode');" />
+
+				<span> #{msg.fiscalCode}: </span>
+				<p:inputText id="fiscalCode" maxlength="16"
+					value="#{bean.entity.fiscalCode}"
+					onkeypress="numbers_letters_only('#fiscalCode');" />
+
+				<span> #{msg.patientDoctorCode}:</span>
+				<p:inputText id="doctorCode" maxlength="250"
+					value="#{bean.entity.doctorCode}"
+					onkeypress="numbers_letters_only('#doctorCode');" />
+
+				<span>#{msg.primarySector}:</span>
+				<p:selectOneMenu id="prSector" value="#{bean.prSector}">
+					<f:selectItems value="#{bean.avSectors}" />
+				</p:selectOneMenu>
+
+				<span><span class="red">*</span>#{msg.status}:</span>
+				<p:selectOneMenu id="status" value="#{bean.status}"
+					label="#{msg.status}">
+					<f:selectItems value="#{bean.statuses}" />
+				</p:selectOneMenu>
+
+				<span>#{msg.roleStatistic}:</span>
+				<p:inputText id="statistic" maxlength="3"
+					label="#{msg.roleStatistic}" value="#{bean.entity.statistic}"
+					onkeypress="return numbers_only(this, event, 3, 0)"
+					onkeyup="check_numbers(this, 3, 0);" />
+
+				<span> #{msg.spvoiceUsername}:</span>
+				<p:inputText id="spvoiceUsername" maxlength="20" autocomplete="false"
+							 value="#{bean.entity.spvoiceUsername}" label="#{msg.spvoiceUsername}"
+							 onkeypress="numbers_letters_dot_dash('#spvoiceUsername');" />
+
+				<span> #{msg.spvoicePassword}:</span>
+				<p:password id="spvoicePassword" maxlength="40" autocomplete="off"
+							redisplay="true" value="#{bean.spvoicePassword}"
+							label="#{msg.spvoicePassword}"/>
+			</h:panelGrid>
+		</p:fieldset>
+	</ui:define>
+</ui:composition>

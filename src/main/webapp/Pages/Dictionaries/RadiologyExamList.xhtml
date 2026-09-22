@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/resources/tpl/Admin/LazyListBase.xhtml">
+	<ui:param name="list_title" value="#{msg.radiologyExams}" />
+	<ui:param name="bean" value="#{radiologyExamListBean}" />
+
+	<ui:define name="columns">
+		<p:column sortBy="#{item.code}" filterBy="#{item.code}"
+			headerText="#{msg.radiologyExamCode}" width="150px;">
+			<h:outputText value="#{item.code}" />
+		</p:column>
+
+		<p:column sortBy="#{item.regionalCode}" width="150px;"
+			filterBy="#{item.regionalCode}"
+			headerText="#{msg.radiologyRegionalCode}">
+			<h:outputText value="#{item.regionalCode}" />
+		</p:column>
+
+		<p:column sortBy="#{item.description}" filterBy="#{item.description}"
+			headerText="#{msg.description}" width="600px;">
+			<h:outputText value="#{item.description}" />
+		</p:column>
+
+		<p:column sortBy="#{item.examType}" filterBy="#{item.examType.id}"
+			headerText="#{msg.radiologyExamType}"
+			filterOptions="#{bean.examTypes}">
+			<h:outputText value="#{item.examType}" />
+		</p:column>
+
+		<p:column sortBy="#{item.amount}" headerText="#{msg.radiologyAmount}">
+			<h:outputText value="#{item.amount}" />
+		</p:column>
+
+		<p:column sortBy="#{item.kWh}" headerText="#{msg.radiologyKWh}">
+			<h:outputText value="#{item.kWh}" />
+		</p:column>
+
+		<p:column sortBy="#{item.mAS}" headerText="#{msg.radiologyMAS}">
+			<h:outputText value="#{item.mAS}" />
+		</p:column>
+
+		<p:column sortBy="#{item.state}" filterOptions="#{bean.states}"
+			headerText="#{msg.radiologyState}">
+			<h:outputText value="#{item.state}" converter="enumConverter" />
+		</p:column>
+
+		<p:column sortBy="#{item.doseClass}"
+				  headerText="#{msg.radiologyDoseClass}">
+			<h:outputText value="#{item.doseClass.toString()}"/>
+		</p:column>
+	</ui:define>
+
+</ui:composition>
+</html>

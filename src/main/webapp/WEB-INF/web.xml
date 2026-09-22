@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xmlns="http://java.sun.com/xml/ns/javaee"
+		 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+		 id="WebApp_ID" version="3.0">
+	<display-name>RIS</display-name>
+	<context-param>
+		<param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+		<param-value>resources.application</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+		<param-value>.xhtml</param-value>
+	</context-param>
+
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<!-- Atmosphere config -->
+	<servlet>
+		<servlet-name>AtmosphereServlet</servlet-name>
+		<servlet-class>org.atmosphere.cpr.AtmosphereServlet</servlet-class>
+		<init-param>
+			<param-name>org.atmosphere.cpr.AtmosphereInterceptor</param-name>
+			<param-value>org.atmosphere.interceptor.HeartbeatInterceptor,
+				org.atmosphere.interceptor.AtmosphereResourceLifecycleInterceptor,
+				org.atmosphere.client.TrackMessageSizeInterceptor</param-value>
+		</init-param>
+		<init-param>
+			<param-name>org.atmosphere.cpr.packages</param-name>
+			<param-value>it.nexera.ris.web.websocket</param-value>
+		</init-param>
+		<init-param>
+			<param-name>org.atmosphere.cpr.sessionSupport</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<load-on-startup>0</load-on-startup>
+		<async-supported>true</async-supported>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AtmosphereServlet</servlet-name>
+		<url-pattern>/ws/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- Download file -->
+	<servlet>
+		<servlet-name>Download Pdf File Servlet</servlet-name>
+		<servlet-class>it.nexera.ris.web.services.servlets.DownloadPdf</servlet-class>
+		<load-on-startup>1</load-on-startup>
+		<async-supported>true</async-supported>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Download Pdf File Servlet</servlet-name>
+		<url-pattern>/rest/files/pdf</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Get file by document id</servlet-name>
+		<servlet-class>it.nexera.ris.web.services.servlets.GetUnsignedFileServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+		<async-supported>true</async-supported>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Get file by document id</servlet-name>
+		<url-pattern>/rest/get_unsigned_file</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Update signed file</servlet-name>
+		<servlet-class>it.nexera.ris.web.services.servlets.UpdateSingedFileServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+		<async-supported>true</async-supported>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Update signed file</servlet-name>
+		<url-pattern>/rest/update_signed_file</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Update signed file Massive</servlet-name>
+		<servlet-class>it.nexera.ris.web.services.servlets.UpdateSingedFileMassiveServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+		<async-supported>true</async-supported>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Update signed file Massive</servlet-name>
+		<url-pattern>/rest/update_signed_file_massive</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Show Urgent Request Msg</servlet-name>
+		<servlet-class>it.nexera.ris.web.services.servlets.ShowUrgentRequestMsg</servlet-class>
+		<load-on-startup>1</load-on-startup>
+		<async-supported>true</async-supported>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Show Urgent Request Msg</servlet-name>
+		<url-pattern>/rest/request/msg</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- Login API -->
+	<servlet>
+		<servlet-name>Login API Servlet</servlet-name>
+		<servlet-class>it.nexera.ris.web.services.servlets.LoginServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+		<async-supported>true</async-supported>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Login API Servlet</servlet-name>
+		<url-pattern>/rest/login</url-pattern>
+	</servlet-mapping>
+
+	<!-- Get Meta Data API -->
+	<servlet>
+		<servlet-name>Get Meta Data API Servlet</servlet-name>
+		<servlet-class>it.nexera.ris.web.services.servlets.GetMetaDataServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+		<async-supported>true</async-supported>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Get Meta Data API Servlet</servlet-name>
+		<url-pattern>/rest/getMetaData</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Get CDA2XML by exam id</servlet-name>
+		<servlet-class>it.nexera.ris.web.services.servlets.GetUnsignedCDA2XMLServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+		<async-supported>true</async-supported>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Get CDA2XML by exam id</servlet-name>
+		<url-pattern>/rest/get_unsigned_cda2</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Update Signed Cda2</servlet-name>
+		<servlet-class>it.nexera.ris.web.services.servlets.UpdateSignedCDA2Servlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+		<async-supported>true</async-supported>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Update Signed Cda2</servlet-name>
+		<url-pattern>/rest/update_signed_cda2</url-pattern>
+	</servlet-mapping>
+
+	<!-- Login to external voice recognition api -->
+	<servlet>
+		<servlet-name>Login to voice recognition Api</servlet-name>
+		<servlet-class>it.nexera.ris.web.services.servlets.SPVoiceLoginServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+		<async-supported>true</async-supported>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Login to voice recognition Api</servlet-name>
+		<url-pattern>/rest/spvoiceLogin</url-pattern>
+	</servlet-mapping>
+
+	<context-param>
+		<param-name>org.atmosphere.cpr.noCacheHeaders</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>org.atmosphere.cpr.broadcasterCacheClass</param-name>
+		<param-value>none</param-value>
+	</context-param>
+
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.jsf</url-pattern>
+
+<!--	So 'pretty' urls are mapped to Faces Servlet and not default servlet,-->
+<!--	because Faces Servlet has multipart config, and POST with multipart/form-data params are parsed-->
+		<url-pattern>/login/</url-pattern>
+		<url-pattern>/home/</url-pattern>
+		<url-pattern>/configuration/*</url-pattern>
+		<url-pattern>/configuration_area/*</url-pattern>
+		<url-pattern>/dictionaries/*</url-pattern>
+		<url-pattern>/management_group/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
+
+	<context-param>
+		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+		<param-value>server</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>com.sun.faces.enableMissingResourceLibraryDetection</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Production</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			/WEB-INF/applicationContext.xml
+			/WEB-INF/applicationContext-security.xml
+		</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+
+	<session-config>
+		<session-timeout>120</session-timeout>
+		<tracking-mode>COOKIE</tracking-mode>
+	</session-config>
+
+	<filter>
+		<filter-name>OCPsoft Rewrite Filter</filter-name>
+		<filter-class>org.ocpsoft.rewrite.servlet.RewriteFilter</filter-class>
+		<async-supported>true</async-supported>
+	</filter>
+	<filter-mapping>
+		<filter-name>OCPsoft Rewrite Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>sessionFilter</filter-name>
+		<filter-class>it.nexera.ris.web.filters.SessionFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>sessionFilter</filter-name>
+		<url-pattern>*.jsf</url-pattern>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+
+	<listener>
+		<listener-class>net.bull.javamelody.SessionListener</listener-class>
+	</listener>
+	<filter>
+		<filter-name>monitoring</filter-name>
+		<filter-class>net.bull.javamelody.MonitoringFilter</filter-class>
+		<async-supported>true</async-supported>
+	</filter>
+	<filter-mapping>
+		<filter-name>monitoring</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>SessionTimeoutFilter</filter-name>
+		<filter-class>it.nexera.ris.web.filters.SessionTimeoutFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>SessionTimeoutFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>RoleRightsFilter</filter-name>
+		<filter-class>it.nexera.ris.web.filters.RoleRightsFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>RoleRightsFilter</filter-name>
+		<url-pattern>/Pages/*</url-pattern>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>PasswordChangeFilter</filter-name>
+		<filter-class>it.nexera.ris.web.filters.PasswordChangeFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>PasswordChangeFilter</filter-name>
+		<url-pattern>/Pages/*</url-pattern>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>cupertino-custom</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>it.nexera.ris.web.listeners.ApplicationListener</listener-class>
+	</listener>
+	
+	<listener>
+		<listener-class>it.nexera.ris.persistence.HttpSessionCollector</listener-class>
+	</listener>
+	
+	<error-page>
+		<error-code>404</error-code>
+		<location>/Common/NotFound.jsf</location>
+	</error-page>
+	<error-page>
+		<exception-type>java.lang.Throwable</exception-type>
+		<location>/Common/Error.jsf</location>
+	</error-page>
+	<context-param>
+		<param-name>javax.faces.FACELETS_LIBRARIES</param-name>
+		<param-value>/WEB-INF/functions.taglib.xml</param-value>
+	</context-param>
+</web-app>

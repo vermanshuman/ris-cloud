@@ -1,0 +1,2439 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE something>
+<radiology_exam>
+	<data_entry>
+		<code>40191</code>
+		<description>AGOBIOPSIA LINFONODALE ECO-GUIDATA</description>
+		<regionalCode>40191</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>40191-1</code>
+		<description>AGOBIOPSIA MUSCOLARE ECO-GUIDATA</description>
+		<regionalCode>40191-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>40191-10</code>
+		<description>AGOBIOPSIA RX MAMMELLA</description>
+		<regionalCode>40191-10</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>40191-2</code>
+		<description>AGOBIOPSIA TIROIDEA ECO-GUIDATA</description>
+		<regionalCode>40191-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>40191-3</code>
+		<description>AGOBIOPSIA ECOGRAFICO ALTRI ORGANI</description>
+		<regionalCode>40191-3</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>40191-4</code>
+		<description>AGOBIOPSIA EPATO-BILIARE ECO-GUIDATA</description>
+		<regionalCode>40191-4</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>40191-5</code>
+		<description>AGOBIOPSIA PANCREATICA ECO-GUIDATA</description>
+		<regionalCode>40191-5</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>40191-6</code>
+		<description>AGOBIOPSIA PROSTATICA ECO-GUIDATA</description>
+		<regionalCode>40191-6</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>40191-7</code>
+		<description>AGOBIOPSIA RENALE ECO-GUIDATA</description>
+		<regionalCode>40191-7</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>40191-8</code>
+		<description>AGOBIOPSIA TC GUIDATO TORACE</description>
+		<regionalCode>40191-8</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>40191-9</code>
+		<description>AGOBIOPSIA MAMMARIA ECO-GUIDATA</description>
+		<regionalCode>40191-9</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>5011</code>
+		<description>BIOPSIA ECOGRAFICA ALTRI ORGANI PROFONDI</description>
+		<regionalCode>5011</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>5011-2</code>
+		<description>BIOPSIA EPATICA ECOGUIDATA</description>
+		<regionalCode>5011-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>5011-3</code>
+		<description>BIOPSIA PANCREATICA ECOGUIDATA</description>
+		<regionalCode>5011-3</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>50191</code>
+		<description>BIOPSIA PERCUTANEA DEL FEGATO</description>
+		<regionalCode>50191</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>50191-1</code>
+		<description>TC F.N.A.B.</description>
+		<regionalCode>50191-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>50191-2</code>
+		<description>BIOPSIA MEDIASTINICA TAC-GUIDATA</description>
+		<regionalCode>50191-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>50191-3</code>
+		<description>BIOPSIA POLMONARE TAC-GUIDATA</description>
+		<regionalCode>50191-3</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>50191-4</code>
+		<description>BIOPSIA TC PANCREAS</description>
+		<regionalCode>50191-4</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>50191-5</code>
+		<description>BIOPSIA TC SURRENE</description>
+		<regionalCode>50191-5</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>60111</code>
+		<description>BIOPSIA PROSTATICA ECO-GUIDATA</description>
+		<regionalCode>60111</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8703</code>
+		<description>TC CRANIO</description>
+		<regionalCode>8703</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8703</code>
+		<description>TC CRANIO SENZA MDC</description>
+		<regionalCode>8703</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87031</code>
+		<description>TC CRANIO SENZA E CON CONTRASTO</description>
+		<regionalCode>87031</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87031</code>
+		<description>TC CRANIO CON E SENZA MDC</description>
+		<regionalCode>87031</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8703-1</code>
+		<description>TC ORBITE</description>
+		<regionalCode>8703-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87031-1</code>
+		<description>TC ORBITE CON E SENZA MDC</description>
+		<regionalCode>87031-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87031-2</code>
+		<description>TC SELLA TURCICA O IPOFISI CON E SENZA  MDC</description>
+		<regionalCode>87031-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87031-3</code>
+		<description>TC CRANIO CON MDC</description>
+		<regionalCode>87031-3</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87032</code>
+		<description>TC MASSICCIO FACCIALE</description>
+		<regionalCode>87032</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8703-2</code>
+		<description>TC SELLA TURCICA E IPOFISI</description>
+		<regionalCode>8703-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87032-1</code>
+		<description>TC ARTICOLAZIONE TEMPERO MANDIBOLARE</description>
+		<regionalCode>87032-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87032-2</code>
+		<description>TC MASCELLARE</description>
+		<regionalCode>87032-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87033</code>
+		<description>TC MASSICCIO FACCIALE SENZA E CON CONTRASTO</description>
+		<regionalCode>87033</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87033</code>
+		<description>TC MASSICCIO FACCIALE CON E SENZA  MDC</description>
+		<regionalCode>87033</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87033-1</code>
+		<description>TC MASSICCIO FACCIALE CON MDC</description>
+		<regionalCode>87033-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87034</code>
+		<description>TC ARCATE DENTARIE (DENTALSCAN) SUPERIORE O INFERIORE</description>
+		<regionalCode>87034</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87034-1</code>
+		<description>TC ARCATE DENTARIE (DENTALSCAN) SUPERIORE E INFERIORE</description>
+		<regionalCode>87034-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87035</code>
+		<description>TC ORECCHIO</description>
+		<regionalCode>87035</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87035-1</code>
+		<description>TC ROCCHE PETROSE</description>
+		<regionalCode>87035-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87036</code>
+		<description>TC ORECCHIO,SENZA E CON CONTRASTO</description>
+		<regionalCode>87036</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87036</code>
+		<description>TC ORECCHIO CON E SENZA MDC</description>
+		<regionalCode>87036</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87037</code>
+		<description>TC COLLO</description>
+		<regionalCode>87037</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87037</code>
+		<description>TC COLLO SENZA MDC</description>
+		<regionalCode>87037</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87037-1</code>
+		<description>TC GHIANDOLE SALIVARI</description>
+		<regionalCode>87037-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87038</code>
+		<description>TC DEL COLLO SENZA E CON CONTRASTO</description>
+		<regionalCode>87038</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87038</code>
+		<description>TC COLLO CON E SENZA MDC</description>
+		<regionalCode>87038</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87038-1</code>
+		<description>TC COLLO CON MDC</description>
+		<regionalCode>87038-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8706</code>
+		<description>FARINGOGRAFIA</description>
+		<regionalCode>8706</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87061</code>
+		<description>SCIALOGRAFIA</description>
+		<regionalCode>87061</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87091</code>
+		<description>RX TESSUTI MOLLI FACCIA,CAPO E COLLO ES DIR(2 PR.LAR,RIN_FAR,GHIA_SAL)</description>
+		<regionalCode>87091</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87091</code>
+		<description>RX TESSUTI MOLLI FACCIA, CAPO E COLLO</description>
+		<regionalCode>87091</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87091-1</code>
+		<description>RX DIRETTO FARINGE (2PR)</description>
+		<regionalCode>87091-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87091-2</code>
+		<description>RX DIRETTO DELLE PARTI MOLLE</description>
+		<regionalCode>87091-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87091-3</code>
+		<description>RX DIRETTO DELLA LARINGE</description>
+		<regionalCode>87091-3</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87092</code>
+		<description>RX TRATTO FARINGO - CRICO - ESOFAGEO - CARDIALE</description>
+		<regionalCode>87092</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87111</code>
+		<description>RX ARCATA DENTARIA SUP. O INF.</description>
+		<regionalCode>87111</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87113</code>
+		<description>ORTOPANORAMICA ARCATE DENTARIE COMPLETE SUP E INF (OPT)</description>
+		<regionalCode>87113</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87113</code>
+		<description>ORTOPANORAMICA ARCATE DENTARIE</description>
+		<regionalCode>87113</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87121</code>
+		<description>TELERX DEL CRANIO</description>
+		<regionalCode>87121</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87161</code>
+		<description>RX DI OSSA DELLA FACCIA</description>
+		<regionalCode>87161</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87161</code>
+		<description>ALTRA RADIOGRAFIA OSSA E FACCIA</description>
+		<regionalCode>87161</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87161-1</code>
+		<description>RX EMIMANDIBOLA</description>
+		<regionalCode>87161-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87161-10</code>
+		<description>LOCALIZZAZIONE RADIOLOGICA CORPO ESTRANEO ENDORBITARIO</description>
+		<regionalCode>87161-10</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87161-11</code>
+		<description>RX MASTOIDE DX</description>
+		<regionalCode>87161-11</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87161-12</code>
+		<description>RX MASTOIDE SN</description>
+		<regionalCode>87161-12</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87161-13</code>
+		<description>RX ORBITA SN</description>
+		<regionalCode>87161-13</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87161-14</code>
+		<description>RX ROCCA PETROSA DX</description>
+		<regionalCode>87161-14</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87161-15</code>
+		<description>RX ROCCA PETROSA SN</description>
+		<regionalCode>87161-15</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87161-16</code>
+		<description>RX ARCATA ZIGOMATICA DX</description>
+		<regionalCode>87161-16</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87161-17</code>
+		<description>RX ARCATA ZIGOMATICA SN</description>
+		<regionalCode>87161-17</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87161-18</code>
+		<description>RX ORBITA DX</description>
+		<regionalCode>87161-18</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87161-2</code>
+		<description>RX ARTICOLAZIONE TEMP/MAND</description>
+		<regionalCode>87161-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87161-3</code>
+		<description>RX MASTOIDI</description>
+		<regionalCode>87161-3</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87161-4</code>
+		<description>RX OSSA NASALI</description>
+		<regionalCode>87161-4</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87161-5</code>
+		<description>RX EMIMANDIBOLA DX</description>
+		<regionalCode>87161-5</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87161-6</code>
+		<description>RX EMIMANDIBOLA SN</description>
+		<regionalCode>87161-6</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87161-7</code>
+		<description>RX ARTICOLAZIONE TEMP/MAND DX</description>
+		<regionalCode>87161-7</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87161-8</code>
+		<description>RX ARTICOLAZIONE TEMP/MAND SN</description>
+		<regionalCode>87161-8</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87161-9</code>
+		<description>RX DIRETTO OSSA NASO</description>
+		<regionalCode>87161-9</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87162</code>
+		<description>TC ARTICOLAZIONE TEMPORO MANDIBOLARE DINAMICA BILAT. ( BOC. AP. E CH.)</description>
+		<regionalCode>87162</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87164</code>
+		<description>RX DIRETTA ATM CON STRATIGRAFIA BILATERALE</description>
+		<regionalCode>87164</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87171</code>
+		<description>RADIOGRAFIA CRANIO SENIPARANASALI</description>
+		<regionalCode>87171</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87171</code>
+		<description>RX CRANIO E  SENI PARANASALI</description>
+		<regionalCode>87171</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87171-1</code>
+		<description>RX SENI PARANASALI</description>
+		<regionalCode>87171-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87171-2</code>
+		<description>RX CRANIO</description>
+		<regionalCode>87171-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87172</code>
+		<description>RADIOGRAFIA DELLA SELLA TURCICA</description>
+		<regionalCode>87172</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87172</code>
+		<description>RX SELLA TURCICA</description>
+		<regionalCode>87172</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87173</code>
+		<description>CONTROLLO RADIOLOGICO DI DERIVAZIONI LIQUORALI</description>
+		<regionalCode>87173</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8722</code>
+		<description>RADIOGRAFIA DELLA COLONNA CERVICALE</description>
+		<regionalCode>8722</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8722</code>
+		<description>RX COLONNA CERVICALE</description>
+		<regionalCode>8722</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8722-2</code>
+		<description>RX COLONNA CERVICALE CON PROIEZIONI OBLIQUE</description>
+		<regionalCode>8722-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8722-3</code>
+		<description>RX COLONNA CERVICALE STUDIO DINAMICO</description>
+		<regionalCode>8722-3</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8723</code>
+		<description>RADIOGRAFIA DELLA COLONNA DORSALE</description>
+		<regionalCode>8723</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8723</code>
+		<description>RX COLONNA TORACICA (DORSALE)</description>
+		<regionalCode>8723</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8723</code>
+		<description>RX COLONNA DORSALE</description>
+		<regionalCode>8723</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8723-1</code>
+		<description>RX COLONNA DORSALE STUDIO DINAMICO</description>
+		<regionalCode>8723-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8724</code>
+		<description>RADIOGRAFIA COLONNA LOMBARE</description>
+		<regionalCode>8724</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8724</code>
+		<description>RX COLONNA LOMBOSACRALE</description>
+		<regionalCode>8724</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8724-1</code>
+		<description>RX RACHIDE SACRO-COCCIGEO</description>
+		<regionalCode>8724-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8724-3</code>
+		<description>RX COLONNA LOMBOSACRALE STUDIO DINAMICO</description>
+		<regionalCode>8724-3</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8729</code>
+		<description>RADIOGRAFIA COMPLETA DELLA COLONNA</description>
+		<regionalCode>8729</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8729</code>
+		<description>RX COMPLETA COLONNA</description>
+		<regionalCode>8729</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8729-1</code>
+		<description>RX RACHIDE IN TOTO IN ORTOSTATISMO</description>
+		<regionalCode>8729-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8735</code>
+		<description>GALATTOGRAFIA</description>
+		<regionalCode>8735</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>873701</code>
+		<description>MAMMOGRAFIA BILATERALE</description>
+		<regionalCode>873701</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>873702</code>
+		<description>MAMMOGRAFIA MONOLATERALE</description>
+		<regionalCode>873702</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87371</code>
+		<description>MAMMOGRAFIA  BILATERALE (2 PROIEZIONI)</description>
+		<regionalCode>87371</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87371</code>
+		<description>MAMMOGRAFIA BILATERALE</description>
+		<regionalCode>87371</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87371-1</code>
+		<description>REPERAGGIO STEREOTASSICO MAMMELLA</description>
+		<regionalCode>87371-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87372</code>
+		<description>MAMMOGRAFIA MONOLATERALE (2 PROIEZIONI)</description>
+		<regionalCode>87372</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87372</code>
+		<description>MAMMOGRAFIA MONOLATERALE</description>
+		<regionalCode>87372</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87372-1</code>
+		<description>MAMMOGRAFIA INGRANDIMENTO DIRETTO</description>
+		<regionalCode>87372-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8738</code>
+		<description>FISTOLOGRAFIA DELLA PARETE TORACICA</description>
+		<regionalCode>8738</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>873800</code>
+		<description>FISTOLOGRAFIA DELLA PARETE</description>
+		<regionalCode>873800</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8741</code>
+		<description>TC TORACE</description>
+		<regionalCode>8741</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8741</code>
+		<description>TC TORACE SENZA MDC</description>
+		<regionalCode>8741</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87411</code>
+		<description>TC TORACE SENZA E CON CONTRASTO</description>
+		<regionalCode>87411</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87411</code>
+		<description>TC TORACE CON E SENZA MDC</description>
+		<regionalCode>87411</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8741-1</code>
+		<description>TC TORACE AD ALTA RISOLUZIONE</description>
+		<regionalCode>8741-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87411-1</code>
+		<description>TC TORACE CON MDC</description>
+		<regionalCode>87411-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87422</code>
+		<description>TC (STRATIGRAFIA) TORACICA MONOLATERALE</description>
+		<regionalCode>87422</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87422-1</code>
+		<description>STRATIGRAFIA POLMONARE</description>
+		<regionalCode>87422-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87431</code>
+		<description>RX COSTE, STERNO E CLAVICOLA</description>
+		<regionalCode>87431</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87431-1</code>
+		<description>RX GABBIA TORACICA</description>
+		<regionalCode>87431-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87432</code>
+		<description>RX DI COSTE, STERNO E CLAVICOLA MONOLATERALE (2 PROIEZIONI)</description>
+		<regionalCode>87432</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87432</code>
+		<description>ALTRA RADIOGRAFIA COSTE, STERNO E CLAVICOLA</description>
+		<regionalCode>87432</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87432-1</code>
+		<description>RX CLAVICOLA DESTRA</description>
+		<regionalCode>87432-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87432-1</code>
+		<description>RX CLAVICOLA DX</description>
+		<regionalCode>87432-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87432-2</code>
+		<description>RX CLAVICOLA SINISTRA</description>
+		<regionalCode>87432-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87432-2</code>
+		<description>RX CLAVICOLA SN</description>
+		<regionalCode>87432-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87432-3</code>
+		<description>RX SCHELETRO COSTALE MONOLATERALE</description>
+		<regionalCode>87432-3</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87432-4</code>
+		<description>RX STERNO</description>
+		<regionalCode>87432-4</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87432-5</code>
+		<description>RX EMITORACE PER COSTE DX</description>
+		<regionalCode>87432-5</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87432-6</code>
+		<description>RX EMITORACE PER COSTE SN</description>
+		<regionalCode>87432-6</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87432-7</code>
+		<description>RX STERNO (2PR)</description>
+		<regionalCode>87432-7</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87432-8</code>
+		<description>RX EMICOSTATO DX</description>
+		<regionalCode>87432-8</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87432-9</code>
+		<description>RX EMICOSTATO SN</description>
+		<regionalCode>87432-9</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87441</code>
+		<description>RX TORACE</description>
+		<regionalCode>87441</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87441-1</code>
+		<description>TELECUORE</description>
+		<regionalCode>87441-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87441-1</code>
+		<description>RX TORACE PA-LL</description>
+		<regionalCode>87441-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87441-2</code>
+		<description>RX TORACE A LETTO</description>
+		<regionalCode>87441-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87442</code>
+		<description>TELECUORE CON ESOFAGO BARITATO</description>
+		<regionalCode>87442</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87442</code>
+		<description>TELECUORE CON ESOFAGO BARITATO (4 PROIEZIONI)</description>
+		<regionalCode>87442</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87491</code>
+		<description>RADIOGRAFIA DELLA  TRACHEA (2 PROIEZIONI)</description>
+		<regionalCode>87491</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87491</code>
+		<description>RX TRACHEA</description>
+		<regionalCode>87491</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87541</code>
+		<description>COLANGIOGRAFIA TRANS-KEHR INCLUSO: ESAME DIRETTO</description>
+		<regionalCode>87541</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87591</code>
+		<description>RX VIE BILIARI(COLECISTOGRAFIA)</description>
+		<regionalCode>87591</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8761</code>
+		<description>RADIOGRAFIA COMP. DIGERENTE</description>
+		<regionalCode>8761</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8761</code>
+		<description>RX APPARATO DIGERENTE COMPLETO</description>
+		<regionalCode>8761</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8761</code>
+		<description>RX COMPLETA DL TUBO DIGERENTE</description>
+		<regionalCode>8761</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8762</code>
+		<description>RX  TRATTO GASTROINTESTINALE SUP. STUDIO SERIATO PRIME VIE TUBO DIG</description>
+		<regionalCode>8762</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8762</code>
+		<description>RX  ESOFAGO STOMACO E DUODENO</description>
+		<regionalCode>8762</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87621</code>
+		<description>RADIOGRAFIA DELL ESOFAGO CON CONTRASTO</description>
+		<regionalCode>87621</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87621</code>
+		<description>RX  ESOFAGO CON CONTRASTO</description>
+		<regionalCode>87621</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87622</code>
+		<description>RADIOGRAFIA ESOFAGO BARITATO</description>
+		<regionalCode>87622</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87622</code>
+		<description>RX ESOFAGO STOMACO E DUODENO CON DOPPIO CONTRASTO</description>
+		<regionalCode>87622</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87623</code>
+		<description>RADIOGRAFIA STOMACO E DUODENO</description>
+		<regionalCode>87623</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87623</code>
+		<description>RX  ESOFAGO STOMACO E DUODENO CON DOPPIO MDC</description>
+		<regionalCode>87623</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8763</code>
+		<description>STUDIO SERIATO DELL INTESTINO TENUE</description>
+		<regionalCode>8763</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8763</code>
+		<description>STUDIO SERIATO INTESTINO TENUE</description>
+		<regionalCode>8763</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8764</code>
+		<description>RX INTESTINO</description>
+		<regionalCode>8764</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87651</code>
+		<description>CLISMA SEMPLICE</description>
+		<regionalCode>87651</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87651-1</code>
+		<description>CLISMA OPACO</description>
+		<regionalCode>87651-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87652</code>
+		<description>CLISMA CON DOPPIO CONTRASTO</description>
+		<regionalCode>87652</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87653</code>
+		<description>CLISMA DEL TENUE CON DOPPIO CONTRASTO</description>
+		<regionalCode>87653</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87691</code>
+		<description>ALTRE PROCEDURE DIAGNOSTICHE APPARATO DIGERENTE</description>
+		<regionalCode>87691</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8771</code>
+		<description>TC DEI RENI</description>
+		<regionalCode>8771</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8771</code>
+		<description>TC RENI</description>
+		<regionalCode>8771</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87711</code>
+		<description>TC DEI RENI SENZA E CON CONTRASTO</description>
+		<regionalCode>87711</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87711</code>
+		<description>TC RENI CON E SENZA CONTRASTO</description>
+		<regionalCode>87711</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87711</code>
+		<description>TC DEI RENI SENZA E CON MDC</description>
+		<regionalCode>87711</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87711-2</code>
+		<description>TC SURRENI SENZA E CON CONTRASTO</description>
+		<regionalCode>87711-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8772</code>
+		<description>TC RENALE NEFROPIELOTOMOGRAFIA INCL.ES.DIRETTO</description>
+		<regionalCode>8772</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8773</code>
+		<description>UROGRAFIA ENDOVENOSA INCLUSO: ESAME DIRETTO E NEFROPIELOTOMOGRAFIA</description>
+		<regionalCode>8773</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8773</code>
+		<description>UROGRAFIA ENDOVENOSA</description>
+		<regionalCode>8773</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87741</code>
+		<description>PIELOGRAFIA RETROGRADA MONOLATERALE (6 RADIOGRAMMI) INCL.ES.DIRETTO</description>
+		<regionalCode>87741</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87742</code>
+		<description>PIELOGRAFIA RETROGRADA BILATERALE (8 RADIOGRAMMI INCL.ES.DIRETTO)</description>
+		<regionalCode>87742</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87751</code>
+		<description>PIELOGRAFIA TRANSPIELOSTOMICA</description>
+		<regionalCode>87751</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8776</code>
+		<description>CISTOURETROGRAFIA RETROGRADA URETROCISTOGRAFIA ASC. E MINZIONALE (6R)</description>
+		<regionalCode>8776</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87761</code>
+		<description>CISTOURETROGRAFIA MINZIONALE</description>
+		<regionalCode>87761</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8777</code>
+		<description>CISTOGRAFIA (4 RADIOGRAMMI) INCL.ES.DIRETTO</description>
+		<regionalCode>8777</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8777</code>
+		<description>CISTOGRAFIA</description>
+		<regionalCode>8777</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8777-1</code>
+		<description>CISTOGRAFIA</description>
+		<regionalCode>8777-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8777-2</code>
+		<description>CISTOGRAFIA DOPPIO CONTRASTO</description>
+		<regionalCode>8777-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8779</code>
+		<description>RADIOGRAFIA DIRETTA ADDOME</description>
+		<regionalCode>8779</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8779</code>
+		<description>RX APPARATO URINARIO</description>
+		<regionalCode>8779</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87791</code>
+		<description>URETROGRAFIA</description>
+		<regionalCode>87791</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>87791</code>
+		<description>URETROGRAFIA (3 RADIOGRAMMI)</description>
+		<regionalCode>87791</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8783</code>
+		<description>ISTEROSALPINGOGRAFIA</description>
+		<regionalCode>8783</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88011</code>
+		<description>TC ADDOME SUPERIORE</description>
+		<regionalCode>88011</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88011</code>
+		<description>TC ADDOME SUPERIORE SENZA MDC</description>
+		<regionalCode>88011</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88012</code>
+		<description>TC ADDOME SUPERIORE SENZA E CON CONTRASTO</description>
+		<regionalCode>88012</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88012</code>
+		<description>TC ADDOME SUPERIORE  CON CONTRASTO</description>
+		<regionalCode>88012</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88012</code>
+		<description>TC ADDOME SUP. SENZA E CON MDC</description>
+		<regionalCode>88012</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>880120</code>
+		<description>TC CRANIO E ADDOME</description>
+		<regionalCode>880120</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>880121</code>
+		<description>TC CRANIO E ADDOME SENZA E CON MDC</description>
+		<regionalCode>880121</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88012-1</code>
+		<description>TC ADDOME SUPERIORE CON MDC</description>
+		<regionalCode>88012-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88012-3</code>
+		<description>TC EPATICA TRIFASICA</description>
+		<regionalCode>88012-3</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88013</code>
+		<description>TC ADDOME INFERIORE</description>
+		<regionalCode>88013</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88013</code>
+		<description>TC ADDOME INF. SENZA MDC</description>
+		<regionalCode>88013</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>880130</code>
+		<description>TC TORACE-ADDOME-PELVI</description>
+		<regionalCode>880130</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>880131</code>
+		<description>TC TORACE-ADDOME-PELVI SENZA E CON MDC (TORACE,ADD,PELVI)</description>
+		<regionalCode>880131</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88013-1</code>
+		<description>TC PELVI</description>
+		<regionalCode>88013-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88013-3</code>
+		<description>TC PELVI (SENZA CONTRASTO)</description>
+		<regionalCode>88013-3</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88014</code>
+		<description>TC ADDOME INFERIORE SENZA E CON CONTRASTO</description>
+		<regionalCode>88014</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88014</code>
+		<description>TC ADDOME INFERIORE CON E SENZA MDC</description>
+		<regionalCode>88014</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88014</code>
+		<description>TC ADDOME INF. SENZA E CON MDC</description>
+		<regionalCode>88014</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>880140</code>
+		<description>TC TOTAL BODY 4 (CRANIO,TOR,ADD,PELVI)</description>
+		<regionalCode>880140</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>880141</code>
+		<description>TC TOTAL BODY 4 SENZA E CON MDC (CRANIO,TOR,ADD,PELVI)</description>
+		<regionalCode>880141</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88014-1</code>
+		<description>TC ADDOME INF. CON MDC</description>
+		<regionalCode>88014-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88015</code>
+		<description>TC ADDOME COMPLETO</description>
+		<regionalCode>88015</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88015</code>
+		<description>TC ADDOME COMP. SENZA MDC</description>
+		<regionalCode>88015</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>880150</code>
+		<description>TC TOTAL BODY 5 (CRANIO,COLLO,TOR,ADD,PELVI)</description>
+		<regionalCode>880150</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>880151</code>
+		<description>TC TOTAL BODY 5 SENZA E CON MDC (CRANIO,COLLO,TOR,ADD,PELVI)</description>
+		<regionalCode>880151</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88016</code>
+		<description>TC ADDOME COMPLETO SENZA E CON CONTRASTO</description>
+		<regionalCode>88016</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88016</code>
+		<description>TC ADDOME COMPLETO CON E SENZA MDC</description>
+		<regionalCode>88016</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>880160</code>
+		<description>TC CRANIO E TORACE</description>
+		<regionalCode>880160</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>880161</code>
+		<description>TC CRANIO E TORACE SENZA E CON MDC</description>
+		<regionalCode>880161</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88016-1</code>
+		<description>TC ADDOME COMPLETO CON CONTRASTO</description>
+		<regionalCode>88016-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88016-1</code>
+		<description>TC ADDOME COMP. CON MDC</description>
+		<regionalCode>88016-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88031</code>
+		<description>FISTOLOGRAFIA DELLA PARETE ADDOMINALE E/O DELL ADDOME (4 RADIOGRAMMI)</description>
+		<regionalCode>88031</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8819</code>
+		<description>RADIOGRAFIA DIRETTA ADDOME</description>
+		<regionalCode>8819</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8819</code>
+		<description>RX ADDOME</description>
+		<regionalCode>8819</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8819</code>
+		<description>RX DIRETTA ADDOME</description>
+		<regionalCode>8819</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8821</code>
+		<description>RADIOGRAFIA SPALLA E ARTO SUPERIORE</description>
+		<regionalCode>8821</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8821</code>
+		<description>RX SPALLA E ARTO SUPERIORE</description>
+		<regionalCode>8821</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8821-1</code>
+		<description>RX SPALLA DESTRA</description>
+		<regionalCode>8821-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8821-1</code>
+		<description>RX SPALLA DX</description>
+		<regionalCode>8821-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8821-2</code>
+		<description>RX SPALLA SINISTRA</description>
+		<regionalCode>8821-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8821-2</code>
+		<description>RX SPALLA SN</description>
+		<regionalCode>8821-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8821-3</code>
+		<description>RX BRACCIO DX</description>
+		<regionalCode>8821-3</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8821-4</code>
+		<description>RX BRACCIO SN</description>
+		<regionalCode>8821-4</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8821-5</code>
+		<description>RX OMERO DESTRO</description>
+		<regionalCode>8821-5</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8821-5</code>
+		<description>RX OMERO DX</description>
+		<regionalCode>8821-5</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8821-6</code>
+		<description>RX OMERO SINISTRO</description>
+		<regionalCode>8821-6</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8821-6</code>
+		<description>RX OMERO SN</description>
+		<regionalCode>8821-6</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8821-7</code>
+		<description>RX SCAPOLA DESTRA</description>
+		<regionalCode>8821-7</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8821-7</code>
+		<description>RX SCAPOLA DX</description>
+		<regionalCode>8821-7</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8821-8</code>
+		<description>RX SCAPOLA SINISTRA</description>
+		<regionalCode>8821-8</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8821-8</code>
+		<description>RX SCAPOLA SN</description>
+		<regionalCode>8821-8</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8822</code>
+		<description>RX GOMITO E AVAMBRACCIO</description>
+		<regionalCode>8822</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8822-1</code>
+		<description>RX AVAMBRACCIO DESTRO</description>
+		<regionalCode>8822-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8822-1</code>
+		<description>RX AVAMBRACCIO DX</description>
+		<regionalCode>8822-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8822-2</code>
+		<description>RX AVAMBRACCIO SINISTRO</description>
+		<regionalCode>8822-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8822-2</code>
+		<description>RX AVAMBRACCIO SN</description>
+		<regionalCode>8822-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8822-3</code>
+		<description>RX GOMITO DESTRO</description>
+		<regionalCode>8822-3</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8822-3</code>
+		<description>RX GOMITO DX</description>
+		<regionalCode>8822-3</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8822-4</code>
+		<description>RX GOMITO SINISTRO</description>
+		<regionalCode>8822-4</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8822-4</code>
+		<description>RX GOMITO SN</description>
+		<regionalCode>8822-4</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8823</code>
+		<description>RADIOGRAFIA POLSO MANO</description>
+		<regionalCode>8823</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8823</code>
+		<description>RX POLSO E MANO</description>
+		<regionalCode>8823</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8823-1</code>
+		<description>RX MANO DESTRA</description>
+		<regionalCode>8823-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8823-1</code>
+		<description>RX MANO DX</description>
+		<regionalCode>8823-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8823-2</code>
+		<description>RX MANO SINISTRA</description>
+		<regionalCode>8823-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8823-2</code>
+		<description>RX MANO SN</description>
+		<regionalCode>8823-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8823-3</code>
+		<description>RX POLSO DESTRO</description>
+		<regionalCode>8823-3</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8823-3</code>
+		<description>RX POLSO DX</description>
+		<regionalCode>8823-3</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8823-4</code>
+		<description>RX POLSO SINISTRO</description>
+		<regionalCode>8823-4</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8823-4</code>
+		<description>RX POLSO SN</description>
+		<regionalCode>8823-4</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8825</code>
+		<description>PELVIMETRIA</description>
+		<regionalCode>8825</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8826</code>
+		<description>RADIOGRAFIA DEL BACINO</description>
+		<regionalCode>8826</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8826</code>
+		<description>RX PELVI  E ANCA</description>
+		<regionalCode>8826</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8826-1</code>
+		<description>RX ARICOLAZIONI SACRO-ILIACHE</description>
+		<regionalCode>8826-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8826-2</code>
+		<description>RX ANCA DESTRA</description>
+		<regionalCode>8826-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8826-3</code>
+		<description>RX ANCA SINISTRA</description>
+		<regionalCode>8826-3</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8826-4</code>
+		<description>RX ARTICOLAZIONE COXO FEMORALE DX</description>
+		<regionalCode>8826-4</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8826-5</code>
+		<description>RX ARTICOLAZIONE COXO FEMORALE SN</description>
+		<regionalCode>8826-5</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8826-6</code>
+		<description>RX BACINO</description>
+		<regionalCode>8826-6</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8826-7</code>
+		<description>ESAME DIRETTO APPARATO GENITALE FEMMINILE (1P)</description>
+		<regionalCode>8826-7</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8826-9</code>
+		<description>PUBE (2PR)</description>
+		<regionalCode>8826-9</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8827</code>
+		<description>RADIOGRAFIA FEMORE,GINOCCHIO,GAMBA</description>
+		<regionalCode>8827</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8827</code>
+		<description>RX FEMORE, GINOCCHIO E GAMBA</description>
+		<regionalCode>8827</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8827-1</code>
+		<description>RX FEMORE DESTRO</description>
+		<regionalCode>8827-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8827-1</code>
+		<description>RX FEMORE DX</description>
+		<regionalCode>8827-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8827-2</code>
+		<description>RX FEMORE SINISTRO</description>
+		<regionalCode>8827-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8827-2</code>
+		<description>RX FEMORE SN</description>
+		<regionalCode>8827-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8827-3</code>
+		<description>RX GINOCCHIO DESTRO</description>
+		<regionalCode>8827-3</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8827-3</code>
+		<description>RX GINOCCHIO DX</description>
+		<regionalCode>8827-3</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8827-4</code>
+		<description>RX GINOCCHIO SINISTRO</description>
+		<regionalCode>8827-4</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8827-4</code>
+		<description>RX GINOCCHIO SN</description>
+		<regionalCode>8827-4</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8827-5</code>
+		<description>RX GAMBA DESTRA</description>
+		<regionalCode>8827-5</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8827-5</code>
+		<description>RX GAMBA DX</description>
+		<regionalCode>8827-5</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8827-6</code>
+		<description>RX GAMBA SINISTRA</description>
+		<regionalCode>8827-6</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8827-6</code>
+		<description>RX GAMBA SN</description>
+		<regionalCode>8827-6</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8827-7</code>
+		<description>RX ROTULA DX</description>
+		<regionalCode>8827-7</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8827-8</code>
+		<description>RX ROTULA SN</description>
+		<regionalCode>8827-8</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8827-9</code>
+		<description>RX GINOCCHIO APPOGGIO MONOPODALICO</description>
+		<regionalCode>8827-9</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8828</code>
+		<description>RADIOGRAFIA (2 PROIEZIONI) DI: CAVIGLIA, PIEDE [CALCAGNO], DITO DEL PIEDE</description>
+		<regionalCode>8828</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8828</code>
+		<description>RX PIEDE E CAVIGLIA</description>
+		<regionalCode>8828</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8828-1</code>
+		<description>RX CAVIGLIA DESTRA</description>
+		<regionalCode>8828-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8828-1</code>
+		<description>RX CAVIGLIA DX</description>
+		<regionalCode>8828-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8828-10</code>
+		<description>RX AVAMPIEDE SN</description>
+		<regionalCode>8828-10</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8828-2</code>
+		<description>RX CAVIGLIA SINISTRA</description>
+		<regionalCode>8828-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8828-2</code>
+		<description>RX CAVIGLIA SN</description>
+		<regionalCode>8828-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8828-3</code>
+		<description>RX PIEDE DESTRO</description>
+		<regionalCode>8828-3</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8828-3</code>
+		<description>RX PIEDE DX</description>
+		<regionalCode>8828-3</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8828-4</code>
+		<description>RX PIEDE SINISTRO</description>
+		<regionalCode>8828-4</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8828-4</code>
+		<description>RX PIEDE SN</description>
+		<regionalCode>8828-4</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8828-5</code>
+		<description>RX ARTICOLAZIONE TIBIO-TARSICA DX</description>
+		<regionalCode>8828-5</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8828-6</code>
+		<description>RX ARTICOLAZIONE TIBIO-TARSICA SN</description>
+		<regionalCode>8828-6</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8828-7</code>
+		<description>RX CALCAGNO DX</description>
+		<regionalCode>8828-7</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8828-8</code>
+		<description>RX CALCAGNO SN</description>
+		<regionalCode>8828-8</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8828-9</code>
+		<description>RX AVAMPIEDE DX</description>
+		<regionalCode>8828-9</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88291</code>
+		<description>RADIOGRAFIA COMPLETA DEGLI ARTI INFERIORI E DEL BACINO SOTTO CARICO</description>
+		<regionalCode>88291</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88291</code>
+		<description>RX COMPLETA ARTI INFERIORI E BACINO SOTTO CARICO</description>
+		<regionalCode>88291</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88292</code>
+		<description>RADIOGRAFIA  ASSIALE DELLA ROTULA (3 PROIEZIONI)</description>
+		<regionalCode>88292</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88292</code>
+		<description>RX ASSIALE ROTULA</description>
+		<regionalCode>88292</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88292-1</code>
+		<description>RX  ASSIALE DELLA ROTULA (1 PROIEZIONI)</description>
+		<regionalCode>88292-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8831</code>
+		<description>RADIOGRAFIA SCHELETRO IN TOTO</description>
+		<regionalCode>8831</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8831</code>
+		<description>RX SCHELETRO IN TOTO</description>
+		<regionalCode>8831</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8831-1</code>
+		<description>SCHELETRO PER PATOLOGIA SISTEMICA</description>
+		<regionalCode>8831-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8832</code>
+		<description>ARTROGRAFIA CON CONTRASTO</description>
+		<regionalCode>8832</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88331</code>
+		<description>STUDIO ETA OSSEA</description>
+		<regionalCode>88331</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88331-1</code>
+		<description>STUDIO ETA OSSEA (MANO E POLSO)</description>
+		<regionalCode>88331-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88332</code>
+		<description>TOMOGRAFIA DELLE OSSA</description>
+		<regionalCode>88332</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88332-1</code>
+		<description>TC COLONNA</description>
+		<regionalCode>88332-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88332-2</code>
+		<description>RX ESAME DIRETTO DELLA COLONNA CON STRATIGRAFIA</description>
+		<regionalCode>88332-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88332-3</code>
+		<description>STRATIGRAFIA OSSEA</description>
+		<regionalCode>88332-3</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88351</code>
+		<description>FISTOLOGRAFIA ARTO SUPERIORE</description>
+		<regionalCode>88351</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88371</code>
+		<description>FISTOLOGRAFIA ARTO INFERIORE</description>
+		<regionalCode>88371</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88381</code>
+		<description>TC RACHIDE E DELLO SPECO VERTEBRALE</description>
+		<regionalCode>88381</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88381</code>
+		<description>TC RACHIDE E SPECO VERTEBRALE</description>
+		<regionalCode>88381</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88381-1</code>
+		<description>TC RACHIDE (2 SPAZI)</description>
+		<regionalCode>88381-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88381-2</code>
+		<description>TC RACHIDE CERVICALE</description>
+		<regionalCode>88381-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88381-3</code>
+		<description>TC RACHIDE DORSALE</description>
+		<regionalCode>88381-3</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88381-4</code>
+		<description>TC RACHIDE LOMBOSACRALE</description>
+		<regionalCode>88381-4</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88381-5</code>
+		<description>TC SACRO COCCIGE</description>
+		<regionalCode>88381-5</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88381-6</code>
+		<description>TC SPAZI INTERSOMATICI</description>
+		<regionalCode>88381-6</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88381-7</code>
+		<description>TC CON CARICO ASSIALE COLONNA VERTEBRALE</description>
+		<regionalCode>88381-7</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88382</code>
+		<description>TC RACHIDE E DELLO SPECO VERTEBRALE SENZA E CON CONTRASTO</description>
+		<regionalCode>88382</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88382</code>
+		<description>TC SPECO VERTABRALE CON E SENZA MDC</description>
+		<regionalCode>88382</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88382</code>
+		<description>TC RACHIDE E DELLO SPECO VERT. SENZA E CON MDC</description>
+		<regionalCode>88382</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88382-1</code>
+		<description>TC RACHIDE E DELLO SPECO VERT. CON MDC</description>
+		<regionalCode>88382-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88382-2</code>
+		<description>TC SACRO COCCIGE CON E SENZA MDC</description>
+		<regionalCode>88382-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88383</code>
+		<description>TC ARTO SUPERIORE</description>
+		<regionalCode>88383</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88383</code>
+		<description>TC ARTO SUPERIORE SENZA MDC</description>
+		<regionalCode>88383</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88383-1</code>
+		<description>TC AVAMBRACCIO DX</description>
+		<regionalCode>88383-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88383-10</code>
+		<description>TC POLSO SN</description>
+		<regionalCode>88383-10</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88383-11</code>
+		<description>TC SPALLA DX</description>
+		<regionalCode>88383-11</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88383-12</code>
+		<description>TC SPALLA SN</description>
+		<regionalCode>88383-12</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88383-2</code>
+		<description>TC AVAMBRACCIO SN</description>
+		<regionalCode>88383-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88383-3</code>
+		<description>TC BRACCIO DX</description>
+		<regionalCode>88383-3</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88383-4</code>
+		<description>TC BRACCIO SN</description>
+		<regionalCode>88383-4</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88383-5</code>
+		<description>TC GOMITO DX</description>
+		<regionalCode>88383-5</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88383-6</code>
+		<description>TC GOMITO SN</description>
+		<regionalCode>88383-6</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88383-7</code>
+		<description>TC MANO DX</description>
+		<regionalCode>88383-7</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88383-8</code>
+		<description>TC MANO SN</description>
+		<regionalCode>88383-8</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88383-9</code>
+		<description>TC POLSO DX</description>
+		<regionalCode>88383-9</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88384</code>
+		<description>TC ARTO SUPERIORE, SENZA E CON CONTRASTO</description>
+		<regionalCode>88384</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88384</code>
+		<description>TC ARTO SUPERIORE CON E SENZA MDC</description>
+		<regionalCode>88384</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88384-1</code>
+		<description>TC SPALLA CON E SENZA MDC</description>
+		<regionalCode>88384-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88384-1</code>
+		<description>TC ARTO SUP. CON MDC</description>
+		<regionalCode>88384-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88385</code>
+		<description>TC BACINO E ART. SACRO-ILIACHE</description>
+		<regionalCode>88385</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88385</code>
+		<description>TC BACINO</description>
+		<regionalCode>88385</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88385-1</code>
+		<description>TC BACINO</description>
+		<regionalCode>88385-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88385-2</code>
+		<description>TC ARTICOLAZIONI SACRO ILIACHE</description>
+		<regionalCode>88385-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88386</code>
+		<description>TC ARTO INFERIORE</description>
+		<regionalCode>88386</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88386-1</code>
+		<description>TC  ARTO INFERIORE DX</description>
+		<regionalCode>88386-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88386-10</code>
+		<description>TC ANCA SN</description>
+		<regionalCode>88386-10</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88386-11</code>
+		<description>TC GAMBA SN</description>
+		<regionalCode>88386-11</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88386-12</code>
+		<description>TC GAMBA DX</description>
+		<regionalCode>88386-12</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88386-13</code>
+		<description>TC PIEDE SN</description>
+		<regionalCode>88386-13</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88386-14</code>
+		<description>TC PIEDE DX</description>
+		<regionalCode>88386-14</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88386-2</code>
+		<description>TC ARTO INFERIORE SN</description>
+		<regionalCode>88386-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88386-3</code>
+		<description>TC FEMORE DX</description>
+		<regionalCode>88386-3</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88386-4</code>
+		<description>TC FEMORE SN</description>
+		<regionalCode>88386-4</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88386-5</code>
+		<description>TC GINOCCHIO DESTRO</description>
+		<regionalCode>88386-5</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88386-6</code>
+		<description>TC GINOCCHIO SINISTRO</description>
+		<regionalCode>88386-6</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88386-7</code>
+		<description>TC CAVIGLIA SN</description>
+		<regionalCode>88386-7</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88386-8</code>
+		<description>TC CAVIGLIA DX</description>
+		<regionalCode>88386-8</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88386-9</code>
+		<description>TC ANCA DX</description>
+		<regionalCode>88386-9</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88387</code>
+		<description>TC ARTO INFERIORE CON E SENZA CONTRASTO</description>
+		<regionalCode>88387</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88387</code>
+		<description>TC ARTO INF. CON E SENZA MDC</description>
+		<regionalCode>88387</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88387-1</code>
+		<description>TC SEGMENTO ARTO INFERIORE CON E SENZA CONTRASTO</description>
+		<regionalCode>88387-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88387-1</code>
+		<description>TC SEGMENTO ARTO INF. CON E SENZA MDC</description>
+		<regionalCode>88387-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88387-2</code>
+		<description>TC SEGMENTO ARTO INF. CON MDC</description>
+		<regionalCode>88387-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88388</code>
+		<description>ARTRO TC</description>
+		<regionalCode>88388</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88391</code>
+		<description>LOCALIZZAZIONE RADIOLOGICA CORPO ESTRANEO</description>
+		<regionalCode>88391</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88714</code>
+		<description>DIAGNOSTICA ECOGRAFICA CAPO E COLLO</description>
+		<regionalCode>88714</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88714-1</code>
+		<description>ECOGRAFIA COLLO</description>
+		<regionalCode>88714-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88714-2</code>
+		<description>ECOGRAFIA TIROIDE</description>
+		<regionalCode>88714-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88714-3</code>
+		<description>ECOGRAFIA GHIANDOLE SALIVARI</description>
+		<regionalCode>88714-3</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88714-6</code>
+		<description>ECOGRAFIA PARATIROIDI</description>
+		<regionalCode>88714-6</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88721</code>
+		<description>ECOCARDIOGRAFIA</description>
+		<regionalCode>88721</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88731</code>
+		<description>ECOGRAFIA MAMMELLA  BILATERALE</description>
+		<regionalCode>88731</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88732</code>
+		<description>ECOGRAFIA MAMMARIA MONOLATERALE</description>
+		<regionalCode>88732</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88733</code>
+		<description>ECOGRAFIA POLMONARE</description>
+		<regionalCode>88733</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88733-1</code>
+		<description>ECOGRAFIA MEDIASTINICA</description>
+		<regionalCode>88733-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88734</code>
+		<description>ECO(COLOR)DOPPLER DELLA MAMMELLA</description>
+		<regionalCode>88734</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88741</code>
+		<description>ECOGRAFIA ADDOME SUPERIORE</description>
+		<regionalCode>88741</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88741-1</code>
+		<description>ECOGRAFIA ADDOME SUPERIORE</description>
+		<regionalCode>88741-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88741-2</code>
+		<description>ECOGRAFIA EPATICA E VIE BILIARI</description>
+		<regionalCode>88741-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88741-3</code>
+		<description>ECOGRAFIA EPATO -PANCREATICA</description>
+		<regionalCode>88741-3</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88741-4</code>
+		<description>ECOGRAFIA PANCREATICA</description>
+		<regionalCode>88741-4</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88741-5</code>
+		<description>ECOGRAFIA RENALE</description>
+		<regionalCode>88741-5</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88741-6</code>
+		<description>ECOGRAFIA RETROPERITONEO</description>
+		<regionalCode>88741-6</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88741-7</code>
+		<description>ECOGRAFIA SPLENICA</description>
+		<regionalCode>88741-7</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88741-8</code>
+		<description>ECOGRAFIA SURRENALE</description>
+		<regionalCode>88741-8</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88742</code>
+		<description>ECO(COLOR)DOPPLER DEL FEGATO E DELLE VIE BILIARI</description>
+		<regionalCode>88742</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88743</code>
+		<description>ECO(COLOR)DOPPLER DEL PANCREAS</description>
+		<regionalCode>88743</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88744</code>
+		<description>ECO(COLOR)DOPPLER DELLA MILZA</description>
+		<regionalCode>88744</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88745</code>
+		<description>ECO(COLOR)DOPPLER DEI RENI E DEI SURRENI</description>
+		<regionalCode>88745</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88751</code>
+		<description>ECOGRAFIA ADDOME INFERIORE</description>
+		<regionalCode>88751</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88751-1</code>
+		<description>ECOGRAFIA VESCICALE</description>
+		<regionalCode>88751-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88751-2</code>
+		<description>ECOGRAFIA PELVICA</description>
+		<regionalCode>88751-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88751-3</code>
+		<description>ECOGRAFIA PROSTATICA E VESCICALE( SOVRAPUBICA)</description>
+		<regionalCode>88751-3</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88751-5</code>
+		<description>ECOGRAFIA PENIENA</description>
+		<regionalCode>88751-5</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88752</code>
+		<description>ECO(COLOR)DOPPLER ADDOME INFERIORE</description>
+		<regionalCode>88752</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88761</code>
+		<description>ECOGRAFIA ADDOME COMPLETO</description>
+		<regionalCode>88761</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88761-1</code>
+		<description>ECOGRAFIA EPATICA E PELVICA</description>
+		<regionalCode>88761-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88761-2</code>
+		<description>ECOGRAFIA RENALE E PELVICA</description>
+		<regionalCode>88761-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88762</code>
+		<description>ECOGRAFIA GROSSI VASI ADDOMINALI (AORTA ADDOMINALE)</description>
+		<regionalCode>88762</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88762-1</code>
+		<description>ECOGRAFIA AORTA ADDOMINALE</description>
+		<regionalCode>88762-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88762-2</code>
+		<description>ECOGRAFIA ARTERIE CELIACO-MESENTERICHE</description>
+		<regionalCode>88762-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88762-3</code>
+		<description>ECOGRAFIA GROSSI VASI ADDOMINALI</description>
+		<regionalCode>88762-3</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88771</code>
+		<description>ECOGRAFIA ARTI SUPERIORI O INFERIORI O DISTRETTUALE, ARTERIOSA</description>
+		<regionalCode>88771</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8878</code>
+		<description>ECOGRAFIA OSTETRICA</description>
+		<regionalCode>8878</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88781</code>
+		<description>ECOGRAFIA OVARICA</description>
+		<regionalCode>88781</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88782</code>
+		<description>ECOGRAFIA GINECOLOGICA</description>
+		<regionalCode>88782</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88791</code>
+		<description>ECOGRAFIA CUTE E TESSUTO SOTTOCUTANEO</description>
+		<regionalCode>88791</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88791</code>
+		<description>ECOGRAFIA OSTEOARTICOLARE</description>
+		<regionalCode>88791</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88791-1</code>
+		<description>ECOGRAFIA TESSUTI MOLLI</description>
+		<regionalCode>88791-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88792</code>
+		<description>ECOGRAFIA BACINO PER ANCHE</description>
+		<regionalCode>88792</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88793</code>
+		<description>ECOGRAFIA MUSCOLO</description>
+		<regionalCode>88793</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88793</code>
+		<description>ECOGRAFIA MUSCOLOTENDINEA</description>
+		<regionalCode>88793</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88793-1</code>
+		<description>ECOGRAFIA RICERCA TESTICOLO RITENUTO</description>
+		<regionalCode>88793-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88793-1</code>
+		<description>ECOGRAFIA VASI PERIFERICI</description>
+		<regionalCode>88793-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88795</code>
+		<description>ECOGRAFIA DEL PENE</description>
+		<regionalCode>88795</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88796</code>
+		<description>ECOGRAFIA DEI TESTICOLI</description>
+		<regionalCode>88796</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88797</code>
+		<description>ECOGRAFIA TRANSVAGINALE</description>
+		<regionalCode>88797</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88798</code>
+		<description>ECOGRAFIA TRANSRETTALE</description>
+		<regionalCode>88798</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88798-1</code>
+		<description>ECOGRAFIA PROSTATICA TRANSRETTALE</description>
+		<regionalCode>88798-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88902</code>
+		<description>RICOSTRUZIONE TRIDIMENSIONALE TC</description>
+		<regionalCode>88902</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88903</code>
+		<description>TC RACHIDE E SPECO VERTEBRALE</description>
+		<regionalCode>88903</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88903-1</code>
+		<description>SPAZIO INTERSOMATICO AGGIUNTIVO</description>
+		<regionalCode>88903-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88915</code>
+		<description>ANGIO-RM DEL DISTRETTO VASCOLARE INTRACRANICO</description>
+		<regionalCode>88915</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88918</code>
+		<description>ANGIO-RM DEI VASI DEL COLLO</description>
+		<regionalCode>88918</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88943</code>
+		<description>ANGIO-RM DEI VASI ARTO SUPERIORE O INFERIORE</description>
+		<regionalCode>88943</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88953</code>
+		<description>ANGIO-RM ADDOME SUPERIORE</description>
+		<regionalCode>88953</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>88956</code>
+		<description>ANGIO-RM ADDOME INFEIORE</description>
+		<regionalCode>88956</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8901</code>
+		<description>ANAMNESI E VALUTAZIONE DEFINITE BREVI</description>
+		<regionalCode>8901</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8901-1</code>
+		<description>ANAMNESI E VALUTAZIONE DEFINITE BREVI</description>
+		<regionalCode>8901-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8902</code>
+		<description>ANAMNESI E VALUTAZIONE DEFINITE CMPL.</description>
+		<regionalCode>8902</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>8902-1</code>
+		<description>ANAMNESI E VALUTAZIONE DEFINITE CMPL.</description>
+		<regionalCode>8902-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>92013</code>
+		<description>SCINTIGRAFIA TIROIDEA</description>
+		<regionalCode>92013</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>92033</code>
+		<description>SCINTIGRAFIA SEQ. RENALE</description>
+		<regionalCode>92033</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>92033-1</code>
+		<description>SCINTIGRAFIA SEQ. RENALE CON FARMACO</description>
+		<regionalCode>92033-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>92042</code>
+		<description>STUDIO DEL TRANSITO ESOFAGO-GASTRO-DUODENALE</description>
+		<regionalCode>92042</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>92044</code>
+		<description>VALUTAZIONE DELLE GASTROENTERORAGGIE</description>
+		<regionalCode>92044</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>92054</code>
+		<description>ANGIOCARDIOSCINTIGRAFIA ALL EQUILIBRIO</description>
+		<regionalCode>92054</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>92055</code>
+		<description>SCINTIGRAFIA SPLENICA</description>
+		<regionalCode>92055</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>92091</code>
+		<description>TOMOSCINT MIOC DI PERFUSIONE (PET) A RIP E DOPO STIMOLO</description>
+		<regionalCode>92091</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>92092</code>
+		<description>TOMOSCINT. MIOCARDICA A RIPOSO (REST)</description>
+		<regionalCode>92092</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>92092-1</code>
+		<description>TOMOSCINT. MIOCARDICA DOPO STIMOLO CON VASODILATATORE</description>
+		<regionalCode>92092-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>92092-2</code>
+		<description>TOMOSCINT. MIOCARDICA DOPO STIMOLO DOBUTAMINA</description>
+		<regionalCode>92092-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>92092-3</code>
+		<description>TOMOSCINT. MIOCARDICA DOPO STIMOLO AI NITRATI</description>
+		<regionalCode>92092-3</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>92092-4</code>
+		<description>TOMOSCINT. MIOCARDICA DOPO STIMOLO (STRESS)</description>
+		<regionalCode>92092-4</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>92116</code>
+		<description>TOMOSCINTIGRAFIA CEREBRALE (PET) STUDIO QUANTITATIVO</description>
+		<regionalCode>92116</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>92117</code>
+		<description>TOMOSCINTIGRAFIA CEREBRALE (PET)</description>
+		<regionalCode>92117</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>9213</code>
+		<description>SCINTIGRAFIA DELLE PARATIROIDI</description>
+		<regionalCode>9213</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>92142</code>
+		<description>SCINTIGR OSSEA O ARTICOLARE SEGMENT POLIFAS</description>
+		<regionalCode>92142</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>92151</code>
+		<description>SCINTIGRAFIA POLMONARE PERFUSIONALE STUDIO QUANTITATIVO</description>
+		<regionalCode>92151</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>92153</code>
+		<description>SCINTIGRAFIA POLMON PERF STUDIO QUANTIT DIFFERENZ</description>
+		<regionalCode>92153</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>92154</code>
+		<description>SCINTIGRAFIA TESTICOLARE</description>
+		<regionalCode>92154</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>92155</code>
+		<description>TOMOSCINTIGRAFIA POLMONARE</description>
+		<regionalCode>92155</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>92161</code>
+		<description>LINFOSCINTIGRAFIA SEGMENTARIA</description>
+		<regionalCode>92161</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>92182</code>
+		<description>SCINTIGRAFIA OSSEA O ARTICOLARE TOT BODY</description>
+		<regionalCode>92182</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>92186</code>
+		<description>TOMOSCINTIGRAFIA GLOBALE CORPOREA (PET)</description>
+		<regionalCode>92186</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>92193</code>
+		<description>SCINTIGRAFIA DEI TESTICOLI</description>
+		<regionalCode>92193</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>92286</code>
+		<description>TERAPIA PALLIATIVA DEL DOLORE METASTASI OSSEE(SAM)</description>
+		<regionalCode>92286</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>92286-1</code>
+		<description>RADIOSINOVIORTESI</description>
+		<regionalCode>92286-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>9761-1</code>
+		<description>STUDIO SELETTIVO ULTIMA ANSA</description>
+		<regionalCode>9761-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>9761-2</code>
+		<description>TUBO DIGERENTE ESCLUSO ESOFAGO</description>
+		<regionalCode>9761-2</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>99.99.1-1</code>
+		<description>TC CARDIACA SENZA E CON MDC</description>
+		<regionalCode>99.99.1-1</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>99991</code>
+		<description>TC CARDIACA SENZA MDC</description>
+		<regionalCode>99991</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>9999199</code>
+		<description>TC CARDIACA SENZA MDC</description>
+		<regionalCode>9999199</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>99991991</code>
+		<description>TC CARDIACA SENZA E CON MDC</description>
+		<regionalCode>99991991</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>99992</code>
+		<description>ANGIO TC</description>
+		<regionalCode>99992</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>99993</code>
+		<description>BRONCOSCOPIA VIRTUALE TC</description>
+		<regionalCode>99993</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>99994</code>
+		<description>COLONSCOPIA VIRTUALE TC</description>
+		<regionalCode>99994</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>99995</code>
+		<description>CORONAROGRAFIA TC</description>
+		<regionalCode>99995</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>99996</code>
+		<description>ENTERO TC</description>
+		<regionalCode>99996</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>99997</code>
+		<description>URO-TC</description>
+		<regionalCode>99997</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>99998</code>
+		<description>TERMOABLAZIONE</description>
+		<regionalCode>99998</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>999999</code>
+		<description>SVUOTAMENTO GASTRICO</description>
+		<regionalCode>999999</regionalCode>
+	</data_entry>
+	<data_entry>
+		<code>9999999</code>
+		<description>AORTOGRAFIA-TC</description>
+		<regionalCode>9999999</regionalCode>
+	</data_entry>
+</radiology_exam>

@@ -1,0 +1,23 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<div class="footer">
+		<p class="copyright">
+			#{msg.footerPageCopyright}<a href="#">#{msg.footerPageTerms}</a> | <a
+				href="#">#{msg.footerPagePolicy}</a>
+		</p>
+	</div>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			fixExpandRow();
+			fixCalendarInput();
+			fixImageUpload();
+
+			$('.right-aligned-menu-item').parent().css('float', 'right');
+		});
+	</script>
+</ui:composition>

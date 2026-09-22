@@ -1,0 +1,500 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/resources/tpl/Admin/EmptyBase.xhtml">
+	<ui:param name="view_title" value="#{msg.systemMonitoring}" />
+	<ui:param name="bean" value="#{monitoringBean}" />
+
+	<ui:define name="view_body">
+		<p:tabView id="tabs">
+			<p:tab title="#{msg.services}">
+				<p:outputPanel id="outpanel">
+					<p:fieldset legend="#{msg.tempRemoverService}">
+						<h:panelGrid styleClass="grid view_grid"
+							columnClasses="label,value" columns="2">
+							<h:outputText value="#{msg.threadStatus}:" />
+							<p:column>
+								<h:outputText value="#{msg.running}"
+									style="color: green;font-weight: bold;"
+									rendered="#{bean.tempRemoverService.running}" />
+								<h:outputText value="#{msg.stoped}"
+									style="color: red;font-weight: bold;"
+									rendered="#{!bean.tempRemoverService.running}" />
+							</p:column>
+
+							<h:outputText value="#{msg.threadLastRunTime}:" />
+							<p:column>
+								<h:outputText converter="dateTimeConverterWithMinutes"
+									value="#{bean.tempRemoverService.lastStartTime}" />
+								<h:outputText value="(#{bean.IPAddress})" />
+							</p:column>
+
+						</h:panelGrid>
+						<div class="btn_line">
+							<p:commandButton value="#{msg.start}"
+								widgetVar="tempRemoverStartWV" icon="ui-icon-play"
+								action="#{bean.tempRemoverService.start}" update="outpanel"
+								disabled="#{bean.tempRemoverService.running}"
+								oncomplete="PF('tempRemoverStopWV').enable();"
+								onclick="PF('tempRemoverStartWV').disable();" />
+
+							<p:commandButton value="#{msg.stop}"
+								widgetVar="tempRemoverStopWV" icon="ui-icon-stop"
+								action="#{bean.tempRemoverService.stop}" update="outpanel"
+								disabled="#{!bean.tempRemoverService.running}"
+								onclick="PF('tempRemoverStopWV').disable();"
+								oncomplete="PF('tempRemoverStartWV').enable();" />
+						</div>
+					</p:fieldset>
+
+					<p:fieldset legend="#{msg.keepAliveService}">
+						<h:panelGrid styleClass="grid view_grid"
+							columnClasses="label,value" columns="2">
+							<h:outputText value="#{msg.threadStatus}:" />
+							<p:column>
+								<h:outputText value="#{msg.running}"
+									style="color: green;font-weight: bold;"
+									rendered="#{bean.keepAliveService.running}" />
+								<h:outputText value="#{msg.stoped}"
+									style="color: red;font-weight: bold;"
+									rendered="#{!bean.keepAliveService.running}" />
+							</p:column>
+
+							<h:outputText value="#{msg.threadLastRunTime}:" />
+							<p:column>
+								<h:outputText converter="dateTimeConverterWithMinutes"
+									value="#{bean.keepAliveService.lastStartTime}" />
+								<h:outputText value="(#{bean.IPAddress})" />
+							</p:column>
+
+						</h:panelGrid>
+						<div class="btn_line">
+							<p:commandButton value="#{msg.start}"
+								widgetVar="keepAliveStartWV" icon="ui-icon-play"
+								action="#{bean.keepAliveService.start}" update="outpanel"
+								disabled="#{bean.keepAliveService.running}"
+								onclick="PF('keepAliveStartWV').disable();"
+								oncomplete="PF('keepAliveStopWV').enable();" />
+
+							<p:commandButton value="#{msg.stop}" widgetVar="keepAliveStopWV"
+								icon="ui-icon-stop" action="#{bean.keepAliveService.stop}"
+								update="outpanel" disabled="#{!bean.keepAliveService.running}"
+								onclick="PF('keepAliveStopWV').disable();"
+								oncomplete="PF('keepAliveStartWV').enable();" />
+						</div>
+					</p:fieldset>
+
+					<p:fieldset legend="#{msg.settingSynchronizerService}">
+						<h:panelGrid styleClass="grid view_grid"
+							columnClasses="label,value" columns="2">
+							<h:outputText value="#{msg.threadStatus}:" />
+							<p:column>
+								<h:outputText value="#{msg.running}"
+									style="color: green;font-weight: bold;"
+									rendered="#{bean.settingSynchronizerService.running}" />
+								<h:outputText value="#{msg.stoped}"
+									style="color: red;font-weight: bold;"
+									rendered="#{!bean.settingSynchronizerService.running}" />
+							</p:column>
+
+							<h:outputText value="#{msg.threadLastRunTime}:" />
+							<p:column>
+								<h:outputText converter="dateTimeConverterWithMinutes"
+									value="#{bean.settingSynchronizerService.lastStartTime}" />
+								<h:outputText value="(#{bean.IPAddress})" />
+							</p:column>
+
+						</h:panelGrid>
+						<div class="btn_line">
+							<p:commandButton value="#{msg.start}"
+								widgetVar="settingSynchronizerStartWV" icon="ui-icon-play"
+								action="#{bean.settingSynchronizerService.start}"
+								update="outpanel"
+								disabled="#{bean.settingSynchronizerService.running}"
+								onclick="PF('settingSynchronizerStartWV').disable();"
+								oncomplete="PF('settingSynchronizerStopWV').enable();" />
+
+							<p:commandButton value="#{msg.stop}"
+								widgetVar="settingSynchronizerStopWV" icon="ui-icon-stop"
+								action="#{bean.settingSynchronizerService.stop}"
+								update="outpanel"
+								disabled="#{!bean.settingSynchronizerService.running}"
+								onclick="PF('settingSynchronizerStopWV').disable();"
+								oncomplete="PF('settingSynchronizerStartWV').enable();" />
+						</div>
+					</p:fieldset>
+
+					<p:fieldset legend="#{msg.hl7MessagesSenderService}">
+						<h:panelGrid styleClass="grid view_grid"
+							columnClasses="label,value" columns="2">
+							<h:outputText value="#{msg.threadStatus}:" />
+							<p:column>
+								<h:outputText value="#{msg.running}"
+									style="color: green;font-weight: bold;"
+									rendered="#{bean.hl7RadExamRequestMessagesSenderService.running}" />
+
+								<h:outputText value="#{msg.stoped}"
+									style="color: red;font-weight: bold;"
+									rendered="#{!bean.hl7RadExamRequestMessagesSenderService.running}" />
+							</p:column>
+
+							<h:outputText value="#{msg.threadLastRunTime}:" />
+							<p:column>
+								<h:outputText converter="dateTimeConverterWithMinutes"
+									value="#{bean.hl7RadExamRequestMessagesSenderService.lastStartTime}" />
+								<h:outputText value="(#{bean.IPAddress})" />
+							</p:column>
+
+						</h:panelGrid>
+						<div class="btn_line">
+							<p:commandButton value="#{msg.start}"
+								widgetVar="hl7ServiceStartWV" icon="ui-icon-play"
+								action="#{bean.hl7RadExamRequestMessagesSenderService.start}"
+								update="outpanel"
+								disabled="#{bean.hl7RadExamRequestMessagesSenderService.running}"
+								onclick="PF('hl7ServiceStartWV').disable();"
+								oncomplete="PF('hl7ServiceStopWV').enable();" />
+
+							<p:commandButton value="#{msg.stop}" widgetVar="hl7ServiceStopWV"
+								icon="ui-icon-stop"
+								action="#{bean.hl7RadExamRequestMessagesSenderService.stop}"
+								update="outpanel"
+								disabled="#{!bean.hl7RadExamRequestMessagesSenderService.running}"
+								onclick="PF('hl7ServiceStopWV').disable();"
+								oncomplete="PF('hl7ServiceStartWV').enable();" />
+						</div>
+					</p:fieldset>
+
+					<p:fieldset legend="#{msg.radiologyRequestService}">
+						<h:panelGrid styleClass="grid view_grid"
+							columnClasses="label,value" columns="2">
+							<h:outputText value="#{msg.threadStatus}:" />
+							<p:column>
+								<h:outputText value="#{msg.running}"
+									style="color: green;font-weight: bold;"
+									rendered="#{bean.radiologyRequestDisableService.running}" />
+								<h:outputText value="#{msg.stoped}"
+									style="color: red;font-weight: bold;"
+									rendered="#{!bean.radiologyRequestDisableService.running}" />
+							</p:column>
+
+							<h:outputText value="#{msg.threadLastRunTime}:" />
+							<p:column>
+								<h:outputText converter="dateTimeConverterWithMinutes"
+									value="#{bean.radiologyRequestDisableService.lastStartTime}" />
+								<h:outputText value="(#{bean.IPAddress})" />
+							</p:column>
+
+						</h:panelGrid>
+						<div class="btn_line">
+							<p:commandButton value="#{msg.start}"
+								widgetVar="radiologyRequestDisableStartWV" icon="ui-icon-play"
+								action="#{bean.radiologyRequestDisableService.start}"
+								update="outpanel"
+								disabled="#{bean.radiologyRequestDisableService.running}"
+								onclick="PF('radiologyRequestDisableStartWV').disable();"
+								oncomplete="PF('radiologyRequestDisableStopWV').enable();" />
+
+							<p:commandButton value="#{msg.stop}"
+								widgetVar="radiologyRequestDisableStopWV" icon="ui-icon-stop"
+								action="#{bean.radiologyRequestDisableService.stop}"
+								update="outpanel"
+								disabled="#{!bean.radiologyRequestDisableService.running}"
+								onclick="PF('radiologyRequestDisableStopWV').disable();"
+								oncomplete="PF('radiologyRequestDisableStartWV').enable();" />
+						</div>
+					</p:fieldset>
+
+					<p:fieldset legend="#{msg.sessionTimeout}">
+						<h:panelGrid styleClass="grid view_grid"
+							columnClasses="label,value" columns="2">
+							<h:outputText value="#{msg.threadStatus}:" />
+							<p:column>
+								<h:outputText value="#{msg.running}"
+									style="color: green;font-weight: bold;"
+									rendered="#{bean.sessionFilterService.running}" />
+								<h:outputText value="#{msg.stoped}"
+									style="color: red;font-weight: bold;"
+									rendered="#{!bean.sessionFilterService.running}" />
+							</p:column>
+
+							<h:outputText value="#{msg.threadLastRunTime}:" />
+							<p:column>
+								<h:outputText converter="dateTimeConverterWithMinutes"
+									value="#{bean.sessionFilterService.lastStartTime}" />
+								<h:outputText value="(#{bean.IPAddress})" />
+							</p:column>
+
+						</h:panelGrid>
+						<div class="btn_line">
+							<p:commandButton value="#{msg.start}"
+								widgetVar="sessionFilterServiceStartWV" icon="ui-icon-play"
+								action="#{bean.sessionFilterService.start}"
+								update="outpanel"
+								disabled="true"
+								onclick="PF('sessionFilterServiceStartWV').disable();"
+								oncomplete="PF('sessionFilterServiceStopWV').enable();" />
+
+							<p:commandButton value="#{msg.stop}"
+								widgetVar="sessionFilterServiceStopWV" icon="ui-icon-stop"
+								action="#{bean.sessionFilterService.stop}"
+								update="outpanel"
+								disabled="#{!bean.sessionFilterService.running}"
+								onclick="PF('sessionFilterServiceStopWV').disable();"
+								oncomplete="PF('sessionFilterServiceStartWV').enable();" />
+						</div>
+					</p:fieldset>
+
+					<p:fieldset legend="#{msg.emptySessionTimeout}">
+						<h:panelGrid styleClass="grid view_grid"
+							columnClasses="label,value" columns="2">
+							<h:outputText value="#{msg.threadStatus}:" />
+							<p:column>
+								<h:outputText value="#{msg.running}"
+									style="color: green;font-weight: bold;"
+									rendered="#{bean.emptySessionFilterService.running}" />
+								<h:outputText value="#{msg.stoped}"
+									style="color: red;font-weight: bold;"
+									rendered="#{!bean.emptySessionFilterService.running}" />
+							</p:column>
+
+							<h:outputText value="#{msg.threadLastRunTime}:" />
+							<p:column>
+								<h:outputText converter="dateTimeConverterWithMinutes"
+									value="#{bean.emptySessionFilterService.lastStartTime}" />
+								<h:outputText value="(#{bean.IPAddress})" />
+							</p:column>
+
+						</h:panelGrid>
+						<div class="btn_line">
+							<p:commandButton value="#{msg.start}"
+								widgetVar="emptySessionFilterServiceStartWV" icon="ui-icon-play"
+								action="#{bean.emptySessionFilterService.start}"
+								update="outpanel"
+								disabled="true"
+								onclick="PF('emptySessionFilterServiceStartWV').disable();"
+								oncomplete="PF('emptySessionFilterServiceStopWV').enable();" />
+
+							<p:commandButton value="#{msg.stop}"
+								widgetVar="emptySessionFilterServiceStopWV" icon="ui-icon-stop"
+								action="#{bean.emptySessionFilterService.stop}"
+								update="outpanel"
+								disabled="#{!bean.emptySessionFilterService.running}"
+								onclick="PF('emptySessionFilterServiceStopWV').disable();"
+								oncomplete="PF('emptySessionFilterServiceStartWV').enable();" />
+						</div>
+					</p:fieldset>
+
+					<p:fieldset legend="#{msg.cleanShortRequestService}">
+						<h:panelGrid styleClass="grid view_grid"
+							columnClasses="label,value" columns="2">
+							<h:outputText value="#{msg.threadStatus}:" />
+							<p:column>
+								<h:outputText value="#{msg.running}"
+									style="color: green;font-weight: bold;"
+									rendered="#{bean.cleanShortRequestService.running}" />
+								<h:outputText value="#{msg.stoped}"
+									style="color: red;font-weight: bold;"
+									rendered="#{!bean.cleanShortRequestService.running}" />
+							</p:column>
+
+							<h:outputText value="#{msg.threadLastRunTime}:" />
+							<p:column>
+								<h:outputText converter="dateTimeConverterWithMinutes"
+									value="#{bean.cleanShortRequestService.lastStartTime}" />
+								<h:outputText value="(#{bean.IPAddress})" />
+							</p:column>
+
+						</h:panelGrid>
+						<div class="btn_line">
+							<p:commandButton value="#{msg.start}"
+								widgetVar="cleanShortRequestServiceStartWV" icon="ui-icon-play"
+								action="#{bean.cleanShortRequestService.start}"
+								update="outpanel"
+								disabled="#{bean.cleanShortRequestService.running}"
+								onclick="PF('cleanShortRequestServiceStartWV').disable();"
+								oncomplete="PF('cleanShortRequestServiceStopWV').enable();" />
+
+							<p:commandButton value="#{msg.stop}"
+								widgetVar="cleanShortRequestServiceStopWV" icon="ui-icon-stop"
+								action="#{bean.cleanShortRequestService.stop}"
+								update="outpanel"
+								disabled="#{!bean.cleanShortRequestService.running}"
+								onclick="PF('cleanShortRequestServiceStopWV').disable();"
+								oncomplete="PF('cleanShortRequestServiceStartWV').enable();" />
+						</div>
+					</p:fieldset>
+
+					<p:fieldset legend="#{msg.userDisableService}">
+						<h:panelGrid styleClass="grid view_grid"
+							columnClasses="label,value" columns="2">
+							<h:outputText value="#{msg.threadStatus}:" />
+							<p:column>
+								<h:outputText value="#{msg.running}"
+									style="color: green;font-weight: bold;"
+									rendered="#{bean.userDisableService.running}" />
+								<h:outputText value="#{msg.stoped}"
+									style="color: red;font-weight: bold;"
+									rendered="#{!bean.userDisableService.running}" />
+							</p:column>
+
+							<h:outputText value="#{msg.threadLastRunTime}:" />
+							<p:column>
+								<h:outputText converter="dateTimeConverterWithMinutes"
+									value="#{bean.userDisableService.lastStartTime}" />
+								<h:outputText value="(#{bean.IPAddress})" />
+							</p:column>
+
+						</h:panelGrid>
+						<div class="btn_line">
+							<p:commandButton value="#{msg.start}"
+								widgetVar="userDisableServiceStartWV" icon="ui-icon-play"
+								action="#{bean.userDisableService.start}"
+								update="outpanel"
+								disabled="#{bean.userDisableService.running}"
+								onclick="PF('userDisableServiceStartWV').disable();"
+								oncomplete="PF('userDisableServiceStopWV').enable();" />
+
+							<p:commandButton value="#{msg.stop}"
+								widgetVar="userDisableServiceStopWV" icon="ui-icon-stop"
+								action="#{bean.userDisableService.stop}"
+								update="outpanel"
+								disabled="#{!bean.userDisableService.running}"
+								onclick="PF('userDisableServiceStopWV').disable();"
+								oncomplete="PF('userDisableServiceStartWV').enable();" />
+						</div>
+					</p:fieldset>
+
+					<p:fieldset legend="#{msg.hl7MessageForwardingService}">
+						<h:panelGrid styleClass="grid view_grid"
+									 columnClasses="label,value" columns="2">
+							<h:outputText value="#{msg.threadStatus}:" />
+							<p:column>
+								<h:outputText value="#{msg.running}"
+											  style="color: green;font-weight: bold;"
+											  rendered="#{bean.hl7MessageForwardingService.running}" />
+								<h:outputText value="#{msg.stoped}"
+											  style="color: red;font-weight: bold;"
+											  rendered="#{!bean.hl7MessageForwardingService.running}" />
+							</p:column>
+
+							<h:outputText value="#{msg.threadLastRunTime}:" />
+							<p:column>
+								<h:outputText converter="dateTimeConverterWithMinutes"
+											  value="#{bean.hl7MessageForwardingService.lastStartTime}" />
+								<h:outputText value="(#{bean.IPAddress})" />
+							</p:column>
+
+						</h:panelGrid>
+						<div class="btn_line">
+							<p:commandButton value="#{msg.start}"
+											 widgetVar="hl7MessageForwardingServiceStartWV" icon="ui-icon-play"
+											 action="#{bean.hl7MessageForwardingService.start}"
+											 update="outpanel"
+											 disabled="#{bean.hl7MessageForwardingService.running}"
+											 onclick="PF('hl7MessageForwardingServiceStartWV').disable();"
+											 oncomplete="PF('hl7MessageForwardingServiceStopWV').enable();" />
+
+							<p:commandButton value="#{msg.stop}"
+											 widgetVar="hl7MessageForwardingServiceStopWV" icon="ui-icon-stop"
+											 action="#{bean.hl7MessageForwardingService.stop}"
+											 update="outpanel"
+											 disabled="#{!bean.hl7MessageForwardingService.running}"
+											 onclick="PF('hl7MessageForwardingServiceStopWV').disable();"
+											 oncomplete="PF('hl7MessageForwardingServiceStartWV').enable();" />
+						</div>
+					</p:fieldset>
+					<p:fieldset legend="#{msg.hl7ReportForwardingService}">
+						<h:panelGrid styleClass="grid view_grid"
+									 columnClasses="label,value" columns="2">
+							<h:outputText value="#{msg.threadStatus}:" />
+							<p:column>
+								<h:outputText value="#{msg.running}"
+											  style="color: green;font-weight: bold;"
+											  rendered="#{bean.hl7ReportForwardingService.running}" />
+								<h:outputText value="#{msg.stoped}"
+											  style="color: red;font-weight: bold;"
+											  rendered="#{!bean.hl7ReportForwardingService.running}" />
+							</p:column>
+
+							<h:outputText value="#{msg.threadLastRunTime}:" />
+							<p:column>
+								<h:outputText converter="dateTimeConverterWithMinutes"
+											  value="#{bean.hl7ReportForwardingService.lastStartTime}" />
+								<h:outputText value="(#{bean.IPAddress})" />
+							</p:column>
+
+						</h:panelGrid>
+						<div class="btn_line">
+							<p:commandButton value="#{msg.start}"
+											 widgetVar="hl7ReportForwardingServiceStartWV" icon="ui-icon-play"
+											 action="#{bean.hl7ReportForwardingService.start}"
+											 update="outpanel"
+											 disabled="#{bean.hl7ReportForwardingService.running}"
+											 onclick="PF('hl7ReportForwardingServiceStartWV').disable();"
+											 oncomplete="PF('hl7ReportForwardingServiceStopWV').enable();" />
+
+							<p:commandButton value="#{msg.stop}"
+											 widgetVar="hl7ReportForwardingServiceStopWV" icon="ui-icon-stop"
+											 action="#{bean.hl7ReportForwardingService.stop}"
+											 update="outpanel"
+											 disabled="#{!bean.hl7ReportForwardingService.running}"
+											 onclick="PF('hl7ReportForwardingServiceStopWV').disable();"
+											 oncomplete="PF('hl7ReportForwardingServiceStartWV').enable();" />
+						</div>
+					</p:fieldset>
+				</p:outputPanel>
+			</p:tab>
+
+			<p:tab title="#{msg.listeners}">
+				<p:outputPanel id="outpanel_listeners">
+					<p:fieldset legend="#{msg.editAppSettingsHl7Listener}">
+						<p:outputPanel id="hl7ListenerPanel">
+							<h:panelGrid styleClass="grid view_grid"
+								columnClasses="label,value" columns="2">
+
+								<h:outputText value="#{msg.threadStatus}:" />
+								<p:column>
+									<h:outputText value="#{msg.running}"
+										style="color: green;font-weight: bold;"
+										rendered="#{bean.receiverRunning}" />
+									<h:outputText value="#{msg.stoped}"
+										style="color: red;font-weight: bold;"
+										rendered="#{!bean.receiverRunning}" />
+								</p:column>
+
+								<h:outputText value="#{msg.listenerPort}:" />
+								<p:column>
+									<h:outputText value="#{bean.laboratoryCurrentPort}" />
+									<h:outputText value="(#{bean.IPAddress})" />
+								</p:column>
+
+							</h:panelGrid>
+							<div class="btn_line">
+								<p:commandButton value="#{msg.start}"
+									widgetVar="hl7ListenerStartWV" icon="ui-icon-play"
+									action="#{bean.startHl7Listener}" update="hl7ListenerPanel"
+									disabled="#{bean.receiverRunning}"
+									onclick="PF('hl7ListenerStartWV').disable();"
+									oncomplete="PF('hl7ListenerStopWV').enable();" />
+
+								<p:commandButton value="#{msg.stop}"
+									widgetVar="hl7ListenerStopWV" icon="ui-icon-stop"
+									action="#{bean.stopHl7Listener}" update="hl7ListenerPanel"
+									disabled="#{!bean.receiverRunning}"
+									onclick="PF('hl7ServiceStopWV').disable();"
+									oncomplete="PF('hl7ServiceStartWV').enable();" />
+							</div>
+						</p:outputPanel>
+					</p:fieldset>
+				</p:outputPanel>
+			</p:tab>
+
+		</p:tabView>
+
+	</ui:define>
+</ui:composition>
+</html>

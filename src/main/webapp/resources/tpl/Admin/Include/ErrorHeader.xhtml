@@ -1,0 +1,27 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<div class="header  ui-widget-content">
+
+		<ul class="user_menu">
+			<li><p:ajaxStatus style=" margin-top: 8px;"
+					onsuccess="fixExpandRow()">
+					<f:facet name="start">
+						<p:graphicImage value="/resources/images/ajax-loader.gif" />
+					</f:facet>
+
+					<f:facet name="complete">
+						<h:outputText value=""></h:outputText>
+					</f:facet>
+				</p:ajaxStatus></li>
+			<ui:fragment rendered="#{!empty sessionBean.currentUser}">
+				<li><a
+					href="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout">#{msg.logout}</a>
+				</li>
+			</ui:fragment>
+		</ul>
+	</div>
+</ui:composition>

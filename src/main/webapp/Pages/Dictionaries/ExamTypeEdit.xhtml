@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/resources/tpl/Admin/EditBase.xhtml">
+	<ui:param name="edit_title" value="#{msg.examTypeEditTitle}" />
+	<ui:param name="bean" value="#{examTypeEditBean}" />
+
+	<ui:define name="edit_body">
+		<p:fieldset legend="#{msg.general}">
+			<h:panelGrid columns="2" columnClasses="label, value"
+				styleClass="grid">
+
+				<span><span class="red">*</span> #{msg.description}:</span>
+				<p:inputTextarea id="description" label="#{msg.description}"
+					onkeypress="return text_area_limit(this, event, 20)"
+					onkeyup="text_area_check(this,20);" maxLength="20"
+					autoResize="false" value="#{bean.entity.description}" />
+
+				<span>#{msg.priorityColor}: </span>
+				<p:colorPicker value="#{bean.entity.color}" converter="hexColorConverter">
+				</p:colorPicker>
+
+				<span>#{msg.priorityHasColor}:</span>
+				<p:selectBooleanCheckbox style="margin-top: 3px;"
+					value="#{bean.entity.hasColor}">
+				</p:selectBooleanCheckbox>
+
+				<span>#{msg.editAppSettingsCodiceAffinityDomain}:</span>
+				<p:inputText id="CodiceAffinityDomain" maxlength="255"
+							 value="#{bean.entity.codeAffinityDomain}" />
+
+				<span>#{msg.sectorSendingApp}:</span>
+				<p:inputText id="sendingApp" maxlength="255"
+							 value="#{bean.entity.sendingApp}" />
+
+				<span>#{msg.sectorDocumentTypeCode}:</span>
+				<p:inputText id="documentTypeCode" maxlength="255"
+							 value="#{bean.entity.documentTypeCode}" />
+				<span>#{msg.sectorDocumentFormatCode}:</span>
+				<p:inputText id="documentFormatCode" maxlength="255"
+							 value="#{bean.entity.documentFormatCode}" />
+
+			</h:panelGrid>
+		</p:fieldset>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/resources/tpl/Admin/EditBase.xhtml">
+	<ui:param name="bean" value="#{radiologyExamRequestEditBean}" />
+	<ui:param name="showSave" value="false" />
+	<ui:param name="renderMenu" value="false" />
+	<ui:param name="centerPartStyleClass" value="false" />
+
+	<ui:define name="edit_body">
+
+		<p:panel>
+			<h:panelGrid columns="3">
+				<h:graphicImage value="/resources/images/menu/patients.png"
+					style="padding-right:50px" />
+
+				<h:panelGrid columns="2">
+					<h:panelGrid columns="2" style="padding-right:50px">
+						<h:outputText value="#{msg.radiologyExamRequestVeiwCognome}" />
+						<h:outputText value="#{bean.patient.surname}"
+							style="font-weight:bold;" />
+						<h:outputText value="#{msg.radiologyExamRequestVeiwDataDiNascita}" />
+						<h:outputText value="#{bean.patient.birthDate}"
+							converter="dateTimeConverter" />
+						<h:outputText value="#{msg.radiologyExamRequestVeiwCodiceFiscale}" />
+						<h:outputText value="#{bean.patient.fiscalCode}"
+							style="font-weight:bold;" />
+					</h:panelGrid>
+					<h:panelGrid columns="2">
+						<h:outputText value="#{msg.radiologyExamRequestVeiwNome}" />
+						<h:outputText value="#{bean.patient.name}"
+							style="font-weight:bold;" />
+						<h:outputText
+							value="#{msg.radiologyExamRequestVeiwLuogoDiNascita}" />
+						<h:outputText value="#{bean.patient.birthCity}"
+							style="font-weight:bold;" />
+						<h:outputText value="&zwnj;" />
+						<h:outputText value="&zwnj;" />
+					</h:panelGrid>
+				</h:panelGrid>
+
+			</h:panelGrid>
+		</p:panel>
+
+		<p:outputPanel id="dlgAddRadItemsPanel"
+			styleClass="radiology_exam_request_edit_panel">
+			<p:panel
+				header="#{msg.radiologyExamRequestVeiwInsarimentoRpestazione}"
+				styleClass="content">
+
+				<!-- Radiology exams -->
+
+				<div class="js-block">
+					<p:dataTable var="item" id="radExamsTable"
+						emptyMessage="#{msg.noRecordsFound}"
+						value="#{bean.listRadExamItemOptions}" paginator="true"
+						filteredValue="#{bean.listRadExamItemOptionsFiltered}"
+						rowKey="#{item.id}" rows="5" paginatorAlwaysVisible="true"
+						selection="#{bean.selectedRadExamItemOption}"
+						selectionMode="single"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,20,50" widgetVar="radExamsTableVar"
+						style="margin-bottom:7px;" lazy="false">
+						<p:ajax event="rowSelect"
+							listener="#{radiologyExamRequestEditBean.addToSelectedRadExam}"
+							update=":form:selectedRadExamsTable, :form:messages" />
+
+						<p:column style="width:20%;" filterMatchMode="contains"
+							styleClass="sort_arr" sortBy="#{item.radiologyExam.examType.id}">
+							<f:facet name="header">
+								<h:outputText value="#{msg.radiologyExamRequestRagiologyType}"
+									styleClass="ui-column-title" />
+								<span
+									class="ui-sortable-column-icon ui-icon ui-icon-carat-2-n-s first_arr"></span>
+								<p:selectOneMenu styleClass="ui-column-filter"
+									value="#{bean.selectedRadiologyExamType}" style="width: 200px">
+									<f:selectItems value="#{bean.radiologyExamTypes}" />
+									<p:ajax update=":form:radExamsTable"
+										oncomplete="PF('radExamsTableVar').paginator.setPage(0);PF('radExamsTableVar').filter();"
+										listener="#{radiologyExamRequestEditBean.filteredByExamType}" />
+								</p:selectOneMenu>
+							</f:facet>
+							<h:outputText value="#{item.radiologyExam.examType}" />
+						</p:column>
+
+						<p:column filterBy="#{item.radiologyExam.description}"
+							sortBy="#{item.radiologyExam.description}"
+							filterMatchMode="contains" style="width:40%;"
+							headerText="#{msg.radiologyExamRequestVeiwDescrizioneEsame}">
+							<h:outputText value="#{item.radiologyExam.description}" />
+						</p:column>
+
+						<p:column style="width:20%;" filterMatchMode="contains"
+							filterBy="#{item.radiologyExam.code}"
+							sortBy="#{item.radiologyExam.code}">
+							<f:facet name="header">
+								<h:outputText value="#{msg.radiologyExamRequestRadiologyCode}" />
+							</f:facet>
+							<h:outputText value="#{item.radiologyExam.code}" />
+						</p:column>
+
+						<ui:remove>
+							<p:column sortBy="#{item.radiologyExam.multiple}"
+								filterBy="#{item.radiologyExam.multiple}"
+								filterOptions="#{bean.isMultipleOptions}"
+								filterMatchMode="exact"
+								headerText="#{msg.radyologyExamMultiple}" style="width:10%">
+								<h:outputText value="#{item.radiologyExam.multiple}"
+									converter="booleanConverter" />
+							</p:column>
+						</ui:remove>
+					</p:dataTable>
+				</div>
+
+				<!-- Selected radiology exams -->
+
+				<p:dataTable var="item" id="selectedRadExamsTable"
+					emptyMessage="#{msg.radiologyExamRequestVeiwNessunEsameSelezionato}"
+					value="#{bean.selectedRadExams}" paginator="true"
+					selection="#{bean.selectedRadExamToDelete}" selectionMode="single"
+					filteredValue="#{bean.selectedRadExamsFiltered}"
+					rowKey="#{item.id}" rows="5" paginatorAlwaysVisible="true"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,20,50"
+					rowStyleClass="#{item.hasDuplicate ? 'duplicated' : ''}" lazy="false">
+
+					<p:ajax event="rowSelect"
+						listener="#{radiologyExamRequestEditBean.removeSelectedRadExam}"
+						update=":form:selectedRadExamsTable, :form:radExamsTable"
+						oncomplete="PF('radExamsTableVar').paginator.setPage(0);PF('radExamsTableVar').filter();" />
+
+					<p:column style="width:90%"
+						headerText="#{msg.radiologyExamRequestVeiwEsamiSelezionati}">
+						<h:outputText value="#{item.radiologyExam.description}" />
+					</p:column>
+				</p:dataTable>
+
+				<h:panelGrid columns="2" style="width:100%;">
+
+					<h:panelGrid columns="2" styleClass="value">
+						<span style="vertical-align: middle;"><span class="red">*</span>
+							#{msg.radiologyExamRequestVeiwQuesitoDiagnostico}: </span>
+
+						<p:inputTextarea id="diagnosticQuestion"
+							label="#{msg.radiologyExamRequestVeiwQuesitoDiagnostico}"
+							onkeypress="return text_area_limit(this, event, 1024)"
+							onkeyup="text_area_check(this, 1024);" maxLength="1024"
+							autoResize="false" value="#{bean.diagnosticQuestion}" />
+					</h:panelGrid>
+
+					<h:panelGrid columns="2" columnClasses="label, value">
+
+						<span>#{msg.radiologyUserHospital}: </span>
+						<p:selectOneMenu id="userHospitals"
+							disabled="#{!bean.ableToChooseHospital}"
+							value="#{bean.selectedUserHospital}">
+							<p:ajax update="asapSector"
+								listener="#{radiologyExamRequestEditBean.hospitalChange}" />
+							<f:selectItems value="#{bean.userHospitals}" />
+						</p:selectOneMenu>
+
+						<span> #{msg.userSector}:</span>
+						<p:selectOneMenu id="risSector" value="#{bean.selectedRisSector}"
+							label="#{msg.userSector}">
+							<f:selectItems value="#{bean.sectors}" />
+						</p:selectOneMenu>
+
+						<span>#{msg.radiologyExamRequestVeiwTransporto}: </span>
+						<p:selectOneMenu id="transportTypes"
+							value="#{bean.selectedTransportType}">
+							<f:selectItems value="#{bean.transportTypes}" />
+						</p:selectOneMenu>
+
+						<span><span class="red">*</span>
+							#{msg.radiologyExamRequestVeiwProvenienza}: </span>
+						<p:autoComplete id="asapSector" dropdown="true"
+							value="#{bean.selectedAsapSectorId}"
+							label="#{msg.radiologyExamRequestVeiwProvenienza}"
+							completeMethod="#{bean.completeText}" var="sectorWrap"
+							converter="sectorAutocompleteWrapperConverter" 
+							itemLabel="#{sectorWrap.description}"
+							itemValue="#{sectorWrap}" />
+
+						<span>#{msg.radiologyExamRequestVeiwUrgenza}:</span>
+						<p:selectOneMenu id="urgencies" value="#{bean.selectedUrgencyId}">
+							<f:selectItems value="#{bean.urgencies}" />
+						</p:selectOneMenu>
+
+						<span>#{msg.radiologyExamRequestCupRequest}:</span>
+						<p:selectBooleanCheckbox value="#{bean.cupRequest}">
+							<p:ajax update="diagnosticQuestion" event="change" listener="#{bean.handleCupRequest}"/>
+						</p:selectBooleanCheckbox>
+
+					</h:panelGrid>
+
+				</h:panelGrid>
+			</p:panel>
+
+		</p:outputPanel>
+
+		<script type="text/javascript">
+			function renderFragment() {
+				$(".js-block").each(function() {
+					$(this).toggleClass("hidden");
+				});
+			};
+		</script>
+	</ui:define>
+
+	<ui:define name="additional_buttons">
+
+		<p:commandButton value="#{msg.radiologyExamRequestVeiwLista}"
+			id="saveListaBtn" action="#{bean.pageSave}"
+			update=":form:selectedRadExamsTable, :form:diagnosticQuestion, :form:asapSector, :form:risSector, messages">
+			<f:setPropertyActionListener value="true" target="#{bean.saveAsList}" />
+			<f:setPropertyActionListener value="false"
+				target="#{bean.redirectToEventCalendar}" />
+		</p:commandButton>
+
+		<p:commandButton value="#{msg.radiologyExamRequestVeiwReserve}"
+			id="saveReserveBtn" action="#{bean.pageSave}"
+			update=":form:selectedRadExamsTable, :form:diagnosticQuestion, :form:asapSector, :form:risSector, messages">
+			<f:setPropertyActionListener value="true" target="#{bean.saveAsList}" />
+			<f:setPropertyActionListener value="true"
+				target="#{bean.redirectToEventCalendar}" />
+		</p:commandButton>
+
+		<p:commandButton value="#{msg.radiologyExamRequestVeiwAccettazione}"
+			id="saveDirettaBtn" action="#{bean.pageSave}"
+			update=":form:selectedRadExamsTable, :form:diagnosticQuestion, :form:asapSector, :form:risSector, messages">
+			<f:setPropertyActionListener value="false"
+				target="#{bean.saveAsList}" />
+			<f:setPropertyActionListener value="false"
+				target="#{bean.redirectToEventCalendar}" />
+		</p:commandButton>
+
+	</ui:define>
+
+</ui:composition>
+</html>

@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<!-- TODO: need code refactoring <property name="hibernate.ejb.naming_strategy">it.nexera.persistence.ApplicationNamingStrategy</property> -->
+		<property name="hibernate.connection.driver">oracle.jdbc.driver.OracleDriver</property>
+		<property name="hibernate.connection.driver_class">net.bull.javamelody.JdbcDriver</property>
+
+		<property name="hibernate.connection.url">jdbc:oracle:thin:@//localhost:1521/ORCLPDB1</property>
+		<property name="hibernate.connection.username">RIS</property>
+		<property name="hibernate.connection.password">RIS_PASS</property>
+
+		<property name="hibernate.dialect">it.nexera.ris.persistence.common.PlatformOracleDialect</property>
+		<property name="hibernate.connection.autocommit">false</property>
+		<property name="hibernate.connection.autoReconnect">true</property>
+
+		<!-- Use the C3P0 connection pool. -->
+		<property name="hibernate.connection.provider_class">org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider</property>
+		<property name="hibernate.c3p0.idle_test_period">300</property>
+		<property name="hibernate.c3p0.timeout">1800</property>
+
+		<!-- Disable second-level cache. -->
+		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+		<property name="cache.use_query_cache">false</property>
+		<property name="cache.use_minimal_puts">false</property>
+		<property name="max_fetch_depth">3</property>
+
+		<!-- Print SQL to stdout. -->
+		<property name="show_sql">false</property>
+		<property name="format_sql">false</property>
+
+		<!-- Drop and then re-create schema on SessionFactory build, for testing. -->
+		<property name="hbm2ddl.auto">update</property>
+
+		<!-- Bind the getCurrentSession() method to the thread. -->
+		<property name="current_session_context_class">thread</property>
+
+	</session-factory>
+</hibernate-configuration>

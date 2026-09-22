@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/resources/tpl/Admin/InListEditBase.xhtml">
+	<ui:param name="list_title" value="#{msg.priorities}" />
+	<ui:param name="bean" value="#{priorityListBean}" />
+	<ui:param name="entity_name" value="#{msg.priority}" />
+
+	<ui:define name="edit_fields">
+		<h:panelGrid columns="2" columnClasses="label, value"
+			styleClass="grid">
+			<span><span class="red">*</span> #{msg.code}:</span>
+			<p:inputText id="code" maxlength="20" label="#{msg.code}"
+				value="#{priorityListBean.entity.code}" />
+
+			<span><span class="red">*</span> #{msg.description}:</span>
+			<p:inputTextarea id="description" label="#{msg.description}"
+				onkeypress="return text_area_limit(this, event, 255)"
+				onkeyup="text_area_check(this,255);" maxLength="255"
+				autoResize="false" value="#{priorityListBean.entity.description}" />
+
+			<span><span class="red">*</span> #{msg.priorityDays}: </span>
+			<p:inputText id="days" maxlength="3" label="#{msg.priorityDays}"
+				onkeypress="return numbers_only(this, event, 3, 0)"
+				onkeyup="check_numbers(this,3,0);"
+				value="#{priorityListBean.entity.days}" />
+
+			<span>#{msg.priorityColor}: </span>
+			<p:colorPicker value="#{priorityListBean.entity.color}" converter="hexColorConverter">
+			</p:colorPicker>
+
+			<span>#{msg.priorityHasColor}:</span>
+			<p:selectBooleanCheckbox style="margin-top: 3px;"
+				value="#{bean.entity.hasColor}">
+			</p:selectBooleanCheckbox>
+
+		</h:panelGrid>
+	</ui:define>
+
+	<ui:define name="columns">
+		<p:column sortBy="#{item.code}" filterBy="#{item.code}"
+			headerText="#{msg.code}">
+			<h:outputText value="#{item.code}" />
+		</p:column>
+
+		<p:column sortBy="#{item.description}" filterBy="#{item.description}"
+			headerText="#{msg.description}">
+			<h:outputText value="#{item.description}" />
+		</p:column>
+
+		<p:column sortBy="#{item.days}" filterBy="#{item.days}"
+			headerText="#{msg.priorityDays}">
+			<h:outputText value="#{item.days}" />
+		</p:column>
+
+		<p:column style="${item.backgroundStyle}" exportable="false"
+			headerText="#{msg.priorityColor}">
+		</p:column>
+	</ui:define>
+
+</ui:composition>
+</html>

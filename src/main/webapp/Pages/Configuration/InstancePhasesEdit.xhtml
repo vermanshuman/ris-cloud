@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/resources/tpl/Admin/EditBase.xhtml">
+	<ui:param name="edit_title" value="#{msg.instancePhasesEdit}" />
+	<ui:param name="bean" value="#{instancePhasesEditBean}" />
+
+	<ui:define name="edit_body">
+		<script type="text/javascript">
+			function toggleAdditionalStudyUID() {
+				var selected = document.getElementById("showSectorsInpit").value;
+				if (selected == "true") {
+					$(document.getElementById('userSectorLabel')).fadeIn();
+					$(document.getElementById('sectors')).fadeIn();
+				} else {
+					$(document.getElementById('userSectorLabel')).fadeOut();
+					$(document.getElementById('sectors')).fadeOut();
+				}
+			}
+		</script>
+
+		<h:inputHidden value="#{bean.showSectors}" id="showSectorsInpit" />
+
+		<p:fieldset legend="#{msg.general}">
+			<h:panelGrid columns="2" columnClasses="label, value"
+				styleClass="grid">
+				<span><span class="red">*</span>#{msg.instancePhasesPlace}:</span>
+				<p:selectOneMenu id="place" value="#{bean.placeId}"
+					label="#{msg.instancePhasesPlace}">
+					<p:ajax listener="#{instancePhasesEditBean.plaseChange}"
+						update="showSectorsInpit, sectors" oncomplete="toggleAdditionalStudyUID();" />
+					<f:selectItems value="#{bean.places}" />
+				</p:selectOneMenu>
+
+				<span><span class="red">*</span>#{msg.instancePhasesModel}:</span>
+				<p:selectOneMenu id="model" value="#{bean.modelId}"
+					label="#{msg.instancePhasesModel}">
+					<f:selectItems value="#{bean.models}" />
+				</p:selectOneMenu>
+
+				<span style="display: #{bean.showSectors? '': 'none'};"
+					id="userSectorLabel"><span class="red">*</span>#{msg.userSector}:</span>
+				<p:selectOneMenu id="sectors" value="#{bean.sectorId}"
+					label="#{msg.userSector}"
+					style="display: #{bean.showSectors ? '' : 'none'};">
+					<f:selectItems value="#{bean.sectors}" />
+				</p:selectOneMenu>
+			</h:panelGrid>
+		</p:fieldset>
+	</ui:define>
+</ui:composition>

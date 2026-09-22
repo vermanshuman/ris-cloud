@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/resources/tpl/Admin/EditBase.xhtml">
+	<ui:param name="edit_title" value="#{msg.urgencyEditTitle}" />
+	<ui:param name="bean" value="#{urgencyEditBean}" />
+	<ui:param name="multipartForm" value="true" />
+
+	<ui:define name="edit_body">
+		<p:fieldset legend="#{msg.general}">
+			<h:panelGrid columns="2" columnClasses="label, value"
+				styleClass="grid">
+				<span><span class="red">*</span> #{msg.urgencyCode}: </span>
+				<p:inputText id="code" maxlength="8" value="#{bean.entity.code}"
+					label="#{msg.urgencyCode}"
+					onkeypress="numbers_letters_only('#code');" />
+
+				<span><span class="red">*</span> #{msg.urgencyDescription}:</span>
+				<p:inputTextarea id="description" label="#{msg.urgencyDescription}"
+					onkeypress="return text_area_limit(this, event, 255)"
+					onkeyup="text_area_check(this,255);" maxLength="255"
+					autoResize="false" value="#{bean.entity.description}" />
+
+				<span><span class="red">*</span> #{msg.urgencyPriority}: </span>
+				<p:inputText id="priority"
+					onkeypress="return numbers_only(this, event, 3, 0)"
+					onkeyup="check_numbers(this,3,0);" maxLength="2"
+					label="#{msg.urgencyPriority}" value="#{bean.entity.priority}" />
+
+				<span><span class="red">*</span> #{msg.urgencyIconName}: </span>
+				<ui:fragment>
+					<p:inputText id="icon" readonly="true" value="#{bean.iconName}"
+						disabled="false" label="#{msg.urgencyIconName}" />
+					<p:commandButton icon="ui-icon-image"
+						onclick="PF('loadIconDlgWV').show();" />
+					<p:commandButton icon="ui-icon-circle-close"
+						onclick="PF('clearIconDlgWV').show();" />
+				</ui:fragment>
+
+				<span><span class="red">*</span> #{msg.urgencyFilterCode}: </span>
+				<p:inputText id="filterCode" maxlength="8"
+					value="#{bean.entity.filterCode}" label="#{msg.urgencyFilterCode}"
+					onkeypress="numbers_letters_only('#filterCode');" />
+
+				<h:outputText value="#{msg.urgencyShowAlert}:"/>
+				<p:selectBooleanCheckbox value="#{bean.entity.showAlert}"/>
+
+			</h:panelGrid>
+		</p:fieldset>
+
+		<p:dialog id="loadIconDlg" header="#{msg.urgencyLoadDlgTitle}"
+			resizable="false" widgetVar="loadIconDlgWV" modal="true">
+			<p:fileUpload value="#{bean.iconFile}" mode="simple"
+				styleClass="image_upload" />
+			<div class="btn_line">
+				<p:commandButton value="#{msg.upload}" action="#{bean.uploadIcon}"
+					icon="ui-icon-circle-triangle-n" ajax="false" />
+				<p:commandButton value="#{msg.cancel}" icon="ui-icon-circle-close"
+					onclick="PF('loadIconDlgWV').hide();" />
+			</div>
+		</p:dialog>
+
+		<p:dialog header="#{msg.deleteConfirmationHeader}"
+			widgetVar="clearIconDlgWV" modal="true" resizable="false"
+			effect="SLIDE">  
+                               #{msg.deleteConfirmation}<br />
+			<br />
+			<div class="btn_line">
+				<p:commandButton value="#{msg.yes}" action="#{bean.clearIcon}"
+					oncomplete="PF('clearIconDlgWV').hide();" update="form"
+					ajax="false" />
+				<p:commandButton value="#{msg.no}"
+					onclick="PF('clearIconDlgWV').hide()" />
+			</div>
+		</p:dialog>
+	</ui:define>
+</ui:composition>

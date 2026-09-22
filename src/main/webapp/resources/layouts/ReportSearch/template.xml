@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ClinicalDocument xsi:schemaLocation="urn:hl7-org:v3 CDA.xsd" xmlns="urn:hl7-org:v3"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <realmCode code="IT" />
+    <typeId root="2.16.840.1.113883.1.3" extension="POCD_MT000040UV02" />
+    <!-- Identificativo del template SOLE-->
+    <templateId root="2.16.840.1.113883.2.9.10.1.7.1" extension="1.1" assigningAuthorityName="HL7 Italia"/>
+    <!-- Identificativo del documento-->
+    <id root="2.16.840.1.113883.2.9.2.150903.4.4" extension="%FILE_ENTITY_ID%" assigningAuthorityName="A.O.R.N OSPEDALI DEI COLLI Monaldi - Cotugno - C.T.O" displayable="true" />
+    <!-- Tipologia del documento-->
+    <code code="68604-8" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Referto Radiologico" />
+    <title>REFERTO RADIOLOGICO</title>
+    <!-- data e ora di produzione del documento -->
+    <effectiveTime value="%FILE_ENTITY_CREATE_DATE%" />
+    <!-- livello di riservatezza del documento -->
+    <confidentialityCode  code="%CONFIDENTIALITY_CODE%" codeSystem="2.16.840.1.113883.5.25" codeSystemName="Confidentility" />
+    <languageCode code="it-IT" />
+    <!--trattandosi della prima versione del documento, id e sedId coincidono-->
+    <setId root="2.16.840.1.113883.2.9.2.150903" extension="%FILE_ENTITY_ID%" assigningAuthorityName="A.O.R.N OSPEDALI DEI COLLI Monaldi - Cotugno - C.T.O" displayable="true"/>
+    <versionNumber value="%FILE_ENTITY_VERSION%" />
+    <!-- dati identificativi del paziente -->
+    <recordTarget>
+        <patientRole classCode="PAT">
+            <!-- Codice Fiscale -->
+            <id root="%FIRST_ROOT_CODE%" extension="%PATIENT_FISCAL_CODE%" assigningAuthorityName="%FIRST_HOSPITAL_NAME%" />
+            <id root="%SECOND_ROOT_CODE%" extension="%EXTERNAL_PATIENT_CODE%" assigningAuthorityName="A.O.R.N OSPEDALI DEI COLLI Monaldi - Cotugno - C.T.O" />
+            <!-- Identificativo interno alla Struttura -->
+            <addr use="H">
+                <country></country>
+                <county>%PATIENT_COUNTY%</county>
+                <city>%PATIENT_CITY%</city>
+                <postalCode>%PATIENT_CAP%</postalCode>
+                <streetAddressLine>%PATIENT_ADDRESS%</streetAddressLine>
+            </addr>
+            <!-- Nome e Cognomei del Paziente -->
+            <patient>
+                <name>
+                    <family>%PATIENT_SURNAME%</family>
+                    <given>%PATIENT_NAME%</given>
+                </name>
+                <administrativeGenderCode code="%PATIENT_SEX_TYPE%" codeSystem="2.16.840.1.113883.5.1" />
+                <birthTime value="%PATIENT_BIRTH_DATE%" />
+                <birthplace>
+                    <place>
+                        <addr>
+                            <country/>
+                            <city>%PATIENT_BIRTH_CITY%</city>
+                            <censusTract>%PATIENT_BIRTH_CITY_CODE%</censusTract>
+                        </addr>
+                    </place>
+                </birthplace>
+            </patient>
+        </patientRole>
+    </recordTarget>
+    <!-- Autore del documento-->
+    <author>
+        <time value="%FILE_ENTITY_CREATE_DATE%" />
+        <assignedAuthor>
+            <id assigningAuthorityName="Ministero Economia e Finanze" displayable="true"
+                extension="%USER_FISCAL_CODE%" root="2.16.840.1.113883.2.9.4.3.2" />
+            <telecom use="HP" value="mailto:assignedauthor@mail.com"/>
+            <assignedPerson>
+                <name>
+                    <given>%USER_FIRST_NAME%</given>
+                    <family>%USER_LAST_NAME%</family>
+                </name>
+            </assignedPerson>
+        </assignedAuthor>
+    </author>
+    <!-- Riporta i dati dell'incaricato alla conservazione legale del documento-->
+    <custodian>
+        <assignedCustodian>
+            <representedCustodianOrganization>
+                <id assigningAuthorityName="Ministero della Salute"  extension="150903" root="2.16.840.1.113883.2.9.2.150903" />
+                <name>A.O.R.N OSPEDALI DEI COLLI Monaldi - Cotugno - C.T.O</name>
+            </representedCustodianOrganization>
+        </assignedCustodian>
+    </custodian>
+    <!-- Persona che ha la responsabilità legale del referto. Nel caso di firma digitale è il firmatario del referto, altrimenti è il responsabile del RIS-->
+    <legalAuthenticator>
+        <time value="%FILE_ENTITY_CREATE_DATE%" />
+        <signatureCode code="S" />
+        <assignedEntity>
+            <id assigningAuthorityName="Ministero Economia e Finanze"  root="2.16.840.1.113883.2.9.4.3.2" extension="%USER_FISCAL_CODE%" />
+            <assignedPerson>
+                <name>
+                    <family>%USER_LAST_NAME%</family>
+                    <given>%USER_FIRST_NAME%</given>
+                </name>
+            </assignedPerson>
+            <!-- Eventualmente si possono inserire anche i dati sulla Radiologia che il firmatario rappresenta. -->
+        </assignedEntity>
+    </legalAuthenticator>
+    <!-- identificativi delle prescrizioni.-->
+    <inFulfillmentOf>
+        <order>
+            <id %IN_FULFILLMENT_OF_ID_CONTENT% />
+            <!-- {root}.27 of accession number added based on organizational policy -->
+        </order>
+    </inFulfillmentOf>
+    <componentOf>
+        <encompassingEncounter>
+            <code code="AMB"/>
+            <effectiveTime value="%FILE_ENTITY_CREATE_DATE%" />
+            <location>
+                <healthCareFacility>
+                    <id root="2.16.840.1.113883.2.9.4.1.6" extension="150903"/>
+                    <location>
+                        <name>%REQUEST_SECTOR_DESCRIPTION%</name>
+                    </location>
+                    <serviceProviderOrganization>
+                        <id root="2.16.840.1.113883.2.9.4.1.3" extension="150903"/>
+                        <name>%REQUEST_SECTOR_DESCRIPTION%</name>
+                        <asOrganizationPartOf>
+                            <id root="2.16.840.1.113883.2.9.4.1.1" extension="150903" />
+                        </asOrganizationPartOf>
+                    </serviceProviderOrganization>
+                </healthCareFacility>
+            </location>
+        </encompassingEncounter>
+    </componentOf>
+    <component>
+        <structuredBody classCode="DOCBODY" moodCode="EVN">
+            <component>
+                <section ID="ESAME_ESEGUITO">
+                    <code code="55111-9" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Descrizioni attuale procedure di imaging" />
+                    <title>Esame Eseguito</title>
+                    <text>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Descrizione</th>
+                                    <th>Data Esecuzione</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+%REQUEST_ITEMS_DESCR%       </tbody>
+                        </table>
+                    </text>
+%ITEM_LIST%         </section>
+            </component>
+            <component>
+                <section ID="REFERTO">
+                    <code code="18782-3" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Rilievo - Radiologia" />
+                    <title>Referto</title>
+                    <text>
+                        <paragraph>%HISTORICAL_REPORT_RESULT%</paragraph>
+                    </text>
+                </section>
+            </component>
+            <!-- ********************************************************************** end of study recomendation
+   ********************************************************************** -->
+        </structuredBody>
+    </component>
+</ClinicalDocument>
+

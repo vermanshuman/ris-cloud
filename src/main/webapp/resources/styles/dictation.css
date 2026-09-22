@@ -1,0 +1,131 @@
+#voisisComponent {
+    margin: 10px 0 7px;
+}
+
+#voisis-upper-buttons {
+    position: relative;
+    left: 0.3em;
+}
+
+.voisis-editor-button {
+    border: none;
+    background: none;
+    top: 0.2em;
+    width: 3.1em;
+    height: 3.1em;
+}
+
+.voisis-editor-button:enabled {
+    cursor: pointer;
+}
+
+.voisis-editor-button:disabled {
+    cursor: not-allowed;
+    opacity: .30;
+}
+
+.voisis-editor-button:active:enabled{
+    -webkit-border-radius: .5em;
+    border-radius: .5em;
+    -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
+    -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
+    box-shadow: inset 0px 0px 5px #c1c1c1;
+    outline: none;
+}
+
+.voisis-editor-button:focus {
+    outline: 0;
+}
+
+.voisis-editor-button-img {
+    width: 2.6em;
+    height: 2.6em;
+    position: relative;
+    left: -0.3em;
+}
+
+#voisis-button-dict-img.off {
+    background: url(../images/record.png) no-repeat;
+    background-size: 100%;
+
+}
+
+#voisis-button-dict-img.on {
+    background: url(../images/stop.png) no-repeat;
+    background-size: 100%;
+}
+
+.voisis-editor-button.down {
+    -webkit-border-radius: .5em;
+    border-radius: .5em;
+    -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
+    -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
+    box-shadow: inset 0px 0px 5px #c1c1c1;
+    outline: none;
+    background-color: lightgrey;
+}
+
+#voisis-server-info {
+    position: relative;
+    top: -42px;
+    left: 7px;
+    width: 500px;
+}
+
+.voisis-server-info-shift {
+    margin-top: 15px;
+}
+
+#voisis-server-response {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    text-align: center;
+    z-index: 1000;
+    vertical-align: middle;
+}
+
+.voisis-success {
+    height: auto;
+    background-color: lightgreen;
+}
+
+.voisis-error {
+    width: auto;
+    background-color: red;
+}
+
+#voisis-gain {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    left: 15px;
+    border-collapse: collapse;
+}
+
+#voisis-gain td {
+    text-align: center;
+}
+
+#voisis-gain-control {
+    position: relative;
+    width: 120px;
+    background-color: lightgrey;
+}
+
+#voisis-gain-value {
+    position: relative;
+}
+
+#voisis-vu-meter {
+    width: 120px;
+    height: 7px;
+    position: relative;
+    border: 1px solid lightgrey;
+}
+
+

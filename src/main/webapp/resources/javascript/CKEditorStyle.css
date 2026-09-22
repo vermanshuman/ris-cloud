@@ -1,0 +1,7 @@
+@CHARSET "UTF-8";
+.cke_editable {
+	font-size: 18px;
+	white-space: pre-wrap;
+	word-break: break-word;
+	height: 100%;
+}

@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<ui:composition template="/resources/tpl/Admin/Main.xhtml">
+
+	<ui:define name="body">
+		<p:outputPanel rendered="#{empty renderTitle ? true : renderTitle}">
+			<p:autoUpdate />
+			<h1 class="#{title_class}">#{list_title}</h1>
+		</p:outputPanel>
+		<div class="content">
+
+			<h:form id="form" prependId="false">
+				<ui:insert name="common_components"></ui:insert>
+
+				<p:outputPanel id="list_panel">
+					<ui:insert name="in_list_edit_body"></ui:insert>
+
+					<ui:fragment
+						rendered="#{empty displayControlPanel ? true : displayControlPanel}">
+						<div class="table_panel ui-widget-header ui-corner-all">
+							<ui:insert name="buttons_panel"></ui:insert>
+							<p:commandButton disabled="#{!bean.canCreate}" id="buttonCreate"
+								icon="ui-icon-circle-plus" value="#{msg.newItem}" update=":form"
+								action="#{bean.addEntity}" />
+						</div>
+					</ui:fragment>
+
+					<p:commandButton id="default_btn" style="display: none;" />
+					<p:defaultCommand target="default_btn" scope="table" />
+
+					<p:dataTable var="item" id="table" value="#{tableModel}"
+						lazy="#{lazyMode}" filteredValue="#{bean.filteredList}"
+						paginator="true" rowKey="#{item.id}" rows="10"
+						selectionMode="single" selection="#{bean.selectedItem}"
+						paginatorAlwaysVisible="true" emptyMessage="#{msg.noRecordsFound}"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="10,20,50" widgetVar="tableWV">
+
+						<ui:insert name="action_columns"></ui:insert>
+
+						<p:column rendered="#{empty showEdit? true : showEdit}"
+							styleClass="action_column" exportable="false">
+
+							<p:commandButton icon="ui-icon ui-icon-pencil"
+								disabled="#{!bean.canEdit}" update=":form"
+								action="#{bean.editEntity}">
+								<f:setPropertyActionListener value="#{item.id}"
+									target="#{bean.entityEditId}" />
+							</p:commandButton>
+						</p:column>
+
+						<p:column rendered="#{empty showDelete? true : showDelete}"
+							styleClass="action_column" exportable="false">
+							<p:commandButton icon="ui-icon ui-icon-close"
+								oncomplete="PF('dlg2').show()"
+								disabled="#{!bean.canDelete || (item.id==sessionBean.currentUser.id and bean.userEntityPage)}">
+								<f:setPropertyActionListener value="#{item.id}"
+									target="#{bean.entityDeleteId}" />
+							</p:commandButton>
+						</p:column>
+
+						<ui:insert name="columns"></ui:insert>
+					</p:dataTable>
+				</p:outputPanel>
+
+				<p:dialog header="#{msg.deleteConfirmationHeader}" widgetVar="dlg2"
+					modal="true" resizable="false" effect="SLIDE">  
+                               #{empty deleteMessage ? msg.deleteConfirmation : deleteMessage}<br />
+					<br />
+					<div class="btn_line">
+						<p:commandButton value="#{msg.yes}" action="#{bean.deleteEntity}"
+							oncomplete="goToPreviousPage();PF('dlg2').hide();"
+							update="table,:form:messages" />
+						<p:commandButton value="#{msg.no}" onclick="PF('dlg2').hide()" />
+					</div>
+
+					<script>
+						function goToPreviousPage() {
+							if (PF('tableWV').getPaginator().cfg.rowCount
+									% PF('tableWV').getPaginator().cfg.rows == 0) {
+								var page = PF('tableWV').getPaginator()
+										.getCurrentPage();
+								if (page > 0) {
+									PF('tableWV').getPaginator().setPage(
+											page - 1);
+								}
+							}
+						}
+					</script>
+				</p:dialog>
+
+				<ui:insert name="dialogs_body"></ui:insert>
+
+				<p:remoteCommand name="updateMessages" update=":form:messages" />
+
+				<p:growl id="messages" showDetail="true"
+						 widgetVar="messagesVar" globalOnly="true" />
+			</h:form>
+		</div>
+
+	</ui:define>
+</ui:composition>
+</html>

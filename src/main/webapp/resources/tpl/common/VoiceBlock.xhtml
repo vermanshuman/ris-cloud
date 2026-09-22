@@ -1,0 +1,24 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <div id="voisis-upper-buttons">
+        <button id="voisis-button-dict" class="voisis-editor-button"
+                title="attiva trascrizione" disabled="disabled">
+            <div id="voisis-button-dict-img" class="voisis-editor-button-img off" accesskey="1"/>
+        </button>
+
+        <table id="voisis-gain">
+            <tr>
+                <td><canvas id="voisis-vu-meter" width="120" height="7"/></td>
+            </tr>
+            <tr>
+                <td><input type="range" min="0" max="2" value="1" step="0.1"
+                           class="slider" id="voisis-gain-control"/></td>
+            </tr>
+            <tr>
+                <td><span id="voisis-gain-value">1.0</span></td>
+            </tr>
+        </table>
+    </div>
+
+</ui:composition>

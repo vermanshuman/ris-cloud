@@ -1,0 +1,602 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/resources/tpl/Admin/EmptyBase.xhtml">
+    <ui:param name="bean" value="#{dateConfirmationViewBean}"/>
+    <ui:param name="title_exist" value="true"/>
+    <ui:param name="renderMenu" value="false"/>
+    <ui:param name="centerPartStyleClass" value="false"/>
+
+    <ui:define name="title">
+        <p:outputPanel id="titlePanel">
+            <p:autoUpdate/>
+            <h1 class="center_title">#{bean.title}</h1>
+        </p:outputPanel>
+    </ui:define>
+
+    <ui:define name="view_body">
+
+        <div style="width: 100%; float: right;">
+
+            <p:outputPanel id="assigment_panel">
+
+                <h:panelGrid columns="5" style="margin-bottom: 5px;">
+                    <span> #{msg.dateConfirmationActiveCalendar}: </span>
+                    <p:selectOneMenu value="#{bean.calendarId}" id="calendars"
+                                     styleClass="selectEC">
+                        <p:ajax event="change" update="assigment_panel"
+                                listener="#{dateConfirmationViewBean.calendarChangeEvent}"
+                                oncomplete="bindEvents()"/>
+                        <f:selectItems value="#{bean.calendars}"/>
+                    </p:selectOneMenu>
+
+                    <p:commandButton value="#{msg.dateConfirmationWaitingList}"
+                                     action="#{bean.goBack}"/>
+
+                    <p:commandButton value="#{msg.dateConfirmationWorkingList}"
+                                     ajax="false" action="#{bean.generateWorkingList}"
+                                     style="display: none" id="workingList"/>
+
+                    <p:commandButton value="#{msg.dateConfirmationNewChange}"
+                                     rendered="#{!empty bean.selected}" action="#{bean.newChange}"/>
+                </h:panelGrid>
+
+                <p:outputPanel id="exams_panel"
+                               rendered="#{!empty bean.selected}">
+                    <p:dataTable var="item" id="table" value="#{bean.selectedToTable}"
+                                 paginator="false" rowKey="#{item.id}" rows="1"
+                                 rowIndexVar="rowIndex" widgetVar="tableWV" lazy="false">
+
+                        <p:column style="width:16px">
+                            <p:rowToggler/>
+                        </p:column>
+
+                        <p:column styleClass="bold_column">
+                            <f:facet name="header">
+                                <h:outputText
+                                        value="#{msg.waitingListRegistrationPatientSurname}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.patient.surname}"/>
+                        </p:column>
+
+                        <p:column styleClass="bold_column">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.waitingListRegistrationPatientName}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.patient.name}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText
+                                        value="#{msg.waitingListRegistrationPatientBirthDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.patient.birthDate}"
+                                          converter="dateTimeConverter"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText
+                                        value="#{msg.waitingListRegistrationPatientFiscalCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.patient.fiscalCode}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.waitingListRegistrationState}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.waitingListRegistrationState}"
+                                          converter="enumConverter"/>
+                        </p:column>
+
+                        <p:column headerText="#{msg.waitingListRegistrationExam}">
+                            <p:dataGrid value="#{item.radiologyExamRequestItems}" columns="1"
+                                        var="exam" styleClass="verticalGrid">
+                                <p:column>
+                                    #{exam.radiologyExam.description}
+                                </p:column>
+                            </p:dataGrid>
+                        </p:column>
+
+                        <p:rowExpansion>
+                            <h:panelGrid columns="1" cellpadding="3" cellspacing="0"
+                                         styleClass="expandTable2 #{rowIndex}">
+
+                                <p:dataTable var="itemExp" value="#{item.selectedRadItemsList}"
+                                             id="expTable" paginator="false" rowKey="#{itemExp.id}"
+                                             rowIndexVar="rowIndex" lazy="false">
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText
+                                                    value="#{msg.waitingListRegistrationExpandedDate}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{itemExp.requestDate}"
+                                                      converter="dateTimeConverter"/>
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{msg.waitingListRegistrationExam}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{itemExp.radiologyExam.description}"/>
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{msg.waitingListRegistrationSector}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.asapSectorDescription}"/>
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{msg.waitingListRegistrationSectorId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.asapSectorId}"/>
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText
+                                                    value="#{msg.waitingListRegistrationPrenotationDate}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{itemExp.reserveDate}"
+                                                      converter="dateTimeConverter"/>
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText
+                                                    value="#{msg.waitingListRegistrationEventCalendar}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{itemExp.agenda}"/>
+                                    </p:column>
+                                </p:dataTable>
+                            </h:panelGrid>
+                        </p:rowExpansion>
+                    </p:dataTable>
+                </p:outputPanel>
+
+                <p:tabView id="tabs" widgetVar="tabsWV">
+                    <p:tab title="#{msg.dateConfirmationFree}">
+
+                        <h:outputText value="#{msg.dateConfirmationInitDate}: "/>
+                        <p:datePicker id="initDate" value="#{bean.initDate}"
+                                      widgetVar="initDateWV" pattern="dd/MM/yyyy" locale="it"
+                                      monthNavigator="true" yearNavigator="select" focusOnSelect="true"
+                                      onclick="$('#ui-datepicker-div').css('z-index', '100');$('#ui-datepicker-div').show();"
+                                      onkeypress="if(!handleCalendarEnter(event, this)) return false;"
+                                      onchange="check_date(this);PF('initDateWV').fireDateSelectEvent();"
+                                      styleClass="schedule_date" showIcon="true">
+                            <p:ajax event="dateSelect" oncomplete="bindEvents()"
+                                    process="@this,scheduleView" update=":form:assigment_panel"
+                                    listener="#{dateConfirmationViewBean.onInitDateChange}"/>
+                        </p:datePicker>
+
+                        <h:inputHidden id="scheduleView" value="#{bean.scheduleView}"/>
+                        <h:inputHidden id="scheduleDraggable" value="#{bean.draggableId}"/>
+                        <h:inputHidden id="scheduleDroppable" value="#{bean.droppableId}"/>
+
+                        <p:schedule id="schedule" startWeekday="1" widgetVar="scheduleWV"
+                                    timeFormat="H:mm" slotLabelFormat="['H:mm']"
+                                    minTime="#{bean.minTime}" aspectRatio="1"
+                                    initialDate="#{bean.initialDate}" maxTime="22:00"
+                                    slotDuration="00:15:00"
+                                    draggable="false" resizable="false" view="#{bean.scheduleView}"
+                                    timeZone="#{bean.timeZone}" locale="it" editable="true"
+                                    allDaySlot="false" value="#{bean.eventModel}">
+                            <p:ajax event="eventSelect"
+                                    listener="#{dateConfirmationViewBean.onEventSelect}"
+                                    update=":form:eventPanel"/>
+                        </p:schedule>
+                    </p:tab>
+
+                    <p:tab title="#{msg.dateConfirmationFirstAvailable}"
+                           rendered="#{!empty bean.selected}">
+
+                        <div class="table_panel ui-widget-header ui-corner-all">
+                            <span class="search_group">#{msg.dateConfirmationFirstAvailableUntilDate}:</span>
+                            <p:datePicker pattern="dd/MM/yyyy" id="firstAvailEndDate"
+                                          styleClass="search_group"
+                                          mindate="#{bean.mindate}" locale="it" onblur="check_date(this)"
+                                          showIcon="true" showOnFocus="false" focusOnSelect="true"
+                                          monthNavigator="true" yearNavigator="select"
+                                          value="#{bean.firstAvailEndDate}">
+                                <p:ajax update="first_avail_table" event="dateSelect"/>
+                            </p:datePicker>
+                        </div>
+
+                        <p:dataTable var="itemFa" id="first_avail_table"
+                                     value="#{bean.firstAvailable}" paginator="true"
+                                     rowKey="#{itemFa.uniqueId}" rows="10"
+                                     emptyMessage="#{msg.noRecordsFound}"
+                                     rowStyleClass="#{itemFa.styleClass}"
+                                     selection="#{bean.selectedSlot}" paginatorAlwaysVisible="true"
+                                     selectionMode="single"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                     widgetVar="first_avail_tableWV" lazy="false">
+
+                            <p:ajax event="rowSelect"
+                                    disabled="#{!dateConfirmationViewBean.onePatientAssigment}"
+                                    listener="#{dateConfirmationViewBean.onRowSelect}"
+                                    update=":form:eventPanel"
+                                    oncomplete="PF('eventDialogWV').show();">
+                            </p:ajax>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.dateConfirmationFirstAvailDate}"/>
+                                </f:facet>
+                                <h:outputText value="#{itemFa.startDate}"
+                                              converter="prettyDateTimeConverter"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.dateConfirmationFirstAvailSlot}"/>
+                                </f:facet>
+                                <ui:fragment rendered="#{!empty itemFa.slotNumber}">
+                                    <h:outputText
+                                            value="#{msg.dateConfirmationSlotNumber} #{itemFa.slotNumber}  "/>
+                                    (
+                                    <h:outputText value="#{itemFa.startDate}"
+                                                  converter="timeConverter"/>
+                                    <span style="margin: 5px;">-</span>
+                                    <h:outputText value="#{itemFa.endDate}" converter="timeConverter"/>
+                                    )
+                                </ui:fragment>
+
+                                <ui:fragment rendered="#{empty itemFa.slotNumber}">
+                                    <h:outputText value="#{msg.dateConfirmationDynaminSlots}  "/>
+                                    <h:outputText value="#{itemFa.startDate}"
+                                                  converter="timeConverter"/>
+                                    <span style="margin: 5px;">-</span>
+                                    <h:outputText value="#{itemFa.endDate}" converter="timeConverter"/>
+                                </ui:fragment>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.dateConfirmationOverbooking}"/>
+                                </f:facet>
+                                <h:outputText value="#{itemFa.overbooked}"
+                                              converter="booleanConverter"/>
+                            </p:column>
+
+                        </p:dataTable>
+
+                    </p:tab>
+                    <p:tab title="#{msg.dateConfirmationPeriod}" rendered="false">
+                    </p:tab>
+                </p:tabView>
+            </p:outputPanel>
+
+            <div class="btn_line">
+                <p:commandButton value="#{msg.goBack}" icon="ui-icon-circle-arrow-w"
+                                 action="#{bean.goBack}"/>
+            </div>
+
+            <p:dialog id="eventDialog" resizable="false" position="center,top"
+                      widgetVar="eventDialogWV" header="#{msg.dateConfirmationDateAssign}"
+                      modal="true">
+
+                <ui:include src="/resources/tpl/common/ValidationMessages.xhtml"/>
+
+                <p:outputPanel id="eventPanel">
+
+                    <p:outputPanel
+                            rendered="#{!bean.dateAssigment.assignedSlot and !bean.dateAssigment.assignNotAvail and !bean.cannotAssignToOld}">
+
+                        <h:panelGrid columns="2" columnClasses="label,value"
+                                     styleClass="grid view_grid" style="margin:0;" cellpadding="5"
+                                     cellspacing="0">
+                            <span> #{msg.dateConfirmationPatient}:</span>
+                            <h:outputText
+                                    value="#{bean.selected.patient.name} #{bean.selected.patient.surname}"/>
+
+                            <span> #{msg.dateConfirmationDate}:</span>
+                            <h:outputText value="#{bean.dateAssigment.date}"
+                                          converter="dateTimeConverter"/>
+
+                            <span>#{msg.eventCalendarServiceAverageDuration}:</span>
+                            <h:outputText value="#{bean.dateAssigment.averageDuration}"/>
+
+                            <h:outputText rendered="#{bean.dateAssigment.slots}"
+                                          value="#{msg.dateConfirmationAvailableSlot}:"/>
+                            <h:selectManyMenu style="width:140px" id="slotsSelection"
+                                              value="#{bean.selectedSlots}" styleClass="ui-corner-all"
+                                              rendered="#{bean.dateAssigment.slots}">
+                                <f:selectItems value="#{bean.slots}"/>
+                            </h:selectManyMenu>
+
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="4" rendered="#{!bean.dateAssigment.slots}"
+                                     styleClass="grid" style="margin:0;">
+
+                            <h:outputText value="#{msg.dateConfirmationFrom}:"
+                                          rendered="#{!bean.dateAssigment.slots}"/>
+                            <p:inputMask mask="99:99" value="#{bean.dateAssigment.timeFrom}"
+                                         onkeyup="hour_minutes_only(this)"
+                                         rendered="#{!bean.dateAssigment.slots}" id="startTime"
+                                         styleClass="short_input"/>
+
+                            <h:outputText value="#{msg.dateConfirmationTo}:"
+                                          rendered="#{!bean.dateAssigment.slots}"/>
+                            <p:inputMask mask="99:99" value="#{bean.dateAssigment.timeTo}"
+                                         rendered="#{!bean.dateAssigment.slots}" id="endTime"
+                                         onkeyup="hour_minutes_only(this)" styleClass="short_input"/>
+                        </h:panelGrid>
+                        <h:inputHidden value="#{bean.dateAssigment.ecId}"/>
+                        <h:inputHidden value="#{bean.dateAssigment.slots}"/>
+                    </p:outputPanel>
+
+                    <p:outputPanel rendered="#{bean.dateAssigment.assignedSlot}">
+                        #{msg.alreadyAssignedSlot}
+                    </p:outputPanel>
+
+                    <p:outputPanel rendered="#{bean.dateAssigment.assignNotAvail}">
+                        #{msg.dateConfirmationBeforeToday}
+                    </p:outputPanel>
+
+                    <p:outputPanel rendered="#{bean.cannotAssignToOld}">
+                        #{msg.dateConfirmationOldPosition}
+                    </p:outputPanel>
+
+                    <div class="btn_line">
+                        <h:inputHidden id="validationFailed"
+                                       value="#{bean.validationFailed}"/>
+
+                        <p:commandButton action="#{bean.saveEvent}" value="#{msg.save}"
+                                         id="assignEvent" onclick="this.disabled = true;"
+                                         rendered="#{!bean.dateAssigment.assignedSlot and !bean.dateAssigment.assignNotAvail and !bean.cannotAssignToOld}"
+                                         icon="ui-icon-disk" widgetVar="saveEventBtnWV"
+                                         update="validationFailed,eventPanel,calendars,:form:tabs:first_avail_table,:form:messages,exams_panel, :form:assigment_panel"
+                                         oncomplete="tryEventDialogClose();PF('scheduleWV').update();"/>
+
+                        <p:commandButton value="#{msg.cancel}" icon="ui-icon-circle-close"
+                                         onclick="PF('eventDialogWV').hide()"/>
+                    </div>
+                </p:outputPanel>
+            </p:dialog>
+
+            <p:dialog resizable="false" position="center,top"
+                      widgetVar="patientNotFoundDialogWV"
+                      header="#{msg.dateConfirmationDateAssign}" modal="true">
+                #{msg.patientMovedFromSystem}
+
+                <div class="btn_line">
+                    <p:commandButton value="#{msg.cancel}" icon="ui-icon-circle-close"
+                                     onclick="PF('patientNotFoundDialogWV').hide()"/>
+
+                </div>
+            </p:dialog>
+
+            <p:dialog widgetVar="printPDFDialog"
+                      header="#{msg.reservationPageHeaderDialog}" modal="true"
+                      resizable="false" closable="false" draggable="false">
+                <p:outputLabel value="#{msg.reservationPageQuestion}"/>
+                <div class="btn_line">
+                    <p:commandButton value="#{msg.reservationPageYes}"
+                                     action="#{bean.loadTemplate}"
+                                     oncomplete="updateSelectedTemplateId(); PF('templates').show();"
+                                     onclick="PF('printPDFDialog').hide();"/>
+
+                    <p:commandButton value="#{msg.reservationPageNo}"
+                                     action="#{bean.goBack}"
+                                     onclick="PF('printPDFDialog').hide();"
+                                     process="@this"/>
+                </div>
+            </p:dialog>
+
+            <p:dialog widgetVar="templates"
+                      header="#{msg.docTemplates}"
+                      modal="true"
+                      resizable="false"
+                      closable="false">
+
+                <p:outputPanel id="templatePanel">
+
+                    <h:panelGrid columns="1" style="margin-bottom: 10px; width: 100%; text-align: center;">
+                        <p:outputLabel value="#{msg.pdfGenerationTemplate}:" for="selectedTemplateId" />
+
+                        <p:selectOneMenu id="selectedTemplateId"
+                                         value="#{bean.selectedTemplateId}"
+                                         style="width:200px;">
+                            <f:selectItems value="#{bean.templates}" />
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+
+                    <div class="btn_line" style="text-align: center;">
+                        <p:commandButton value="#{msg.ok}"
+                                         action="#{bean.printReport}"
+                                         process="@this selectedTemplateId"
+                                         update=":form:messages"
+                                         oncomplete="PF('templates').hide(); goBack();" />
+
+                        <p:commandButton value="#{msg.cancel}"
+                                         action="#{bean.goBack}"
+                                         process="@this"
+                                         onclick="PF('templates').hide()" />
+
+                    </div>
+                </p:outputPanel>
+            </p:dialog>
+
+            <p:remoteCommand name="goBack" action="#{bean.goBack}" process="@this" />
+
+            <p:remoteCommand name="updateSelectedTemplateId"
+                             update="selectedTemplateId"/>
+
+            <p:remoteCommand name="onDrop" action="#{bean.onDrop}"
+                             update=":form:tabs:scheduleDraggable, :form:tabs:scheduleDroppable, :form:eventPanel, :form:messages"/>
+
+            <p:remoteCommand name="setCurrentDate"
+                             action="#{bean.initCurrentDate}" update=":form:tabs:initDate"/>
+
+            <p:remoteCommand name="firstAvailableHide"
+                             action="#{bean.hideFirstAvailable}"
+                             update=":form:tabs:first_avail_table"/>
+
+            <p:remoteCommand name="autoSaveRC"
+                             action="#{bean.saveEvent}"
+                             process="@this"
+                             update=":form:messages, :form:assigment_panel"
+                             oncomplete="PF('scheduleWV').update(); PF('printPDFDialog').show();"/>
+        </div>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                bindEvents();
+            });
+
+            function bindDragNDrop() {
+                if (document.getElementById('tabs:scheduleView').value != "month") {
+                    $('.assign_schedule_cell, .overbooked_assign_schedule_cell')
+                        .draggable({
+                            helper: 'clone',
+                            revert: true
+                        });
+
+                    $('.free_schedule_cell, .overbooked_free_schedule_cell')
+                        .droppable(
+                            {
+                                accept: '.assign_schedule_cell, .overbooked_assign_schedule_cell',
+                                over: function (event, ui) {
+                                    $(this).children().addClass(
+                                        'ui-state-active');
+                                },
+                                out: function (event, ui) {
+                                    $(this).children().removeClass(
+                                        'ui-state-active');
+                                },
+                                drop: function (event, ui) {
+                                    ui.helper.fadeOut();
+                                    $(this).children().removeClass(
+                                        'ui-state-active');
+
+                                    document
+                                        .getElementById('tabs:scheduleDraggable').value = getIdClass(ui.draggable);
+                                    document
+                                        .getElementById('tabs:scheduleDroppable').value = getIdClass($(this));
+
+                                    onDrop();
+                                }
+                            });
+                }
+            }
+
+            function getIdClass(elem) {
+                var classList = elem.attr('class').split(/\s+/);
+                var i;
+                for (i = 0; i &lt; classList.length; i++) {
+                    if (classList[i].indexOf('idClass') != -1) {
+                        return classList[i].substr(7).split('@').join(' ');
+                    }
+                }
+            }
+
+            function tryEventDialogClose() {
+                if (document.getElementById('validationFailed').value != 'true') {
+                    if (PF('tabsWV').getActiveIndex() != 0) {
+                        PF('tabsWV').select(0);
+                        PF('scheduleWV').render();
+                    }
+                    PF('eventDialogWV').hide();
+                    bindEvents();
+                }
+            }
+
+            function bindEvents() {
+
+                $('.fc-content').mouseover(function () {
+                    bindTooltip();
+                    bindDragNDrop();
+                });
+
+                $(".fc-button-today").bind("click", function () {
+
+                    setCurrentDate();
+                });
+
+                if (document.getElementById('tabs:scheduleView').value == "agendaDay") {
+                    $(document.getElementById('workingList')).show();
+                }
+
+                $('.fc-button-agendaWeek')
+                    .click(
+                        function () {
+                            document
+                                .getElementById('tabs:scheduleView').value = "agendaWeek";
+                            $(document.getElementById('workingList'))
+                                .hide();
+                            PF('scheduleWV').update();
+                        });
+
+                $('.fc-button-agendaDay')
+                    .click(
+                        function () {
+                            document
+                                .getElementById('tabs:scheduleView').value = "agendaDay";
+                            $(document.getElementById('workingList'))
+                                .show();
+                            PF('scheduleWV').update();
+                        });
+                $('.fc-button-month')
+                    .click(
+                        function () {
+                            document
+                                .getElementById('tabs:scheduleView').value = "month";
+                            $(document.getElementById('workingList'))
+                                .hide();
+                        });
+            }
+
+            function bindTooltip() {
+                $('.overbooked_free_schedule_cell').attr("title",
+                    "#{msg.dateConfirmationOverbookingAvailable}");
+                $('.overbooked_assign_schedule_cell').attr("title",
+                    "#{msg.dateConfirmationOverbooked}");
+                $('.assign_schedule_cell').attr("title",
+                    "#{msg.dateConfirmationAssigned}");
+                $('.free_schedule_cell').attr("title",
+                    "#{msg.dateConfirmationAssignAvailable}");
+                $('.empty_schedule_cell').attr("title",
+                    "#{msg.dateConfirmationEmptyCell}");
+            }
+
+            function handleCalendarEnter(event, element) {
+                if (window.event) {
+                    key = window.event.keyCode;
+                } else if (event) {
+                    key = event.which;
+                } else {
+                    return true;
+                }
+
+                if (key == 13) {
+                    check_date(element);
+                    PF('initDateWV').fireDateSelectEvent();
+                    return false;
+                }
+                return true;
+            }
+
+            $(document)
+                .ready(
+                    function () {
+                        $(
+                            document
+                                .getElementById('tabs:firstAvailEndDate_input'))
+                            .mask('99/99/9999');
+                    });
+        </script>
+    </ui:define>
+</ui:composition>
+</html>

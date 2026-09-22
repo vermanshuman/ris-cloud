@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE something>
+	<disciplina>
+		<data_entry>
+			<code>01</code>
+			<description>ALLERGOLOGIA</description>
+		</data_entry>
+		<data_entry>
+			<code>02</code>
+			<description>DAY HOSPITAL</description>
+		</data_entry>
+		<data_entry>
+			<code>03</code>
+			<description>ANATOMIA ED ISTOLOGIA PATOLOGICA</description>
+		</data_entry>
+		<data_entry>
+			<code>05</code>
+			<description>ANGIOLOGIA</description>
+		</data_entry>
+		<data_entry>
+			<code>06</code>
+			<description>CARDIOCHIRURGIA PEDIATRICA</description>
+		</data_entry>
+		<data_entry>
+			<code>07</code>
+			<description>CARDIOCHIRURGIA</description>
+		</data_entry>
+		<data_entry>
+			<code>08</code>
+			<description>CARDIOLOGIA</description>
+		</data_entry>
+		<data_entry>
+			<code>09</code>
+			<description>CHIRURGIA GENERALE</description>
+		</data_entry>
+		<data_entry>
+			<code>10</code>
+			<description>CHIRURGIA MAXILLO FACCIALE</description>
+		</data_entry>
+		<data_entry>
+			<code>11</code>
+			<description>CHIRURGIA PEDIATRICA</description>
+		</data_entry>
+		<data_entry>
+			<code>12</code>
+			<description>CHIRURGIA PLASTICA</description>
+		</data_entry>
+		<data_entry>
+			<code>13</code>
+			<description>CHIRURGIA TORACICA</description>
+		</data_entry>
+		<data_entry>
+			<code>14</code>
+			<description>CHIRURGIA VASCOLARE</description>
+		</data_entry>
+		<data_entry>
+			<code>15</code>
+			<description>MEDICINA SPORTIVA</description>
+		</data_entry>
+		<data_entry>
+			<code>18</code>
+			<description>EMATOLOGIA</description>
+		</data_entry>
+		<data_entry>
+			<code>19</code>
+			<description>MALATTIE ENDOCRINE, DEL RICAMBIO E DELLA NUTRIZIONE
+			</description>
+		</data_entry>
+		<data_entry>
+			<code>20</code>
+			<description>IMMUNOLOGIA</description>
+		</data_entry>
+		<data_entry>
+			<code>21</code>
+			<description>GERIATRIA</description>
+		</data_entry>
+		<data_entry>
+			<code>24</code>
+			<description>MALATTIE INFETTIVE E TROPICALI</description>
+		</data_entry>
+		<data_entry>
+			<code>25</code>
+			<description>MEDICINA DEL LAVORO</description>
+		</data_entry>
+		<data_entry>
+			<code>26</code>
+			<description>MEDICINA GENERALE</description>
+		</data_entry>
+		<data_entry>
+			<code>27</code>
+			<description>MEDICINA LEGALE</description>
+		</data_entry>
+		<data_entry>
+			<code>28</code>
+			<description>UNITA' SPINALE</description>
+		</data_entry>
+		<data_entry>
+			<code>29</code>
+			<description>NEFROLOGIA</description>
+		</data_entry>
+		<data_entry>
+			<code>30</code>
+			<description>NEUROCHIRURGIA</description>
+		</data_entry>
+		<data_entry>
+			<code>31</code>
+			<description>NIDO</description>
+		</data_entry>
+		<data_entry>
+			<code>32</code>
+			<description>NEUROLOGIA</description>
+		</data_entry>
+		<data_entry>
+			<code>33</code>
+			<description>NEUROPSICHIATRIA INFANTILE</description>
+		</data_entry>
+		<data_entry>
+			<code>34</code>
+			<description>OCULISTICA</description>
+		</data_entry>
+		<data_entry>
+			<code>35</code>
+			<description>ODONTOIATRIA E STOMATOLOGIA</description>
+		</data_entry>
+		<data_entry>
+			<code>36</code>
+			<description>ORTOPEDIA E TRAUMATOLOGIA</description>
+		</data_entry>
+		<data_entry>
+			<code>37</code>
+			<description>OSTETRICIA E GINECOLOGIA</description>
+		</data_entry>
+		<data_entry>
+			<code>38</code>
+			<description>OTORINOLARINGOIATRIA</description>
+		</data_entry>
+		<data_entry>
+			<code>39</code>
+			<description>PEDIATRIA</description>
+		</data_entry>
+		<data_entry>
+			<code>40</code>
+			<description>PSICHIATRIA</description>
+		</data_entry>
+		<data_entry>
+			<code>41</code>
+			<description>MEDICINA TERMALE</description>
+		</data_entry>
+		<data_entry>
+			<code>42</code>
+			<description>TOSSICOLOGIA</description>
+		</data_entry>
+		<data_entry>
+			<code>43</code>
+			<description>UROLOGIA</description>
+		</data_entry>
+		<data_entry>
+			<code>46</code>
+			<description>GRANDI USTIONI PEDIATRICHE</description>
+		</data_entry>
+		<data_entry>
+			<code>47</code>
+			<description>GRANDI USTIONATI</description>
+		</data_entry>
+		<data_entry>
+			<code>48</code>
+			<description>NEFROLOGIA (ABILITATA AL TRAPIANTO DI RENE)
+			</description>
+		</data_entry>
+		<data_entry>
+			<code>49</code>
+			<description>TERAPIA INTENSIVA</description>
+		</data_entry>
+		<data_entry>
+			<code>50</code>
+			<description>UNITA' CORONARICA</description>
+		</data_entry>
+		<data_entry>
+			<code>51</code>
+			<description>ASTANTERIA</description>
+		</data_entry>
+		<data_entry>
+			<code>52</code>
+			<description>DERMATOLOGIA</description>
+		</data_entry>
+		<data_entry>
+			<code>54</code>
+			<description>EMODIALISI</description>
+		</data_entry>
+		<data_entry>
+			<code>55</code>
+			<description>FARMACOLOGIA CLINICA</description>
+		</data_entry>
+		<data_entry>
+			<code>56</code>
+			<description>RECUPERO E RIABILITAZIONE FUNZIONALE</description>
+		</data_entry>
+		<data_entry>
+			<code>57</code>
+			<description>FISIOPATOLOGIA DELLA RIPRODUZIONE UMANA</description>
+		</data_entry>
+		<data_entry>
+			<code>58</code>
+			<description>GASTROENTEROLOGIA</description>
+		</data_entry>
+		<data_entry>
+			<code>60</code>
+			<description>LUNGODEGENTI</description>
+		</data_entry>
+		<data_entry>
+			<code>61</code>
+			<description>MEDICINA NUCLEARE</description>
+		</data_entry>
+		<data_entry>
+			<code>62</code>
+			<description>NEONATOLOGIA</description>
+		</data_entry>
+		<data_entry>
+			<code>64</code>
+			<description>ONCOLOGIA</description>
+		</data_entry>
+		<data_entry>
+			<code>65</code>
+			<description>ONCOEMATOLOGIA PEDIATRICA</description>
+		</data_entry>
+		<data_entry>
+			<code>66</code>
+			<description>ONCOEMATOLOGIA</description>
+		</data_entry>
+		<data_entry>
+			<code>67</code>
+			<description>PENSIONANTI</description>
+		</data_entry>
+		<data_entry>
+			<code>68</code>
+			<description>PNEUMOLOGIA</description>
+		</data_entry>
+		<data_entry>
+			<code>69</code>
+			<description>RADIOLOGIA</description>
+		</data_entry>
+		<data_entry>
+			<code>70</code>
+			<description>RADIOTERAPIA</description>
+		</data_entry>
+		<data_entry>
+			<code>71</code>
+			<description>REUMATOLOGIA</description>
+		</data_entry>
+		<data_entry>
+			<code>73</code>
+			<description>TERAPIA INTENSIVA NEONATALE</description>
+		</data_entry>
+		<data_entry>
+			<code>74</code>
+			<description>RADIOTERAPIA ONCOLOGICA</description>
+		</data_entry>
+		<data_entry>
+			<code>75</code>
+			<description>NEURO-RIABILITAZIONE</description>
+		</data_entry>
+		<data_entry>
+			<code>76</code>
+			<description>NEOUROCHIRURGIA PEDIATRICA</description>
+		</data_entry>
+		<data_entry>
+			<code>77</code>
+			<description>NEFROLOGIA PEDIATRICA</description>
+		</data_entry>
+		<data_entry>
+			<code>78</code>
+			<description>UROLOGIA PEDIATRICA</description>
+		</data_entry>
+		<data_entry>
+			<code>82</code>
+			<description>ANESTESIA</description>
+		</data_entry>
+		<data_entry>
+			<code>97</code>
+			<description>DETENUTI</description>
+		</data_entry>
+	</disciplina>

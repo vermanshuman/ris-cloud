@@ -1,0 +1,20 @@
+<!DOCTYPE something>
+<c3p0-config>
+	<default-config>
+		<!-- Configuring Connection Testing -->
+		<!-- property name="automaticTestTable">TEST_EMS_HIBERNATE_CONN</property -->
+		<property name="checkoutTimeout">10000</property>
+		<property name="testConnectionOnCheckout">true</property>
+		<property name="testConnectionOnCheckin">false</property>
+		<property name="preferredTestQuery">SELECT 1 from dual</property>
+		
+		<property name="maxIdleTime">3600</property>
+		<property name="acquireIncrement">0</property>
+		<property name="maxIdleTimeExcessConnections">300</property>
+		<property name="maxPoolSize">100</property>
+		<property name="numHelperThreads">6</property>
+		<property name="minPoolSize">3</property>
+		<property name="unreturnedConnectionTimeout">3600</property>
+		
+	</default-config>
+</c3p0-config>

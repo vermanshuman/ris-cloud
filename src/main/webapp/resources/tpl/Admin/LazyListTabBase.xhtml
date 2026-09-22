@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+>
+
+<ui:composition template="/resources/tpl/Admin/Main.xhtml">
+	<ui:define name="body">
+
+		<p:outputPanel rendered="#{empty renderTitle ? true : renderTitle}">
+			<p:autoUpdate />
+			<ui:fragment rendered="#{empty center_title || center_title == false}">
+				<h1>#{list_title}</h1>
+			</ui:fragment>
+
+			<ui:fragment rendered="#{!(empty center_title) and center_title == true}">
+				<center>
+					<h1>#{list_title}</h1>
+				</center>
+			</ui:fragment>
+		</p:outputPanel>
+
+		<div class="content" style="margin-bottom: 40px">
+			<h:form id="form" prependId="false">
+				<ui:insert name="list_body"></ui:insert>
+				<p:growl id="messages" showDetail="true" globalOnly="true" />
+			</h:form>
+			<h:form id="dialogForm" prependId="false" enctype="multipart/form-data">
+				<ui:insert name="dialog_body"/>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

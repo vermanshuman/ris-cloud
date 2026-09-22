@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE something>
+<module>
+	<data_entry>
+		<code>GENERAL</code>
+		<name>permissionGeneral</name>
+		<position>1</position>
+	</data_entry>
+	<data_entry>
+		<code>DICTIONARY</code>
+		<name>permissionDictionary</name>
+		<position>1</position>
+	</data_entry>
+</module>

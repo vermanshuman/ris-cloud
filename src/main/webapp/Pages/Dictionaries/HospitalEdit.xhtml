@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/resources/tpl/Admin/EditBase.xhtml">
+	<ui:param name="edit_title" value="#{msg.editHospital}" />
+	<ui:param name="bean" value="#{hospitalEditBean}" />
+
+	<ui:define name="edit_body">
+		<p:fieldset legend="#{msg.general}">
+			<h:panelGrid columns="2" columnClasses="label, value"
+				styleClass="grid">
+				<span><span class="red">*</span> #{msg.code}: </span>
+				<p:inputText id="code" maxlength="28" value="#{bean.entity.code}"
+					label="#{msg.code}" onkeypress="numbers_letters_only('#code');" />
+
+				<span><span class="red">*</span> #{msg.description}:</span>
+				<p:inputTextarea id="description" label="#{msg.description}"
+					onkeypress="return text_area_limit(this, event, 255)"
+					onkeyup="text_area_check(this,255);" maxLength="255"
+					autoResize="false" value="#{bean.entity.description}" />
+
+				<span><span class="red">*</span>#{msg.hospitalSectors}:</span>
+				<p:pickList id="sectors" value="#{bean.sectors}" var="item"
+					itemLabel="#{item.description}-#{item.code}" itemValue="#{item}"
+					converter="entityConverter" label="#{msg.hospitalSectors}" />
+
+				<span>#{msg.hospitalProvenanceHospital}:</span>
+				<p:inputText id="provenanceHospital" maxlength="255"
+					value="#{bean.entity.provenanceHospital}" />
+
+				<span>#{msg.hospitalProducingServiceCode}:</span>
+				<p:inputText id="hospitalProducerCode" maxlength="255"
+							 value="#{bean.entity.hospitalProducerCode}" />
+			</h:panelGrid>
+		</p:fieldset>
+	</ui:define>
+</ui:composition>

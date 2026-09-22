@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+	<Properties>
+		<Property name="APP_LOG_ROOT">${sys:catalina.home}/logs</Property>
+		<Property name="LOG_PATTERN">%d{ISO8601} [%5p] %c %m at %l%n</Property>
+	</Properties>
+
+	<Appenders>
+		<Console name="CONSOLE-LOGS" target="SYSTEM_OUT" follow = "true">
+			<PatternLayout pattern="${LOG_PATTERN}"/>
+			<Filters>
+				<LevelRangeFilter minLevel="ERROR" maxLevel="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+			</Filters>
+		</Console>
+
+		<RollingFile name="LOG-FILE-APPENDER-ERROR" fileName="${APP_LOG_ROOT}/ris.error.log"
+					 filePattern="${APP_LOG_ROOT}/ris.error.%i.log.gz">
+			<PatternLayout pattern="${LOG_PATTERN}"/>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="5MB"/>
+			</Policies>
+			<DefaultRolloverStrategy max="10" fileIndex="min" />
+			<LevelRangeFilter minLevel="ERROR" maxLevel="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+		</RollingFile>
+
+		<RollingFile name="LOG-FILE-APPENDER-WARN" fileName="${APP_LOG_ROOT}/ris.warn.log"
+					 filePattern="${APP_LOG_ROOT}/ris.warn.%i.log.gz">
+			<PatternLayout pattern="${LOG_PATTERN}"/>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="5MB"/>
+			</Policies>
+			<DefaultRolloverStrategy max="5" fileIndex="min" />
+			<LevelRangeFilter minLevel="WARN" maxLevel="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
+		</RollingFile>
+
+		<RollingFile name="LOG-FILE-APPENDER-INFO" fileName="${APP_LOG_ROOT}/ris.info.log"
+					 filePattern="${APP_LOG_ROOT}/ris.info.%i.log.gz">
+			<PatternLayout pattern="${LOG_PATTERN}"/>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="5MB"/>
+			</Policies>
+			<DefaultRolloverStrategy max="5" fileIndex="min" />
+			<LevelRangeFilter minLevel="INFO" maxLevel="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+		</RollingFile>
+
+		<RollingFile name="LOG-FILE-APPENDER-HIBERNATE" fileName="${APP_LOG_ROOT}/ris-hibernate/ris.hibernate.log"
+					 filePattern="${APP_LOG_ROOT}/ris-hibernate/ris.hibernate.%i.log.gz">
+			<PatternLayout pattern="%d [%t] %-5p %l - %m%n"/>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10MB"/>
+			</Policies>
+			<DefaultRolloverStrategy max="10" fileIndex="min" />
+			<LevelRangeFilter minLevel="FATAL" maxLevel="TRACE" onMatch="ACCEPT" onMismatch="DENY"/>
+		</RollingFile>
+
+		<RollingFile name="LOG-FILE-APPENDER-HRDO" fileName="${APP_LOG_ROOT}/hrdo/hrdo_mf.log"
+					 filePattern="${APP_LOG_ROOT}/hrdo/hrdo_mf.%i.log.gz">
+			<PatternLayout pattern="[%5p] [%d - %t] (%F:%M:%L)%m%n"/>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="5MB"/>
+			</Policies>
+			<DefaultRolloverStrategy max="10" fileIndex="min" />
+		</RollingFile>
+	</Appenders>
+
+	<Loggers>
+<!--		DEBUG-->
+		<Logger name="org.hibernate" level="INFO"
+				additivity="false">
+			<AppenderRef ref="LOG-FILE-APPENDER-HIBERNATE"/>
+		</Logger>
+
+<!--		TRACE-->
+<!--		<Logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="INFO"-->
+<!--				additivity="false">-->
+<!--			<AppenderRef ref="LOG-FILE-APPENDER-HIBERNATE"/>-->
+<!--		</Logger>-->
+
+		<Logger name="it.nexera.ris.web.beans.pages" level="DEBUG" additivity="false">
+			<AppenderRef ref="LOG-FILE-APPENDER-INFO"  />
+			<AppenderRef ref="LOG-FILE-APPENDER-ERROR" />
+			<AppenderRef ref="CONSOLE-LOGS"  />
+		</Logger>
+
+		<Logger name="hrdo" level="INFO" additivity="false">
+			<AppenderRef ref="LOG-FILE-APPENDER-HRDO" />
+		</Logger>
+
+		<Logger name="org.dcm4che2.net" level="ERROR" additivity="false">
+			<AppenderRef ref="LOG-FILE-APPENDER-ERROR" />
+		</Logger>
+
+		<Root level="INFO">
+			<AppenderRef ref="LOG-FILE-APPENDER-INFO" />
+			<AppenderRef ref="LOG-FILE-APPENDER-WARN" />
+			<AppenderRef ref="LOG-FILE-APPENDER-ERROR" />
+			<AppenderRef ref="CONSOLE-LOGS" />
+		</Root>
+	</Loggers>
+
+</Configuration>

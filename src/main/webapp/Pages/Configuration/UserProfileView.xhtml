@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/resources/tpl/Admin/EditBase.xhtml">
+	<ui:param name="edit_title" value="#{msg.editUser}" />
+    <ui:param name="bean" value="#{userProfileViewBean}" />
+
+	<ui:define name="edit_body">
+		<h:outputScript>
+			PrimeFaces.widget.Password.prototype.testStrength = function (str) {
+				var passRegExp = /((?=.*[a-z])(?=.*\d)(?=.*[A-Z])(?=.*[.,&lt;&gt;?^&amp;*()=/@#$%!]).{8,40})/;
+				if (str.match(passRegExp) != null) {
+					return 100;
+				} else {
+					return 10;
+				}
+			};
+
+			function changeTab(index) {
+				PF("tabViewWV").select(index);
+			}
+		</h:outputScript>
+		<h:outputStylesheet>
+			.value .ui-selectonemenu .ui-selectonemenu-label {
+				width: auto;
+			}
+		</h:outputStylesheet>
+
+	 	<!-- The text and password here are to prevent FF from auto filling my login credentials because it ignores autocomplete="off"-->
+ 		<input type="password" style="display:none"/>
+		<p:tabView id="tabs" widgetVar="tabViewWV" activeIndex="#{bean.defaultTabIndex}">
+			<p:tab title="#{msg.userProfileViewProfile}">
+				<h:panelGrid columns="2" columnClasses="label, value"
+					styleClass="grid">
+
+					<span>#{msg.firstname}:</span>
+					<h:outputText value="#{bean.entity.firstName}" />
+
+					<span>#{msg.lastname}:</span>
+					<h:outputText value="#{bean.entity.lastName}" />
+
+					<span>#{msg.role}:</span>
+					<p:dataList id="role" value="#{bean.entity.roles}" var="item">
+						#{item.name}
+					</p:dataList>
+
+					<span>#{msg.login}:</span>
+					<h:outputText value="#{bean.entity.login}" />
+
+					<span>#{msg.email}:</span>
+					<h:outputText value="#{bean.entity.email}" />
+
+					<span>#{msg.fiscalCode}:</span>
+					<h:outputText value="#{bean.entity.fiscalCode}" />
+				</h:panelGrid>
+			</p:tab>
+
+			<p:tab title="#{msg.userProfileViewChangingPassword}">
+				<h:panelGrid columns="2" columnClasses="label,value" styleClass="grid">
+
+					<span><span class="red">*</span>
+						#{msg.userProfileViewOldPassword}:</span>
+					<p:password id="oldPassword" maxlength="40" autocomplete="false"
+								redisplay="true" feedback="false" value="#{bean.oldPwd}"
+								onkeypress="if (event.keyCode == 13) { return false; }"
+								onkeyup="if (event.keyCode == 13) {$('#save_btn').click();}"/>
+
+					<p:outputPanel style="display: inline-flex;">
+						<span><span class="red">*</span>#{msg.userProfileViewNewPassword}:</span>
+						<p:outputPanel id="passwordIco">
+							<i class="ui-icon ui-c ui-icon-info"/>
+						</p:outputPanel>
+						<p:tooltip id="passwordTooltip" for="passwordIco"
+								   value="#{val.passwordFormatError}" escape="false"/>
+					</p:outputPanel>
+					<p:outputPanel>
+						<p:password id="newPassword" maxlength="40" autocomplete="false"
+									onkeypress="if (event.keyCode == 13) { return false; }"
+									onkeyup="if (event.keyCode == 13) {$('#save_btn').click();}"
+									redisplay="true" feedback="true" value="#{bean.pwd}"
+									label="#{msg.password}" weakLabel="#{msg.passwordFeedbackWeak}"
+									strongLabel="#{msg.passwordFeedbackStrong}"
+									promptLabel="#{msg.passwordFeedbackPrompt}"/>
+					</p:outputPanel>
+
+					<span><span class="red">*</span>
+						#{msg.userProfileViewConfirmPassword}:</span>
+					<p:password id="confirmationPassword" maxlength="40"
+								redisplay="true" feedback="false" autocomplete="false"
+								value="#{bean.confirmPwd}"
+								onkeypress="if (event.keyCode == 13) { return false; }"
+								onkeyup="if (event.keyCode == 13) {$('#save_btn').click();}"/>
+				</h:panelGrid>
+			</p:tab>
+
+			<p:tab title="#{msg.userProfileViewPreferences}">
+				<p:fieldset legend="#{msg.workList}">
+					<h:panelGrid columns="2" columnClasses="label,value"
+						styleClass="grid">
+
+						<span>#{msg.userPrefItemsPerPage}:</span>
+						<p:selectOneMenu
+							value="#{bean.itemsPerPagePreference.itemsPerPage}">
+							<f:selectItems value="#{bean.itemsPPList}" />
+						</p:selectOneMenu>
+
+						<span>#{msg.userPrefState}:</span>
+						<h:selectManyMenu id="examTypesShow"
+							value="#{bean.selectedStates}" styleClass="ui-corner-all"
+							label="#{msg.userPrefState}">
+							<f:selectItems value="#{bean.allStates}" var="state"
+								itemLabel="#{state.realState}" />
+						</h:selectManyMenu>
+
+						<span>#{msg.userPrefExamType}: </span>
+						<h:selectManyMenu id="state" value="#{bean.selectedExams}"
+							styleClass="ui-corner-all" label="#{msg.userPrefExamType}">
+							<f:selectItems value="#{bean.allExamTypes}" />
+						</h:selectManyMenu>
+
+						<span>#{msg.userPrefWorkListOrder}:</span>
+						<p:selectOneMenu value="#{bean.orderPreference.orderColumn}">
+							<f:selectItems value="#{bean.ordersList}" />
+						</p:selectOneMenu>
+						
+						<span>#{msg.userProfileViewUserPrefWorkListOrderType}:</span>
+						<p:selectOneMenu value="#{bean.orderTypePreference.orderColumnType}">
+							<f:selectItems value="#{bean.orderTypesList}" />
+						</p:selectOneMenu>
+
+						<span>#{msg.reopenLastReport}:</span>
+						<p:selectBooleanCheckbox value="#{bean.entity.reopenLastReport}" />
+
+						<span>#{msg.printDailyReport}:</span>
+						<p:selectBooleanCheckbox value="#{bean.entity.printDailyReport}" />
+
+						<span>#{msg.showOrderDate}:</span>
+						<p:selectBooleanCheckbox value="#{bean.entity.showOrderDate}" />
+
+						<span>#{msg.priorityAlert}:</span>
+						<p:selectOneMenu value="#{bean.priorityAlertPreference.priorityAlertType}">
+							<f:selectItems value="#{bean.priorityAlertTypesList}" />
+						</p:selectOneMenu>
+						
+					</h:panelGrid>
+				</p:fieldset>
+
+				<p:fieldset legend="#{msg.userPrefPdfEditor}" id="pdfArea">
+					<h:panelGrid columns="2" columnClasses="label,value"
+						styleClass="grid">
+
+						<span>#{msg.userPrefPdfEditorZoom}:</span>
+						<p:selectOneMenu value="#{bean.pdfZoomPreference.pdfZoom}">
+							<f:selectItems value="#{bean.pdfZoomList}" />
+						</p:selectOneMenu>
+
+						<span>#{msg.userPrefPdfEditorUseDescription}:</span>
+						<p:selectOneMenu
+							value="#{bean.useDescriptionPreference.useDescription}">
+							<f:selectItems value="#{bean.useDescriptionList}" />
+						</p:selectOneMenu>
+
+						<span>#{msg.userPrefLabelPrintActive}:</span>
+						<p:selectBooleanCheckbox
+							value="#{bean.labelPrintActivePreference.labelPrintActive}">
+							<p:ajax update="pdfArea" event="change" />
+						</p:selectBooleanCheckbox>
+
+						<p:outputLabel value="#{msg.userPrefLabelPrintPrinterName}:"
+						rendered="#{bean.labelPrintActivePreference.labelPrintActive}"/>
+						<p:selectOneMenu value="#{bean.labelPrintPrinterNamePreference.labelPrintPrinterName}"
+						rendered="#{bean.labelPrintActivePreference.labelPrintActive}">
+							<f:selectItems value="#{bean.printers}" />
+						</p:selectOneMenu>
+
+
+						<p:outputLabel value="#{msg.userPrefLabelPrintPrinterCount}:"
+						rendered="#{bean.labelPrintActivePreference.labelPrintActive}"/>
+						<p:inputText
+							rendered="#{bean.labelPrintActivePreference.labelPrintActive}"
+							maxlength="3" onkeypress="return numbers_only(this, event, 3, 0)"
+							onkeyup="check_numbers(this, 3, 0);"
+							value="#{bean.labelPrintCountPreference.labelPrintCount}" />
+							
+						<span>#{msg.userPrefLabelPrintActiveDocg}:</span>
+						<p:selectBooleanCheckbox
+							value="#{bean.labelPrintActivePreferenceDocg.labelPrintActiveDocg}">
+							<p:ajax update="pdfArea" event="change" />
+						</p:selectBooleanCheckbox>
+
+						<p:outputLabel value="#{msg.userPrefLabelPrintPrinterNameDocg}:"
+						rendered="#{bean.labelPrintActivePreferenceDocg.labelPrintActiveDocg}"/>
+						<p:selectOneMenu value="#{bean.labelPrintPrinterNamePreferenceDocg.labelPrintPrinterNameDocg}"
+						rendered="#{bean.labelPrintActivePreferenceDocg.labelPrintActiveDocg}">
+							<f:selectItems value="#{bean.printersDocg}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="#{msg.userPrefLabelPrintPrinterCountDocg}:"
+						rendered="#{bean.labelPrintActivePreferenceDocg.labelPrintActiveDocg}"/>
+						<p:inputText
+							rendered="#{bean.labelPrintActivePreferenceDocg.labelPrintActiveDocg}"
+							maxlength="3" onkeypress="return numbers_only(this, event, 3, 0)"
+							onkeyup="check_numbers(this, 3, 0);"
+							value="#{bean.labelPrintCountPreferenceDocg.labelPrintCountDocg}" />
+						
+						<span>#{msg.userPrefAutoSaveDocg}:</span>
+						<p:selectBooleanCheckbox
+							value="#{bean.autoSaveDocgPreference.autoSaveDocg}">
+							<p:ajax update="pdfArea" event="change" />
+						</p:selectBooleanCheckbox>
+						
+						<span>#{msg.userPrefOpenPdf}:</span>
+						<p:selectBooleanCheckbox
+							value="#{bean.openPDFDocument.openPdfDocument}">
+							<p:ajax update="pdfArea" event="change" />
+						</p:selectBooleanCheckbox>
+
+						<span>#{msg.userPrefReferringDiction}:</span>
+						<p:inputText maxlength="255" value="#{bean.referringDiction.referringDiction}" />
+
+						<span>#{msg.userPrefVocalRecognition}:</span>
+						<p:selectBooleanCheckbox
+								value="#{bean.vocalRecognition.vocalRecognition}">
+							<p:ajax update="pdfArea" event="change" />
+						</p:selectBooleanCheckbox>
+
+					</h:panelGrid>
+				</p:fieldset>
+
+				<div align="center">
+					<p:commandButton value="#{msg.glossaryManagmentGlossario}"
+									 actionListener="#{bean.glossaryManagement}"/>
+				</div>
+			</p:tab>
+		</p:tabView>
+
+	</ui:define>
+</ui:composition>

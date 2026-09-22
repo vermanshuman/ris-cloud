@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:custom="http://java.sun.com/jsf/composite/components"
+                template="/resources/tpl/Admin/EditBase.xhtml">
+    <ui:param name="edit_title" value="#{msg.directReservationEditTitle}"/>
+    <ui:param name="bean" value="#{directReservationEditBean}"/>
+
+    <ui:define name="edit_body">
+        <p:fieldset legend="#{msg.general}">
+            <h:panelGrid columns="2" columnClasses="label, value"
+                         styleClass="grid">
+
+				<span><span class="red">*</span>
+                    #{msg.directReservationSector}: </span>
+                <p:selectOneMenu id="sector" value="#{bean.sectorId}"
+                                 label="#{msg.directReservationSector}">
+                    <f:selectItems value="#{bean.sectors}"/>
+                </p:selectOneMenu>
+
+                <span><span class="red">*</span>#{msg.directReservationExams}: </span>
+            </h:panelGrid>
+            <custom:SelectManyMenu selectionBean="#{directReservationEditBean.examSelectManyMenuWrapper}" widgetPrefix="exams">
+                <p:column filterBy="#{item.code}" filterMatchMode="contains"
+                          headerText="#{msg.code}" sortBy="#{item.code}">
+                    <h:outputText value="#{item.code}" />
+                </p:column>
+
+                <p:column filterBy="#{item.description}"
+                          filterMatchMode="contains" sortBy="#{item.description}"
+                          headerText="#{msg.description}">
+                    <h:outputText value="#{item.description}" />
+                </p:column>
+
+                <p:column sortBy="#{item.examType.description}"
+                          headerText="#{msg.radiologyExamType}">
+                    <h:outputText value="#{item.examType}" />
+                </p:column>
+            </custom:SelectManyMenu>
+
+            <span><span class="red">*</span>#{msg.directReservationSectors}: </span>
+            <custom:SelectManyMenu selectionBean="#{directReservationEditBean.asapSectorSelectManyMenuWrapper}" widgetPrefix="asap">
+                <p:column filterBy="#{item.code}" filterMatchMode="contains"
+                          headerText="#{msg.code}" sortBy="#{item.code}">
+                    <h:outputText value="#{item.code}" />
+                </p:column>
+
+                <p:column filterBy="#{item.description}"
+                          filterMatchMode="contains" sortBy="#{item.description}"
+                          headerText="#{msg.description}">
+                    <h:outputText value="#{item.description}" />
+                </p:column>
+            </custom:SelectManyMenu>
+
+            <h:panelGrid columns="2" columnClasses="label, value"
+                         styleClass="grid">
+                <h:outputText value="#{msg.directReservationActivityLine}:" />
+                <p:inputText value="#{bean.entity.activityLine}" />
+            </h:panelGrid>
+        </p:fieldset>
+    </ui:define>
+</ui:composition>

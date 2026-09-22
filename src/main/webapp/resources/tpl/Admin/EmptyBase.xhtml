@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/resources/tpl/Admin/Main.xhtml">
+	<ui:define name="body">
+
+		<ui:fragment rendered="#{empty title_exist || title_exist == true}">
+			<h1 class="#{title_class}">#{view_title}</h1>
+		</ui:fragment>
+		<ui:insert name="title"></ui:insert>
+
+		<div class="content">
+			<ui:insert name="common"></ui:insert>
+			<h:form id="form" prependId="false">
+				<ui:fragment
+					rendered="#{empty showRightPart ? false : showRightPart}">
+					<div class="right_part">
+						<ui:insert name="right_info"></ui:insert>
+					</div>
+				</ui:fragment>
+				<ui:insert name="view_body"></ui:insert>
+				<p:growl id="messages" showDetail="true" widgetVar="messagesVar" globalOnly="true" />
+			</h:form>
+		</div>
+
+	</ui:define>
+</ui:composition>
+</html>

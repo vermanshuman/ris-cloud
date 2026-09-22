@@ -1,0 +1,321 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/resources/tpl/Admin/EditBase.xhtml">
+	<ui:param name="edit_title" value="#{msg.editPatient}" />
+	<ui:param name="bean" value="#{patientEditBean}" />
+	<ui:param name="renderMenu" value="#{bean.renderMenu}" />
+	<ui:param name="centerPartStyleClass"
+		value="#{(bean.renderMenu == false) ? 'false' : 'center_part'}" />
+
+	<ui:define name="edit_body">
+		<style>
+.ui-inputfield.ui-state-focus,.ui-widget-content .ui-inputfield.ui-state-focus,.ui-widget-header .ui-inputfield.ui-state-focus
+	{
+	background: #6699cc;
+	color: #e7f3ff;
+	-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0
+		rgba(0, 0, 0, 0.9) inset;
+	-moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0
+		rgba(0, 0, 0, 0.9) inset;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(0, 0, 0, 0.9)
+		inset;
+}
+
+input:focus,select:focus {
+	background: #6699cc;
+	color: #e7f3ff;
+	-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0
+		rgba(0, 0, 0, 0.9) inset;
+	-moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0
+		rgba(0, 0, 0, 0.9) inset;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(0, 0, 0, 0.9)
+		inset;
+}
+
+input,select {
+	background: #fcfcfc;
+	padding: 2px;
+	border: 0 none;
+	font: bold 12px Arial, Helvetica, Sans-serif;
+	color: #6a6f75;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	text-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+	-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 3px
+		rgba(0, 0, 0, 0.2) inset;
+	-moz-box-shadow: , 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 3px
+		rgba(0, 0, 0, 0.2) inset;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 3px
+		rgba(0, 0, 0, 0.2) inset;
+	-webkit-background-clip: padding-box;
+	-webkit-transition: all 0.7s ease-out 0s; /* Saf3.2+, Chrome */
+	-moz-transition: all 0.7s ease-out 0s; /* FF4+ */
+	-ms-transition: all 0.7s ease-out 0s; /* IE10? */
+	-o-transition: all 0.7s ease-out 0s; /* Opera 10.5+ */
+	transition: all 0.7s ease-out 0s;
+	border: 0 none;
+}
+</style>
+		<f:view afterPhase="#{bean.removeSessionAttributeAfterRender}" />
+
+		<p:tabView id="tabs">
+			<p:tab title="#{msg.patientStandartInfo}">
+				<h:panelGrid columns="4" columnClasses="label_4,value,label_4,value"
+					styleClass="grid">
+
+					<span><span class="red">*</span> #{msg.patientSurname}:</span>
+					<p:inputText id="surname" tabindex="1" maxlength="25"
+						onkeyup="fieldValueToUpperCase(this);"
+						onblur="fieldValueToUpperCase(this);"
+						value="#{bean.entity.surname}" label="#{msg.patientSurname}">
+						<p:ajax listener="#{patientEditBean.makeFiscalCode}"
+							update="fiscalCode"
+							process="@this,nationality,surname,name,sex,birthDate" />
+					</p:inputText>
+
+					<span><span class="red">*</span> #{msg.patientBirthDate}:</span>
+					<p:datePicker id="birthDate" tabindex="6" pattern="dd/MM/yyyy"
+								  locale="it" label="#{msg.patientBirthDate}"
+								  showIcon="true" showOnFocus="false" focusOnSelect="true"
+								  onblur="check_date(this);" monthNavigator="true" yearNavigator="select"
+								  widgetVar="birthDateVar" value="#{bean.entity.birthDate}">
+						<p:ajax event="dateSelect"
+								process="@this,nationality,surname,name,sex,birthDate,birthCity"
+								listener="#{patientEditBean.handleDateSelect}"
+								update="fiscalCode">
+						</p:ajax>
+						<p:ajax event="blur"
+								process="@this,nationality,surname,name,sex,birthDate,birthCity"
+								listener="#{patientEditBean.handleDateSelect}"
+								update="fiscalCode">
+						</p:ajax>
+					</p:datePicker>
+
+					<span><span class="red">*</span> #{msg.patientName}:</span>
+					<p:inputText id="name" tabindex="2" maxlength="25"
+						value="#{bean.entity.name}" onkeyup="fieldValueToUpperCase(this);"
+						onblur="fieldValueToUpperCase(this);" label="#{msg.patientName}">
+						<p:ajax listener="#{patientEditBean.makeFiscalCode}"
+							process="@this,nationality,surname,name,sex,birthDate"
+							update="fiscalCode" />
+					</p:inputText>
+
+					<span> #{msg.patientBirthProvince}:</span>
+					<h:selectOneMenu id="birthProvince" tabindex="7"
+						value="#{bean.birthProvinceId}" style="height:23px">
+						<p:ajax update="birthCity,fiscalCode"
+							listener="#{patientEditBean.handleBirthProvinceChange}"
+							process="@this,nationality,surname,name,sex,birthDate" />
+						<f:selectItems value="#{bean.provinces}" />
+					</h:selectOneMenu>
+
+					<span><span class="red">*</span> #{msg.patientSex}:</span>
+					<h:selectOneMenu id="sex" tabindex="3" value="#{bean.sexType}"
+						label="#{msg.patientSex}" style="height:23px">
+						<f:selectItems value="#{bean.sexes}" />
+						<p:ajax listener="#{patientEditBean.makeFiscalCode}"
+							process="@this,nationality,surname,name,sex,birthDate"
+							update="fiscalCode" />
+					</h:selectOneMenu>
+
+					<span> #{msg.patientBirthCity}: </span>
+					<h:selectOneMenu id="birthCity" tabindex="8"
+						label="#{msg.patientBirthCity}" value="#{bean.birthCityId}"
+						style="height:23px">
+						<f:selectItems value="#{bean.birthCities}" />
+						<p:ajax listener="#{patientEditBean.makeFiscalCode}"
+							process="@this,nationality,surname,name,sex,birthDate"
+							update="fiscalCode" />
+					</h:selectOneMenu>
+
+					<span> #{msg.patientMaritalStatus}:</span>
+					<h:selectOneMenu id="maritalStatus" tabindex="4"
+						value="#{bean.maritalStatus}" style="height:23px">
+						<f:selectItems value="#{bean.maritalStatuses}" />
+					</h:selectOneMenu>
+
+					<span><span class="red">*</span> #{msg.patientFiscalCode}:</span>
+					<p:inputText id="fiscalCode" tabindex="9" maxlength="16"
+						value="#{bean.entity.fiscalCode}"
+						onkeyup="fieldValueToUpperCase(this);"
+						onblur="fieldValueToUpperCase(this);" />
+
+					<span><span class="red">*</span> #{msg.patientNationality}:</span>
+					<h:selectOneMenu id="nationality" tabindex="5"
+						styleClass="dropdown" style="height:23px"
+						label="#{msg.patientNationality}" value="#{bean.nationalityId}">
+						<p:ajax update="fiscalCode"
+							process="@this,nationality,surname,name,sex,birthDate"
+							listener="#{patientEditBean.makeFiscalCode}" />
+						<f:selectItems value="#{bean.nationalities}" />
+					</h:selectOneMenu>
+				</h:panelGrid>
+			</p:tab>
+
+			<p:tab title="#{msg.patientAddressInfo}">
+
+				<h:panelGrid columns="4" columnClasses="label_4,value,label_4,value"
+					styleClass="grid">
+
+					<span> #{msg.patientAddress}:</span>
+					<p:inputText tabindex="1" id="address" maxlength="250"
+						value="#{bean.entity.address}"
+						onkeyup="fieldValueToUpperCase(this);"
+						onblur="fieldValueToUpperCase(this);" />
+
+					<span>#{msg.patientCap}:</span>
+					<p:inputMask id="cap" mask="99999" tabindex="6"
+						value="#{bean.entity.cap}" />
+
+					<span>#{msg.patientAddressNumber}:</span>
+					<p:inputText tabindex="2" id="addressNumber" maxlength="5"
+						onkeypress="return numbers_only(this, event, 5, 0)"
+						onkeyup="check_numbers(this,5,0)"
+						value="#{bean.entity.addressNumber}" />
+
+					<span>#{msg.patientPhone}:</span>
+					<p:inputText tabindex="7" id="phone" maxlength="18"
+						label="#{msg.patientPhone}"
+						onkeypress="return numbers_only(this, event, 18, 0)"
+						onkeyup="check_numbers(this,18,0)" value="#{bean.entity.phone}" />
+
+					<span> #{msg.patientProvince}:</span>
+					<h:selectOneMenu id="province" tabindex="3"
+						value="#{bean.addressProvinceId}" style="height:23px">
+						<p:ajax update="province, city"
+							listener="#{patientEditBean.handleAddressProvinceChange}" />
+						<f:selectItems value="#{bean.provinces}" />
+					</h:selectOneMenu>
+
+					<span> #{msg.patientCell}:</span>
+					<p:inputText tabindex="8" id="cell" maxlength="18"
+						label="#{msg.patientCell}"
+						onkeypress="return numbers_only(this, event, 18, 0)"
+						onkeyup="check_numbers(this,18,0)" value="#{bean.entity.cell}" />
+
+					<span> #{msg.patientCity}: </span>
+					<h:selectOneMenu id="city" tabindex="4"
+						value="#{bean.addressCityId}" style="height:23px">
+						<f:selectItems value="#{bean.addressCities}" />
+						<p:ajax update="asl, aslRegion"
+							listener="#{patientEditBean.handleAddressCityChange}" />
+					</h:selectOneMenu>
+
+					<span> #{msg.patientSecondPhone}:</span>
+					<p:inputText tabindex="9" id="secondPhone" maxlength="18"
+						onkeypress="return numbers_only(this, event, 18, 0)"
+						onkeyup="check_numbers(this,18,0)"
+						value="#{bean.entity.secondPhone}" />
+
+					<span>#{msg.patientDistrict}:</span>
+					<p:inputText id="district" tabindex="5" maxlength="250"
+						value="#{bean.entity.district}"
+						onkeyup="fieldValueToUpperCase(this);"
+						onblur="fieldValueToUpperCase(this);" />
+
+					<span> #{msg.patientEmail}:</span>
+					<p:inputText tabindex="10" id="email" maxlength="250"
+						value="#{bean.entity.mail}" />
+				</h:panelGrid>
+
+				<p:selectBooleanCheckbox widgetVar="showAdditionalAddress"
+					value="#{bean.entity.showAdditionalAddress}"
+					itemLabel="#{msg.patientHasAdditionalAddress}"
+					onchange="toggleAdditionalAddress()" />
+
+				<h:panelGrid columns="4" columnClasses="label_4,value,label_4,value"
+					id="additional_address_table"
+					style="display: #{bean.entity.showAdditionalAddress ? '' : 'none'}"
+					styleClass="grid">
+
+					<span> #{msg.patientAddress}:</span>
+					<p:inputText tabindex="11" id="address1" maxlength="250"
+						value="#{bean.entity.address1}"
+						onkeyup="fieldValueToUpperCase(this);"
+						onblur="fieldValueToUpperCase(this);" />
+
+					<span> #{msg.patientCity}: </span>
+					<h:selectOneMenu id="city1" tabindex="14"
+						value="#{bean.address1CityId}" style="height:23px">
+						<f:selectItems value="#{bean.address1Cities}" />
+					</h:selectOneMenu>
+
+					<span> #{msg.patientAddressNumber}:</span>
+					<p:inputText tabindex="12" id="addressNumber1" maxlength="5"
+						onkeypress="return numbers_only(this, event, 5, 0)"
+						onkeyup="check_numbers(this,5,0)"
+						value="#{bean.entity.addressNumber1}" />
+
+					<span> #{msg.patientDistrict}:</span>
+					<p:inputText id="district1" tabindex="15" maxlength="250"
+						value="#{bean.entity.district1}"
+						onkeyup="fieldValueToUpperCase(this);"
+						onblur="fieldValueToUpperCase(this);" />
+
+					<span> #{msg.patientProvince}:</span>
+					<h:selectOneMenu tabindex="13" id="province1"
+						value="#{bean.address1ProvinceId}" style="height:23px">
+						<p:ajax update="province1, city1"
+							listener="#{patientEditBean.handleAddress1ProvinceChange}" />
+						<f:selectItems value="#{bean.provinces}" />
+					</h:selectOneMenu>
+
+					<span> #{msg.patientCap}:</span>
+					<p:inputMask id="cap1" tabindex="16" mask="99999"
+						value="#{bean.entity.cap1}" />
+				</h:panelGrid>
+			</p:tab>
+
+			<p:tab title="#{msg.patientRegionalHealthData}">
+				<h:panelGrid columns="2" columnClasses="label, value"
+					styleClass="grid">
+
+					<span> #{msg.patientHealthCardNumber}:</span>
+					<p:inputMask id="healthCardNumber" mask="99999999999999999999"
+						value="#{bean.entity.healthCardNumber}" />
+
+					<span> #{msg.patientAslRegion}:</span>
+					<h:selectOneMenu id="aslRegion" value="#{bean.aslRegionId}"
+						style="height:23px">
+						<f:selectItems value="#{bean.aslRegions}" />
+					</h:selectOneMenu>
+
+					<span> #{msg.patientAslName}:</span>
+					<h:selectOneMenu id="asl" value="#{bean.aslId}" style="height:23px">
+						<f:selectItems value="#{bean.asls}" />
+					</h:selectOneMenu>
+
+					<span> #{msg.patientDoctor}:</span>
+					<p:inputText id="doctor" maxlength="250"
+						value="#{bean.entity.doctor}"
+						onkeyup="fieldValueToUpperCase(this);"
+						onblur="fieldValueToUpperCase(this);" />
+				</h:panelGrid>
+			</p:tab>
+
+		</p:tabView>
+
+		<script type="text/javascript">
+			$(document).ready(
+					function() {
+						$(document.getElementById('tabs:nationality_panel'))
+								.css('padding-bottom', '15px');
+					});
+
+			function toggleAdditionalAddress() {
+				if (PF('showAdditionalAddress').input[0].checked) {
+					$(document.getElementById('tabs:additional_address_table'))
+							.fadeIn();
+				} else {
+					$(document.getElementById('tabs:additional_address_table'))
+							.fadeOut();
+				}
+			}
+		</script>
+	</ui:define>
+</ui:composition>

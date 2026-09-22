@@ -1,0 +1,434 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/resources/tpl/Admin/EditBase.xhtml">
+    <ui:param name="edit_title" value="#{msg.editAppSettings}"/>
+    <ui:param name="bean" value="#{appSettingsBean}"/>
+
+    <ui:define name="edit_body">
+        <p:tabView id="tab">
+
+            <p:tab title="#{msg.editAppSettingsTabGeneralSettings}"
+                   id="tabGeneralSettings">
+
+                <p:fieldset legend="#{msg.general}">
+                    <h:panelGrid columns="2" columnClasses="label, value"
+                                 cellpadding="3" cellspacing="0" styleClass="grid">
+                        <span>#{msg.editAppSettingsPasswordExpirationPeriod}:</span>
+                        <p:inputText id="passwordExpirationPeriod" maxlength="3"
+                                     value="#{bean.settingPasswordPeriodExpiration.value}"
+                                     onkeypress="return numbers_only(this, event, 3, 0)"
+                                     onkeyup="check_numbers(this, 3, 0);"/>
+
+                        <span>#{msg.editAppSettingsRequestExpirationPeriod}:</span>
+                        <p:inputText id="requestExpirationPeriod" maxlength="3"
+                                     value="#{bean.settingRequestExpiration.value}"
+                                     onkeypress="return numbers_only(this, event, 3, 0)"
+                                     onkeyup="check_numbers(this, 3, 0);"/>
+
+                        <span>#{msg.editAppSettingsStatisticServerIp}:</span>
+                        <p:inputText id="statisticServerIp"
+                                     value="#{bean.settingStatisticServerIp.value}"/>
+
+                        <span>#{msg.editAppSettingsSignatureDaysLimit}:</span>
+                        <p:inputText id="signatureDaysLimit" maxlength="5"
+                                     value="#{bean.settingsSignatureDaysLimit.value}"
+                                     onkeypress="return numbers_only(this, event, 3, 0)"
+                                     onkeyup="check_numbers(this, 3, 0);"/>
+
+                        <!--						<span>#{msg.editAppSettingsInsertPDFIntoCDA2}</span>-->
+                        <!--						<p:selectBooleanCheckbox value="#{bean.settingInsertPdf.value}"/>-->
+
+                        <span>#{msg.editAppSettingsTokenExpiration}:</span>
+                        <p:inputText id="setting_token_expiration"
+                                     onkeypress="return numbers_only(this, event, 3, 0)"
+                                     onkeyup="check_numbers(this, 3, 0);"
+                                     value="#{bean.settingTokenExpiration.value}"
+                                     maxlength="255"/>
+                        <span>#{msg.editAppSettingsIncludeCDA2InPDF}:</span>
+                        <p:selectBooleanCheckbox value="#{bean.includeCDA2InPDF}"/>
+                        <span>#{msg.editAppSettingsEnableValidationCDA2}:</span>
+                        <p:selectBooleanCheckbox value="#{bean.enableValidationCDA}"/>
+                    </h:panelGrid>
+                </p:fieldset>
+                <ui:remove>
+                    <p:fieldset legend="#{msg.editAppSettingsDicomWorklistSettings}">
+                        <h:panelGrid columns="2" columnClasses="label, value"
+                                     cellpadding="3" cellspacing="0" styleClass="grid dynamicgrid">
+
+                            <span>#{msg.editAppSettingsDicomUsage}:</span>
+                            <p:selectBooleanCheckbox widgetVar="showDicomSettingsWV"
+                                                     value="#{bean.showDicomSettings}">
+                                <p:ajax update="tab:panelDicom"/>
+                            </p:selectBooleanCheckbox>
+                        </h:panelGrid>
+
+                        <p:outputPanel id="panelDicom">
+                            <h:panelGrid columns="2" columnClasses="label, value"
+                                         rendered="#{bean.showDicomSettings}" cellpadding="3"
+                                         cellspacing="0" styleClass="grid">
+                                <span>#{msg.editAppSettingsHost}:</span>
+                                <p:inputText id="dicomHost" label="#{msg.editAppSettingsHost}"
+                                             value="#{bean.settingDICOMHost.value}"/>
+
+                                <span>#{msg.editAppSettingsPort}:</span>
+                                <p:inputText id="dicomPort" maxlength="5"
+                                             label="#{msg.editAppSettingsPort}"
+                                             value="#{bean.settingDICOMPort.value}"
+                                             onkeypress="return numbers_only(this, event, 5, 0)"
+                                             onkeyup="check_numbers(this,5)"/>
+
+                                <span>#{msg.editAppSettingsAETitle}:</span>
+                                <p:inputText id="dicomAetitle"
+                                             value="#{bean.settingDICOMAETitle.value}"
+                                             label="#{msg.editAppSettingsAETitle}"/>
+
+                            </h:panelGrid>
+                        </p:outputPanel>
+
+                    </p:fieldset>
+                </ui:remove>
+                <p:fieldset legend="#{msg.editAppSettingsASAPSIODBFieldsetLegend}">
+                    <h:panelGrid columns="2" columnClasses="label, value"
+                                 cellpadding="3" cellspacing="0" styleClass="grid">
+
+                        <span><span class="red">*</span>#{msg.editAppSettingsASAPSIOIntegrationDBUrl}:</span>
+                        <p:inputText id="generalUrl"
+                                     label="#{msg.editAppSettingsASAPSIOIntegrationDBUrl}"
+                                     value="#{bean.settingASAPSIOIntegrationUrl.value}"
+                                     maxlength="100"/>
+
+                        <span><span class="red">*</span>#{msg.editAppSettingsASAPSIOIntegrationDBUsername}:</span>
+                        <p:inputText id="generalUsername"
+                                     label="#{msg.editAppSettingsASAPSIOIntegrationDBUsername}"
+                                     value="#{bean.settingASAPSIOIntegrationUsername.value}"
+                                     maxlength="50"/>
+
+                        <span><span class="red">*</span>#{msg.editAppSettingsASAPSIOIntegrationDBPassword}:</span>
+                        <p:password id="generalPassword" feedback="false" maxlength="50"
+                                    label="#{msg.editAppSettingsASAPSIOIntegrationDBPassword}"
+                                    value="#{bean.ASAPSIOPassword}">
+                        </p:password>
+
+                        <span><span class="red">*</span>#{msg.editAppSettingsASAPSIOIntegrationDBPasswordConfirmation}:</span>
+                        <p:password id="generalPasswordConfirmation" feedback="false"
+                                    maxlength="50"
+                                    label="#{msg.editAppSettingsASAPSIOIntegrationDBPasswordConfirmation}"
+                                    value="#{bean.ASAPSIOPasswordConfirmation}">
+                        </p:password>
+
+                    </h:panelGrid>
+                    <div class="btn_line">
+                        <p:commandButton value="#{msg.editAppSettingsCheckConnBtn}"
+                                         oncomplete="PF('generalCheckConnectionRslt').show();"
+                                         action="#{bean.checkGeneralConnection}"
+                                         update=":form:checkConnRsltPnl"/>
+                    </div>
+                </p:fieldset>
+                <p:fieldset legend="#{msg.editAppSettingsAsapSioSettingsForPSD}">
+                    <h:panelGrid columns="2" columnClasses="label, value"
+                                 cellpadding="3" cellspacing="0" styleClass="grid">
+
+                        <span>#{msg.editAppSettingsServerAsapSioAddress}:</span>
+                        <p:inputText id="asap_sio_address"
+                                     value="#{bean.asapSioServerAddress.value}" maxlength="255"/>
+
+                        <span>#{msg.editAppSettingsAsapSioForPSDUser}:</span>
+                        <p:inputText id="asap_sio_user_for_psd"
+                                     value="#{bean.asapSioUserForPsd.value}" maxlength="30"/>
+
+                        <span>#{msg.editAppSettingsAsapSioForPSDPassword}:</span>
+                        <p:inputText id="asap_sio_password_for_psd"
+                                     value="#{bean.asapSioPasswordForPsd.value}" maxlength="20"
+                                     type="password"/>
+                    </h:panelGrid>
+                </p:fieldset>
+
+                <p:fieldset legend="#{msg.editAppSettingsAsapSioSettingsFileEntity}">
+                    <h:panelGrid columns="2" columnClasses="label, value"
+                                 cellpadding="3" cellspacing="0" styleClass="grid">
+
+                        <span>#{msg.editAppSettingsFileEntityPath}:</span>
+                        <p:inputText id="file_entity_path"
+                                     value="#{bean.settingFileEntityPath.value}" maxlength="255"/>
+                    </h:panelGrid>
+                </p:fieldset>
+
+                <p:fieldset legend="#{msg.editAppSettingsSessionTimeoutSettings}">
+                    <h:panelGrid columns="2" columnClasses="label, value"
+                                 cellpadding="3" cellspacing="0" styleClass="grid">
+
+                        <span>#{msg.editAppSettingsSessionTimeout}:</span>
+                        <p:inputText id="session_timeout"
+                                     onkeypress="return numbers_only(this, event, 5, 0)"
+                                     onkeyup="check_numbers(this, 5, 0);"
+                                     value="#{bean.settingSessionTimeout.value}"
+                                     maxlength="255"/>
+
+                        <span>#{msg.editAppSettingsSessionCheckTimeout}:</span>
+                        <p:inputText id="session_check_timeout"
+                                     onkeypress="return numbers_only(this, event, 5, 0)"
+                                     onkeyup="check_numbers(this, 5, 0);"
+                                     value="#{bean.settingSessionCheckTimeout.value}"
+                                     maxlength="255"/>
+                    </h:panelGrid>
+                </p:fieldset>
+
+                <p:fieldset legend="#{msg.editAppSettingsSessionTimeoutIntervalSettings}">
+                    <h:panelGrid columns="2" columnClasses="label, value"
+                                 cellpadding="3" cellspacing="0" styleClass="grid">
+
+                        <span>#{msg.editAppSettingsSessionTimeoutWithoutUser}:</span>
+                        <p:inputText id="session_timeout_without_user"
+                                     onkeypress="return numbers_only(this, event, 5, 0)"
+                                     onkeyup="check_numbers(this, 5, 0);"
+                                     value="#{bean.settingSessionTimeoutWithoutUser.value}"
+                                     maxlength="255"/>
+
+                        <span>#{msg.editAppSettingsSessionTimeoutIntervalWithoutUser}:</span>
+                        <p:inputText id="session_timeout_interval_without_user"
+                                     onkeypress="return numbers_only(this, event, 5, 0)"
+                                     onkeyup="check_numbers(this, 5, 0);"
+                                     value="#{bean.settingSessionTimeoutIntervalWithoutUser.value}"
+                                     maxlength="255"/>
+                    </h:panelGrid>
+                </p:fieldset>
+
+                <p:fieldset legend="#{msg.editAppSettingsCleanShortRequest}">
+                    <h:panelGrid columns="2" columnClasses="label, value"
+                                 cellpadding="3" cellspacing="0" styleClass="grid">
+
+                        <span>#{msg.editAppSettingsCleanShortRequestInterval}:</span>
+                        <p:inputText id="setting_clean_short_request_interval"
+                                     onkeypress="return numbers_only(this, event, 3, 0)"
+                                     onkeyup="check_numbers(this, 3, 0);"
+                                     value="#{bean.settingCleanShortRequestInterval.value}"
+                                     maxlength="255"/>
+
+                    </h:panelGrid>
+                </p:fieldset>
+
+                <p:fieldset legend="#{msg.editAppSettingsQuerySetting}">
+                    <h:panelGrid columns="2" columnClasses="label, value"
+                                 cellpadding="3" cellspacing="0" styleClass="grid">
+
+                        <span>#{msg.editAppSettingsQueryTimeout}:</span>
+                        <p:inputText id="setting_query_timeout"
+                                     onkeypress="return numbers_only(this, event, 3, 0)"
+                                     onkeyup="check_numbers(this, 3, 0);"
+                                     value="#{bean.settingQueryTimeout.value}"
+                                     maxlength="255"/>
+
+                    </h:panelGrid>
+                </p:fieldset>
+
+                <p:fieldset legend="#{msg.editAppSettingsImage}">
+                    <h:panelGrid columns="2" columnClasses="label, value"
+                                 cellpadding="3" cellspacing="0" styleClass="grid">
+
+                        <span>#{msg.editAppSettingsImagePath}:</span>
+                        <p:inputText id="image_path"
+                                     value="#{bean.settingImagePath.value}" maxlength="255"/>
+                    </h:panelGrid>
+                </p:fieldset>
+
+                <p:fieldset legend="#{msg.editAppSettingsUserDisable}">
+                    <h:panelGrid columns="2" columnClasses="label, value"
+                                 cellpadding="3" cellspacing="0" styleClass="grid">
+
+                        <span>#{msg.editAppSettingsUserDisablePoolingTime}:</span>
+                        <p:inputText id="disable_user_pooling_time" onkeypress="return numbers_only(this, event, 3, 0)"
+                                     onkeyup="check_numbers(this, 3, 0);"
+                                     value="#{bean.settingUserDisablePollingTime.value}" maxlength="255"/>
+                        <span>#{msg.editAppSettingsUserDisablePeriod}:</span>
+                        <p:inputText id="disable_user_period" onkeypress="return numbers_only(this, event, 3, 0)"
+                                     onkeyup="check_numbers(this, 3, 0);"
+                                     value="#{bean.settingUserDisablePeriod.value}" maxlength="255"/>
+                    </h:panelGrid>
+                </p:fieldset>
+            </p:tab>
+
+            <p:tab id="tabHl7Settings"
+                   title="#{msg.editAppSettingsTabHl7Settings}">
+                <p:fieldset legend="#{msg.editAppSettingsReceiveHl7}">
+                    <h:panelGrid columns="2" columnClasses="label, value"
+                                 cellpadding="3" cellspacing="0" styleClass="grid">
+
+                        <span>#{msg.editAppSettingsReceiveHl7Port}:</span>
+                        <p:inputText id="hl7ListenPort" maxlength="5"
+                                     value="#{bean.settingHL7ListenPort.value}"
+                                     onkeypress="return numbers_only(this, event, 5, 0)"
+                                     onkeyup="check_numbers(this, 5, 0);"/>
+
+                    </h:panelGrid>
+                </p:fieldset>
+
+                <p:fieldset legend="#{msg.editAppSettingsHl7Fieldset}">
+                    <h:panelGrid columns="2" columnClasses="label, value"
+                                 cellpadding="3" cellspacing="0" styleClass="grid">
+
+                        <span>#{msg.editAppSettingsHl7SendId}:</span>
+                        <p:inputText id="hl7SendIp" maxlength="255"
+                                     value="#{bean.settingHL7SendIp.value}"/>
+
+                        <span>#{msg.editAppSettingsHl7SendPort}:</span>
+                        <p:inputText id="hl7SendPort" maxlength="5"
+                                     value="#{bean.settingHL7SendPort.value}"
+                                     onkeypress="return numbers_only(this, event, 5, 0)"
+                                     onkeyup="check_numbers(this, 5, 0);"/>
+
+                        <span>#{msg.editAppSettingsHl7MdmSendTimeout}:</span>
+                        <p:inputText id="hl7MdmRetryTime" maxlength="6"
+                                     value="#{bean.settingHL7MDMSendRetryTime.value}"
+                                     onkeypress="return numbers_only(this, event, 6, 0)"
+                                     onkeyup="check_numbers(this, 6, 0);">
+                        </p:inputText>
+
+                        <span>#{msg.editAppSettingsHl7OrmSendTimeout}:</span>
+                        <p:inputText id="hl7OrmRetryTime" maxlength="6"
+                                     value="#{bean.settingHL7ORMSendRetryTime.value}"
+                                     onkeypress="return numbers_only(this, event, 6, 0)"
+                                     onkeyup="check_numbers(this, 6, 0);">
+                        </p:inputText>
+
+                        <span>#{msg.editAppSettingsRisRequestSendPollingTime}:</span>
+                        <p:inputText id="risRequestSendPollingTime" maxlength="3"
+                                     value="#{bean.settingRisRequestSendPollingTime.value}"
+                                     onkeypress="return numbers_only(this, event, 3, 0)"
+                                     onkeyup="check_numbers(this, 3, 0);">
+                        </p:inputText>
+                    </h:panelGrid>
+                </p:fieldset>
+                <p:fieldset legend="#{msg.editAppSettingsHl7RepoFieldset}">
+                    <h:panelGrid columns="2" columnClasses="label, value"
+                                 cellpadding="3" cellspacing="0" styleClass="grid">
+
+                        <span>#{msg.editAppSettingsHl7RepoSendId}:</span>
+                        <p:inputText id="hl7RepoSendIp" maxlength="255"
+                                     value="#{bean.settingHL7RepoSendIp.value}"/>
+
+                        <span>#{msg.editAppSettingsHl7RepoSendPort}:</span>
+                        <p:inputText id="hl7RepoSendPort" maxlength="5"
+                                     value="#{bean.settingHL7SendRepoPort.value}"
+                                     onkeypress="return numbers_only(this, event, 5, 0)"
+                                     onkeyup="check_numbers(this, 5, 0);"/>
+
+
+                        <span>#{msg.editAppSettingsHl7RequestSendPollingTime}:</span>
+                        <p:inputText id="hl7RequestSendPollingTime" maxlength="3"
+                                     value="#{bean.settingHl7RequestSendPollingTime.value}"
+                                     onkeypress="return numbers_only(this, event, 3, 0)"
+                                     onkeyup="check_numbers(this, 3, 0);"/>
+
+                        <span>#{msg.editAppSettingsHl7DaysLimit}:</span>
+                        <p:inputText id="hl7DaysLimit" maxlength="5"
+                                     value="#{bean.settingsHL7DaysLimit.value}"
+                                     onkeypress="return numbers_only(this, event, 3, 0)"
+                                     onkeyup="check_numbers(this, 3, 0);"/>
+
+                        <span>#{msg.editAppSettingsHl7MaxSendCount}:</span>
+                        <p:inputText id="hl7MaxSendCount" maxlength="5"
+                                     value="#{bean.settingsHL7MaxCountLimit.value}"
+                                     onkeypress="return numbers_only(this, event, 3, 0)"
+                                     onkeyup="check_numbers(this, 3, 0);"/>
+                    </h:panelGrid>
+                </p:fieldset>
+                <p:fieldset legend="#{msg.editAppSettingsHl7ReportForwardingFieldset}">
+                    <h:panelGrid columns="2" columnClasses="label, value"
+                                 cellpadding="3" cellspacing="0" styleClass="grid">
+
+                        <span>#{msg.editAppSettingsHl7RepoSendId}:</span>
+                        <p:inputText id="hl7ReportForwardingSendIp" maxlength="255"
+                                     value="#{bean.settingHL7ReportForwardingSendIp.value}"/>
+
+                        <span>#{msg.editAppSettingsHl7ReportForwardingSendPort}:</span>
+                        <p:inputText id="hl7ReportForwardingPort" maxlength="5"
+                                     value="#{bean.settingHL7ReportForwardingPort.value}"
+                                     onkeypress="return numbers_only(this, event, 5, 0)"
+                                     onkeyup="check_numbers(this, 5, 0);"/>
+
+
+                        <span>#{msg.editAppSettingsHl7ReportForwardingPollingTime}:</span>
+                        <p:inputText id="hl7ReportForwardingPollingTime" maxlength="5"
+                                     value="#{bean.settingHL7ReportForwardingPollingTime.value}"
+                                     onblur="check_time(this)"/>
+
+                        <span>#{msg.editAppSettingsHl7ReportForwardingStartDate}:</span>
+                        <p:datePicker pattern="dd/MM/yyyy" locale="it"
+                                      id="hl7ReportForwardingStartDate" showOnFocus="false" showIcon="true"
+                                      label="#{msg.editAppSettingsHl7ReportForwardingStartDate}"
+                                      onblur="check_date(this)" focusOnSelect="true"
+                                      value="#{bean.hl7ReportForwardingStartDate}"
+                                      monthNavigator="true" yearNavigator="select"/>
+
+                        <span>#{msg.editAppSettingsHl7ReportForwardingHours}:</span>
+                        <p:inputText id="hl7ReportForwardingHours" maxlength="5"
+                                     value="#{bean.settingHl7ReportForwardingHours.value}"
+                                     onkeypress="return numbers_only(this, event, 3, 0)"
+                                     onkeyup="check_numbers(this, 3, 0);"/>
+                    </h:panelGrid>
+                </p:fieldset>
+            </p:tab>
+
+            <!--			<p:tab id="smtpSettings" title="#{msg.editAppSettingsTabSMTPSettings}">-->
+            <!--				<p:fieldset>-->
+            <!--					<h:panelGrid columns="2" columnClasses="label, value"-->
+            <!--								 cellpadding="3" cellspacing="0" styleClass="grid">-->
+
+            <!--						<span>#{msg.editAppSettingsSMTPServer}:</span>-->
+            <!--						<p:inputText value="#{bean.settingSMTPServer.value}" maxlength="255"/>-->
+
+            <!--						<span>#{msg.editAppSettingsSMTPPort}:</span>-->
+            <!--						<p:inputText maxlength="5"-->
+            <!--									 value="#{bean.settingSMTPPort.value}"-->
+            <!--									 onkeypress="return numbers_only(this, event, 5, 0)"-->
+            <!--									 onkeyup="check_numbers(this, 5, 0);" />-->
+
+            <!--						<span>#{msg.editAppSettingsSMTPUsername}:</span>-->
+            <!--						<p:inputText maxlength="255"-->
+            <!--									 value="#{bean.settingSMTPUsername.value}"/>-->
+
+            <!--						<span>#{msg.editAppSettingsSMTPPassword}:</span>-->
+            <!--						<p:password maxlength="255" feedback="false"-->
+            <!--									placeholder="#{not empty bean.settingSMTPPassword.value?'saved':'not saved'}"-->
+            <!--									value="#{bean.settingSMTPPassword.value}"/>-->
+
+            <!--						<span>#{msg.editAppSettingsSMTPMessage}:</span>-->
+            <!--						<p:commandButton value="#{msg.editAppSettingsSMTPMessageTemplateCreate}"-->
+            <!--										 action="#{bean.openMailTemplateDialog}">-->
+            <!--						</p:commandButton>-->
+
+            <!--					</h:panelGrid>-->
+            <!--				</p:fieldset>-->
+            <!--			</p:tab>-->
+
+            <p:tab title="#{msg.editAppSettingsTabFSEGateway}">
+                <h:panelGrid columns="2" columnClasses="label, value" cellpadding="2" cellspacing="0" styleClass="grid">
+                    <h:outputText value="#{msg.editAppSettingsTabFSEGatewayEndpoint}:"/>
+                    <p:inputText id="settingGatewayFSEEndpoint" value="#{bean.settingFSEGatewayEndpoint.value}"/>
+                </h:panelGrid>
+            </p:tab>
+        </p:tabView>
+
+        <p:dialog header="#{msg.editAppSettingsCheckConnResultDialogHeader}"
+                  widgetVar="generalCheckConnectionRslt" modal="true" resizable="false"
+                  effect="SLIDE">
+            <p:outputPanel id="checkConnRsltPnl">
+                <h:outputText rendered="#{bean.ASAPSIOCheckConnectionResult}"
+                              value="#{msg.editAppSettingsCheckConnSuccess}"/>
+
+                <h:outputText rendered="#{!bean.ASAPSIOCheckConnectionResult}"
+                              value="#{msg.editAppSettingsCheckConnNotSuccess}"/>
+            </p:outputPanel>
+            <div class="btn_line">
+                <p:commandButton value="#{msg.cancel}"
+                                 onclick="PF('generalCheckConnectionRslt').hide();"
+                                 icon="ui-icon-close"/>
+            </div>
+        </p:dialog>
+
+    </ui:define>
+</ui:composition>

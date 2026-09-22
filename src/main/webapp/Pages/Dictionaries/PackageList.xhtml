@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/resources/tpl/Admin/LazyListBase.xhtml">
+	<ui:param name="list_title" value="#{msg.packages}" />
+	<ui:param name="bean" value="#{packageListBean}" />
+
+	<ui:define name="columns">
+		<p:column styleClass="action_column" exportable="false">
+			<p:commandButton icon="ui-icon ui-icon-copy" 
+				update=":form:packageCopyDialog" action="#{bean.prepareToCopy}"
+				oncomplete="PF('packageCopyDialogWV').show();">
+				<f:setPropertyActionListener value="#{item.id}"
+					target="#{bean.entityEditId}" />
+			</p:commandButton>
+		</p:column>
+
+		<p:column sortBy="#{item.code}" filterBy="#{item.code}"
+			headerText="#{msg.code}">
+			<h:outputText value="#{item.code}" />
+		</p:column>
+
+		<p:column sortBy="#{item.description}" filterBy="#{item.description}"
+			headerText="#{msg.description}">
+			<h:outputText value="#{item.description}" />
+		</p:column>
+
+		<p:column sortBy="#{item.examType.id}" filterBy="#{item.examType.id}"
+			filterOptions="#{bean.examTypes}" headerText="#{msg.packageExamType}">
+			<h:outputText value="#{item.examType}" />
+		</p:column>
+
+		<p:column exportable="false" style="width:300px"
+			headerText="#{msg.packageExams}">
+			<p:dataList value="#{item.radiologyExams}" var="pe" itemType="disc">
+				<h:outputText rendered="#{!pe.radiologyExam.checkDeleted}"
+					value="#{pe.radiologyExam}" />
+			</p:dataList>
+		</p:column>
+
+		<p:column style="display: none;width:300px"
+			headerText="#{msg.packageExams}">
+			<h:outputText value="#{item.radiologyExamsExport}" />
+		</p:column>
+	</ui:define>
+
+	<ui:define name="dialogs_body">
+
+		<p:dialog header="#{msg.packageCopyDialogTitle}" modal="true"
+			resizable="false" id="packageCopyDialog"
+			widgetVar="packageCopyDialogWV">
+			<p:messages />
+
+			<h:panelGrid columns="2" columnClasses="label, value"
+				styleClass="grid" id="packageCopyDialogGrid">
+
+				<span><span class="red">*</span> #{msg.code}:</span>
+				<p:inputText id="code" maxlength="20" value="#{bean.entityCode}" />
+
+				<span><span class="red">*</span> #{msg.description}:</span>
+				<p:inputTextarea id="description"
+					onkeypress="return text_area_limit(this, event, 255)"
+					onkeyup="text_area_check(this,255);" maxLength="255"
+					autoResize="false" value="#{bean.entityDescription}" />
+
+				<span><span class="red">*</span> #{msg.packageExamType}:</span>
+				<h:selectManyMenu id="examTypes" value="#{bean.selectedExamTypes}"
+					styleClass="ui-corner-all">
+					<f:selectItems value="#{bean.examTypesCopy}" />
+				</h:selectManyMenu>
+			</h:panelGrid>
+
+			<div class="btn_line">
+				<p:commandButton value="#{msg.save}" action="#{bean.makeCopy}"
+					icon="ui-icon-disk" update=":form:packageCopyDialogGrid"
+					oncomplete="handleSaveRequest(xhr, status, args);" />
+				<p:commandButton value="#{msg.cancel}" icon="ui-icon-circle-close"
+					onclick="PF('packageCopyDialogWV').hide();"
+					actionListener="#{bean.cleanValidation}" />
+			</div>
+
+			<p:remoteCommand name="updateForm" update=":form" />
+			<script type="text/javascript">
+				function handleSaveRequest(xhr, status, args) {
+					if (args.validationFailed)
+						return;
+					PF('packageCopyDialogWV').hide();
+					updateForm();
+				}
+			</script>
+		</p:dialog>
+	</ui:define>
+
+</ui:composition>
+</html>

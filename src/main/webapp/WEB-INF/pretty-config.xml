@@ -1,0 +1,228 @@
+<pretty-config xmlns="http://ocpsoft.com/prettyfaces/3.3.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ocpsoft.com/prettyfaces/3.3.0
+    http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-3.3.0.xsd">
+
+	<url-mapping id="start">
+		<pattern value="/" />
+		<view-id value="/Login.jsf" />
+	</url-mapping>
+
+	<url-mapping id="login">
+		<pattern value="/login/" />
+		<view-id value="/Login.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/home/" />
+		<view-id value="/Pages/Home.jsf" />
+	</url-mapping>
+
+	<!-- begin Configuration -->
+	<url-mapping>
+		<pattern value="/configuration/application_settings_edit/" />
+		<view-id value="/Pages/Configuration/ApplicationSettings.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/configuration/document_template_edit/" />
+		<view-id value="/Pages/Configuration/DocumentTemplateEdit.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/configuration/document_template_list/" />
+		<view-id value="/Pages/Configuration/DocumentTemplateList.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/configuration/event_calendar_edit/" />
+		<view-id value="/Pages/Configuration/EventCalendarEdit.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/configuration/event_calendar_list/" />
+		<view-id value="/Pages/Configuration/EventCalendarList.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/configuration/instance_phases_edit/" />
+		<view-id value="/Pages/Configuration/InstancePhasesEdit.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/configuration/instance_phases_list/" />
+		<view-id value="/Pages/Configuration/InstancePhasesList.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/configuration/role_edit/" />
+		<view-id value="/Pages/Configuration/RoleEdit.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/configuration/role_list/" />
+		<view-id value="/Pages/Configuration/RoleList.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/configuration/user_edit/" />
+		<view-id value="/Pages/Configuration/UserEdit.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/configuration/user_list/" />
+		<view-id value="/Pages/Configuration/UserList.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/configuration/user_profile_view/" />
+		<view-id value="/Pages/Configuration/UserProfileView.jsf" />
+	</url-mapping>
+	<!-- end Configuration -->
+
+	<!-- begin Configuration Area -->
+
+	<url-mapping>
+		<pattern value="/configuration_area/dictionary_list/" />
+		<view-id value="/Pages/ConfigurationArea/DictionaryList.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/configuration_area/patient_edit/" />
+		<view-id value="/Pages/ConfigurationArea/PatientEdit.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/configuration_area/patient_list/" />
+		<view-id value="/Pages/ConfigurationArea/PatientList.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/configuration_area/patient_view/" />
+		<view-id value="/Pages/ConfigurationArea/PatientView.jsf" />
+	</url-mapping>
+
+	<!-- end Configuration Area -->
+
+	<!-- begin Dictionaries -->
+	<url-mapping>
+		<pattern value="/dictionaries/hospital_edit/" />
+		<view-id value="/Pages/Dictionaries/HospitalEdit.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/dictionaries/hospital_list/" />
+		<view-id value="/Pages/Dictionaries/HospitalList.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/dictionaries/package_edit/" />
+		<view-id value="/Pages/Dictionaries/PackageEdit.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/dictionaries/package_list/" />
+		<view-id value="/Pages/Dictionaries/PackageList.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/dictionaries/priority_list/" />
+		<view-id value="/Pages/Dictionaries/PriorityList.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/dictionaries/radiology_exam_edit/" />
+		<view-id value="/Pages/Dictionaries/RadiologyExamEdit.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/dictionaries/radiology_exam_list/" />
+		<view-id value="/Pages/Dictionaries/RadiologyExamList.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/dictionaries/diagnostic_edit/" />
+		<view-id value="/Pages/Dictionaries/DiagnosticEdit.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/dictionaries/diagnostic_list/" />
+		<view-id value="/Pages/Dictionaries/DiagnosticList.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/dictionaries/sector_edit/" />
+		<view-id value="/Pages/Dictionaries/SectorEdit.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/dictionaries/sector_list/" />
+		<view-id value="/Pages/Dictionaries/SectorList.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/dictionaries/osirix_list/" />
+		<view-id value="/Pages/Dictionaries/OsirixList.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/dictionaries/osirix_edit/" />
+		<view-id value="/Pages/Dictionaries/OsirixEdit.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/dictionaries/dvd_producer_list/" />
+		<view-id value="/Pages/Dictionaries/DVDProducerList.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/dictionaries/dvd_producer_edit/" />
+		<view-id value="/Pages/Dictionaries/DVDProducerEdit.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/dictionaries/pacs_list/" />
+		<view-id value="/Pages/Dictionaries/PacsList.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/dictionaries/pacs_edit/" />
+		<view-id value="/Pages/Dictionaries/PacsEdit.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/dictionaries/template_documentmodel_list/" />
+		<view-id value="/Pages/Dictionaries/TemplateDocumentModelList.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/dictionaries/urgency_list/" />
+		<view-id value="/Pages/Dictionaries/UrgencyList.jsf" />
+	</url-mapping>
+
+	<!-- end Dictionaries -->
+
+	<!-- start Management group -->
+
+	<url-mapping>
+		<pattern value="/management_group/patient_search_list/" />
+		<view-id value="/Pages/ManagementGroup/PatientSearchList.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/management_group/waitinglist_registration_list/" />
+		<view-id value="/Pages/ManagementGroup/WaitingListRegistrationList.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/management_group/radiology_exam_request_edit/" />
+		<view-id value="/Pages/ConfigurationArea/RadiologyExamRequestEdit.jsf" />
+	</url-mapping>
+
+	<url-mapping>
+		<pattern value="/management_group/report_search_list/" />
+		<view-id value="/Pages/ManagementGroup/ReportSearchPage.jsf" />
+	</url-mapping>
+
+	<!-- end Management group -->
+</pretty-config>

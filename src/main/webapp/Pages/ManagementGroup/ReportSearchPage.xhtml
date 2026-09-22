@@ -1,0 +1,426 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/resources/tpl/Admin/LazyListTabBase.xhtml">
+	<ui:param name="list_title" value="#{msg.patientsGestione}" />
+	<ui:param name="renderTitle" value="false" />
+	<ui:param name="bean" value="#{reportSearchListBean}" />
+	<ui:param name="showTable" value="true" />
+	<ui:param name="renderMenu" value="false" />
+	<ui:param name="centerPartStyleClass" value="false" />
+
+	<ui:define name="list_body">
+		<script type="text/javascript">
+			function openWeasis() {
+				var weasisUrlArrayValue = $('#weasisUrlArray').val();
+
+				var res = weasisUrlArrayValue.split("%_del_%");
+
+				var i = 0;
+				do {
+					if(res[i] === ''){
+						showWarningDicom();
+					} else {
+						window.open(res[i], '_blank');
+					}
+					++i;
+				} while (res[i] != null);
+			}
+
+			function onTagsEnter() {
+               if($(document.activeElement).attr('id') === 'tagsInputButton') {
+                   lockValueOnBtn('tagsInput');
+               }
+            }
+			function start() {
+				PF('blockRootOnGenerateXml').show();
+			}
+
+			function stop() {
+				PF('blockRootOnGenerateXml').hide();
+			}
+		</script>
+
+		<p:remoteCommand name="openWeasisAction" update="weasisUrlArray"
+			oncomplete="openWeasis();" />
+
+		<p:remoteCommand name="filterTableFromPanel"
+			action="#{bean.filterTableFromPanel}" update=":form:searchResults" />
+
+		<p:remoteCommand name="showWarningDicom" action="#{bean.showWarningDicom}" update="messages"/>
+
+		<p:remoteCommand name="startProduceCD" onstart="PF('showProgressBarDlgWv').show();"
+						 oncomplete="PF('showProgressBarDlgWv').hide();"
+						 action="#{bean.produceCD}" update=":dialogForm:dicomInfoMsg"/>
+
+		<h:inputHidden id="weasisUrlArray" value="#{bean.weasisUrlArray}" />
+		<h:inputHidden id="tagFormString" value="#{bean.tagFormString}" />
+
+		<div class="left_part" style="width: 365px;">
+			<p:panel id="fielsForSearch" styleClass="report-search-panel" header="#{msg.searchCriterias}">
+				<h:panelGrid columns="2" columnClasses="label, value"
+							 onkeypress="if(event.keyCode == 13){$('[id$=searchReportBtn]').click();}"
+					styleClass="grid">
+
+					<p:outputLabel value="#{msg.searchSurname}:"/>
+					<p:inputText id="surname" value="#{bean.patientSurname}"
+						maxlength="30" label="#{msg.searchSurname}" style="width:150px;" />
+
+                    <p:outputLabel value="#{msg.searchName}:"/>
+					<p:inputText id="name" value="#{bean.patientName}" maxlength="30"
+						label="#{msg.searchName}" style="width:150px;" />
+
+                    <p:outputLabel value="#{msg.searchBirthDay}:"/>
+					<p:datePicker id="patientBirthDate" value="#{bean.patientBirthDate}"
+								  styleClass="search_group_report" pattern="dd/MM/yyyy"
+								  locale="it" showIcon="true" showOnFocus="false"
+								  monthNavigator="true" yearNavigator="select"
+								  onblur="check_date(this)" focusOnSelect="true"
+								  onkeypress="numbers_letters_only('#patientBirthDate');">
+					</p:datePicker>
+
+                    <p:outputLabel value="#{msg.searchFiscalCode}:"/>
+					<p:inputText id="fiscalCode" value="#{bean.patientFiscalCode}"
+						maxlength="30" label="#{msg.searchFiscalCode}"
+						style="width:150px;" />
+
+                    <p:outputLabel value="#{msg.searchAccessNumber}:"/>
+					<p:inputText id="accessNumber" value="#{bean.reportAccessNumber}"
+						maxlength="30" label="#{msg.searchAccessNumber}"
+						style="width:150px;" />
+
+                    <p:outputLabel value="#{msg.searchExamDateFrom}:"/>
+					<p:datePicker id="DateFrom" value="#{bean.dateFrom}"
+								  styleClass="search_group_report"
+								  pattern="dd/MM/yyyy" locale="it"
+								  showIcon="true" showOnFocus="false"
+								  monthNavigator="true" yearNavigator="select"
+								  onblur="check_date(this)" focusOnSelect="true"
+								  onkeypress="numbers_letters_only('#patientBirthDate');">
+					</p:datePicker>
+
+                    <p:outputLabel value="#{msg.searchExamDateTo}:"/>
+					<p:datePicker id="DateTo" value="#{bean.dateTo}"
+								  styleClass="search_group_report"
+								  pattern="dd/MM/yyyy" locale="it"
+								  showIcon="true" showOnFocus="false"
+								  monthNavigator="true" yearNavigator="select"
+								  onblur="check_date(this)" focusOnSelect="true"
+								  onkeypress="numbers_letters_only('#patientBirthDate');">
+					</p:datePicker>
+
+                    <p:outputLabel value="#{msg.searchDoctor}:"/>
+					<p:selectOneMenu id="searchDoctor"
+						value="#{bean.selectedDoctorName}">
+						<f:selectItems value="#{bean.doctorPossibleNames}" />
+					</p:selectOneMenu>
+
+                    <p:outputLabel value="#{msg.searchTSRMType}:"/>
+					<p:selectOneMenu id="searchTSRM" value="#{bean.selectedTSRM}">
+						<f:selectItems value="#{bean.possibleTSRM}" />
+					</p:selectOneMenu>
+
+                    <p:outputLabel value="#{msg.searchExamType}:"/>
+					<p:selectOneMenu id="searchExamType"
+						value="#{bean.selectedExamType}">
+						<f:selectItems value="#{bean.possibleExamTypes}" />
+					</p:selectOneMenu>
+
+					<ui:remove><!-- TEMP disable -->
+						<p:outputLabel value="#{msg.searchSector}:"/>
+						<p:selectOneMenu id="searchSector" value="#{bean.selectedSector}">
+							<f:selectItems value="#{bean.sectors}"/>
+						</p:selectOneMenu>
+					</ui:remove>
+
+                    <p:outputLabel value="#{msg.searchReportText}:"/>
+					<p:inputText id="resultText" value="#{bean.reportResultText}"
+						maxlength="30" label="#{msg.searchReportText}"
+						style="width:150px;" />
+
+					<p:outputLabel value="#{msg.searchTag}:"/>
+					<h:panelGrid columns="2">
+						<p:inputText onkeydown="return lockValue(event);" id="tagsInput" style="width: 150px !important;" />
+						<p:commandButton id="tagsInputButton" icon="ui-icon ui-icon-plusthick" process="@none" global="false"
+										  onclick="onTagsEnter()" />
+
+						<p:outputPanel id="tagsContainer"/>
+					</h:panelGrid>
+
+                    <p:outputLabel value="#{msg.searchInAttesa}:"/>
+					<p:selectBooleanCheckbox value="#{bean.searchOnlyReported}"/>
+				</h:panelGrid>
+
+				<p:commandButton value="#{msg.searchApply}"
+								 id="searchReportBtn"
+								 action="#{bean.searchReport}" style="left:40%"
+								 onclick="$('#tagFormString').val(document.getElementById('tagsContainer').innerHTML);PF('blockRoot').show();"
+								 update=":form:searchResults, :form:messages" ajax="false"/>
+
+			</p:panel>
+		</div>
+
+		<div class="center_part" style="padding: 0px; margin-left: 370px;">
+			<p:panel id="searchResults" header="#{msg.searchResults}">
+				<p:dataTable var="item" value="#{bean.lazyModelList}" id="reportsTable"
+					paginator="true" rowKey="#{item.historicalReport.id}" rows="10" lazy="true"
+					selectionMode="single" rowsPerPageTemplate="10,20,50"
+					emptyMessage="#{msg.noRecordsFound}"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					widgetVar="patientsTableWV" style="text-align: center" >
+
+					<p:column style="width:16px" exportable="false">
+						<p:rowToggler rendered="#{item.historicalReport.needToRenderRowExpansion}" />
+					</p:column>
+
+					<p:column sortBy="#{item.patientSurname}"
+						filterBy="#{item.patientSurname}"
+						headerText="#{msg.searchSurname}" filterMatchMode="contains">
+						<h:outputText style="font-weight:bold; font-size:1.13em;"
+							value="#{item.historicalReport.patientSurname}" />
+					</p:column>
+
+					<p:column sortBy="#{item.patientName}"
+						filterBy="#{item.patientName}" headerText="#{msg.searchName}"
+						filterMatchMode="contains">
+						<h:outputText style="font-weight:bold; font-size:1.13em;"
+							value="#{item.historicalReport.patientName}" />
+					</p:column>
+
+					<p:column sortBy="#{item.patientBirthDate}"
+						filterBy="#{item.patientBirthDate}"
+						headerText="#{msg.searchBirthDay}" filterMatchMode="contains">
+						<h:outputText value="#{item.historicalReport.patientBirthDate}"
+							converter="dateTimeConverter" />
+					</p:column>
+
+					<p:column sortBy="#{item.patientFiscalCode}"
+						filterBy="#{item.patientFiscalCode}"
+						headerText="#{msg.searchFiscalCode}" filterMatchMode="contains">
+						<h:outputText value="#{item.historicalReport.patientFiscalCode}" />
+					</p:column>
+
+					<p:column headerText="#{msg.searchRadExamsDescriptions}"
+						filterMatchMode="contains">
+						<p:dataGrid value="#{item.radiologyExamsDescr}" columns="1"
+							styleClass="myGrid verticalGrid" var="exam">
+							<p:column>
+								<h:outputText value="#{exam}"
+									style="font-size: 1.1em; font-weight:bold;" />
+							</p:column>
+						</p:dataGrid>
+					</p:column>
+
+					<p:column sortBy="#{item.latestActionDate}"
+						filterBy="#{item.latestActionDate}"
+						headerText="#{msg.searchLatestActionDate}">
+						<h:outputText value="#{item.historicalReport.latestActionDate}"
+							converter="dateTimeConverter" />
+					</p:column>
+
+					<p:column sortBy="#{item.performDate}"
+						filterBy="#{item.performDate}"
+						headerText="#{msg.searchExamDatePerform}">
+						<h:outputText value="#{item.historicalReport.performDate}"
+							converter="dateTimeConverter" />
+					</p:column>
+
+					<p:column headerText="#{msg.searchSector}">
+						<h:outputText value="#{item.historicalReport.sectorDescription}" />
+					</p:column>
+
+					<p:column sortBy="#{item.waitingListRegistrationState}"
+						headerText="#{msg.searchRequestState}">
+						<f:facet name="header">
+							<p:commandButton id="stateSelectCheckboxShow"
+								onclick="PF('stateSelectCheckboxWV').show(); event.stopImmediatePropagation();"
+								value="#{msg.workListStato}" type="button" />
+							<p:overlayPanel id="stateSelectCheckboxPanel"
+								widgetVar="stateSelectCheckboxWV" for="stateSelectCheckboxShow"
+								onHide="filterTableFromPanel();" style="widht:300px;">
+								<p:dataTable id="stateSelectCheckboxPanelDataTable" var="state"
+									value="#{bean.allStates}" selectionMode="single"
+									selection="#{bean.selectedStateForFilter}"
+									rowKey="#{state.value}" lazy="false">
+
+									<p:ajax event="rowSelect"
+										listener="#{reportSearchListBean.selectStateForFilter}"
+										update="stateSelectCheckboxPanelDataTable" />
+
+									<p:column style="width:18px">
+										<f:facet name="header">
+											<p:selectBooleanCheckbox
+												value="#{bean.selectedAllStatesOnPanel}">
+												<p:ajax update="stateSelectCheckboxPanelDataTable"
+													event="change" />
+											</p:selectBooleanCheckbox>
+										</f:facet>
+										<p:selectBooleanCheckbox value="#{state.selected}">
+											<p:ajax update="stateSelectCheckboxPanelDataTable"
+												event="change" />
+										</p:selectBooleanCheckbox>
+
+									</p:column>
+									<p:column headerText="#{msg.waitingListRegistrationState}">
+										<h:outputText value="#{state.value}" />
+									</p:column>
+								</p:dataTable>
+							</p:overlayPanel>
+						</f:facet>
+
+						<h:outputText value="#{item.historicalReport.waitingListRegistrationState}"
+							converter="enumConverter"
+							style="background-color: #{item.historicalReport.waitingListRegistrationState.stateColor}"
+							styleClass="statusLabel" />
+					</p:column>
+
+					<p:column headerText="#{msg.searchIconsHeader}">
+						<p:commandLink action="#{bean.openDicomForHistory}" ajax="false"
+							rendered="#{item.historicalReport.needToShowWeasis}" style="float:left;"
+							update=":form:messages">
+							<p:graphicImage value="/resources/images/dcm.png" />
+							<f:setPropertyActionListener
+								target="#{bean.selectedHistoricalReport}" value="#{item.historicalReport}" />
+						</p:commandLink>
+
+						<p:commandLink action="#{bean.openReport}"
+							rendered="#{item.historicalReport.needToShowPdf}" ajax="false"
+							style="float:right;">
+							<p:graphicImage value="/resources/images/pdf_small.png" />
+							<f:setPropertyActionListener
+								target="#{bean.selectedHistoricalReport}" value="#{item.historicalReport}" />
+						</p:commandLink>
+					</p:column>
+
+					<p:rowExpansion>
+						<p:panel header="#{item.historicalReport.historicalReportExpansionRowTitle}"
+							style="margin:auto;">
+							<div style="width: 900px; margin: 0 auto;">
+								<div style="float: left; margin-right: 10px;">
+									<h:panelGrid columns="2" style="margin:auto;width:400px;"
+										columnClasses="label, value">
+
+										<h:outputText value="#{msg.workListOperator}:" />
+										<h:outputText value="#{item.historicalReport.operator}"
+											styleClass="worklist-expansion-value" />
+
+										<h:outputText value="#{msg.searchAcceptDate}:" />
+										<h:outputText value="#{item.historicalReport.acceptDate}"
+											styleClass="worklist-expansion-value" />
+
+										<h:outputText value="#{msg.searchTSRM}:" />
+										<h:outputText value="#{item.historicalReport.tsrm}"
+											styleClass="worklist-expansion-value" />
+
+										<h:outputText value="#{msg.searchPerformDate}:" />
+										<h:outputText value="#{item.historicalReport.performDate}"
+											styleClass="worklist-expansion-value" />
+
+										<h:outputText value="#{msg.searchDoctore}:" />
+										<h:outputText value="#{item.historicalReport.referringDoctor}"
+											styleClass="worklist-expansion-value" />
+
+										<h:outputText value="#{msg.searchReportedDate}:" />
+										<h:outputText value="#{item.historicalReport.reportDate}"
+											styleClass="worklist-expansion-value"
+											converter="dateTimeConverter" />
+
+									</h:panelGrid>
+								</div>
+								<div>
+									<h:panelGrid columns="2" style="margin:auto;width:400px;"
+										columnClasses="label, value">
+
+										<h:outputText value="#{msg.searchRadExamsDescriptions}:" />
+										<h:outputText value="#{item.radExamsLine}"
+											styleClass="worklist-expansion-value" />
+
+										<h:outputText value="#{msg.searchDiagnosticQuestion}:" />
+										<h:outputText value="#{item.historicalReport.diagnosticQuestion}"
+											styleClass="worklist-expansion-value" />
+
+										<h:outputText value="#{msg.searchUserFullname}:" />
+										<h:outputText value="#{item.historicalReport.requestingDoctor}"
+											styleClass="worklist-expansion-value" />
+
+										<h:outputText value="#{msg.searchSector}:" />
+										<h:outputText value="#{item.historicalReport.asapSectorDescription}"
+											styleClass="worklist-expansion-value" />
+
+										<h:outputText value="#{msg.searchExpandedDate}:" />
+										<h:outputText value="#{item.historicalReport.requestDate}"
+											styleClass="worklist-expansion-value"
+											converter="dateTimeConverter" />
+
+									</h:panelGrid>
+								</div>
+							</div>
+							<div class="btn_line">
+								<p:commandButton value="#{msg.workListProduceCD}" styleClass="details-button  fa-fix"
+												 action="#{bean.checkHistoryProduceCD}"
+												 icon="far fa-dot-circle" disabled="#{not bean.canProduceCD or item.historicalReport.radiologyExamRequestId == null}"
+												 rendered="#{item.historicalReport.canShowProduceCDs}"
+												 update=":form:messages, :dialogForm:selectRobotDlgPanel">
+									<f:setPropertyActionListener
+											target="#{bean.selectedHistoricalReport}" value="#{item.historicalReport}" />
+								</p:commandButton>
+								<p:commandButton value="#{msg.searchGenerateXml}" styleClass="details-button  fa-fix"
+												 onclick="PrimeFaces.monitorDownload(start, stop);"
+												 actionListener="#{bean.createXml(item.historicalReport)}" ajax="false"
+												 disabled="#{not bean.canGenerateXmlCda or not item.historicalReport.canGenerateXmlCda}">
+									<p:fileDownload value="#{bean.xmlContentFile}"/>
+								</p:commandButton>
+							</div>
+						</p:panel>
+					</p:rowExpansion>
+
+				</p:dataTable>
+			</p:panel>
+		</div>
+
+		<p:dialog widgetVar="blockRoot" modal="true" draggable="false" closable="false" resizable="false">
+			<h:outputText value="#{msg.searchInProgress}" />
+		</p:dialog>
+		<p:dialog widgetVar="blockRootOnGenerateXml" modal="true" draggable="false" closable="false" resizable="false">
+			<h:outputText value="#{msg.searchGenerateXmlInProgress}" />
+		</p:dialog>
+	</ui:define>
+	<ui:define name="dialog_body">
+		<p:dialog widgetVar="confirmDicomHistoryDlgWv" resizable="false" closable="false" draggable="false"
+				  modal="true">
+			<h:outputText value="#{msg.documentGenerationConfirmDicomHistory}"/>
+			<div class="btn_line">
+				<p:commandButton value="#{msg.yes}" action="#{bean.checkProduceCD}"
+								 oncomplete="PF('confirmDicomHistoryDlgWv').hide();"/>
+				<p:commandButton value="#{msg.no}" oncomplete="PF('confirmDicomHistoryDlgWv').hide();"/>
+			</div>
+		</p:dialog>
+		<p:dialog widgetVar="dicomInfoDlgWv" resizable="false" closable="false" draggable="false" modal="true">
+			<h:outputText value="#{bean.dicomInfoMsg}" id="dicomInfoMsg"/>
+			<div class="btn_line">
+				<p:commandButton value="#{msg.ok}" oncomplete="PF('dicomInfoDlgWv').hide();"/>
+			</div>
+		</p:dialog>
+		<p:dialog widgetVar="showProgressBarDlgWv" resizable="false" closable="false" draggable="false" modal="true"
+				  header="#{msg.documentGenerationProduceCDInProgress}">
+			<p:graphicImage value="/resources/images/ajax-loader_big.gif"/>
+		</p:dialog>
+		<p:dialog widgetVar="selectRobotDlgWv" resizable="false" modal="true"
+				  closable="false" id="selectRobotDlg">
+			<h:panelGrid columns="2" columnClasses="label,value" styleClass="grid" id="selectRobotDlgPanel">
+				<h:outputText value="#{msg.documentGenerationRobots}:"/>
+				<p:selectOneMenu value="#{bean.selectRobotId}">
+					<f:selectItems value="#{bean.robots}" var="r" itemLabel="#{r.description}" itemValue="#{r.id}"/>
+				</p:selectOneMenu>
+			</h:panelGrid>
+			<div class="btn_line">
+				<p:commandButton value="#{msg.ok}" oncomplete="PF('selectRobotDlgWv').hide();startProduceCD();"/>
+				<p:commandButton value="#{msg.cancel}" oncomplete="PF('selectRobotDlgWv').hide();"/>
+			</div>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+</html>

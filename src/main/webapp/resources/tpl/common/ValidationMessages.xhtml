@@ -1,0 +1,9 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:outputPanel id="validationMessages">
+		<p:autoUpdate disabled="#{not empty renderValidationMessages}" />
+		<ui:include src="/resources/tpl/common/ValidationMessageList.xhtml" />
+	</p:outputPanel>
+</ui:composition>

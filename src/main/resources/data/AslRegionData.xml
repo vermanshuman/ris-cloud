@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE something>
+<asl_region>
+	<data_entry>
+		<code>10</code>
+		<description>PIEMONTE</description>
+	</data_entry>
+	<data_entry>
+		<code>20</code>
+		<description>VALLE D'AOSTA</description>
+	</data_entry>
+	<data_entry>
+		<code>30</code>
+		<description>LOMBARDIA</description>
+	</data_entry>
+	<data_entry>
+		<code>41</code>
+		<description>PROV. AUTON. BOLZANO</description>
+	</data_entry>
+	<data_entry>
+		<code>42</code>
+		<description>PROV. AUTON. TRENTO</description>
+	</data_entry>
+	<data_entry>
+		<code>50</code>
+		<description>VENETO</description>
+	</data_entry>
+	<data_entry>
+		<code>60</code>
+		<description>FRIULI VENEZIA GIULIA</description>
+	</data_entry>
+	<data_entry>
+		<code>70</code>
+		<description>LIGURIA</description>
+	</data_entry>
+	<data_entry>
+		<code>80</code>
+		<description>EMILIA ROMAGNA</description>
+	</data_entry>
+	<data_entry>
+		<code>90</code>
+		<description>TOSCANA</description>
+	</data_entry>
+	<data_entry>
+		<code>97</code>
+		<description>CEE CONVENZIONATI</description>
+	</data_entry>
+	<data_entry>
+		<code>98</code>
+		<description>EXTRA-CEE CONVENZIONATI</description>
+	</data_entry>
+	<data_entry>
+		<code>99</code>
+		<description>ALTRI STRANIERI</description>
+	</data_entry>
+	<data_entry>
+		<code>100</code>
+		<description>UMBRIA</description>
+	</data_entry>
+	<data_entry>
+		<code>110</code>
+		<description>MARCHE</description>
+	</data_entry>
+	<data_entry>
+		<code>120</code>
+		<description>LAZIO</description>
+	</data_entry>
+	<data_entry>
+		<code>130</code>
+		<description>ABRUZZI</description>
+	</data_entry>
+	<data_entry>
+		<code>140</code>
+		<description>MOLISE</description>
+	</data_entry>
+	<data_entry>
+		<code>150</code>
+		<description>CAMPANIA</description>
+	</data_entry>
+	<data_entry>
+		<code>160</code>
+		<description>PUGLIA</description>
+	</data_entry>
+	<data_entry>
+		<code>170</code>
+		<description>BASILICATA</description>
+	</data_entry>
+	<data_entry>
+		<code>180</code>
+		<description>CALABRIA</description>
+	</data_entry>
+	<data_entry>
+		<code>190</code>
+		<description>SICILIA</description>
+	</data_entry>
+	<data_entry>
+		<code>200</code>
+		<description>SARDEGNA</description>
+	</data_entry>
+	<data_entry>
+		<code>999</code>
+		<description>CITTADINANZA APOLIDE</description>
+	</data_entry>
+</asl_region>

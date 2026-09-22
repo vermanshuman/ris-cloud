@@ -1,0 +1,398 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/resources/tpl/Admin/EditBase.xhtml">
+	<ui:param name="edit_title" value="#{msg.editEventCalendar}" />
+	<ui:param name="bean" value="#{eventCalendarEditBean}" />
+	<ui:param name="renderValidationMessages"
+		value="#{discardDayValidationFailed == true or weekDayValidationFailed == true ? false : true}" />
+
+	<ui:define name="edit_body">
+
+		<p:tabView id="tabs">
+			<p:tab title="#{msg.eventCalendarInfo}">
+				<h:panelGrid columns="2" columnClasses="label, value"
+					styleClass="grid" style="margin : 0 auto;">
+
+					<span><span class="red">*</span> #{msg.eventCalendarName}:</span>
+					<p:inputText id="name" maxlength="50"
+						label="#{msg.eventCalendarName}" value="#{bean.entity.name}" />
+
+					<span><span class="red">*</span>
+						#{msg.eventCalendarValidationPeriodFrom}:</span>
+					<p:datePicker pattern="dd/MM/yyyy" locale="it"
+								  id="validationPeriodStartDate" showIcon="true" showOnFocus="false"
+								  label="#{msg.eventCalendarValidationPeriodFrom}"
+								  onblur="check_date(this)" focusOnSelect="true"
+								  value="#{bean.entity.validationPeriodStartDate}"
+								  monthNavigator="true" yearNavigator="select"/>
+
+					<span><span class="red">*</span>
+						#{msg.eventCalendarValidationPeriodTo}:</span>
+					<p:datePicker pattern="dd/MM/yyyy" locale="it"
+								  id="validationPeriodEndDate" showIcon="true" showOnFocus="false"
+								  label="#{msg.eventCalendarValidationPeriodTo}"
+								  onblur="check_date(this)" focusOnSelect="true"
+								  value="#{bean.entity.validationPeriodEndDate}"
+								  monthNavigator="true" yearNavigator="select"/>
+
+					<span><span class="red">*</span> #{msg.eventCalendarStatus}:</span>
+					<p:selectOneMenu id="status" label="#{msg.eventCalendarStatus}"
+						value="#{bean.status}">
+						<f:selectItems value="#{bean.statuses}" />
+					</p:selectOneMenu>
+
+					<span><span class="red">*</span>
+						#{msg.eventCalendarDiagnostic}:</span>
+					<p:selectOneMenu id="diagnostic" disabled="#{bean.showDiagnostic}"
+						label="#{msg.eventCalendarDiagnostic}"
+						value="#{bean.diagnosticId}">
+						<f:selectItems value="#{bean.diagnostics}" />
+					</p:selectOneMenu>
+
+					<span>#{msg.eventCalendarSlotSelection}: </span>
+					<p:selectOneMenu id="slotSelection"
+						value="#{bean.slotSelectionType}">
+						<f:selectItems value="#{bean.slotSelectionTypes}" />
+					</p:selectOneMenu>
+
+					<span></span>
+					<p:selectBooleanCheckbox itemLabel="#{msg.eventCalendarDefault}"
+						value="#{bean.entity.isDefault}" id="is_default" />
+						
+						<span><span class="red">*</span> #{msg.eventCalendarCupId}:</span>
+					<p:inputText id="cupId" maxlength="8" onkeypress="return numbers_only(this, event, 8, 0)"
+							onkeyup="check_numbers(this, 8, 0);"
+						label="#{msg.eventCalendarCupId}" value="#{bean.entity.cupId}" />
+				</h:panelGrid>
+			</p:tab>
+
+			<p:tab title="#{msg.eventCalendarWeekDaysInfo}">
+				<div class="table_panel ui-widget-header ui-corner-all">
+					<p:commandButton icon="ui-icon-circle-plus" value="#{msg.newItem}"
+						update=":form" action="#{bean.addWeekDay}"
+						oncomplete="PF('addWeekdayDialog').show();recheckForm();" />
+				</div>
+
+				<p:dataTable var="item" id="table_weekdays"
+					emptyMessage="#{msg.noRecordsFound}" value="#{bean.weekdays}"
+					rowKey="#{item.id}" paginatorAlwaysVisible="false" lazy="false">
+
+					<p:column styleClass="action_column">
+						<p:commandButton icon="ui-icon ui-icon-pencil" update=":form"
+							action="#{bean.editWeekday}" oncomplete="PF('addWeekdayDialog').show();recheckForm();">
+							<f:setPropertyActionListener value="#{item.weekDay}"
+								target="#{bean.weekdayEditName}" />
+						</p:commandButton>
+					</p:column>
+
+					<p:column styleClass="action_column">
+						<p:commandButton icon="ui-icon ui-icon-close" update=":form"
+							action="#{bean.validateDeleteWeekday}">
+							<f:setPropertyActionListener value="#{item.weekDay}"
+								target="#{bean.weekdayEditName}" />
+						</p:commandButton>
+					</p:column>
+
+					<p:column sortBy="#{item.weekdayName}"
+						headerText="#{msg.eventCalendarWeekDay}">
+						<h:outputText value="#{item.weekdayName}" />
+					</p:column>
+
+					<p:column sortBy="#{item.startTimeStr}"
+						headerText="#{msg.eventCalendarDailyHours}">
+						<h:outputText value="#{item.startTimeStr} - #{item.endTimeStr}" />
+					</p:column>
+
+					<p:column sortBy="#{item.availabilityKindName}"
+						headerText="#{msg.eventCalendarAvailabilityKind}">
+						<h:outputText value="#{item.availabilityKindName}" />
+					</p:column>
+
+					<p:column sortBy="#{item.slotNumber}"
+						headerText="#{msg.eventCalendarSlotNumber}">
+						<h:outputText value="#{item.slotNumber}" />
+					</p:column>
+
+					<p:column sortBy="#{item.overbooking}"
+						headerText="#{msg.eventCalendarOverbookingAccepted}">
+						<h:outputText value="#{item.overbooking}"
+							converter="booleanConverter" />
+					</p:column>
+
+					<p:column sortBy="#{item.maximumOverbooking}"
+						headerText="#{msg.eventCalendarMaximumOverbooking}">
+						<h:outputText value="#{item.maximumOverbooking}" />
+					</p:column>
+				</p:dataTable>
+			</p:tab>
+
+			<p:tab title="#{msg.eventCalendarDiscardDaysInfo}">
+				<div class="table_panel ui-widget-header ui-corner-all">
+					<p:commandButton icon="ui-icon-circle-plus" value="#{msg.newItem}"
+						update=":form" action="#{bean.cleanValidation}"
+						oncomplete="PF('addDiscardDayDialog').show();$('#discardDay_input').blur();$('#ui-datepicker-div').hide();$('#eachYear_input').focus();" />
+				</div>
+
+				<p:dataTable var="item" id="table_discard_days"
+					emptyMessage="#{msg.noRecordsFound}" value="#{bean.discardDays}"
+					rowKey="#{item.id}" paginatorAlwaysVisible="false" lazy="false">
+
+					<p:column styleClass="action_column">
+						<p:commandButton icon="ui-icon ui-icon-pencil" update=":form"
+							action="#{bean.editDiscardDay}"
+							oncomplete="PF('addDiscardDayDialog').show()">
+							<f:setPropertyActionListener value="#{item.tempId}"
+								target="#{bean.discardDayEditId}" />
+						</p:commandButton>
+					</p:column>
+
+					<p:column styleClass="action_column">
+						<p:commandButton icon="ui-icon ui-icon-close" update=":form"
+							oncomplete="PF('deleteDiscardDayDialog').show()">
+							<f:setPropertyActionListener value="#{item.tempId}"
+								target="#{bean.discardDayEditId}" />
+						</p:commandButton>
+					</p:column>
+
+					<p:column sortBy="#{item.discardDay}"
+						headerText="#{msg.eventCalendarDiscardDay}">
+						<h:outputText value="#{item.discardDay}"
+							converter="dateTimeConverter" />
+					</p:column>
+
+					<p:column sortBy="#{item.eachYear}"
+						headerText="#{msg.eventCalendarDiscardDayEachYear}">
+						<h:outputText value="#{item.eachYear}"
+							converter="booleanConverter" />
+					</p:column>
+				</p:dataTable>
+			</p:tab>
+		</p:tabView>
+
+		<p:dialog header="#{msg.eventCalendarAddWeekDay}" width="780"
+			widgetVar="addWeekdayDialog" modal="true" resizable="false"
+			effect="SLIDE">
+
+			<p:outputPanel id="weekday_panel">
+
+				<p:outputPanel id="validationMessagesWeekDay">
+					<ui:include src="/resources/tpl/common/ValidationMessageList.xhtml" />
+				</p:outputPanel>
+
+				<h:panelGrid columns="2" columnClasses="label, value"
+					styleClass="grid">
+					<span><span class="red">*</span>
+						#{msg.eventCalendarWeekDay}:</span>
+					<p:selectManyButton value="#{bean.weekdaySelection}" id="weekday"
+						label="#{msg.eventCalendarWeekDay}">
+						<f:selectItems value="#{bean.avWeekday}" />
+					</p:selectManyButton>
+
+					<span><span class="red">*</span>
+						#{msg.eventCalendarDailyHourlyFrom}:</span>
+					<p:inputMask mask="99:99" onkeyup="hour_minutes_only(this)"
+						value="#{bean.editWeekday.startTimeStr}" id="startTime"
+						label="#{msg.eventCalendarDailyHourlyFrom}" />
+
+					<span><span class="red">*</span>
+						#{msg.eventCalendarDailyHourlyTo}:</span>
+					<p:inputMask mask="99:99" onkeyup="hour_minutes_only(this)"
+						value="#{bean.editWeekday.endTimeStr}" id="endTime"
+						label="#{msg.eventCalendarDailyHourlyTo}" />
+
+					<span><span class="red">*</span>
+						#{msg.eventCalendarAvailabilityKind}:</span>
+					<p:selectOneRadio id="availabilityKind"
+						label="#{msg.eventCalendarAvailabilityKind}"
+						widgetVar="availabilityKindWV" onchange="recheckForm()"
+						value="#{bean.availabilityTypeLong}">
+						<f:selectItem itemLabel="#{msg.eventCalendarAvailabilityKindSlot}"
+							itemValue="1" />
+						<f:selectItem
+							itemLabel="#{msg.eventCalendarAvailabilityKindDynamic}"
+							itemValue="2" />
+					</p:selectOneRadio>
+
+					<ui:fragment>
+						<h:outputLabel id="slotNumberStar">
+							<span class="red">*</span>
+						</h:outputLabel> #{msg.eventCalendarSlotNumber}:</ui:fragment>
+					<p:inputText id="slotNumber"
+						onkeypress="return numbers_only(this, event, 2, 0)"
+						widgetVar="slotNumberWV" onkeyup="check_numbers(this,2,0);"
+						maxLength="2" label="#{msg.eventCalendarSlotNumber}"
+						value="#{bean.editWeekday.slotNumber}" />
+
+					<span><span class="red">*</span>
+						#{msg.eventCalendarServiceAverageDuration}:</span>
+					<p:inputText id="averageDuration"
+						label="#{msg.eventCalendarServiceAverageDuration}"
+						onkeypress="return numbers_only(this, event, 3, 0)"
+						onkeyup="check_numbers(this,3,0);" maxLength="3"
+						value="#{bean.editWeekday.averageDuration}" />
+
+					<span><span class="red">*</span>
+						#{msg.eventCalendarOverbookingAccepted}:</span>
+					<p:selectOneRadio id="overbookingAccepted" onchange="recheckForm()"
+						widgetVar="overbookingAcceptedWV"
+						label="#{msg.eventCalendarOverbookingAccepted}"
+						value="#{bean.overbookingAccepted}">
+						<f:selectItem itemLabel="#{msg.yes}" itemValue="1" />
+						<f:selectItem itemLabel="#{msg.no}" itemValue="2" />
+					</p:selectOneRadio>
+
+					<ui:fragment>
+						<h:outputLabel id="maximumOverbookingStar">
+							<span class="red">*</span>
+						</h:outputLabel> #{msg.eventCalendarMaximumOverbooking}:</ui:fragment>
+					<p:inputText id="maximumOverbooking"
+						widgetVar="maximumOverbookingWV"
+						label="#{msg.eventCalendarMaximumOverbooking}"
+						onkeypress="return numbers_only(this, event, 2, 0)"
+						onkeyup="check_numbers(this,2,0);" maxLength="2"
+						value="#{bean.editWeekday.maximumOverbooking}" />
+
+				</h:panelGrid>
+			</p:outputPanel>
+
+			<div class="btn_line">
+				<h:inputHidden value="#{bean.editWeekday.tempId}" />
+
+				<h:inputHidden id="weekDayValidationFailed"
+					value="#{bean.weekDayValidationFailed}" />
+
+				<p:outputPanel>
+					<p:commandButton value="#{msg.save}" icon="ui-icon-disk"
+						id="saveWeekDayBtnId" action="#{bean.saveWeekday}"
+						widgetVar="saveWeekDayBtnWV"
+						oncomplete="PF('saveWeekDayBtnWV').enable();"
+						onclick="PF('saveWeekDayBtnWV').disable();"
+						update="weekDayValidationFailed, tabs:table_weekdays,weekday_panel,validationMessagesWeekDay, messages" />
+
+					<p:commandButton value="#{msg.cancel}" icon="ui-icon-circle-close"
+						actionListener="#{bean.cleanValidation}"
+						onclick="PF('addWeekdayDialog').hide()" update="weekday_panel" />
+				</p:outputPanel>
+			</div>
+		</p:dialog>
+
+		<p:dialog header="#{msg.eventCalendarAddDiscardDay}"
+			widgetVar="addDiscardDayDialog" modal="true" resizable="false"
+			effect="SLIDE">
+			<p:outputPanel id="discard_day_panel">
+
+				<p:outputPanel id="validationMessagesDiscardDay">
+					<ui:include src="/resources/tpl/common/ValidationMessageList.xhtml" />
+				</p:outputPanel>
+
+				<h:panelGrid columns="2" columnClasses="label, value"
+					styleClass="grid">
+					<span> #{msg.eventCalendarDiscardDayEachYear}:</span>
+					<p:selectBooleanCheckbox id="eachYear"
+						value="#{bean.editDiscardDay.eachYear}" />
+
+					<span><span class="red">*</span>
+						#{msg.eventCalendarDiscardDay}:</span>
+					<p:datePicker id="discardDay" pattern="dd/MM/yyyy" locale="it"
+								  onclick="$('#ui-datepicker-div').css('z-index', parseInt(PF('addDiscardDayDialog').jq.css('z-index'))+1);$('#ui-datepicker-div').show();"
+								  onfocus="return false;" onblur="check_date(this)" focusOnSelect="true"
+								  label="#{msg.eventCalendarDiscardDay}" showIcon="true"
+								  value="#{bean.editDiscardDay.discardDay}"
+								  monthNavigator="true" yearNavigator="select"
+					/>
+				</h:panelGrid>
+				<h:inputHidden value="#{bean.editDiscardDay.tempId}" />
+			</p:outputPanel>
+
+			<div class="btn_line">
+				<p:outputPanel>
+					<h:inputHidden id="discardDayValidationFailed"
+						value="#{bean.discardDayValidationFailed}" />
+
+					<p:commandButton value="#{msg.save}" icon="ui-icon-disk"
+						action="#{bean.saveDiscardDay}"
+						oncomplete="if(document.getElementById('discardDayValidationFailed').value!='true'){PF('addDiscardDayDialog').hide();}"
+						update="discardDayValidationFailed,tabs:table_discard_days,discard_day_panel,validationMessagesDiscardDay" />
+
+					<p:commandButton value="#{msg.cancel}" icon="ui-icon-circle-close"
+						onclick="PF('addDiscardDayDialog').hide()"
+						actionListener="#{bean.cleanValidation}"
+						update="discard_day_panel" />
+				</p:outputPanel>
+			</div>
+		</p:dialog>
+
+		<p:dialog header="#{msg.deleteConfirmationHeader}"
+			widgetVar="deleteWeekdayDialog" modal="true" resizable="false">  
+                               #{msg.deleteConfirmation}<br />
+			<br />
+			<div class="btn_line">
+				<p:commandButton value="#{msg.yes}" action="#{bean.deleteWeekday}"
+					oncomplete="PF('deleteWeekdayDialog').hide()"
+					update="tabs:table_weekdays" />
+				<p:commandButton value="#{msg.no}"
+					onclick="PF('deleteWeekdayDialog').hide()" />
+			</div>
+		</p:dialog>
+
+		<p:dialog header="#{msg.deleteConfirmationHeader}"
+			widgetVar="deleteDiscardDayDialog" modal="true" resizable="false">  
+                               #{msg.deleteConfirmation}<br />
+			<br />
+			<div class="btn_line">
+				<p:commandButton value="#{msg.yes}"
+					action="#{bean.deleteDiscardDay}"
+					oncomplete="PF('deleteDiscardDayDialog').hide()"
+					update="tabs:table_discard_days" />
+				<p:commandButton value="#{msg.no}"
+					onclick="PF('deleteDiscardDayDialog').hide()" />
+			</div>
+		</p:dialog>
+
+		<script type="text/javascript">
+			function recheckForm() {
+				if (PF('availabilityKindWV').inputs[0].checked) {
+					PF('slotNumberWV').getJQ()[0].disabled = false;
+					document.getElementById('slotNumberStar').style.display = '';
+					PF('maximumOverbookingWV').getJQ()[0].disabled = false;
+					document.getElementById('maximumOverbookingStar').style.display = '';
+				} else {
+					PF('slotNumberWV').getJQ()[0].disabled = true;
+					document.getElementById('slotNumberStar').style.display = 'none';
+					PF('maximumOverbookingWV').getJQ()[0].disabled = true;
+					document.getElementById('maximumOverbookingStar').style.display = 'none';
+				}
+
+				if (PF('overbookingAcceptedWV').inputs[0].checked
+						&amp;&amp; PF('availabilityKindWV').inputs[0].checked) {
+					PF('maximumOverbookingWV').getJQ()[0].disabled = false;
+					document.getElementById('maximumOverbookingStar').style.display = '';
+				} else {
+					PF('maximumOverbookingWV').getJQ()[0].disabled = true;
+					document.getElementById('maximumOverbookingStar').style.display = 'none';
+				}
+			}
+
+			$(document)
+					.ready(
+							function() {
+								$(
+										document
+												.getElementById('tabs:validationPeriodStartDate_input'))
+										.mask('99/99/9999');
+								$(
+										document
+												.getElementById('tabs:validationPeriodEndDate_input'))
+										.mask('99/99/9999');
+								$('#discardDay_input').mask('99/99/9999');
+								$(".ui-chkbox .ui-chkbox-label").css("margin",
+										"-3px 0 0 3px");
+							});
+		</script>
+
+	</ui:define>
+</ui:composition>

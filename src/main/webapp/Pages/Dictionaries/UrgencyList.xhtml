@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/resources/tpl/Admin/LazyListBase.xhtml">
+	<ui:param name="list_title" value="#{msg.urgencyTitle}" />
+	<ui:param name="bean" value="#{urgencyListBean}" />
+
+	<ui:define name="columns">
+		<p:column sortBy="#{item.code}" filterBy="#{item.code}"
+			headerText="#{msg.urgencyCode}" filterMatchMode="contains">
+			<h:outputText value="#{item.code}" />
+		</p:column>
+
+		<p:column sortBy="#{item.description}" filterBy="#{item.description}"
+			headerText="#{msg.urgencyDescription}" filterMatchMode="contains">
+			<h:outputText value="#{item.description}" />
+		</p:column>
+
+		<p:column sortBy="#{item.priority}" filterBy="#{item.priority}"
+			headerText="#{msg.urgencyPriority}" filterMatchMode="contains">
+			<h:outputText value="#{item.priority}" />
+		</p:column>
+
+		<p:column headerText="#{msg.urgencyIconName}"
+			style="text-align: center;">
+			<h:graphicImage alt="#{item.iconName}" value="#{item.iconUrlTemp}"
+				width="25" height="25" />
+		</p:column>
+
+		<p:column sortBy="#{item.filterCode}" filterBy="#{item.filterCode}"
+			headerText="#{msg.urgencyFilterCode}" filterMatchMode="contains">
+			<h:outputText value="#{item.filterCode}" />
+		</p:column>
+	</ui:define>
+
+</ui:composition>
+</html>

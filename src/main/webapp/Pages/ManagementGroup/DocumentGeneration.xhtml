@@ -1,0 +1,1462 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title><h:outputText value="#{msg.title}"/></title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+    <link href="#{facesContext.externalContext.requestContextPath}/resources/styles/default.css"
+          media="all" rel="stylesheet" type="text/css" />
+    <link href="#{facesContext.externalContext.requestContextPath}/resources/styles/custom-styles.css"
+          media="all" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript"
+            src="#{facesContext.externalContext.requestContextPath}/resources/javascript/field-formatters.js"></script>
+    <script type="text/javascript"
+            src="#{facesContext.externalContext.requestContextPath}/resources/javascript/locale.js"></script>
+    <script type="text/javascript"
+            src="#{facesContext.externalContext.requestContextPath}/resources/javascript/jquery.maskedinput.js"></script>
+    <script type="text/javascript"
+            src="#{facesContext.externalContext.requestContextPath}/resources/javascript/javascript_helper.js"></script>
+    <script type="text/javascript"
+            src="#{facesContext.externalContext.requestContextPath}/resources/javascript/menu-manager.js"></script>
+    <script type="text/javascript"
+            src="#{facesContext.externalContext.requestContextPath}/resources/javascript/cookie-manager.js"></script>
+    <script type="text/javascript"
+            src="#{facesContext.externalContext.requestContextPath}/resources/javascript/Cookie.js"></script>
+    <script type="text/javascript"
+            src="#{facesContext.externalContext.requestContextPath}/resources/spellchecker/spell.js"></script>
+
+    <script type="text/javascript"
+            src="#{facesContext.externalContext.requestContextPath}/resources/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript"
+            src="#{facesContext.externalContext.requestContextPath}/resources/ckeditor/adapters/jquery.js"></script>
+
+    <script type="text/javascript"
+            src="#{facesContext.externalContext.requestContextPath}/resources/javascript/atmosphere-min.js"></script>
+</h:head>
+
+<h:body>
+    <ui:param name="bean" value="#{documentGenerationBean}"/>
+
+    <f:view locale="#{localizeBean.locale}">
+        <style type="text/css">
+            #myImage {
+                display: block;
+                max-height: 90vh !important;
+                max-width: 90vw !important;
+                margin: auto !important;
+            }
+        </style>
+
+        <script type="text/javascript">
+            var stopAutosave = false;
+            let voisisDict;
+
+            $(document).ready(function () {
+				PrimeFaces.widget.DefaultCommand = PrimeFaces.widget.BaseWidget.extend({
+					init: function (b) {
+						this.cfg = b;
+						this.id = this.cfg.id;
+						this.jqId = PrimeFaces.escapeClientId(this.id);
+						this.jqTarget = $(PrimeFaces.escapeClientId(this.cfg.target));
+						var a = this;
+						this.jqTarget.parents("form:first")
+								.keypress(function (d) {
+									var c = $.ui.keyCode;
+									if (d.which == c.ENTER) {
+										a.jqTarget.click();
+										d.preventDefault()
+									}
+								});
+						$(this.jqId + "_s").remove()
+					}
+				});
+				timeoutAutoSave();
+				loadHistoricalReports();
+				initializeValue();
+				enableEditor();
+
+				setInterval(function () {
+					initializeValue();
+				}, 18000);
+
+                initializeCkEditor();
+            });
+
+            function updateCkEditor() {
+                const editor = CKEDITOR.instances['reportEditor'];
+                if (editor) {
+                    try {
+                        editor.destroy(true);
+                    } catch (e) {
+                        console.log('Error while destroying old Editor instance', e);
+                    }
+                }
+                initializeCkEditor();
+            }
+
+            function initializeCkEditor() {
+                const editorJq = $('#reportEditor');
+                if (editorJq.length === 0) {
+                    console.error('Textarea with id "reportEditor" not found.');
+                    return;
+                }
+                const configPath = "#{resource['javascript/configCKEditor.js']}";
+                const cssPath = "#{resource['javascript/CKEditorStyle.css']}";
+
+                const editorConfig = {
+                    customConfig: configPath, contentsCss: cssPath,
+                    height: '360px', width: 'auto'
+                };
+                editorJq.ckeditor(function () {
+                    const editor = CKEDITOR.instances['reportEditor'];
+
+                    configureEditorWithGlossaryCommand(editor);
+                    initVoisis();
+                }, editorConfig);
+                removeAllTooltips('#reportEditorPanel');
+            }
+
+            function initVoisis() {
+                if ('#{bean.renderVoiceRecognitionBlock}' !== 'true' || voisisDict !== undefined)
+                    return;
+
+                const ckEditor = CKEDITOR.instances['reportEditor'];
+                const resourcesUrl = '#{facesContext.externalContext.requestContextPath}/resources/javascript/voisis';
+                const voisisApiUrl = '#{bean.spVoiceService.spVoiceApiUrl}';
+                const proxyLoginUrl = '#{facesContext.externalContext.requestContextPath}/rest/spvoiceLogin';
+                const voisisUsername = '#{bean.spVoiceService.spVoiceUsername}';
+
+                const connectCallback = function () {
+                    $(".voisis-editor-button").prop('disabled', false);
+                }
+
+                const config = {
+                    title: 'VoisisCloud',
+                    containerElId: 'reportEditorPanel',
+                    jsBaseUrl: resourcesUrl,
+                    proxyLoginUrl: proxyLoginUrl,
+                    onConnect: connectCallback
+                };
+
+                if (voisisUsername) {
+                    voisisDict = new voisisDictation(voisisApiUrl, ckEditor, config);
+
+                    setTimeout(function () {
+                        voisisDict.connect(voisisUsername);
+                    }, 2000);
+                }
+            }
+
+			function insertGlossaryToEditor(glossaryText) {
+				var text = glossaryText;
+				if (CKEDITOR.instances['reportEditor'] &amp;&amp; text != null &amp;&amp; text.length > 0) {
+					CKEDITOR.instances['reportEditor'].insertHtml(text);
+				}
+			}
+
+			function timeoutAutoSave() {
+				console.log(getCurrDate() + ' start set Timeout on autoSave');
+				if (!stopAutosave) {
+					if (typeof autoSave === 'function') {
+						setTimeout(autoSave, 1000 * 60);
+					}
+				}
+				console.log(getCurrDate() + ' finish set Timeout on autoSave');
+			}
+
+			function getCurrDate() {
+				var currentdate = new Date();
+				return currentdate.getDate() + "/" +
+						(currentdate.getMonth() + 1) + "/" +
+						currentdate.getFullYear() + " @ " +
+						currentdate.getHours() + ":" +
+						currentdate.getMinutes() + ":" +
+						currentdate.getSeconds();
+			}
+
+			function enableSourceBtn() {
+				$('.cke_button').removeClass('cke_button_disabled ').css("pointer-events", "inherit");
+			}
+
+			function initializeValue() {
+				window.value = $('#reportEditor').val();
+			}
+
+			function openWeasis(urls) {
+				var res = urls.split("%_del_%");
+				var i = 0;
+				do {
+					if (res[i] === '') {
+						showWarningDicom();
+					} else {
+						window.open(res[i], '_blank');
+					}
+					++i;
+				} while (res[i] != null);
+			}
+
+			function changeGlossaryResult() {
+				PF('glossaryResultWV').selectValue(document.getElementById('setSelectedResult').value);
+			}
+
+			function disableApplet() {
+				setTimeout(function () { hideApplet(); }, 1000);
+			}
+
+			function sendSignDocument(url) {
+				PF('waitSignDialogWV').show();
+				window.open(url, '_blank');
+				waitForResponse();
+			}
+
+			function resizeListener() {
+				CKEDITOR.instances['reportEditor'].fire('fixWidth');
+			}
+
+            // old versions of Firefox treated Backspace as 'go back' button when
+            // text input was not focused, this code disables this behaviour
+            if (navigator.userAgent.toLowerCase().indexOf("firefox") !== -1) {
+                document.addEventListener('keydown', preventBackspaceDefaultBehaviour);
+            }
+        </script>
+
+        <h:form id="form" prependId="false" enctype="multipart/form-data">
+
+            <h:inputHidden id="editorDisabledHidden"
+                           value="#{bean.editorDisabled}"/>
+
+            <h:inputHidden id="setSelectedResult" value="#{bean.selectedResult}"/>
+
+            <h:inputHidden id="tagFormString" value="#{bean.tagFormString}"/>
+
+            <h:inputHidden id="initialTags" value="#{bean.initialTags}"/>
+
+            <p:remoteCommand name="loadHistoricalReports" action="#{bean.fillHistoryDocuments}"
+                             update=":form:historicalReportsPanel"/>
+
+            <p:remoteCommand name="hideApplet" action="#{bean.hideApplet}"/>
+
+            <p:remoteCommand name="waitForResponse" action="#{bean.waitForResponse}" update="messages"
+                             oncomplete="PF('waitSignDialogWV').hide();"/>
+
+            <p:remoteCommand name="showWarningDicom" action="#{bean.showWarningDicom}" update="messages"/>
+
+            <p:remoteCommand name="goToWorklist"
+                             actionListener="#{bean.goToWorklist}"/>
+
+            <p:remoteCommand name="enableEditor"
+                             actionListener="#{bean.enableEditor}" oncomplete="openOsirix();"/>
+
+            <p:remoteCommand name="autoSave"
+                             onstart="if(stopAutosave){return false;}console.log(getCurrDate() + ' start perform autoSave');"
+                             action="#{bean.autoSave}"
+                             oncomplete="console.log(getCurrDate() + ' finish perform autoSave');timeoutAutoSave();"/>
+
+
+            <p:remoteCommand name="openOsirix"
+                             actionListener="#{bean.openOsirix}" update="bars"/>
+
+            <p:remoteCommand name="unblock"
+                             actionListener="#{bean.unblockItemsAfterLeaving}"/>
+
+            <p:remoteCommand name="updateEnableEditorButton"
+                             update="enableHtmlEditorButtonId, editorDisabledHidden, reportEditorPanel"
+                             oncomplete="updateCkEditor();"/>
+
+            <p:remoteCommand name="handleOpen" action="#{bean.handleOpen}"
+                             update="glossaryModule"/>
+
+            <pe:layout fullPage="true" widgetVar="layoutWV"
+                       options="#{bean.layoutOptions}">
+                <p:ajax event="resize" onstart="resizeListener();"/>
+
+                <p:ajax event="open" listener="#{documentGenerationBean.handleOpen}"
+                        onstart="PF('bui').show()" update="glossaryModule"/>
+
+                <pe:layoutPane position="north"
+                               styleContent="background: #FFF none repeat scroll 0% 0%; padding: 0px; border-radius: 0px;">
+
+                    <div class="header">
+                        <p:remoteCommand name="callLeavePage" action="#{bean.leavePage}"
+                                         update=":form:messages"/>
+
+                        <ul class="top_menu"
+                            style="width: #{sessionBean.currentUser.showStatisticMenu ? '510px' : '430px'};">
+                            <li class="patient_search"><p:commandLink
+                                    onclick="submitReportEditorText();"
+                                    oncomplete="callLeavePage();">
+                                <f:setPropertyActionListener target="#{bean.linkToRedirect}"
+                                                             value="PATIENT_SEARCH"/>
+                                <f:setPropertyActionListener target="#{bean.requestedToLeave}"
+                                                             value="#{true}"/>
+                            </p:commandLink></li>
+
+                            <li class="worklist"><p:commandLink
+                                    onclick="submitReportEditorText();"
+                                    oncomplete="callLeavePage();">
+                                <f:setPropertyActionListener target="#{bean.linkToRedirect}"
+                                                             value="WORKLIST"/>
+                                <f:setPropertyActionListener target="#{bean.requestedToLeave}"
+                                                             value="#{true}"/>
+                            </p:commandLink></li>
+
+                            <li class="waiting_list"><p:commandLink
+                                    onclick="submitReportEditorText();"
+                                    oncomplete="callLeavePage();">
+                                <f:setPropertyActionListener target="#{bean.linkToRedirect}"
+                                                             value="WAITINGLIST_REGISTRATION_LIST"/>
+                                <f:setPropertyActionListener target="#{bean.requestedToLeave}"
+                                                             value="#{true}"/>
+                            </p:commandLink></li>
+
+                            <li class="search"><p:commandLink id="search"
+                                                              onclick="submitReportEditorText();"
+                                                              oncomplete="callLeavePage();">
+                                <f:setPropertyActionListener target="#{bean.linkToRedirect}"
+                                                             value="REPORT_SEARCH"/>
+                                <f:setPropertyActionListener target="#{bean.requestedToLeave}"
+                                                             value="#{true}"/>
+                            </p:commandLink></li>
+
+                            <li class="settings"><p:commandLink
+                                    onclick="submitReportEditorText();"
+                                    oncomplete="callLeavePage();">
+                                <f:setPropertyActionListener target="#{bean.linkToRedirect}"
+                                                             value="APPLICATION_SETTINGS"/>
+                                <f:setPropertyActionListener target="#{bean.requestedToLeave}"
+                                                             value="#{true}"/>
+                            </p:commandLink></li>
+
+                            <ui:fragment
+                                    rendered="#{sessionBean.currentUser.showStatisticMenu}">
+                                <li class="statistic"><p:commandLink
+                                        onclick="submitReportEditorText();"
+                                        oncomplete="callLeavePage();">
+                                    <f:setPropertyActionListener target="#{bean.linkToRedirect}"
+                                                                 value="STATISTIC"/>
+                                    <f:setPropertyActionListener target="#{bean.requestedToLeave}"
+                                                                 value="#{true}"/>
+                                </p:commandLink></li>
+                            </ui:fragment>
+
+                        </ul>
+
+                        <ul class="user_menu">
+                            <li><a class="name"
+                                   href="#{facesContext.externalContext.requestContextPath}/configuration/user_profile_view/">
+                                #{sessionBean.currentUser.fullname} </a></li>
+
+                            <li><span style="padding: 5px 0px;">|</span><a
+                                    class="logout"
+                                    href="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout">#{msg.logout}</a>
+                            </li>
+                        </ul>
+
+                        <p:ajaxStatus style=" margin-top: 8px;"
+                                      onsuccess="fixExpandRow(); fixCalendarInput();">
+                            <f:facet name="start">
+                                <p:graphicImage value="/resources/images/ajax-loader.gif"/>
+                            </f:facet>
+
+                            <f:facet name="complete">
+                                <h:outputText value=""/>
+                            </f:facet>
+                        </p:ajaxStatus>
+                        <div class="clear" style="float: none;"></div>
+                    </div>
+                </pe:layoutPane>
+
+                <p:blockUI block="glossaryModule" trigger="glossaryModule"
+                           widgetVar="bui">
+                    <p:outputLabel value="#{msg.loading}"/>
+                    <br/>
+                    <p:graphicImage value="/resources/images/ajax-loader_big.gif"/>
+                </p:blockUI>
+
+                <pe:layoutPane position="west" id="glossaryLayout">
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.glossaryHeader}"/>
+                    </f:facet>
+
+                    <p:panel id="glossaryModule">
+                        <h:panelGrid columns="2" columnClasses="label, value"
+                                     styleClass="grid glossary_block" id="glossaryInputValues">
+
+                            <span> #{msg.glossaryExamType}:</span>
+                            <p:selectOneMenu id="glossaryExamType"
+                                             value="#{bean.selectedExamTypeId}"
+                                             label="#{msg.glossaryExamType}">
+                                <p:ajax update="glossaryTable"
+                                        listener="#{documentGenerationBean.sortGlossaries}"/>
+                                <f:selectItems value="#{bean.examTypes}"/>
+                            </p:selectOneMenu>
+
+                            <span> #{msg.glossaryExam}:</span>
+                            <p:selectOneMenu id="glossaryExam" value="#{bean.selectedExam}"
+                                             label="#{msg.glossaryExam}">
+                                <p:ajax update="glossaryResult"
+                                        listener="#{documentGenerationBean.examChange}"/>
+                                <p:ajax update="glossaryTable"
+                                        listener="#{documentGenerationBean.fillGlossaries}"/>
+                                <f:selectItems value="#{bean.exams}"/>
+                            </p:selectOneMenu>
+
+                            <span> #{msg.glossaryResult}:</span>
+                            <p:selectOneMenu id="glossaryResult" widgetVar="glossaryResultWV"
+                                             value="#{bean.selectedResult}" label="#{msg.sortGlossaries}">
+                                <p:ajax update="glossaryTable, setSelectedResult"
+                                        listener="#{documentGenerationBean.fillGlossaries}"/>
+                                <f:selectItems value="#{bean.results}"/>
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+
+                        <h:inputHidden id="InputHidden" value="#{bean.tempText}"/>
+
+                        <p:dataTable id="glossaryTable" value="#{bean.glossaries}"
+                                     styleClass="glossary_tbl" var="item" lazy="false"
+                                     paginator="true" rowKey="#{item.id}" rows="20"
+                                     paginatorAlwaysVisible="true"
+                                     emptyMessage="#{msg.noRecordsFound}"
+                                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     widgetVar="tableWV" selection="#{bean.currentGlossary}"
+                                     selectionMode="single">
+
+                            <p:ajax event="rowSelect"
+                                    oncomplete="insertGlossaryToEditor($('#InputHidden').val());"
+                                    update=":form:glossaryTable, :form:InputHidden"/>
+
+                            <p:column headerText="#{msg.glossaryTitle}"
+                                      filterBy="#{item.title}" sortBy="#{item.title}">
+                                <h:outputText value="#{item.title}"/>
+                            </p:column>
+
+                            <p:column headerText="#{msg.glossaryCode}"
+                                      filterBy="#{item.code}" sortBy="#{item.code}">
+                                <h:outputText value="#{item.code}"/>
+                            </p:column>
+                        </p:dataTable>
+
+                    </p:panel>
+                    <div class="btn_line">
+                        <p:commandButton value="#{msg.glossaryManagmentGlossario}"
+                                         actionListener="#{bean.glossaryManadgment}"
+                                         disabled="#{!bean.userEqualToClosingDoc}">
+                            <p:ajax event="dialogReturn" oncomplete="changeGlossaryResult();"
+                                    listener="#{documentGenerationBean.fillGlossaryModule}"
+                                    update=":form:glossaryModule"/>
+                        </p:commandButton>
+                    </div>
+                </pe:layoutPane>
+
+                <pe:layoutPane position="east">
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.historyHeader}"/>
+                    </f:facet>
+
+                    <p:outputPanel id="historicalReportsPanel">
+                        <p:outputPanel rendered="#{bean.renderHistoricalReports}">
+                            <p:accordionPanel value="#{bean.historyDocuments}" var="history"
+                                              activeIndex="-1">
+                                <p:tab title="#{history.title}">
+
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel value="#{msg.historyDoctor}: #{history.doctor}"/>
+
+                                        <p:outputLabel value="#{msg.historySector}: #{history.sectorDescription}"/>
+                                    </h:panelGrid>
+
+                                    <center>
+                                        <p:outputLabel value="#{history.description}" style="font-weight: bold;"/>
+                                    </center>
+
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel value="#{history.text}" escape="false"/>
+                                        <p:column>
+                                            <div class="btn_line">
+                                                <p:commandButton value="#{msg.historyImmagini}"
+                                                                 disabled="#{bean.disableDICOMButton}"
+                                                                 action="#{bean.openDicomForHistory}">
+                                                    <f:setPropertyActionListener
+                                                            target="#{bean.selectedHistoryId}" value="#{history.id}"/>
+                                                </p:commandButton>
+
+                                                <p:commandButton value="#{msg.view}"
+                                                                 action="#{bean.viewExitingReport}">
+                                                    <f:setPropertyActionListener
+                                                            target="#{bean.selectedHistoryId}" value="#{history.id}"/>
+                                                </p:commandButton>
+                                            </div>
+                                        </p:column>
+                                    </h:panelGrid>
+                                </p:tab>
+                            </p:accordionPanel>
+                        </p:outputPanel>
+                    </p:outputPanel>
+                </pe:layoutPane>
+
+                <pe:layoutPane position="south">
+                </pe:layoutPane>
+
+                <pe:layoutPane position="center">
+
+                    <pe:layoutPane position="north">
+
+                        <ui:fragment>
+                            <h:panelGroup id="bars">
+                                <h:panelGroup rendered="#{bean.showRedBar == 'true'}">
+                                    <div style="background-color: red;">
+                                        <p:outputLabel value="#{msg.pdfGenerationTitle}"
+                                                       style="color:white; font-size:large;"/>
+                                    </div>
+                                </h:panelGroup>
+                                <h:panelGroup rendered="#{bean.showGreenBar == 'true'}">
+                                    <div style="background-color: green;">
+                                        <p:outputLabel value="#{msg.pdfGenerationTitleLoadCompleted}"
+                                                       style="color:white; font-size: medium;"/>
+                                    </div>
+                                </h:panelGroup>
+                            </h:panelGroup>
+                        </ui:fragment>
+
+                        <p:panel>
+                            <h:panelGrid columns="8" style="width:100%;"
+                                         styleClass="doc_gen_tbl"
+                                         columnClasses="small_height_label, small_height_value, small_height_label, small_height_value, small_height_label, small_height_value, small_height_label, small_height_value">
+
+                                <h:outputText value="#{msg.pdfGenerationPatient}: "/>
+                                <h:outputText
+                                        value="#{bean.radiologyExamRequest.patient.fullName}"
+                                        style="font-weight: bold;"/>
+
+                                <h:outputText value="#{msg.pdfGenerationSex}: "/>
+                                <h:outputText
+                                        value="#{bean.radiologyExamRequest.patient.sexTypeShortValue}"
+                                        style="font-weight: bold;"/>
+
+                                <h:outputText value="#{msg.pdfGenerationBirthDate}:"/>
+                                <h:outputText
+                                        value="#{bean.radiologyExamRequest.patient.birthDate}"
+                                        converter="dateTimeConverter" style="font-weight: bold;"/>
+
+                                <h:outputText value="#{msg.pdfGenerationAge}: "/>
+                                <h:outputText value="#{bean.radiologyExamRequest.patient.age}"
+                                              style="font-weight: bold;"/>
+
+                                <h:outputText value="#{msg.pdfGenerationAccessNumber}: "/>
+                                <h:outputText style="font-weight: bold;"
+                                              value="#{bean.radiologyExamRequest.accessNumber}"/>
+
+                                <h:outputText value="#{msg.pdfGenerationExamDate}: "/>
+                                <h:outputText
+                                        value="#{bean.radiologyExamRequest.latestActionDate}"
+                                        converter="dateTimeConverterWithMinutes" style="font-weight: bold;"/>
+
+                                <h:outputText value=""/>
+                                <h:outputText value=""/>
+
+                                <h:outputText value="#{msg.pdfGenerationSector}: "/>
+
+                                <h:outputText
+                                        value="#{bean.radiologyExamRequest.asapSectorWithActivity}"
+                                        style="font-weight: bold; max-width:365px; display:block;"/>
+
+                                <h:outputText value="#{msg.pdfGenerationMedicalApplicant}: "/>
+                                <h:outputText
+                                        value="#{bean.radiologyExamRequest.requestingDoctor}"
+                                        style="font-weight: bold;"/>
+
+                                <h:outputText value="#{msg.pdfGenerationTSRM}: "/>
+                                <h:outputText value="#{bean.radiologyExamRequest.trsm}"
+                                              style="font-weight: bold;"/>
+
+                                <h:outputText value=""/>
+                                <h:outputText value=""/>
+
+                                <p:outputLabel value="#{msg.pdfGenerationDICOMDownload}:"
+                                               rendered="#{bean.consistInOsirixList}"/>
+
+                                <p:progressBar widgetVar="pbAjax" ajax="true" interval="500"
+                                               rendered="#{bean.consistInOsirixList}" id="progressBarOsirix"
+                                               value="#{bean.progressbarValue}" labelTemplate="{value}%"
+                                               styleClass="animated, progress_bar" global="false"/>
+                            </h:panelGrid>
+                        </p:panel>
+
+                        <p:dataTable var="itemExp"
+                                     value="#{bean.allRequestsItemsWrappers}" id="expTable"
+                                     paginator="false" rowKey="#{itemExp.id}" rowIndexVar="rowIndex" lazy="false">
+
+                            <p:column headerText="#{msg.workListAccessNumber}">
+                                <h:outputText value="#{itemExp.accessNumber}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.pdfGenerationEsame}"/>
+                                </f:facet>
+                                <h:outputText value="#{itemExp.radiologyExam.description}"
+                                              style="font-weight: bold;"/>
+                            </p:column>
+
+                            <p:column styleClass="bold_column">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.pdfGenerationDiagnosticQuestion}"/>
+                                </f:facet>
+                                <h:outputText value="#{itemExp.requestDiagnosticQuestion}"
+                                              style="font-weight: bold;"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.pdfGenerationUserFullname}"/>
+                                </f:facet>
+                                <h:outputText value="#{itemExp.requestingDoctor}"/>
+                            </p:column>
+
+                            <p:column style="width: 50px; text-align: center">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.pdfGenerationReserveDate}"/>
+                                </f:facet>
+                                <h:outputText value="#{itemExp.reserveDate}"
+                                              converter="dateTimeConverter"/>
+                            </p:column>
+
+                            <p:column style="width: 50px; text-align: center">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.pdfGenerationRequestDate}"/>
+                                </f:facet>
+                                <h:outputText value="#{itemExp.requestDate}"
+                                              converter="dateTimeConverter"/>
+                            </p:column>
+                        </p:dataTable>
+
+                        <h:panelGrid columns="10" styleClass="doc_gen_tbl" id="panel"
+                                     columnClasses="#{bean.buttonsColumnClass}"
+                                     style="margin-top: 4px; width: 100%">
+
+                            <p:menuButton icon="ui-icon ui-icon-triangle-1-s"
+                                          value="#{msg.pdfGenerationTools}">
+                                <p:menuitem value="#{msg.glossaryManagmentGlossario}"
+                                            actionListener="#{bean.glossaryManadgment}"
+                                            disabled="#{!bean.userEqualToClosingDoc}"/>
+
+                                <p:menuitem value="#{msg.pdfGenerationPrintReport}"
+                                            action="#{bean.chooseTemplate}"
+                                            disabled="#{!bean.canReportWorklist || !bean.userEqualToClosingDoc}"
+                                            update="messages">
+                                    <f:setPropertyActionListener
+                                            target="#{bean.currentStateToGeneratePdf}" value="PRINT"/>
+                                </p:menuitem>
+
+                                <p:menuitem value="#{msg.pdfGenerationReleaseReport}"
+                                            disabled="#{bean.pdfGenButtonDisabled}"
+                                            action="#{bean.chooseDocumentUnblocking}" update="messages"/>
+
+                                <p:menuitem value="#{msg.pdfGenerationCloseReport}"
+                                            disabled="#{!bean.canCloseReport || !bean.userEqualToClosingDoc ||
+									bean.disableButtonsAndFieldsInReportedCase || bean.disableButtonsAndFieldsInSignedCase}"
+                                            action="#{bean.chooseTemplate}" update="messages">
+                                    <f:setPropertyActionListener
+                                            target="#{bean.currentStateToGeneratePdf}" value="REPORTED"/>
+                                </p:menuitem>
+                            </p:menuButton>
+
+                            <p:commandButton actionListener="#{bean.tryToCallAggregationDlg}"
+                                             value="#{msg.aggregationSplitButton}" update="messages"
+                                             disabled="#{bean.disableButtonsAndFieldsInReportedCase || !bean.userEqualToClosingDoc || bean.disableButtonsAndFieldsInSignedCase}"/>
+
+                            <p:commandButton value="#{msg.pdfGenerationOpenCC}"
+                                             update=":form:messages"
+                                             disabled="#{!bean.radiologyExamRequest.havePSDNumber}"
+                                             action="#{bean.openPSD}">
+                            </p:commandButton>
+
+                            <p:commandButton value="#{msg.documentGenerationAddTagBtn}"
+                                             oncomplete="PF('tagsWV').show();"
+                                             disabled="#{bean.disableTagsButton}"/>
+
+                            <p:commandButton value="#{msg.documentGenerationAddImgBtn}"
+                                             oncomplete="PF('immagesWV').show();"
+                                             disabled="#{bean.disableButtonsAndFieldsInReportedCase ||
+                                             bean.disableButtonsAndFieldsInSignedCase}"/>
+
+                            <p:commandButton
+                                    value="#{msg.documentGenerationAddRadiologyButton}"
+                                    action="#{bean.beforeOpenAddExamDlgAction}"
+                                    update="addRadiologyExamDialog"
+                                    disabled="#{bean.disableButtonsAndFieldsInReportedCase || !bean.userEqualToClosingDoc || bean.disableButtonsAndFieldsInSignedCase}"/>
+
+                            <p:commandLink id="notesLink" onclick="PF('notesDlgWV').show()"
+                                           rendered="#{!empty bean.notes}"
+                                           ajax="true">
+                                <p:graphicImage value="/resources/images/menu/note.png"/>
+
+                            </p:commandLink>
+
+                            <p:commandLink onclick="PF('allergyDlgWV').show()"
+                                           rendered="#{bean.showAllergyWarning}"
+                                           ajax="true">
+                                <h:graphicImage value="/resources/images/warning.png" style="width: 24px;"/>
+                            </p:commandLink>
+
+                            <p:selectBooleanCheckbox value="#{bean.descriptionCheckbox}"
+                                                     styleClass="doc-gen-boolean-checkbox"
+                                                     id="documentGenerationCheckbox"
+                                                     style="margin-top: 4px;"
+                                                     itemLabel="#{!bean.descriptionCheckbox ?
+													 msg.pdfGenerationUseDescription:''}">
+                                <p:ajax listener="#{bean.changeDescription}" update="panel"/>
+                            </p:selectBooleanCheckbox>
+
+                            <p:inputText rendered="#{bean.descriptionCheckbox}" id="examTypesText"
+                                         style="width: 90%"
+                                         value="#{bean.examTypesText}"/>
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="2" styleClass="doc_gen_tbl" id="second_panel"
+                                     columnClasses="#{bean.buttonsColumnClass}"
+                                     style="margin-top: 4px; width: 100%">
+
+                            <p:selectBooleanCheckbox value="#{bean.documentHidden}"
+                                                     id="hiddenDocumentCheckbox"
+                                                     style="margin-top: 4px;"
+                                                     itemLabel="#{msg.pdfGenerationHiddenDocument}">
+                            </p:selectBooleanCheckbox>
+
+                            <p:selectBooleanCheckbox value="#{bean.documentSecure}"
+                                                     id="moreSecureDocumentCheckbox"
+                                                     style="margin-top: 4px;"
+                                                     itemLabel="#{msg.pdfGenerationMoreSecureDocument}">
+                            </p:selectBooleanCheckbox>
+
+                        </h:panelGrid>
+
+						<p:outputPanel id="reportEditorPanel">
+
+							<p:outputPanel id="voisisComponent" rendered="#{bean.renderVoiceRecognitionBlock}">
+								<ui:include src="/resources/tpl/common/VoiceBlock.xhtml"/>
+							</p:outputPanel>
+
+							<p:inputTextarea id="reportEditor" value="#{bean.editorValue}"
+                                             converter="italianCharsConverter"/>
+
+						</p:outputPanel>
+
+                        <p:remoteCommand name="submitReportEditorText" process="reportEditor"/>
+
+                        <p:panel>
+                            <h:panelGrid columns="4" style="width:auto;" styleClass="doc_gen_tbl"
+                                         columnClasses="bottom_label, bottom_value, bottom_label, bottom_value">
+
+                                <h:outputText value="#{msg.pdfGenerationRefferingDoctor}: "/>
+                                <h:outputText value="#{bean.currentUser}"
+                                              style="font-weight: bold;"/>
+
+                                <h:outputText value="#{msg.pdfGenerationData}: "/>
+                                <h:outputText value="#{bean.currentDate}"
+                                              converter="dateTimeConverter"/>
+                                <h:outputText value="#{msg.trainees}: "/>
+                                <h:outputText value=""/>
+                            </h:panelGrid>
+                        </p:panel>
+
+                    </pe:layoutPane>
+
+                    <pe:layoutPane position="center">
+
+                        <div class="btn_line">
+
+                            <p:commandButton id="enableHtmlEditorButtonId"
+                                             value="#{msg.pdfGenerationActivation}"
+                                             disabled="#{!bean.enableHtmlEditorButton || bean.disableButtonsAndFieldsInReportedCase || !bean.userEqualToClosingDoc || bean.disableButtonsAndFieldsInSignedCase}"
+                                             action="#{bean.enableEditorAction}"
+                                             update="reportEditorPanel, enableHtmlEditorButtonId, editorDisabledHidden"
+                                             oncomplete="updateCkEditor();enableSourceBtn();"/>
+
+                            <p:commandButton value="#{msg.pdfGenerationDICOMImages}"
+                                             disabled="#{bean.disableDICOMButton || !bean.userEqualToClosingDoc}"
+                                             action="#{bean.openDicom}"/>
+
+                            <p:commandButton value="#{msg.pdfGenerationSaveReport}"
+                                             icon="ui-icon-disk" action="#{bean.chooseTemplate}"
+                                             update="messages"
+                                             disabled="#{!bean.userEqualToClosingDoc || bean.disableButtonsAndFieldsInReportedCase || bean.disableButtonsAndFieldsInSignedCase}">
+                                <f:setPropertyActionListener
+                                        target="#{bean.currentStateToGeneratePdf}" value="DRAFT"/>
+                                <f:setPropertyActionListener target="#{bean.requestedToLeave}"
+                                                             value="#{false}"/>
+                            </p:commandButton>
+
+                            <p:commandButton value="#{msg.pdfGenerationPrintReport}"
+                                             icon="ui-icon-print" action="#{bean.chooseTemplate}"
+                                             disabled="#{!bean.canReportWorklist || !bean.userEqualToClosingDoc}"
+                                             update="messages">
+                                <f:setPropertyActionListener
+                                        target="#{bean.currentStateToGeneratePdf}" value="PRINT"/>
+                                <f:setPropertyActionListener target="#{bean.requestedToLeave}"
+                                                             value="#{false}"/>
+                            </p:commandButton>
+
+                            <p:commandButton value="#{msg.pdfGenerationReleaseReport}"
+                                             icon="ui-icon-refresh" disabled="#{bean.pdfGenButtonDisabled}"
+                                             action="#{bean.chooseDocumentUnblocking}"
+                                             update="messages, unblockingDocument">
+                                <f:setPropertyActionListener target="#{bean.requestedToLeave}"
+                                                             value="#{false}"/>
+                                <f:setPropertyActionListener target="#{bean.releaseReport}"
+                                                             value="#{true}"/>
+                            </p:commandButton>
+
+                            <p:commandButton value="#{msg.pdfGenerationCloseReport}"
+                                             disabled="#{!bean.canCloseReport || !bean.userEqualToClosingDoc || bean.disableButtonsAndFieldsInReportedCase || bean.disableButtonsAndFieldsInSignedCase}"
+                                             icon="ui-icon-locked" action="#{bean.chooseTemplate}"
+                                             update="messages">
+                                <f:setPropertyActionListener
+                                        target="#{bean.currentStateToGeneratePdf}" value="REPORTED"/>
+                                <f:setPropertyActionListener target="#{bean.requestedToLeave}"
+                                                             value="#{false}"/>
+                            </p:commandButton>
+
+                            <p:commandButton value="#{msg.pdfGenerationReOpenReport}"
+                                             action="#{bean.reOpenReport}"
+                                             rendered="#{bean.disableButtonsAndFieldsInReportedCase}"
+                                             ajax="false"/>
+
+                            <p:commandButton value="#{msg.pdfGenerationSign}"
+                                             action="#{bean.chooseTemplate}"
+                                             rendered="#{bean.canDigitalSign and !bean.disableButtonsAndFieldsInSignedCase}"
+                                             update="messages">
+                                <f:setPropertyActionListener
+                                        target="#{bean.currentStateToGeneratePdf}" value="SIGN"/>
+                                <f:setPropertyActionListener target="#{bean.requestedToLeave}"
+                                                             value="#{false}"/>
+                            </p:commandButton>
+                        </div>
+                    </pe:layoutPane>
+                </pe:layoutPane>
+            </pe:layout>
+
+
+            <!-- Applet -->
+
+            <p:outputPanel id="appletPanel" rendered="#{bean.showApplet}">
+                <p:autoUpdate/>
+                <applet name="print"
+                        archive="#{facesContext.externalContext.requestContextPath}/resources/applets/print.jar"
+                        code="PrintApplet.class" width="0" height="0">
+                    <param name="path" value="#{bean.printFile}"></param>
+                    <param name="printer" value="#{bean.labelPrintPrinterNamePreference.labelPrintPrinterName}"></param>
+                    <param name="counter" value="#{bean.labelPrintCountPreference.labelPrintCount}"></param>
+                </applet>
+            </p:outputPanel>
+
+            <p:dialog widgetVar="immagesWV" resizable="false" draggable="false" closable="false" width="600"
+                      onShow="stopAutosave = true;" onHide="stopAutosave = false; timeoutAutoSave();"
+                      header="#{msg.documentGenerationAddImgDlg}" modal="true">
+                <p:outputPanel id="tabImagePanel">
+					<p:fileUpload id="fileUploader" auto="true"
+								  style="width: 100%;" widgetVar="fileUploaderVar"
+								  cancelLabel="#{msg.cancel}" uploadLabel="#{msg.upload}"
+								  label="#{msg.choose}"
+								  listener="#{bean.handleImageUpload}"
+                                  update="tabImagePanel">
+                        <p:validateFile allowTypes="/(\.|\/)(jpe?g|png|pdf)$/" />
+                    </p:fileUpload>
+
+                    <p:message for="fileUploader" showDetail="true"/>
+
+                    <p:dataTable id="imageTable" value="#{bean.requestAttachedFiles}" var="item"
+                                 rowKey="#{item.tempId}" lazy="false">
+                        <p:column headerText="#{msg.documentGenerationImgName}">
+                            <h:outputLabel value="#{item.fileName}"/>
+                        </p:column>
+                        <p:column styleClass="action_column">
+                            <p:commandButton styleClass="action_btn" icon="ui-icon ui-icon-search"
+                                             rendered="#{item.isImage}"
+                                             action="#{bean.previewImage}" update=":form:imagePanel">
+                                <f:setPropertyActionListener target="#{bean.editImageId}"
+                                                             value="#{item.tempId}"/>
+                            </p:commandButton>
+                            <p:commandButton styleClass="action_btn" icon="ui-icon ui-icon-search"
+                                             rendered="#{!item.isImage}"
+                                             action="#{bean.previewPdf}" update=":form:imagePanel">
+                                <f:setPropertyActionListener target="#{bean.editImageId}"
+                                                             value="#{item.tempId}"/>
+                            </p:commandButton>
+                        </p:column>
+                        <p:column styleClass="action_column">
+                            <p:commandButton styleClass="action_btn" icon="ui-icon ui-icon-closethick"
+                                             action="#{bean.removeImage}" update=":form:imagePanel, imageTable">
+                                <f:setPropertyActionListener target="#{bean.editImageId}"
+                                                             value="#{item.tempId}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </p:outputPanel>
+                <div class="btn_line">
+                    <p:commandButton value="#{msg.save}" action="#{bean.saveImages}"
+                                     oncomplete="PF('immagesWV').hide();"/>
+                    <p:commandButton value="#{msg.cancel}" action="#{bean.restoreImages}"
+                                     oncomplete="PF('immagesWV').hide();"/>
+                </div>
+            </p:dialog>
+
+            <p:dialog widgetVar="previewPdfWV" resizable="false" onShow="updatePdfPanel()"
+                      styleClass="doc-gen-panel-pdf"
+                      onHide="PF('previewPdfWV').toggleMinimize();" modal="true">
+                <p:panel id="panelPdfId" style="width: 100%; height: 95%; border: none" styleClass="doc-gen-panel-pdf">
+                    <p:media player="pdf" value="#{bean.editImagePath}" style="width: 100%; height:100%"/>
+                </p:panel>
+                <p:remoteCommand name="updatePdfPanel" update=":form:panelPdfId"/>
+            </p:dialog>
+
+            <p:dialog widgetVar="previewImageWV" resizable="false" onHide="PF('previewImageWV').toggleMinimize();"
+                      header="#{msg.documentGenerationPreviewImgDlg}" modal="true">
+                <p:outputPanel id="imagePanel">
+                    <p:graphicImage id="myImage" value="#{bean.editImagePath}"/>
+
+                    <pe:imageRotateAndResize id="rotateAndResize" for="myImage" widgetVar="rotateAndResizeWidget">
+                        <p:ajax event="rotate" listener="#{bean.rotateListener}"/>
+                    </pe:imageRotateAndResize>
+                </p:outputPanel>
+
+                <div class="btn_line">
+                    <p:commandButton icon="ui-icon-arrowreturnthick-1-w"
+                                     value="#{msg.documentGenerationPreviewImgRotateLeft}" update="myImage"
+                                     onclick="PF('rotateAndResizeWidget').rotateLeft(90);return false;"/>
+                    <p:commandButton icon="ui-icon-arrowreturnthick-1-e"
+                                     value="#{msg.documentGenerationPreviewImgRotateRight}" update="myImage"
+                                     onclick="PF('rotateAndResizeWidget').rotateRight(90);return false;"/>
+                </div>
+            </p:dialog>
+
+            <p:dialog widgetVar="tagsWV" resizable="false" draggable="false"
+                      header="#{msg.documentGenerationAddTagDlg}" modal="true">
+                <p:panelGrid styleClass="panel-grid-border-none">
+                    <p:row>
+                        <p:column>
+                            <p:inputText onkeydown="return lockValue(event);" id="tagsInput"/>
+                        </p:column>
+                        <p:column>
+                            <p:commandButton icon="ui-icon ui-icon-plusthick" onclick="lockValueOnBtn('tagsInput');"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="2">
+                            <p:outputPanel id="tagsContainer" style="width: 200px"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+                <div class="btn_line">
+                    <p:commandButton value="#{msg.save}" process="@all"
+                                     onclick="lockValueOnBtn('tagsInput');$('#tagFormString').val(document.getElementById('tagsContainer').innerHTML);"
+                                     action="#{bean.saveTags}" oncomplete="PF('tagsWV').hide();"/>
+                    <p:commandButton value="#{msg.cancel}" oncomplete="PF('tagsWV').hide();"/>
+                </div>
+            </p:dialog>
+
+            <p:dialog widgetVar="templates" resizable="false"
+                      header="#{msg.docTemplates}" modal="true">
+
+                <p:selectOneMenu value="#{bean.selectedTemplateId}"
+                                 style="width:150px;">
+                    <f:selectItems value="#{bean.templates}"/>
+                </p:selectOneMenu>
+
+                <div class="btn_line">
+                    <p:commandButton value="#{msg.ok}" ajax="false"
+                                     action="#{bean.dialogTemplateActionGeneral}"
+                                     onclick="PF('templates').hide()"/>
+                    <p:commandButton value="#{msg.cancel}"
+                                     onclick="PF('templates').hide()"/>
+                </div>
+            </p:dialog>
+
+            <p:dialog widgetVar="unblockingDocument" resizable="false"
+                      id="unblockingDocument" header="#{bean.unblockingHeader}"
+                      modal="true">
+
+                <div class="btn_line">
+                    <p:commandButton value="#{msg.pdfGenerationYes}" ajax="false"
+                                     action="#{bean.unblock}" onclick="PF('unblockingDocument').hide()"/>
+                    <p:commandButton value="#{msg.pdfGenerationNo}"
+                                     action="#{bean.goToWorklist}"/>
+                </div>
+            </p:dialog>
+
+            <p:dialog widgetVar="userLockChangeRedirect" resizable="false"
+                      header="#{msg.userLockChangeRedirectHeader}" modal="true">
+                <p:outputPanel>
+                    <p:autoUpdate/>
+                    <h:outputText value="#{msg.userLockChangeRedirect} #{bean.userLockChangeRedirectUserName}"/>
+                </p:outputPanel>
+                <div class="btn_line">
+                    <p:commandButton value="#{msg.pdfGenerationYes}" ajax="false"
+                                     action="#{bean.userLockChangeRedirect}"
+                                     onclick="PF('userLockChangeRedirect').hide()"/>
+                </div>
+            </p:dialog>
+
+            <p:dialog widgetVar="userLockChangeGet" resizable="false"
+                      header="#{msg.userLockChangeGetHeader}" modal="true">
+                <h:outputText value="#{msg.userLockChangeGet}"/>
+                <div class="btn_line">
+                    <p:commandButton value="#{msg.pdfGenerationYes}" ajax="false"
+                                     action="#{bean.userLockChangeGet}"
+                                     onclick="PF('userLockChangeGet').hide()"/>
+                    <p:commandButton value="#{msg.pdfGenerationNo}"
+                                     action="#{bean.userLockChangeRedirect}"
+                                     onclick="PF('userLockChangeGet').hide()"/>
+                </div>
+            </p:dialog>
+            <p:dialog widgetVar="savingReportTextConfirmation" resizable="false"
+                      header="#{msg.pdfGenerationKeepTheTextInsideEditor}" modal="true">
+
+                <div class="btn_line">
+                    <p:commandButton value="#{msg.pdfGenerationYes}" ajax="false"
+                                     action="#{bean.actionOnSaveText}"
+                                     onclick="PF('savingReportTextConfirmation').hide()"/>
+                    <p:commandButton value="#{msg.pdfGenerationNo}"
+                                     action="#{bean.actionOnUnsaveText}"
+                                     onclick="PF('savingReportTextConfirmation').hide()"/>
+                </div>
+            </p:dialog>
+
+            <p:dialog widgetVar="restoreDialog" resizable="false"
+                      header="#{msg.pdfGenerationRestoreDialogHeader}" modal="true">
+
+                <div class="btn_line">
+                    <p:commandButton value="#{msg.pdfGenerationRestore}" ajax="false"
+                                     action="#{bean.loadAvtoSavedValue}"
+                                     onclick="PF('restoreDialog').hide()"/>
+                    <p:commandButton value="#{msg.pdfGenerationCancel}"
+                                     onclick="PF('restoreDialog').hide()"/>
+                </div>
+            </p:dialog>
+
+            <p:dialog widgetVar="insertGlossary" resizable="false"
+                      header="#{msg.glossaryInsertDialogHeader}" modal="true"
+                      closable="false" id="insertGlossaryFromDialog">
+
+                <p:defaultCommand target="insertGlossaryFromDialogAction"/>
+
+                <ui:include src="/resources/tpl/common/ValidationMessages.xhtml"/>
+
+                <h:panelGrid columns="2" style="border:none;">
+                    <p:column>
+                        <span class="red">*</span>
+                        <p:outputLabel value="#{msg.glossaryCode}:"/>
+                    </p:column>
+
+                    <p:column>
+                        <p:inputText value="#{bean.codeOnDialog}"
+                                     id="glossaryCodeOnDialog" label="#{msg.glossaryCode}"
+                                     maxlength="20"/>
+                    </p:column>
+                </h:panelGrid>
+
+                <div class="btn_line">
+                    <p:commandButton value="#{msg.glossaryInsertDialogInsert}"
+                                     actionListener="#{bean.insertGlossaryFromDialog}"
+                                     oncomplete="insertGlossaryToEditor($('#InputHidden').val());"
+                                     update="glossaryCodeOnDialog, :form:InputHidden"
+                                     id="insertGlossaryFromDialogAction"/>
+
+                    <p:commandButton value="#{msg.cancel}"
+                                     onclick="PF('insertGlossary').hide()"
+                                     action="#{bean.cleanValidation}"/>
+                </div>
+            </p:dialog>
+
+            <p:dialog widgetVar="addRadiologyExamDialogWV" resizable="false"
+                      header="#{msg.documentGenerationAddRadiologyDialog}" modal="true"
+                      closable="false" id="addRadiologyExamDialog">
+
+                <p:outputPanel id="validationMessagesForExams">
+                    <p:autoUpdate disabled="#{not empty renderValidationMessages}"/>
+                    <ui:include src="/resources/tpl/common/ValidationMessageList.xhtml"/>
+                </p:outputPanel>
+
+                <p:dataTable var="item" id="radExamsTable"
+                             emptyMessage="#{msg.noRecordsFound}" value="#{bean.radiologyExams}"
+                             paginator="true" rowKey="#{item.id}" rows="5"
+                             paginatorAlwaysVisible="true"
+                             filteredValue="#{bean.filteredRadiologyExams}"
+                             selection="#{bean.selectedRadiologyExams}"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,20,50" widgetVar="radExamsTableVar" lazy="false"
+                             selectionMode="multiple">
+
+                    <p:column selectionBox="true" styleClass="action_column"/>
+
+                    <p:column>
+                        <h:outputText value="#{item.examType}"/>
+                    </p:column>
+
+                    <p:column filterBy="#{item.description}"
+                              sortBy="#{item.description}" filterMatchMode="contains"
+                              headerText="#{msg.radiologyExamRequestVeiwDescrizioneEsame}">
+                        <h:outputText value="#{item.description}"/>
+                    </p:column>
+
+                    <p:column filterMatchMode="contains" filterBy="#{item.code}"
+                              sortBy="#{item.code}">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.radiologyExamRequestRadiologyCode}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.code}"/>
+                    </p:column>
+
+                </p:dataTable>
+
+                <p:panelGrid columns="2">
+                    <p:column>
+                        <span class="red">*</span>
+                        <p:outputLabel value="#{msg.workListAccessNumber}:"/>
+                    </p:column>
+
+                    <p:selectOneMenu value="#{bean.selectedAccessNumber}"
+                                     id="accessNumbers" style="width:400px;"
+                                     label="#{msg.workListAccessNumber}"
+                                     disabled="#{bean.disableAddExamAN}">
+                        <f:selectItems value="#{bean.accessNumbers}"/>
+                    </p:selectOneMenu>
+                </p:panelGrid>
+
+                <div class="btn_line">
+                    <p:commandButton widgetVar="addRadiologyExamWV"
+                                     value="#{msg.confirm}" actionListener="#{bean.addOrRemoveRadiologyExam}"
+                                     update="radExamsTable accessNumbers, expTable, messages, validationMessagesForExams"
+                                     onclick="PF('addRadiologyExamWV').disable();"/>
+                    <p:commandButton value="#{msg.undo}"
+                                     onclick="PF('addRadiologyExamDialogWV').hide();"
+                                     action="#{bean.cleanValidation}"/>
+                </div>
+            </p:dialog>
+
+            <!-- Aggregation -->
+
+            <p:dialog resizable="true" position="center" id="aggregationDlg"
+                      widgetVar="aggregationDlgWV"
+                      header="#{msg.workListAggregationDialogTitle}" modal="true"
+                      width="700" height="500" onShow="selectAllOnAggregation();">
+
+                <p:fieldset legend="#{msg.workListAggregationPatientTitle}">
+
+                    <p:dataTable var="item" id="patientAggregationTable"
+                                 value="#{bean.selectedRequestWrapper}" paginator="false"
+                                 rowKey="#{item.id}" rows="1" rowIndexVar="rowIndex"
+                                 widgetVar="patientTableWV" lazy="false">
+
+                        <p:column headerText="#{msg.workListAggregationPatientSurname}">
+                            <h:outputText value="#{item.patient.surname}"/>
+                        </p:column>
+
+                        <p:column headerText="#{msg.workListAggregationPatientName}">
+                            <h:outputText value="#{item.patient.name}"/>
+                        </p:column>
+
+                        <p:column headerText="#{msg.workListAggregationPatientBirthDate}">
+                            <h:outputText value="#{item.patient.birthDate}"
+                                          converter="dateTimeConverter"/>
+                        </p:column>
+
+                        <p:column headerText="#{msg.workListAggregationPatientSector}">
+                            <h:outputText value="#{item.asapSectorWithActivity}"/>
+                        </p:column>
+
+                        <p:column headerText="#{msg.workListAggregationPatientStanza}">
+                            <h:outputText value="#{item.examType.description}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:fieldset>
+
+                <p:fieldset legend="#{msg.workListAggregationRadExamSelectedTitle}">
+                    <p:dataTable var="selectedRadiologyExamItem"
+                                 value="#{bean.selectedRequestWrapper.radExamRequestItemWrappers}"
+                                 id="selectedRadiologyExamTable" paginator="false"
+                                 rowKey="#{selectedRadiologyExamItem.id}" rowIndexVar="rowIndex" lazy="false">
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.workListEsame}"/>
+                            </f:facet>
+                            <h:outputText
+                                    value="#{selectedRadiologyExamItem.radiologyExam.description}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.workListUserFullname}"/>
+                            </f:facet>
+                            <h:outputText
+                                    value="#{selectedRadiologyExamItem.requestingDoctor}"/>
+                        </p:column>
+
+                        <p:column style="width: 50px;">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.workListReserveDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{selectedRadiologyExamItem.reserveDate}"
+                                          converter="dateTimeConverter"/>
+                        </p:column>
+
+                        <p:column style="width: 50px;">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.workListRequestDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{selectedRadiologyExamItem.requestDate}"
+                                          converter="dateTimeConverter"/>
+                        </p:column>
+
+                        <p:column headerText="#{msg.workListAggregationRadExamSelect}"
+                                  width="20">
+                            <p:selectBooleanCheckbox
+                                    value="#{selectedRadiologyExamItem.selected}">
+                                <p:ajax update="@this" event="change"/>
+                            </p:selectBooleanCheckbox>
+                        </p:column>
+                    </p:dataTable>
+                </p:fieldset>
+
+                <p:fieldset legend="#{msg.workListAggregationRadExamForAggregation}">
+                    <p:dataTable var="selectedRadiologyExamsItem"
+                                 value="#{bean.forAggregationRequestsItemsWrappers}"
+                                 id="agregationRadiologyExamsTable" paginator="false"
+                                 rowKey="#{selectedRadiologyExamsItem.id}" rowIndexVar="rowIndex" lazy="false">
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.workListEsame}"/>
+                            </f:facet>
+                            <h:outputText
+                                    value="#{selectedRadiologyExamsItem.radiologyExam.description}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.workListUserFullname}"/>
+                            </f:facet>
+                            <h:outputText
+                                    value="#{selectedRadiologyExamsItem.requestingDoctor}"/>
+                        </p:column>
+
+                        <p:column style="width: 50px;">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.workListReserveDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{selectedRadiologyExamsItem.reserveDate}"
+                                          converter="dateTimeConverter"/>
+                        </p:column>
+
+                        <p:column style="width: 50px;">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.workListRequestDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{selectedRadiologyExamsItem.requestDate}"
+                                          converter="dateTimeConverter"/>
+                        </p:column>
+
+                        <p:column headerText="#{msg.workListAggregationRadExamSelect}"
+                                  width="20">
+                            <p:selectBooleanCheckbox
+                                    value="#{selectedRadiologyExamsItem.selected}">
+                                <p:ajax update="@this" event="change"/>
+                            </p:selectBooleanCheckbox>
+                        </p:column>
+                    </p:dataTable>
+                </p:fieldset>
+
+                <div class="btn_line">
+                    <p:commandButton value="#{msg.workListAggregationRadExamUnselect}"
+                                     update="agregationRadiologyExamsTable"
+                                     action="#{bean.unselectItemsForAggregation}"/>
+
+                    <p:commandButton value="#{msg.workListAggregationButtonReferta}"
+                                     update="expTable, :form:messages" action="#{bean.aggregateAction}"
+                                     oncomplete="PF('aggregationDlgWV').hide();" ajax="false"/>
+
+                    <p:commandButton value="#{msg.cancel}"
+                                     onclick="PF('aggregationDlgWV').hide()"/>
+                </div>
+            </p:dialog>
+
+            <p:dialog resizable="true" position="center" id="allergyDlg"
+                      widgetVar="allergyDlgWV" header="#{msg.workListAddAllergyDialogHeader}"
+                      modal="true" width="700">
+                <p:dataTable var="itemAller" value="#{bean.allergies}"
+                             id="expAllergyDlg" paginator="false" lazy="false">
+                    <p:column headerText="#{msg.workListAddAllergy}" style="text-align: center;">
+                        <h:outputText value="#{itemAller.allergy}"/>
+                    </p:column>
+                    <p:column headerText="#{msg.workListCreateUser}" style="text-align: center;">
+                        <h:outputText value="#{itemAller.createUserName}"/>
+                    </p:column>
+                    <p:column headerText="#{msg.workListDate}" style="text-align: center;">
+                        <h:outputText value="#{itemAller.date}" style="padding-left: 20px"
+                                      converter="dateTimeConverter"/>
+                    </p:column>
+                </p:dataTable>
+                <div class="btn_line">
+                    <p:commandButton value="#{msg.noteClose}"
+                                     onclick="PF('allergyDlgWV').hide()"/>
+                </div>
+            </p:dialog>
+
+            <p:dialog resizable="true" position="center" id="notesDlg"
+                      widgetVar="notesDlgWV" header="#{msg.workListNotesDialogTitle}"
+                      modal="true" width="700" height="300">
+
+
+                <p:dataTable var="itemNoteExp" value="#{bean.notes}"
+                             id="expNoteTable" paginator="false" lazy="false">
+
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.workListNote}"/>
+                        </f:facet>
+                        <h:outputText value="#{itemNoteExp.note}"/>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.workListCreateUser}"/>
+                        </f:facet>
+                        <h:outputText value="#{itemNoteExp.createUserFullName}"/>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.workListDate}"/>
+                        </f:facet>
+                        <h:outputText converter="dateTimeConverter"
+                                      value="#{itemNoteExp.createDate}"/>
+                    </p:column>
+
+
+                </p:dataTable>
+
+
+                <div class="btn_line">
+
+                    <p:commandButton value="#{msg.noteClose}"
+                                     onclick="PF('notesDlgWV').hide()"/>
+                </div>
+            </p:dialog>
+            <p:dialog resizable="false" position="center" id="waitSignDialog" closable="false"
+                      widgetVar="waitSignDialogWV" modal="true" draggable="false" width="300" height="40"
+                      style="text-align: center">
+                <h:outputText style="font-size: large" value="#{msg.worklistWaitingSignDialog}"/>
+            </p:dialog>
+            <p:remoteCommand name="updateAggregationsDatatables"
+                             update="patientAggregationTable, selectedRadiologyExamTable, agregationRadiologyExamsTable"/>
+
+            <p:remoteCommand name="selectAllOnAggregation"
+                             action="#{bean.selectAllItemsForAggregation}"
+                             update="agregationRadiologyExamsTable, selectedRadiologyExamTable"/>
+
+            <p:growl id="messages" showDetail="true" escape="false"
+                     widgetVar="messagesVar" globalOnly="true"/>
+
+        </h:form>
+        <div class="clear"></div>
+
+        <div class="empty_block">
+            <h:inputHidden id="menuItemHidden" value="#{bean.currentMenuItem}"/>
+        </div>
+
+
+        <h:form prependId="false">
+            <h:inputHidden id="logoutSocketHidden"
+                           value="#{logoutSessionBean.sessionLogoutId}"/>
+            <h:inputHidden id="urgentDataMsg"
+                           value="#{urgencyMessageBean.data}"/>
+            <p:remoteCommand name="checkLogoutSessionSocket"
+                             action="#{logoutSessionBean.checkNeedLogout}"/>
+            <p:remoteCommand name="onUrgencyReceived" action="#{urgencyMessageBean.processMessage}"
+                             update="receiveUrgentRequestPanel"/>
+
+            <p:dialog id="invalidateSessionDlg" modal="true" closable="false"
+                      resizable="false" rendered="#{logoutSessionBean.needRendered}"
+                      draggable="false" widgetVar="invalidateSessionDlgWV">
+
+                <h:outputText value="#{msg.onInvalidateSession}"/>
+                <div class="btn_line">
+                    <p:commandButton value="#{msg.ok}"
+                                     onclick="PF('invalidateSessionDlgWV').hide();"/>
+                </div>
+            </p:dialog>
+            <p:dialog modal="true" closable="false" resizable="false" draggable="false"
+                      widgetVar="receiveUrgentRequestDlgWv"
+                      header="#{msg.urgencyReceiveNewRequest}">
+                <h:panelGrid id="receiveUrgentRequestPanel" columns="2">
+                    <h:panelGrid>
+                        <h:outputText value="#{urgencyMessageBean.patientFullName}"/>
+                        <h:outputText value="#{urgencyMessageBean.asapSectorDescription}"/>
+                        <h:outputText value="#{urgencyMessageBean.itemsDescription}" escape="false"/>
+                    </h:panelGrid>
+                    <h:graphicImage alt="#{urgencyMessageBean.urgency.iconName}" width="25"
+                                    height="25" value="#{urgencyMessageBean.urgency.iconUrlTemp}"/>
+                </h:panelGrid>
+                <div class="btn_line">
+                    <p:commandButton value="#{msg.ok}"
+                                     onclick="PF('receiveUrgentRequestDlgWv').hide();"/>
+                </div>
+            </p:dialog>
+        </h:form>
+
+        <ui:include src="/resources/tpl/Admin/Include/Footer.xhtml"></ui:include>
+
+		<script type="text/javascript">
+            $(document).ready(function() {
+                GetSideMenuCookie("sideMenu");
+                onPageLoadGetMenuItem();
+
+                window.mainSocket = openWebsocket();
+            });
+
+            function openWebsocket() {
+                const socket = window.atmosphere;
+
+                const endpoint = '#{facesContext.externalContext.requestContextPath}/ws/notify'
+                const request = {
+                    url: getAbsoluteServerUrl(endpoint).replace('/^http/', 'ws'),
+                    contentType: "application/json",
+                    logLevel: 'info',
+                    transport: 'websocket',
+                    fallbackTransport: 'long-polling',
+                    onMessage: (response) => {
+                        const data = response.responseBody;
+                        handleMessageSocket(data);
+                    }
+                };
+                return socket.subscribe(request);
+            }
+
+            function handleMessageSocket(data) {
+                if (data.startsWith('receiveUrgentRequest')) {
+                    $('#urgentDataMsg')[0].value = data;
+                    onUrgencyReceived();
+                } else {
+                    $('#logoutSocketHidden')[0].value = data;
+                    checkLogoutSessionSocket();
+                }
+            }
+
+            window.onbeforeunload = function (e) {
+                window.atmosphere.unsubscribe();
+            };
+
+        </script>
+    </f:view>
+</h:body>
+</html>

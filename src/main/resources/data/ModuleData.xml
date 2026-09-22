@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE something>
+<module>
+	<data_entry>
+		<code>GENERAL</code>
+		<name>permissionGeneral</name>
+		<position>1</position>
+		<isTemplate>true</isTemplate>
+	</data_entry>
+	<data_entry>
+		<code>PGR</code>
+		<name>permissionGeneralRole</name>
+		<parent entity_field="code">GENERAL</parent>
+		<position>2</position>
+		<isTemplate>true</isTemplate>
+	</data_entry>
+	<data_entry>
+		<code>PGU</code>
+		<name>permissionGeneralUsers</name>
+		<parent entity_field="code">GENERAL</parent>
+		<position>2</position>
+		<isTemplate>true</isTemplate>
+	</data_entry>
+	<data_entry>
+		<code>PGC</code>
+		<name>permissionGeneralCalendars</name>
+		<parent entity_field="code">GENERAL</parent>
+		<position>2</position>
+		<isTemplate>true</isTemplate>
+	</data_entry>
+	<data_entry>
+		<code>PGT</code>
+		<name>permissionGeneralTemplates</name>
+		<parent entity_field="code">GENERAL</parent>
+		<position>2</position>
+		<isTemplate>true</isTemplate>
+	</data_entry>
+	<data_entry>
+		<code>PGP</code>
+		<name>permissionGeneralPhases</name>
+		<parent entity_field="code">GENERAL</parent>
+		<position>2</position>
+		<isTemplate>true</isTemplate>
+	</data_entry>
+	<data_entry>
+		<code>PGPA</code>
+		<name>permissionGeneralPatient</name>
+		<parent entity_field="code">GENERAL</parent>
+		<position>2</position>
+		<isTemplate>true</isTemplate>
+	</data_entry>
+	<data_entry>
+		<code>DICTIONARY</code>
+		<name>permissionDictionary</name>
+		<position>1</position>
+		<isTemplate>true</isTemplate>
+	</data_entry>
+	<data_entry>
+		<code>PDS</code>
+		<name>permissionDictionarySectors</name>
+		<parent entity_field="code">DICTIONARY</parent>
+		<position>2</position>
+		<isTemplate>true</isTemplate>
+	</data_entry>
+	<data_entry>
+		<code>PDH</code>
+		<name>permissionDictionaryHospital</name>
+		<parent entity_field="code">DICTIONARY</parent>
+		<position>2</position>
+		<isTemplate>true</isTemplate>
+	</data_entry>
+	<data_entry>
+		<code>PDRE</code>
+		<name>permissionDictionaryRadiologyExam</name>
+		<parent entity_field="code">DICTIONARY</parent>
+		<position>2</position>
+		<isTemplate>true</isTemplate>
+	</data_entry>
+	<data_entry>
+		<code>PDET</code>
+		<name>permissionDictionaryExamType</name>
+		<parent entity_field="code">DICTIONARY</parent>
+		<position>2</position>
+		<isTemplate>true</isTemplate>
+	</data_entry>
+	<data_entry>
+		<code>PDD</code>
+		<name>permissionDictionaryDiagnostic</name>
+		<parent entity_field="code">DICTIONARY</parent>
+		<position>2</position>
+		<isTemplate>true</isTemplate>
+	</data_entry>
+	<data_entry>
+		<code>PDP</code>
+		<name>permissionDictionaryPackages</name>
+		<parent entity_field="code">DICTIONARY</parent>
+		<position>2</position>
+		<isTemplate>true</isTemplate>
+	</data_entry>
+	<data_entry>
+		<code>PDU</code>
+		<name>permissionDictionatyUrgency</name>
+		<parent entity_field="code">DICTIONARY</parent>
+		<position>2</position>
+		<isTemplate>true</isTemplate>
+	</data_entry>
+	<data_entry>
+		<code>PDTDM</code>
+		<name>permissionDictionaryTemplateDocumentModellist</name>
+		<parent entity_field="code">DICTIONARY</parent>
+		<position>2</position>
+		<isTemplate>true</isTemplate>
+	</data_entry>
+	<data_entry>
+		<code>PDO</code>
+		<name>permissionDictionaryOsirix</name>
+		<parent entity_field="code">DICTIONARY</parent>
+		<position>2</position>
+		<isTemplate>true</isTemplate>
+	</data_entry>
+	<data_entry>
+		<code>PDDP</code>
+		<name>permissionDictionaryDvdProducer</name>
+		<parent entity_field="code">DICTIONARY</parent>
+		<position>2</position>
+		<isTemplate>true</isTemplate>
+	</data_entry>
+	<data_entry>
+		<code>PDPACS</code>
+		<name>permissionDictionaryPacs</name>
+		<parent entity_field="code">DICTIONARY</parent>
+		<position>2</position>
+		<isTemplate>true</isTemplate>
+	</data_entry>
+	<data_entry>
+		<code>PSC</code>
+		<name>permissionSystemConfiguration</name>
+		<position>2</position>
+		<isTemplate>true</isTemplate>
+	</data_entry>
+	<data_entry>
+		<code>PM</code>
+		<name>permissionMonitoring</name>
+		<position>2</position>
+		<isTemplate>true</isTemplate>
+	</data_entry>
+	<data_entry>
+		<code>PSP</code>
+		<name>permissionSearchPatient</name>
+		<position>2</position>
+		<isTemplate>false</isTemplate>
+	</data_entry>
+	<data_entry>
+		<code>PW</code>
+		<name>permissionWorklist</name>
+		<position>2</position>
+		<isTemplate>false</isTemplate>
+	</data_entry>
+	<data_entry>
+		<code>PWL</code>
+		<name>permissionWaitingList</name>
+		<position>2</position>
+		<isTemplate>false</isTemplate>
+	</data_entry>
+	<data_entry>
+		<code>PRER</code>
+		<name>permissionRadiologyExamRequest</name>
+		<position>2</position>
+		<isTemplate>false</isTemplate>
+	</data_entry>
+	<data_entry>
+		<code>PDCV</code>
+		<name>permissionDateConfirmationView</name>
+		<position>2</position>
+		<isTemplate>false</isTemplate>
+	</data_entry>
+	<data_entry>
+		<code>PDG</code>
+		<name>permissionDocumentGeneration</name>
+		<position>2</position>
+		<isTemplate>false</isTemplate>
+	</data_entry>
+		<data_entry>
+		<code>RS</code>
+		<name>permissionReportSearch</name>
+		<position>2</position>
+		<isTemplate>false</isTemplate>
+	</data_entry>
+		<data_entry>
+		<code>PDDR</code>
+		<name>permissionDictionaryDirectReservation</name>
+		<parent entity_field="code">DICTIONARY</parent>
+		<position>2</position>
+		<isTemplate>true</isTemplate>
+	</data_entry>
+</module>

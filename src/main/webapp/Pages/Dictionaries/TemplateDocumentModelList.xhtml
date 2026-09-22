@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/resources/tpl/Admin/LazyInListEditBase.xhtml">
+	<ui:param name="list_title" value="#{msg.models}" />
+	<ui:param name="bean" value="#{templateDocumentModelListBean}" />
+	<ui:param name="entity_name" value="#{msg.model}" />
+
+	<ui:define name="edit_fields">
+		<h:panelGrid columns="2" columnClasses="label, value"
+			styleClass="grid">
+
+			<span><span class="red">*</span> #{msg.name}:</span>
+			<p:inputText id="name" maxlength="50" value="#{bean.entity.name}"
+				label="#{msg.name}" onkeypress="numbers_letters_only('#name');" />
+		</h:panelGrid>
+	</ui:define>
+
+	<ui:define name="columns">
+		<p:column sortBy="#{item.name}" filterBy="#{item.name}"
+			headerText="#{msg.name}">
+			<h:outputText value="#{item.name}" />
+		</p:column>
+	</ui:define>
+
+</ui:composition>
+</html>

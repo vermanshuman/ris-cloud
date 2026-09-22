@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/resources/tpl/Admin/ListBase.xhtml">
+	<ui:param name="list_title" value="#{msg.users}" />
+	<ui:param name="bean" value="#{userListBean}" />
+    
+	<ui:define name="columns">
+		<p:column sortBy="#{item.lastName}" filterBy="#{item.lastName}"
+			headerText="#{msg.lastname}">
+			<h:outputText value="#{item.lastName}" converter="xmlConverter" />
+		</p:column>
+
+		<p:column sortBy="#{item.firstName}" filterBy="#{item.firstName}"
+			headerText="#{msg.firstname}">
+			<h:outputText value="#{item.firstName}" converter="xmlConverter" />
+		</p:column>
+
+		<p:column sortBy="#{item.email}" filterBy="#{item.email}"
+			headerText="#{msg.email}">
+			<h:outputText value="#{item.email}" />
+		</p:column>
+
+		<p:column exportable="false">
+			<f:facet name="header">
+				<h:outputText value="#{msg.role}" />
+				<div class='clear' />
+				<p:selectOneMenu value="#{bean.selectedRole}">
+					<f:selectItems value="#{bean.roles}" />
+					<p:ajax update=":form:table" listener="#{userListBean.selectedRoleChanged}"
+						oncomplete="PF('tableWV').paginator.setPage(0);" />
+				</p:selectOneMenu>
+			</f:facet>
+
+			<p:dataList var="subVarRole" value="#{item.userRoles}" itemType="disc">
+				  #{subVarRole.name}
+			</p:dataList>
+		</p:column>
+
+		<p:column style="display: none" headerText="#{msg.role}">
+			<h:outputText value="#{item.rolesExport}" />
+		</p:column>
+
+		<p:column exportable="false">
+			<f:facet name="header">
+				<h:outputText value="#{msg.userSector}" />
+				<div class='clear' />
+				<p:selectOneMenu value="#{bean.selectedSector}">
+					<f:selectItems value="#{bean.sectors}" />
+					<p:ajax update=":form:table"
+						listener="#{userListBean.selectedSectorChanged}"
+						oncomplete="PF('tableWV').paginator.setPage(0);" />
+				</p:selectOneMenu>
+			</f:facet>
+
+			<p:dataList var="subVarUsers" value="#{item.userSectors}" itemType="disc">
+				  #{subVarUsers}
+			</p:dataList>
+		</p:column>
+
+		<p:column style="display: none" headerText="#{msg.userSector}">
+			<h:outputText value="#{item.sectorsExport}" />
+		</p:column>
+
+		<p:column sortBy="#{item.status}" headerText="#{msg.status}">
+			<h:outputText converter="enumConverter" value="#{item.status}" />
+		</p:column>
+	</ui:define>
+
+</ui:composition>
+</html>

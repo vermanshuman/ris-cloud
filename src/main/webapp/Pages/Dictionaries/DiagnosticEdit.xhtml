@@ -1,0 +1,242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/resources/tpl/Admin/EditBase.xhtml">
+	<ui:param name="edit_title" value="#{msg.diagnosticEditTitle}" />
+	<ui:param name="bean" value="#{diagnosticEditBean}" />
+
+	<ui:define name="edit_body">
+		<p:fieldset legend="#{msg.general}">
+
+			<h:panelGrid columns="2" columnClasses="label, value"
+				styleClass="grid">
+				<span><span class="red">*</span> #{msg.code}: </span>
+				<p:inputText id="code" maxlength="8" value="#{bean.diagnosticCode}"
+					label="#{msg.code}" disabled="true" />
+
+				<span><span class="red">*</span>#{msg.description}:</span>
+				<p:inputText id="description" label="#{msg.description}"
+					onkeypress="return text_area_limit(this, event, 255)"
+					onkeyup="text_area_check(this,255);" maxLength="255"
+					value="#{bean.entity.description}" />
+
+				<span><span class="red">*</span>#{msg.diagnosticExamTypeDiagnostica}:</span>
+				<p:inputText id="examTypeDiagnostica"
+					label="#{msg.diagnosticExamTypeDiagnostica}"
+					onkeypress="return text_area_limit(this, event, 255)"
+					onkeyup="text_area_check(this,255);" maxLength="255"
+					value="#{bean.entity.examTypeDiagnostica}" />
+
+				<span><span class="red">*</span> #{msg.diagnosticSector}: </span>
+				<p:selectOneMenu id="sector" value="#{bean.sectorId}"
+					label="#{msg.diagnosticSector}">
+					<f:selectItems value="#{bean.sectors}" />
+				</p:selectOneMenu>
+
+				<span><span class="red">*</span> #{msg.diagnosticAETitle}: </span>
+				<p:inputText id="aeTitle" maxlength="25"
+					value="#{bean.entity.aeTitle}" label="#{msg.diagnosticAETitle}"
+					onkeypress="numbers_letters_only('#aeTitle');" />
+
+				<span> #{msg.diagnosticIpAddress}: </span>
+				<p:inputText id="ipAddress" maxlength="25"
+					value="#{bean.entity.ipAddress}" label="#{msg.diagnosticIpAddress}" />
+
+				<span> #{msg.diagnosticDicomPort}: </span>
+				<p:inputText id="dicomPort" maxlength="8"
+					onkeypress="return numbers_only(this, event, 8, 0)"
+					onkeyup="check_numbers(this,8,0)" value="#{bean.entity.dicomPort}"
+					label="#{msg.diagnosticDicomPort}" />
+
+				<span>#{msg.diagnosticDicomStudyUID}:</span>
+				<p:selectBooleanCheckbox widgetVar="showStudyUIDWV"
+					value="#{bean.showStudyUID}" onchange="toggleAdditionalStudyUID();" />
+
+				<span id="labelStudyUID"
+					style="display: #{bean.showStudyUID? '': 'none'}"> <span
+					class="red">*</span>#{msg.diagnosticStudyUID}:
+				</span>
+
+				<p:inputText id="studyUID" label="#{msg.diagnosticStudyUID}"
+					style="display: #{bean.showStudyUID ? '' : 'none'}" maxlength="25"
+					value="#{bean.studyUID}" />
+
+				<span>#{msg.diagnosticUseCardNumber}:</span>
+				<p:selectBooleanCheckbox value="#{bean.useCardNumber}" />
+
+				<span><span class="red">*</span> #{msg.diagnosticState}: </span>
+				<p:selectOneMenu id="state" value="#{bean.state}"
+					label="#{msg.diagnosticState}">
+					<f:selectItems value="#{bean.states}" />
+				</p:selectOneMenu>
+
+				<span><span class="red">*</span> #{msg.diagnosticExamType}:</span>
+				<h:selectManyMenu id="examTypes" value="#{bean.selectedExamTypes}"
+					styleClass="ui-corner-all" label="#{msg.diagnosticExamType}">
+					<p:ajax update="source, target"
+						listener="#{diagnosticEditBean.handleExamTypeChange}" />
+					<f:selectItems value="#{bean.examTypes}" var="examType"
+						itemValue="#{examType.id}" />
+				</h:selectManyMenu>
+
+				<span><span class="red">*</span> #{msg.packageExams}: </span>
+			</h:panelGrid>
+
+			<p:remoteCommand name="filtering"
+				update="source, target, dropFromSource, dropFromTarget"
+				oncomplete="PF('sourceWV').filter();PF('sourceWV').paginator.setPage(0);PF('targetWV').filter();PF('targetWV').paginator.setPage(0);" />
+
+			<p:outputPanel id="exams">
+				<h:panelGrid columns="3" columnClasses="top_col,center_col,top_col"
+					styleClass="grid">
+					<p:fieldset legend="#{msg.packageExamsAvailable}"
+						style="padding:5px;" id="availableExams">
+
+						<p:dataTable var="item" id="source" value="#{bean.sourceExams}"
+							filteredValue="#{bean.sourceFiltered}" paginator="true"
+							rowKey="#{item.id}" rows="10" pageLinks="5"
+							selectionMode="multiple" paginatorAlwaysVisible="false"
+							selection="#{bean.sourceSelected}" widgetVar="sourceWV" lazy="false"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+							<p:column style="width:20px">
+								<h:outputText id="dragIconSource"
+									styleClass="ui-icon ui-icon-arrow-4 source_drag_icon" />
+								<p:draggable for="dragIconSource" revert="true" />
+							</p:column>
+
+							<p:column filterBy="#{item.code}" filterMatchMode="contains"
+								headerText="#{msg.code}" sortBy="#{item.code}">
+								<h:outputText value="#{item.code}" />
+							</p:column>
+
+							<p:column filterBy="#{item.description}"
+								filterMatchMode="contains" sortBy="#{item.description}"
+								headerText="#{msg.description}">
+								<h:outputText value="#{item.description}" />
+							</p:column>
+
+							<p:column sortBy="#{item.examType.description}"
+								headerText="#{msg.radiologyExamType}">
+								<h:outputText value="#{item.examType}" />
+							</p:column>
+						</p:dataTable>
+					</p:fieldset>
+
+					<p:outputPanel>
+						<p:commandButton icon="ui-icon-arrow-1-e"
+							oncomplete="filtering();" action="#{bean.add}" id="btnAdd" />
+						<br />
+
+						<p:commandButton icon="ui-icon-arrowstop-1-e"
+							oncomplete="filtering();" action="#{bean.addAll}" id="btnAddAll" />
+						<br />
+
+						<p:commandButton icon="ui-icon-arrow-1-w"
+							oncomplete="filtering();" action="#{bean.remove}" id="btnRemove" />
+						<br />
+
+						<p:commandButton icon="ui-icon-arrowstop-1-w"
+							oncomplete="filtering();" action="#{bean.removeAll}"
+							id="btnRemoveAll" />
+					</p:outputPanel>
+
+					<p:fieldset legend="#{msg.packageExamsSelected}" id="selectedExams"
+						style="padding:5px;">
+						<p:dataTable var="itemDest" id="target" widgetVar="targetWV"
+							value="#{bean.targetExams}" pageLinks="5"
+							filteredValue="#{bean.targetFiltered}" paginator="true"
+							rowKey="#{itemDest.id}" rows="10" paginatorAlwaysVisible="false"
+							selectionMode="multiple" selection="#{bean.targetSelected}" lazy="false"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+							<p:column style="width:20px">
+								<h:outputText id="dragIconTarget"
+									styleClass="ui-icon ui-icon-arrow-4" />
+								<p:draggable for="dragIconTarget" revert="true" />
+							</p:column>
+
+							<p:column headerText="#{msg.code}" filterBy="#{itemDest.code}"
+								filterMatchMode="contains" sortBy="#{itemDest.code}">
+								<h:outputText value="#{itemDest.code}" />
+							</p:column>
+
+							<p:column headerText="#{msg.description}"
+								filterBy="#{itemDest.description}" filterMatchMode="contains"
+								sortBy="#{itemDest.description}">
+								<h:outputText value="#{itemDest.description}" />
+							</p:column>
+						</p:dataTable>
+					</p:fieldset>
+
+					<p:droppable id="dropFromSource" for="selectedExams"
+						tolerance="touch" activeStyleClass="ui-state-highlight"
+						datasource="source" onDrop="handleDrop"
+						rendered="#{bean.showSourceDroppable}">
+						<p:ajax listener="#{diagnosticEditBean.onSourceDrop}"
+							oncomplete="filtering();" />
+					</p:droppable>
+
+					<p:droppable id="dropFromTarget" for="availableExams"
+						tolerance="touch" activeStyleClass="ui-state-highlight"
+						datasource="target" onDrop="handleDrop"
+						rendered="#{bean.showTargetDroppable}">
+						<p:ajax listener="#{diagnosticEditBean.onTargetDrop}"
+							oncomplete="filtering();" />
+					</p:droppable>
+
+					<p:remoteCommand name="updateSourceDroppable"
+						actionListener="#{bean.changeShowSourceDroppable}"
+						oncomplete="filtering();" />
+
+					<p:remoteCommand name="updateTargetDroppable"
+						actionListener="#{bean.changeShowTargetDroppable}"
+						oncomplete="filtering();" />
+
+					<p:ajaxStatus
+						oncomplete="addHandlerToSourceTable();addHandlerToTargetTable();" />
+
+					<script type="text/javascript">
+						$(document).ready(function() {
+							addHandlerToSourceTable();
+							addHandlerToTargetTable();
+						});
+
+						function addHandlerToSourceTable() {
+							$(".ui-icon.ui-icon-arrow-4.source_drag_icon")
+									.mousedown(function() {
+										updateSourceDroppable();
+									});
+						}
+						function addHandlerToTargetTable() {
+							$(".ui-icon.ui-icon-arrow-4.target_drag_icon")
+									.mousedown(function() {
+										updateTargetDroppable();
+									});
+						}
+						function handleDrop(event, ui) {
+							ui.draggable.fadeOut("fast");
+						}
+
+						function toggleAdditionalStudyUID() {
+							if (PF('showStudyUIDWV').input[0].checked) {
+								$(document.getElementById('labelStudyUID'))
+										.fadeIn();
+								$(document.getElementById('studyUID')).fadeIn();
+							} else {
+								$(document.getElementById('labelStudyUID'))
+										.fadeOut();
+								$(document.getElementById('studyUID'))
+										.fadeOut();
+							}
+						}
+					</script>
+				</h:panelGrid>
+
+			</p:outputPanel>
+		</p:fieldset>
+	</ui:define>
+</ui:composition>

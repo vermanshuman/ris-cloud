@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/resources/tpl/Admin/EditBase.xhtml">
+	<ui:param name="edit_title" value="#{msg.editRadiologyExam}" />
+	<ui:param name="bean" value="#{radiologyExamEditBean}" />
+
+	<ui:define name="edit_body">
+		<p:fieldset legend="#{msg.general}">
+			<h:panelGrid columns="2" columnClasses="label, value"
+				styleClass="grid">
+
+				<span><span class="red">*</span>
+					#{msg.radiologyRegionalCode}:</span>
+				<p:inputText id="regionalCode" maxlength="40"
+					value="#{bean.regionalCode}" label="#{msg.radiologyRegionalCode}" />
+
+				<span><span class="red">*</span> #{msg.radiologyExamCode}:</span>
+				<p:inputText id="code" maxlength="20" value="#{bean.entity.code}"
+					label="#{msg.radiologyExamCode}" />
+
+				<span><span class="red">*</span> #{msg.description}:</span>
+				<p:inputText id="description" maxlength="255"
+					value="#{bean.entity.description}" label="#{msg.description}" />
+
+				<span><span class="red">*</span> #{msg.radiologyExamType}: </span>
+				<p:selectOneMenu value="#{bean.selectedExamTypeId}" id="examType"
+					label="#{msg.radiologyExamType}">
+					<f:selectItems value="#{bean.examTypeList}" />
+				</p:selectOneMenu>
+
+				<span> #{msg.radiologyAmount}:</span>
+				<p:inputText id="amount" value="#{bean.amount}"
+					label="#{msg.radiologyAmount}" maxlength="9" />
+
+				<span> #{msg.radiologyKWh}:</span>
+				<p:inputText id="kWh" value="#{bean.kWh}"
+					label="#{msg.radiologyKWh}" maxlength="9" />
+
+				<span> #{msg.radiologyMAS}:</span>
+				<p:inputText id="mAS" value="#{bean.mAS}"
+					label="#{msg.radiologyMAS}" maxlength="9" />
+
+				<span><span class="red">*</span> #{msg.radiologyState}: </span>
+				<p:selectOneMenu id="state" value="#{bean.state}"
+					label="#{msg.radiologyState}">
+					<f:selectItems value="#{bean.states}" />
+				</p:selectOneMenu>
+
+				<h:outputText value="#{msg.radyologyExamMultiple}:" />
+				<p:selectBooleanCheckbox value="#{bean.entity.multiple}" />
+
+				<h:outputText value="#{msg.radiologyDoseClass}:" />
+				<p:selectOneMenu value="#{bean.selectedDoseClass}" id="doseClass"
+								 label="#{msg.radiologyDoseClass}">
+					<f:selectItems value="#{bean.doseClassList}" />
+				</p:selectOneMenu>
+
+			</h:panelGrid>
+		</p:fieldset>
+	</ui:define>
+</ui:composition>

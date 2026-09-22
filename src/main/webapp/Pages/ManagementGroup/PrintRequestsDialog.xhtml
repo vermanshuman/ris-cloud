@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<ui:param name="bean" value="#{workListBean}" />
+
+<h:head>
+    <title>#{msg.workListPrintRequestDlg}</title>
+
+    <link
+            href="#{facesContext.externalContext.requestContextPath}/resources/styles/default.css"
+            media="all" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript"
+            src="#{facesContext.externalContext.requestContextPath}/resources/javascript/javascript_helper.js"></script>
+    <script src="#{facesContext.externalContext.requestContextPath}/resources/spellchecker/spell.js"></script>
+    <script type="text/javascript">
+
+        document.onkeydown = function (event) {
+
+            if (!event) { /* This will happen in IE */
+                event = window.event;
+            }
+
+            var keyCode = event.keyCode;
+
+            if (keyCode == 8 &amp;&amp; navigator.userAgent.toLowerCase().indexOf("firefox") == -1 &amp;&amp;
+                ((event.target || event.srcElement).tagName != "TEXTAREA") &amp;&amp;
+                ((event.target || event.srcElement).tagName != "INPUT")) {
+
+                if (navigator.userAgent.toLowerCase().indexOf("msie") == -1) {
+                    event.stopPropagation();
+                } else {
+                    event.returnValue = false;
+                }
+
+                return false;
+            }
+        };
+
+        document.onkeypress = function (event) {
+
+            if (navigator.userAgent.toLowerCase().indexOf("firefox") != -1) {
+
+                var keyCode = event.keyCode;
+
+                if (keyCode == 8 &amp;&amp;
+                    ((event.target || event.srcElement).tagName != "TEXTAREA") &amp;&amp;
+                    ((event.target || event.srcElement).tagName != "INPUT")) {
+
+                    event.returnValue = false;
+                    event.stopPropagation();
+
+                    return false;
+                }
+            }
+        };
+
+        function disableApplet() {
+            setTimeout(function() {
+                hideApplet();
+            }, 1000);
+        }
+
+        $(document).ready(
+            function(e) {
+                updateOnLoad();
+            }
+        );
+    </script>
+</h:head>
+
+<h:body>
+    <h:form id="dialogForm" prependId="false">
+        <p:remoteCommand update="dialogForm" name="updateOnLoad" action="#{bean.chooseTemplateForDailyReport}"/>
+        <p:overlayPanel id="dlgDiagnosticsCheckbox" widgetVar="dlgDiagnosticsCheckboxWV" for="dialogForm:dlgDiagnosticsShow">
+            <p:dataTable id="dlgDiagnosticsDatatable" var="examType" widgetVar="dlgDiagnosticsDatatableWV"
+                         value="#{bean.allDialogExamTypes}" selectionRowMode="add"
+                         selection="#{bean.selectedExamTypesForDialogFilter}"
+                         rowKey="#{examType.value}" rowIndexVar="diagnosticItemIndex" lazy="false"
+                         selectionMode="multiple">
+
+                <p:ajax event="rowSelect"
+                        update=":dialogForm:dlgDiagnosticsDatatable"
+                        listener="#{bean.selectExamTypeForDialogFilter}" />
+
+                <p:ajax event="rowSelectCheckbox" listener="#{bean.selectExamTypeForDialogFilter}" />
+
+                <p:column style="width:18px" selectionBox="true" />
+
+                <p:column headerText="#{msg.workListStanza}">
+                    <h:outputText value="#{examType.value}"/>
+                </p:column>
+            </p:dataTable>
+        </p:overlayPanel>
+
+        <p:outputPanel id="printRequestsPanel">
+            <h:panelGrid columns="5" columnClasses="lable,value,lable,lable,lable">
+                <h:outputText value="#{msg.workListPrintRequestDate}:"/>
+                <p:datePicker value="#{bean.printRequestDate}" styleClass="search_group"
+                              pattern="dd/MM/yyyy" locale="it"
+                              monthNavigator="true" yearNavigator="select"
+                              showIcon="true" showOnFocus="false"
+                              focusOnSelect="true"/>
+
+                <p:commandButton id="dlgDiagnosticsShow"
+                                 value="#{msg.workListStanza}" type="button"
+                                 onclick="PF('dlgDiagnosticsCheckboxWV').show(); event.stopImmediatePropagation();"/>
+
+                <p:commandButton action="#{bean.chooseTemplateForDailyReport}"
+                                 value="#{msg.search}" update=":dialogForm:printRequestsPanel"/>
+            </h:panelGrid>
+
+            <p:dataTable var="req" id="requestTable" styleClass="workListTable"
+                         emptyMessage="#{msg.noRecordsFound}"
+                         value="#{bean.radExamRequestWrappers}" paginator="true"
+                         rowKey="#{req.id}" rows="10" rowIndexVar="rowIndex"
+                         paginatorAlwaysVisible="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="10,20,50" widgetVar="requestTableWV" lazy="false">
+                <p:column styleClass="action_column">
+                    <f:facet name="header">
+                        <p:selectBooleanCheckbox value="#{bean.selectAllPrintDialog}">
+                            <p:ajax event="change" listener="#{bean.onSelectAllPrintDialog}" update="requestTable"/>
+                        </p:selectBooleanCheckbox>
+                    </f:facet>
+                    <p:selectBooleanCheckbox value="#{req.selected}"/>
+                </p:column>
+
+                <p:column headerText="#{msg.patientSurname}" sortBy="#{req.patient.surname}">
+                    <h:outputText value="#{req.patient.surname}"/>
+                </p:column>
+
+                <p:column headerText="#{msg.patientName}" sortBy="#{req.patient.name}">
+                    <h:outputText value="#{req.patient.name}"/>
+                </p:column>
+
+                <p:column headerText="#{msg.diagnosticExamType}">
+                    <h:outputText value="#{req.examType.description}"/>
+                </p:column>
+
+                <p:column headerText="#{msg.workListEsame}" exportable="false">
+                    <p:dataGrid value="#{req.radExamRequestItemWrappers}" columns="1"
+                                styleClass="myGrid verticalGrid" var="exam">
+                        <p:column>
+                            <h:outputText value="#{exam.radiologyExam}"
+                                          style="font-size: 1.1em; font-weight:bold;"/>
+                        </p:column>
+                    </p:dataGrid>
+                </p:column>
+            </p:dataTable>
+        </p:outputPanel>
+        <p:blockUI block="@parent" widgetVar="blockDialogForm">
+            <span>#{msg.workListBlockForPrint}</span>
+        </p:blockUI>
+        <div class="btn_line">
+            <p:commandButton value="#{msg.workListPrintRequestBtn}" action="#{bean.printRequests}"
+                             onstart="PF('blockDialogForm').show();"
+                             oncomplete="PF('blockDialogForm').hide()"/>
+            <p:commandButton value="#{msg.cancel}" action="#{bean.closeDialog}"/>
+        </div>
+    </h:form>
+</h:body>
+</html>

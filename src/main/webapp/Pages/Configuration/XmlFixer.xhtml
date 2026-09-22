@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:param name="bean" value="#{supportBean}" />
+
+<h:head>
+    <title>Support</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+</h:head>
+
+<h:body>
+    <f:view locale="#{localizeBean.locale}">
+        <h:form id="form">
+
+            <p:panel style="border:none;" id="panelXmlFixer">
+                <p:growl id="fileGrowl" showDetail="true"/>
+
+                <p:panel header="#{msg.xmlFixerServices}">
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <h:outputLabel for="idsInput" value="#{msg.xmlFixerFileId}"/>
+                        <p:inputTextarea id="idsInput" value="#{fixXml.idsString}" autoResize="true"/>
+                    </h:panelGrid>
+                    <p:commandButton value="#{msg.xmlFixerStart}" action="#{fixXml.fixXmlFile}" update="idsInput, fileGrowl"/>
+                </p:panel>
+
+                <p:panel header="#{msg.xmlFixerServicesRegenerateXml}">
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <h:outputLabel for="idsHisInput" value="#{msg.xmlFixerHistoricalReportsId}"/>
+                        <p:inputTextarea id="idsHisInput" value="#{fixXml.historicalReportIdsString}" autoResize="true"/>
+                    </h:panelGrid>
+                    <p:commandButton value="#{msg.xmlFixerStart}" action="#{fixXml.generateXmlFile}" update="idsHisInput, fileGrowl"/>
+                </p:panel>
+            </p:panel>
+        </h:form>
+
+    </f:view>
+</h:body>
+</html>

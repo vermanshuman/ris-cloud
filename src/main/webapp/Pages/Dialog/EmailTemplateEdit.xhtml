@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="/resources/tpl/Admin/EditBase.xhtml">
+    <ui:param name="bean" value="#{emailTemplateEditBean}"/>
+    <ui:param name="edit_title" value="#{msg.emailTemplateEdit}"/>
+    <ui:param name="showHeaderPart" value="false"/>
+    <ui:param name="renderMenu" value="false"/>
+    <ui:param name="centerPartStyleClass" value="false"/>
+    <ui:param name="renderFooter" value="false"/>
+    <ui:param name="mainTitle" value=" "/>
+    <ui:param name="save_oncomplete" value="updateCkEditor();"/>
+
+    <ui:define name="scripts">
+        <script src="#{facesContext.externalContext.requestContextPath}/resources/ckeditor/ckeditor.js"
+                type="text/javascript"></script>
+        <script src="#{facesContext.externalContext.requestContextPath}/resources/ckeditor/adapters/jquery.js"
+                type="text/javascript"></script>
+
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+               initializeCkEditor();
+            });
+
+            function updateCkEditor() {
+                const editor = CKEDITOR.instances['templateEditor'];
+                if (editor) {
+                    try {
+                        editor.destroy(true);
+                    } catch (e) {
+                        console.log('Error while destroying old Editor instance', e);
+                    }
+                }
+                initializeCkEditor();
+            }
+
+            function initializeCkEditor() {
+                const editorJq = $('#templateEditor');
+                if (editorJq.length === 0) {
+                    console.error('Textarea with id "templateEditor" not found.');
+                    return;
+                }
+                const configPath = "#{resource['javascript/configCKEditor.js']}";
+                const cssPath = "#{resource['javascript/CKEditorStyle.css']}";
+                const editorConfig = {
+                    customConfig: configPath,
+                    contentsCss: cssPath,
+                    height: '500px',
+                    width: 'auto'
+                };
+                editorJq.ckeditor(function () {
+                    const editor = CKEDITOR.instances['templateEditor'];
+
+                    const iframe = $('.cke_wysiwyg_frame');
+                    if (iframe.length > 0) {
+                        const ckDocument = iframe[0].contentDocument.documentElement;
+                        ckDocument.setAttribute('style', 'height: 100% !important');
+                    }
+                    if (!editor.readOnly) {
+                        // focus editor and place cursor after all text present in the editor
+                        editor.focus();
+                        const range = editor.createRange();
+                        range.moveToElementEditEnd( range.root );
+                        editor.getSelection().selectRanges([range]);
+                    }
+                    editor.fire('fixWidth');
+                }, editorConfig);
+            }
+
+            function insertTagTo(id) {
+                var tag = document.getElementById('insertTag').value;
+                if (CKEDITOR.instances[id] &amp;&amp; tag != null &amp;&amp; tag.length > 0) {
+                    CKEDITOR.instances[id].insertText(tag);
+                }
+            }
+
+            function resizeListener() {
+                CKEDITOR.instances['templateEditor'].fire('fixWidth');
+            }
+        </script>
+
+    </ui:define>
+
+    <ui:define name="edit_body">
+        <h:inputHidden id="insertTag" value="#{bean.insertTag}" />
+
+        #{msg.emailTemplateSubject}
+        <p:inputText value="#{bean.entity.subject}" maxlength="255" style="width: 500px;"/>
+        <br /><br />
+
+        #{msg.emailTemplateBody}: <br />
+        <center>
+            <h:panelGrid id="gridBody" columns="2">
+                <p:selectOneMenu value="#{bean.selectedTag}">
+                    <f:selectItems value="#{bean.tags}" />
+                </p:selectOneMenu>
+
+                <p:commandButton action="#{bean.addTagBody}"
+                                 update="insertTag" oncomplete="insertTagTo('templateEditor')"
+                                 value="#{msg.docTemplatesAddTag}" immediate="false" />
+            </h:panelGrid>
+        </center>
+        <br />
+
+        <div id="bodyPanel">
+            <p:inputTextarea id="templateEditor" value="#{bean.entity.body}" />
+        </div>
+
+    </ui:define>
+</ui:composition>
+</html>

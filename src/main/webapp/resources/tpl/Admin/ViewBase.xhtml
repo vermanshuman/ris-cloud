@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<ui:composition template="/resources/tpl/Admin/Main.xhtml">
+	<ui:define name="body">
+		<ui:insert name="scripts"></ui:insert>
+		<ui:insert name="common"></ui:insert>
+		<div class="content">
+			<h:form id="form" prependId="false" enctype="multipart/form-data">
+				<p:panel header="#{view_title}">
+					<p:messages id="validationMessages" />
+					<ui:insert name="view_body"></ui:insert>
+					<div class="btn_line">
+						<ui:insert name="view_buttons"></ui:insert>
+						<p:commandButton action="#{bean.goBack}" value="#{msg.goBack}"
+							disabled="#{empty goBackDisabled ? false : goBackDisabled}"
+							icon="ui-icon-circle-arrow-w" immediate="true" />
+						<ui:insert name="next_buttons"></ui:insert>
+					</div>
+				</p:panel>
+				<p:growl id="messages" showDetail="true"
+					globalOnly="true" />
+			</h:form>
+			<ui:insert name="applet_body"></ui:insert>
+		</div>
+
+	</ui:define>
+</ui:composition>
+</html>

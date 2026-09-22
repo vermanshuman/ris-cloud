@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<link
+		href="#{facesContext.externalContext.requestContextPath}/resources/styles/default.css"
+		media="all" rel="stylesheet" type="text/css" />
+	<title><h:outputText value="#{msg.title}" /></title>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+	<meta content="" name="Description" />
+	<meta content="" name="Keywords" />
+	<meta content="3 days" name="revisit-after" />
+	<meta content="NexEra" name="author" />
+	<meta content="Global" name="distribution" />
+	<meta content="General" name="rating" />
+	<meta content="2012 copyright" name="Copyright" />
+	<meta http-equiv="refresh"
+		content="#{session.maxInactiveInterval};url=#{facesContext.externalContext.requestContextPath}/login/?reason=expired" />
+	<script type="text/javascript"
+		src="#{facesContext.externalContext.requestContextPath}/resources/javascript/javascript_helper.js"></script>
+
+</h:head>
+
+<h:body>
+	<f:view locale="#{localizeBean.locale}">
+		<div class="admin_part">
+			<div class="footer_down">
+
+				<ui:include src="/resources/tpl/Admin/Include/ErrorHeader.xhtml" />
+
+				<div class="main">
+					<div class="content">
+						<p:fieldset legend="#{msg.errorPageHeader}" style="width:90%;">
+							<h:form id="form" prependId="false">
+								<div class="btn_line">
+									<p:commandButton onclick="history.go(-1);return false;"
+										value="Return" icon="ui-icon-circle-arrow-w" />
+								</div>
+
+								<ui:repeat var="exception"
+									value="#{facesContext.externalContext.sessionMap.exceptionList}">
+									<p:separator style="margin-top:20px;" />
+
+									<h:panelGrid columns="2" styleClass="grid view_grid_6"
+										columnClasses="label,view_value">
+										<h:outputText value="#{msg.errorPageErrorMessage}:" /> #{exception.message}
+									</h:panelGrid>
+
+									<p:panel collapsed="true" toggleable="true"
+										header="#{msg.errorPageShowStackStrace}">
+										<h:panelGrid columns="2" styleClass="grid view_grid_6"
+											columnClasses="label,view_value">
+											<h:outputText value="#{msg.errorPageErrorStackStrace}:" />
+											<h:inputTextarea readonly="true"
+												value="#{exception.stackStace}"
+												style="height: 400px;resize: none;width: 100%;" />
+										</h:panelGrid>
+									</p:panel>
+								</ui:repeat>
+							</h:form>
+						</p:fieldset>
+					</div>
+				</div>
+				<div class="empty_block"></div>
+			</div>
+			<ui:include src="/resources/tpl/Admin/Include/Footer.xhtml"></ui:include>
+		</div>
+
+	</f:view>
+
+</h:body>
+
+</html>

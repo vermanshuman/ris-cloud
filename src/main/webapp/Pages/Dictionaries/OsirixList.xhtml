@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/resources/tpl/Admin/LazyListBase.xhtml">
+	<ui:param name="list_title" value="#{msg.osirixes}" />
+	<ui:param name="bean" value="#{osirixListBean}" />
+
+	<ui:define name="columns">
+		<p:column sortBy="#{item.ipAddress}" filterBy="#{item.ipAddress}"
+			headerText="#{msg.osirixIpAddress}" filterMatchMode="contains">
+			<h:outputText value="#{item.ipAddress}" />
+		</p:column>
+
+		<p:column sortBy="#{item.port}" filterBy="#{item.port}"
+			headerText="#{msg.osirixPort}" filterMatchMode="contains">
+			<h:outputText value="#{item.port}" />
+		</p:column>
+
+		<p:column sortBy="#{item.type}" filterBy="#{item.type}"
+			headerText="#{msg.osirixType}" filterMatchMode="contains">
+			<h:outputText value="#{item.type}" />
+		</p:column>
+
+		<p:column sortBy="#{item.description}" filterBy="#{item.description}"
+			headerText="#{msg.osirixDescription}" filterMatchMode="contains">
+			<h:outputText value="#{item.description}" />
+		</p:column>
+
+		<p:column sortBy="#{item.aet}" filterBy="#{item.aet}"
+			headerText="#{msg.osirixAet}" filterMatchMode="contains">
+			<h:outputText value="#{item.aet}" />
+		</p:column>
+
+		<p:column sortBy="#{item.dicomPort}" filterBy="#{item.dicomPort}"
+			headerText="#{msg.osirixDicomPort}" filterMatchMode="contains">
+			<h:outputText value="#{item.dicomPort}" />
+		</p:column>
+
+		<p:column sortBy="#{item.ipRouting}" filterBy="#{item.ipRouting}"
+			headerText="#{msg.osirixIpRouting}" filterMatchMode="contains">
+			<h:outputText value="#{item.ipRouting}" />
+		</p:column>
+
+		<p:column headerText="#{msg.userSector}" filterMatchMode="contains"
+			sortBy="#{item.sector.description}" filterBy="#{item.sector.description}">
+			<h:outputText value="#{item.sector}" />
+		</p:column>
+	</ui:define>
+
+</ui:composition>
+</html>

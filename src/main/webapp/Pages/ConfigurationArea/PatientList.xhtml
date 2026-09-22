@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:custom="http://java.sun.com/jsf/composite/components/custom"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<ui:composition template="/resources/tpl/Admin/LazyListTabBase.xhtml">
+	<ui:param name="list_title" value="#{msg.patients}" />
+	<ui:param name="bean" value="#{patientListBean}" />
+	<ui:param name="excludeColumns" value="0,1,2" />
+
+	<ui:define name="list_body">
+		<p:outputPanel id="list_panel">
+			<p:tabView id="tabs">
+				<p:tab title="#{msg.patients}">
+
+					<div class="table_panel ui-widget-header ui-corner-all">
+						<p:commandButton disabled="#{!bean.canCreate}"
+							icon="ui-icon-circle-plus" value="#{msg.newItem}"
+							action="#{bean.addEntity}" />
+					</div>
+
+					<p:dataTable var="item" id="table"
+						emptyMessage="#{msg.noRecordsFound}"
+						value="#{bean.lazyModel}" paginator="true" lazy="true"
+						rowKey="#{item.id}" rows="10" paginatorAlwaysVisible="false"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="10,20,50" widgetVar="table">
+
+						<p:column styleClass="action_column" exportable="false">
+							<p:commandButton icon="ui-icon ui-icon-pencil" update=":form"
+								action="#{bean.editEntity}" disabled="#{!bean.canEdit}">
+								<f:setPropertyActionListener value="#{item.id}"
+									target="#{bean.entityEditId}" />
+							</p:commandButton>
+						</p:column>
+
+						<p:column styleClass="action_column" exportable="false">
+							<p:commandButton disabled="#{!bean.canDelete}"
+								icon="ui-icon ui-icon-close" update=":form"
+								oncomplete="PF('dlg2').show()">
+								<f:setPropertyActionListener value="#{item.id}"
+									target="#{bean.entityDeleteId}" />
+							</p:commandButton>
+						</p:column>
+
+						<p:column styleClass="action_column" exportable="false">
+							<p:commandButton icon="ui-icon ui-icon-search" update=":form"
+								action="#{bean.viewEntity}" disabled="#{!bean.canView}">
+								<f:setPropertyActionListener value="#{item.id}"
+									target="#{bean.entityEditId}" />
+							</p:commandButton>
+						</p:column>
+
+						<p:column sortBy="#{item.name}" filterBy="#{item.name}">
+							<f:facet name="header">
+								<h:outputText value="#{msg.patientName}" />
+							</f:facet>
+							<h:outputText value="#{item.name}" />
+						</p:column>
+
+						<p:column sortBy="#{item.surname}" filterBy="#{item.surname}">
+							<f:facet name="header">
+								<h:outputText value="#{msg.patientSurname}" />
+							</f:facet>
+							<h:outputText value="#{item.surname}" />
+						</p:column>
+
+						<p:column sortBy="#{item.fiscalCode}"
+							filterBy="#{item.fiscalCode}">
+							<f:facet name="header">
+								<h:outputText value="#{msg.patientFiscalCode}" />
+							</f:facet>
+							<h:outputText value="#{item.fiscalCode}" />
+						</p:column>
+
+						<f:facet name="footer">
+							<h:commandLink>
+								<p:graphicImage value="/resources/images/excel.png"
+									alt="#{msg.excel}" />
+								<p:dataExporter type="xls" target="table"
+									fileName="#{list_title}" excludeColumns="#{excludeColumns}" />
+							</h:commandLink>
+						</f:facet>
+					</p:dataTable>
+				</p:tab>
+
+				<p:tab title="#{msg.patientHistory}">
+					<p:dataTable var="item" id="table_history"
+						emptyMessage="#{msg.noRecordsFound}"
+						filteredValue="#{bean.historyFiltered}" value="#{bean.history}"
+						paginator="true" lazy="true" rowKey="#{item.id}" rows="10"
+						paginatorAlwaysVisible="false"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="10,20,50">
+
+						<p:column sortBy="#{item.actionDate}">
+							<f:facet name="header">
+								<h:outputText value="#{msg.patientHistoryDate}" />
+							</f:facet>
+							<h:outputText value="#{item.actionDate}"
+								converter="dateTimeConverter" />
+						</p:column>
+
+						<p:column sortBy="#{item.username}" filterBy="#{item.username}">
+							<f:facet name="header">
+								<h:outputText value="#{msg.patientHistoryUsername}" />
+							</f:facet>
+							<h:outputText value="#{item.username}" />
+						</p:column>
+
+						<p:column sortBy="#{item.ip}" filterBy="#{item.ip}">
+							<f:facet name="header">
+								<h:outputText value="#{msg.patientHistoryIP}" />
+							</f:facet>
+							<h:outputText value="#{item.ip}" />
+						</p:column>
+
+						<p:column sortBy="#{item.patient.name}"
+							filterBy="#{item.patient.name}">
+							<f:facet name="header">
+								<h:outputText value="#{msg.patientHistoryPatientName}" />
+							</f:facet>
+							<h:outputText value="#{item.patient.name}" />
+						</p:column>
+
+						<p:column sortBy="#{item.patient.surname}"
+							filterBy="#{item.patient.surname}">
+							<f:facet name="header">
+								<h:outputText value="#{msg.patientHistoryPatientSurname}" />
+							</f:facet>
+							<h:outputText value="#{item.patient.surname}" />
+						</p:column>
+
+						<p:column sortBy="#{item.actionType}">
+							<f:facet name="header">
+								<h:outputText value="#{msg.patientHistoryAction}" />
+							</f:facet>
+							<h:outputText value="#{item.actionType}"
+								converter="enumConverter" />
+						</p:column>
+
+						<f:facet name="footer">
+							<h:commandLink>
+								<p:graphicImage value="/resources/images/excel.png"
+									alt="#{msg.excel}" />
+								<p:dataExporter type="xls" target="table_history"
+									fileName="#{list_title}" />
+							</h:commandLink>
+						</f:facet>
+					</p:dataTable>
+				</p:tab>
+			</p:tabView>
+
+			<p:dialog header="#{msg.deleteConfirmationHeader}" widgetVar="dlg2"
+				modal="true" resizable="false" effect="SLIDE">
+                               #{msg.deleteConfirmation}<br />
+				<br />
+				<div class="btn_line">
+					<p:commandButton value="#{msg.yes}" action="#{bean.deleteEntity}"
+						oncomplete="PF('dlg2').hide()"
+						update="tabs:table,tabs:table_history,:form:messages" />
+					<p:commandButton value="#{msg.no}" onclick="PF('dlg2').hide()" />
+				</div>
+			</p:dialog>
+		</p:outputPanel>
+	</ui:define>
+
+</ui:composition>
+</html>

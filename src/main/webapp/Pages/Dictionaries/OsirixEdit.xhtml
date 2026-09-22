@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/resources/tpl/Admin/EditBase.xhtml">
+	<ui:param name="edit_title" value="#{msg.editOsirix}" />
+	<ui:param name="bean" value="#{osirixEditBean}" />
+
+	<ui:define name="edit_body">
+
+		<style type="text/css">
+.ui-chkbox-all {
+	display: none !important;
+}
+</style>
+		<p:fieldset legend="#{msg.general}">
+
+			<h:panelGrid columns="2" columnClasses="label, value"
+				styleClass="grid0">
+
+				<span><span class="red">*</span> #{msg.osirixIpAddress}:</span>
+				<p:inputText id="ipAddress" value="#{bean.entity.ipAddress}"
+					maxlength="25" label="#{msg.osirixIpAddress}">
+				</p:inputText>
+
+				<span><span class="red">*</span>#{msg.osirixPort}:</span>
+				<p:inputText id="port" value="#{bean.entity.port}" maxlength="8"
+					onkeypress="return numbers_only(this, event, 8, 0)"
+					onkeyup="check_numbers(this,8,0)" label="#{msg.osirixPort}" />
+
+				<span><span class="red">*</span> #{msg.osirixType}:</span>
+				<p:inputText id="type" value="#{bean.entity.type}" maxlength="8"
+					onkeypress="return numbers_only(this, event, 8, 0)"
+					onkeyup="check_numbers(this,8,0)" label="#{msg.osirixType}">
+				</p:inputText>
+
+				<span><span class="red">*</span> #{msg.osirixDescription}:</span>
+				<p:inputTextarea id="description" value="#{bean.entity.description}"
+					onkeypress="return text_area_limit(this, event, 45)"
+					onkeyup="text_area_check(this,255);" maxLength="45" maxlength="45"
+					autoResize="true" label="#{msg.osirixDescription}">
+				</p:inputTextarea>
+
+				<span><span class="red">*</span> #{msg.osirixAet}:</span>
+				<p:inputTextarea id="aet" value="#{bean.entity.aet}" maxlength="45"
+					onkeypress="return text_area_limit(this, event, 45)"
+					onkeyup="text_area_check(this,255);" maxLength="45"
+					autoResize="true" label="#{msg.osirixAet}">
+				</p:inputTextarea>
+
+				<span><span class="red">*</span> #{msg.osirixDicomPort}:</span>
+				<p:inputText id="dicomPort" value="#{bean.entity.dicomPort}"
+					onkeypress="return numbers_only(this, event, 8, 0)"
+					onkeyup="check_numbers(this,8,0)" maxlength="8"
+					label="#{msg.osirixDicomPort}">
+				</p:inputText>
+
+				<span><span class="red">*</span>#{msg.userSector}:</span>
+				<p:selectOneMenu id="sector" value="#{bean.sectorId}"
+					label="#{msg.userSector}">
+					<f:selectItems value="#{bean.sectors}" />
+				</p:selectOneMenu>
+
+				<span>#{msg.osirixIpRouting}:</span>
+				<p:inputTextarea id="ipRouting" value="#{bean.entity.ipRouting}"
+					maxlength="45" onkeypress="return text_area_limit(this, event, 45)"
+					onkeyup="text_area_check(this,255);" autoResize="true"
+					label="#{msg.osirixIpRouting}">
+				</p:inputTextarea>
+
+			</h:panelGrid>
+
+		</p:fieldset>
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,840 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/resources/tpl/Admin/LazyListTabBase.xhtml">
+
+	<ui:param name="center_title" value="true" />
+	<ui:param name="bean" value="#{waitingListRegistrationListBean}" />
+	<ui:param name="list_title" value="#{msg.waitingListRegistration}" />
+	<ui:param name="renderTitle" value="false" />
+	<ui:param name="file_name"
+		value="#{msg.waitingListRegistrationFileName}" />
+	<ui:param name="renderMenu" value="false" />
+	<ui:param name="centerPartStyleClass" value="false" />
+
+	<ui:define name="list_body">
+
+		<f:view afterPhase="#{bean.removeSessionAttributeAfterRender}" />
+
+		<div class="table_panel ui-widget-header ui-corner-all">
+			<p:commandButton action="#{bean.viewCalendars}"
+				value="#{msg.waitingListRegistrationViewCalendars}" />
+
+			<p:commandButton action="#{bean.viewReservationPage}"
+				value="#{msg.waitingListRegistrationReservationPage}" />
+
+			<p:commandButton action="#{bean.showAllRecords}" update=":form" rendered="#{!bean.showFullView}"
+							 value="#{msg.waitingListRegistrationShowAll}" />
+			<p:commandButton action="#{bean.showNewRecords}" update=":form" rendered="#{bean.showFullView}"
+							 value="#{msg.waitingListRegistrationShowNew}" />
+		</div>
+
+		<p:outputPanel id="list_panel">
+
+			<p:remoteCommand name="filterTableFromPanel"
+				action="#{bean.filterTableFromPanel}"
+				update=":form:table, :form:messages" />
+
+			<p:remoteCommand name="updateSelectedTemplateId"
+				update="selectedTemplateId" />
+
+			<p:remoteCommand name="onHideNote" action="#{bean.onHideNoteDlg}" />
+
+			<p:dataTable var="item" id="table"
+						 emptyMessage="#{msg.noRecordsFound}"
+						 value="#{bean.showFullView ? bean.lazyModel : bean.shortLazyModel}"
+						 lazy="true" paginator="true" rowKey="#{item.id}" rows="10"
+						 rowIndexVar="rowIndex" paginatorAlwaysVisible="true"
+						 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						 rowsPerPageTemplate="10,20,50" widgetVar="tableWV"
+						 sortBy="#{bean.defaultSortBy}">
+
+				<p:ajax event="page"
+					onsuccess="setTimeout(function(){handlePaging();}, 200);" />
+
+				<p:column styleClass="#{item.newRowClass}" style="width:16px"
+					exportable="false">
+					<p:rowToggler />
+				</p:column>
+
+				<p:ajax event="rowToggle"
+					listener="#{waitingListRegistrationListBean.onRowToggle}" />
+
+				<p:column
+					styleClass="#{item.newRowClass} bold_column ui-filter-column"
+					filterBy="#{item.surname}" sortBy="#{item.surname}">
+					<f:facet name="header">
+						<h:outputText value="#{msg.waitingListRegistrationPatientSurname}"/>
+					</f:facet>
+					<h:outputText value="#{item.surname}" />
+				</p:column>
+
+				<p:column styleClass="#{item.newRowClass} bold_column"
+					filterBy="#{item.name}" sortBy="#{item.name}">
+					<f:facet name="header">
+						<h:outputText value="#{msg.waitingListRegistrationPatientName}" />
+					</f:facet>
+					<h:outputText value="#{item.name}" />
+				</p:column>
+
+				<p:column styleClass="#{item.newRowClass} calendar-column"
+					sortBy="#{item.birthDate}">
+					<f:facet name="header">
+						<h:outputText
+							value="#{msg.waitingListRegistrationPatientBirthDate}" />
+					</f:facet>
+					<h:outputText value="#{item.birthDate}"
+						converter="dateTimeConverter" />
+				</p:column>
+
+				<p:column headerText="#{msg.waitingListRegistrationExamTypeId}"
+						  sortBy="#{item.examTypeDescription}"
+						  styleClass="#{item.newRowClass}"
+						  style="text-align: center;">
+					<f:facet name="header">
+						<p:commandButton id="examTypesShow"
+							value="#{msg.waitingListRegistrationExamTypeId}" type="button"
+							onclick="PF('examTypeCheckboxWV').show(); event.stopImmediatePropagation();" />
+					</f:facet>
+					<h:outputText value="#{item.examTypeDescription}" />
+				</p:column>
+
+				<p:column styleClass="#{item.newRowClass}" exportable="true"
+					style="display:none;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.waitingListRegistrationExamTypeId}" />
+					</f:facet>
+					<h:outputText value="#{item.examTypeDescription}" />
+				</p:column>
+
+				<p:column sortBy="#{item.waitingListRegistrationState}"
+					styleClass="#{item.newRowClass}"
+					headerText="#{msg.waitingListRegistrationState}">
+					<f:facet name="header">
+						<p:commandButton id="stateSelectCheckboxShow"
+							onclick="PF('stateSelectCheckboxWV').show(); event.stopImmediatePropagation();"
+							value="#{msg.waitingListRegistrationState}" type="button" />
+
+					</f:facet>
+
+					<h:outputText value="#{item.waitingListRegistrationState}"
+						converter="enumConverter" styleClass="statusLabel"
+						style="background-color: #{item.waitingListRegistrationState.stateColor}" />
+				</p:column>
+
+				<p:column styleClass="#{item.newRowClass}" style="display:none"
+					exportable="true">
+					<f:facet name="header">
+						<h:outputText value="#{msg.waitingListRegistrationState}" />
+					</f:facet>
+
+					<h:outputText value="#{item.waitingListRegistrationState}"
+						converter="enumConverter" />
+				</p:column>
+
+				<p:column styleClass="#{item.newRowClass}"
+					headerText="#{msg.waitingListRegistrationExam}" width="350"
+					exportable="false">
+					<p:dataGrid value="#{item.items}" columns="1"
+						var="exam" styleClass="verticalGrid">
+						<p:column>
+							<h:outputText value="#{exam}" />
+						</p:column>
+					</p:dataGrid>
+				</p:column>
+
+				<p:column exportable="true" style="display:none;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.waitingListRegistrationExam}" />
+					</f:facet>
+					<h:outputText value="#{item.radiologyExamRequestItemsString}" />
+				</p:column>
+
+				<p:column styleClass="#{item.newRowClass}"
+					sortBy="#{item.requestDate}" style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.waitingListRegistrationRequestDate}" />
+					</f:facet>
+					<h:outputText value="#{item.requestDate}"
+						converter="dateTimeConverterWithMinutes" />
+				</p:column>
+
+				<p:column styleClass="#{item.newRowClass}"
+					sortBy="#{item.reserveDate}" style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.waitingListRegistrationAssignDate}" />
+					</f:facet>
+					<h:outputText value="#{item.reserveDate}"
+						converter="dateTimeConverterWithMinutes" />
+				</p:column>
+
+				<p:column sortBy="#{item.asapSectorDescription}"
+					styleClass="#{item.newRowClass}"
+					filterBy="#{item.asapSectorDescription}">
+					<f:facet name="header">
+						<h:outputText value="#{msg.waitingListRegistrationSector}" />
+					</f:facet>
+					<span style="font-weight: bold;" class="workListSmall">#{item.asapActivityLine != null ? item.asapActivityLine:''}</span>
+					<span>#{item.asapActivityLine != null ? '-':''}</span>
+					<span class="workListSmall">#{item.asapSectorDescription}</span>
+				</p:column>
+
+				<p:column sortBy="#{item.urgencyId}" headerText="#{msg.workListUrg}"
+					styleClass="#{item.newRowClass} centered">
+					<f:facet name="header">
+						<p:commandButton id="urgencySelectCheckboxShow"
+							value="#{msg.workListUrg}" type="button"
+							onclick="PF('urgencySelectCheckboxWV').show(); event.stopImmediatePropagation();" />
+					</f:facet>
+					<h:graphicImage alt="#{item.urgency.iconName}" width="25"
+						height="25" value="#{item.urgency.iconUrlTemp}" />
+				</p:column>
+
+				<p:column styleClass="#{item.newRowClass} priority-small-column"
+					style="display:none;" exportable="true">
+					<f:facet name="header">
+						<h:outputText value="#{msg.waitingListRegistrationUrgence}" />
+					</f:facet>
+					<h:outputText value="#{item.urgency.description}" />
+				</p:column>
+
+				<p:column styleClass="#{item.newRowClass} action_column"
+					exportable="false">
+					<p:commandButton update=":form:list_panel, :form:messages"
+						style="width: 70px" rendered="#{item.renderAssign}"
+						value="#{item.actionBtnWaitingListTitle}" action="#{bean.assign}"
+						disabled="#{!bean.canReserve}">
+						<f:setPropertyActionListener value="#{item}"
+							target="#{bean.selectedViewToCreatePdf}" />
+					</p:commandButton>
+				</p:column>
+
+				<p:column styleClass="#{item.newRowClass} action_column"
+					exportable="false">
+					<p:commandButton update=":form:list_panel, :form:messages"
+						value="#{msg.waitingListRegistrationInstantDate}"
+						rendered="#{item.renderInstant}" action="#{bean.instant}"
+						disabled="#{!bean.canReserve}">
+						<f:setPropertyActionListener value="#{item}"
+							target="#{bean.selectedViewToCreatePdf}" />
+					</p:commandButton>
+				</p:column>
+
+				<p:rowExpansion>
+					<h:panelGrid columns="1" cellpadding="3" cellspacing="0"
+						styleClass="expandTable2 #{rowIndex}">
+
+						<p:dataTable var="itemExp"
+							value="#{item.radiologyExamRequestItems}" id="expTable"
+							paginator="false" rowKey="#{itemExp.id}" rowIndexVar="rowIndex" lazy="false">
+
+							<p:column style="width:18px">
+								<f:facet name="header">
+									<p:selectBooleanCheckbox value="#{item.selectedAll}">
+										<p:ajax update="expTable" event="change" />
+									</p:selectBooleanCheckbox>
+								</f:facet>
+								<p:selectBooleanCheckbox value="#{itemExp.selected}">
+									<p:ajax update="expTable" event="change" />
+								</p:selectBooleanCheckbox>
+							</p:column>
+
+							<p:column disabled="#{item.renderPdf}" style="width:25px;">
+								<p:commandLink ajax="false" disabled="true">
+									<p:graphicImage value="/resources/images/pdf_small.png" />
+								</p:commandLink>
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="#{msg.waitingListRegistrationExam}" />
+								</f:facet>
+								<h:outputText value="#{itemExp.radiologyExam.description}" />
+							</p:column>
+
+							<p:column styleClass="bold_column">
+								<f:facet name="header">
+									<h:outputText value="#{msg.waitingListRegistrationDiagnosys}" />
+								</f:facet>
+								<h:outputText value="#{itemExp.diagnosticQuestion}" />
+							</p:column>
+
+							<p:column styleClass="bold_column">
+								<f:facet name="header">
+									<h:outputText value="#{msg.waitingListRegistrationNote}" />
+								</f:facet>
+								<h:outputText value="#{itemExp.note}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="#{msg.waitingListTransport}" />
+								</f:facet>
+								<h:outputText value="#{item.transport}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="#{msg.waitingListRegistrationDoctor}" />
+								</f:facet>
+								<h:outputText value="#{itemExp.requestingDoctor}" />
+							</p:column>
+
+							<p:column style="width: 50px;">
+								<f:facet name="header">
+									<h:outputText
+										value="#{msg.waitingListRegistrationPrenotationDate}" />
+								</f:facet>
+								<h:outputText value="#{itemExp.reserveDate}"
+									converter="dateTimeConverter" />
+							</p:column>
+
+							<p:column style="width: 50px;">
+								<f:facet name="header">
+									<h:outputText
+										value="#{msg.waitingListRegistrationExpandedDate}" />
+								</f:facet>
+								<h:outputText value="#{itemExp.requestDate}"
+									converter="dateTimeConverter" />
+							</p:column>
+
+							<p:column rendered="#{item.renderPdf}" style="width:25px;">
+								<p:commandLink action="#{itemExp.downloadPdf}" ajax="false">
+									<p:graphicImage value="/resources/images/pdf_small.png" />
+								</p:commandLink>
+							</p:column>
+						</p:dataTable>
+					</h:panelGrid>
+					<h:panelGrid columns="1" cellpadding="3" cellspacing="0"
+						styleClass="expandTable2" rendered="#{!empty item.requestNotes}">
+
+						<p:dataTable var="itemNoteExp" value="#{item.requestNotes}"
+							id="expNoteTable" paginator="false" rowKey="#{itemNoteExp.id}" lazy="false">
+
+							<p:column styleClass="action_column" exportable="false">
+								<p:commandButton icon="ui-icon ui-icon-pencil"
+									disabled="#{!itemNoteExp.canEditAndDelete}"
+									update=":form:inputNote" action="#{bean.showNoteDlg}">
+									<f:setPropertyActionListener value="#{itemNoteExp.id}"
+										target="#{bean.noteId}" />
+								</p:commandButton>
+							</p:column>
+
+							<p:column styleClass="action_column" exportable="false">
+								<p:commandButton icon="ui-icon ui-icon-close"
+									oncomplete="PF('deleteNoteWV').show();"
+									disabled="#{!itemNoteExp.canEditAndDelete}">
+									<f:setPropertyActionListener value="#{itemNoteExp.id}"
+										target="#{bean.noteId}" />
+								</p:commandButton>
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="#{msg.workListNote}" />
+								</f:facet>
+								<h:outputText value="#{itemNoteExp.note}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="#{msg.workListCreateUser}" />
+								</f:facet>
+								<h:outputText value="#{itemNoteExp.createUserFullName}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="#{msg.workListDate}" />
+								</f:facet>
+								<h:outputText converter="dateTimeConverter"
+									value="#{itemNoteExp.createDate}" />
+							</p:column>
+
+
+						</p:dataTable>
+					</h:panelGrid>
+
+					<div class="btn_line">
+						<p:commandButton value="#{msg.waitingListRegistrationAnnulate}"
+							rendered="#{item.renderUndo || bean.showCancel}" update=":form:annulateDlg"
+							action="#{bean.fillTemplates}" icon="ui-icon-arrowrefresh-1-n"
+							oncomplete="PF('annulateDlgWV').show();"
+							disabled="#{!bean.showCancel and (!bean.canAnnullate || item.forwarded)}" styleClass="details-button">
+							<f:setPropertyActionListener value="#{item}"
+								target="#{bean.selectedViewToCreatePdf}" />
+							<f:setPropertyActionListener
+								target="#{bean.beanWrapper.radExamRequestItemsForAnnula}"
+								value="#{item.radiologyExamRequestItems}" />
+						</p:commandButton>
+
+						<p:commandButton value="#{msg.waitingListRegistrationCancel}" icon="ui-icon-trash"
+							rendered="#{item.renderCancel || bean.showCancel}" update=":form:cancelDlg"
+							oncomplete="PF('cancelDlgWV').show();"
+							action="#{bean.fillTemplates}" disabled="#{!bean.showCancel and (!bean.canCancel || item.forwarded)}"
+							styleClass="details-button">
+							<f:setPropertyActionListener
+								target="#{bean.beanWrapper.radExamRequestItemsForCancel}"
+								value="#{item.radiologyExamRequestItems}" />
+							<f:setPropertyActionListener value="#{item}"
+								target="#{bean.selectedViewToCreatePdf}" />
+						</p:commandButton>
+						
+						<p:commandButton update=":form:list_panel, :form:messages"
+							value="#{msg.waitingListRegistrationRestore}"
+							oncomplete="PF('tableWV').filter();PF('tableWV').paginator.setPage(0); filterTableFromPanel();"
+							rendered="#{item.renderRestore}" action="#{bean.restore}"
+							disabled="#{!bean.canRestore}" styleClass="details-button">
+							<f:setPropertyActionListener value="#{item}"
+								target="#{bean.selectedViewToCreatePdf}" />
+						</p:commandButton>
+
+						<p:commandButton value="#{msg.waitingListRegistrationOpenCC}" icon="ui-icon-folder-collapsed"
+							styleClass="details-button" disabled="#{!item.havePSDNumber}"
+							action="#{bean.openPSD}" update=":form:messages">
+							<f:setPropertyActionListener value="#{item}"
+								target="#{bean.selectedViewToCreatePdf}" />
+						</p:commandButton>
+
+						<p:commandButton id="addNote" value="#{msg.workListAddNote}" icon="fas fa-th-list"
+							disabled="#{item.isReported}" styleClass="details-button fa-fix"
+							oncomplete="PF('addNoteWV').show();">
+							<f:setPropertyActionListener target="#{bean.requestIdToAddNote}"
+								value="#{item.id}" />
+						</p:commandButton>
+
+						<p:commandButton value="#{msg.waitingListRegistrationGeneratePDF}"
+							update=":form:messages" action="#{bean.loadTemplate}" icon="fas fa-file-pdf"
+							oncomplete="updateSelectedTemplateId()" styleClass="fa-fix"
+							rendered="#{not empty item.reserveDate}">
+							<f:setPropertyActionListener value="#{item}"
+								target="#{bean.selectedViewToCreatePdf}" />
+						</p:commandButton>
+					</div>
+					<br />
+
+					<script type="text/javascript">
+						$(document).ready(function() {
+							change('item#{item.id}', true);
+							change('all#{item.id}', true);
+						});
+					</script>
+				</p:rowExpansion>
+
+				<f:facet name="footer">
+					<h:commandLink>
+						<p:graphicImage value="/resources/images/excel.png"
+							alt="#{msg.excel}" />
+						<p:dataExporter type="xls" target="table" fileName="#{file_name}"
+							excludeColumns="#{excludeColumns}" />
+					</h:commandLink>
+				</f:facet>
+
+			</p:dataTable>
+
+		</p:outputPanel>
+
+		<!-- Panels -->
+
+		<p:overlayPanel id="examTypesCheckboxPanel" for="table:examTypesShow"
+			widgetVar="examTypeCheckboxWV" onHide="filterTableFromPanel();"
+			style="widht:300px;">
+
+			<p:dataTable id="examTypesDatatable" var="examType"
+				value="#{bean.allExamTypes}" selectionMode="single"
+				selection="#{bean.selectedTypeForFilter}" rowKey="#{examType.id}" lazy="false">
+
+				<p:ajax event="rowSelect"
+					listener="#{waitingListRegistrationListBean.selectExamTypeForFilter}"
+					update="examTypesDatatable" />
+
+				<p:column style="width:18px">
+					<f:facet name="header">
+						<p:selectBooleanCheckbox
+							value="#{bean.selectedAllExamTypesOnPanel}">
+							<p:ajax update="examTypesDatatable" event="change" />
+						</p:selectBooleanCheckbox>
+					</f:facet>
+					<p:selectBooleanCheckbox value="#{examType.selected}">
+						<p:ajax update="examTypesDatatable" event="change" />
+					</p:selectBooleanCheckbox>
+				</p:column>
+
+				<p:column headerText="#{msg.workListStanza}">
+					<h:outputText value="#{examType.value}" />
+				</p:column>
+			</p:dataTable>
+		</p:overlayPanel>
+
+		<p:overlayPanel id="urgencySelectCheckboxPanel"
+			for="table:urgencySelectCheckboxShow"
+			widgetVar="urgencySelectCheckboxWV" onHide="filterTableFromPanel();"
+			style="widht:300px;">
+
+			<p:dataTable id="urgencySelectCheckboxPanelDataTable" var="urg"
+				value="#{bean.allUrgencies}" selectionMode="single"
+				selection="#{bean.selectedUrgencyForFilter}" rowKey="#{urg.id}" lazy="false">
+
+				<p:ajax event="rowSelect"
+					listener="#{waitingListRegistrationListBean.selectUrgencyForFilter}"
+					update="urgencySelectCheckboxPanelDataTable" />
+
+				<p:column style="width:18px">
+					<f:facet name="header">
+						<p:selectBooleanCheckbox
+							value="#{bean.selectedAllUrgenciesOnPanel}">
+							<p:ajax update="urgencySelectCheckboxPanelDataTable"
+								event="change" />
+						</p:selectBooleanCheckbox>
+					</f:facet>
+					<p:selectBooleanCheckbox value="#{urg.selected}">
+						<p:ajax update="urgencySelectCheckboxPanelDataTable"
+							event="change" />
+					</p:selectBooleanCheckbox>
+				</p:column>
+
+				<p:column headerText="#{msg.waitingListRegistrationUrgence}">
+					<h:outputText value="#{urg.value}" />
+				</p:column>
+			</p:dataTable>
+		</p:overlayPanel>
+
+		<p:overlayPanel id="stateSelectCheckboxPanel"
+			widgetVar="stateSelectCheckboxWV" for="table:stateSelectCheckboxShow"
+			onHide="filterTableFromPanel();" style="widht:300px;">
+
+			<p:dataTable id="stateSelectCheckboxPanelDataTable" var="state"
+				value="#{bean.allStates}" selectionMode="single"
+				selection="#{bean.selectedStateForFilter}" rowKey="#{state.value}" lazy="false">
+
+				<p:ajax event="rowSelect"
+					listener="#{waitingListRegistrationListBean.selectStateForFilter}"
+					update="stateSelectCheckboxPanelDataTable" />
+
+				<p:column style="width:18px">
+					<f:facet name="header">
+						<p:selectBooleanCheckbox value="#{bean.selectedAllStatesOnPanel}">
+							<p:ajax update="stateSelectCheckboxPanelDataTable" event="change" />
+						</p:selectBooleanCheckbox>
+					</f:facet>
+					<p:selectBooleanCheckbox value="#{state.selected}">
+						<p:ajax update="stateSelectCheckboxPanelDataTable" event="change" />
+					</p:selectBooleanCheckbox>
+				</p:column>
+
+				<p:column headerText="#{msg.waitingListRegistrationState}">
+					<h:outputText value="#{state.value}" />
+				</p:column>
+			</p:dataTable>
+		</p:overlayPanel>
+
+		<!-- Dialogs -->
+
+		<p:dialog widgetVar="addNoteWV" id="addNoteDlg" resizable="false"
+			onHide="onHideNote();" modal="true"
+			header="#{msg.workListAddNoteDialogHeader}">
+			<ui:include src="/resources/tpl/common/ValidationMessages.xhtml" />
+
+			<h:outputText value="#{msg.workListInputNote}" />
+			<br />
+			<p:inputTextarea id="inputNote" value="#{bean.beanWrapper.note.note}"
+				maxlength="1024" />
+			<div class="btn_line">
+				<p:commandButton update="inputNote"
+					value="#{msg.workListAddNoteSave}" action="#{bean.addNote}" />
+				<p:commandButton oncomplete="PF('addNoteWV').hide();"
+					value="#{msg.workListAddNoteCancel}" />
+			</div>
+		</p:dialog>
+
+		<p:dialog header="#{msg.deleteConfirmationHeader}"
+			widgetVar="deleteNoteWV" modal="true" resizable="false">  
+                               #{msg.deleteConfirmation}<br />
+			<br />
+			<div class="btn_line">
+				<p:commandButton value="#{msg.yes}" action="#{bean.deleteNote}"
+					oncomplete="PF('deleteNoteWV').hide(); PF('tableWV').collapseAllRows()"
+					update="table" />
+				<p:commandButton value="#{msg.no}"
+					onclick="PF('deleteNoteWV').hide()" />
+			</div>
+		</p:dialog>
+
+		<p:dialog resizable="false" position="center" id="cancelDlg"
+			widgetVar="cancelDlgWV" header="#{msg.workListCancelDlgTitle}"
+			modal="true" width="700" height="500">
+
+			<p:fieldset legend="#{msg.workListCancelPatientData}">
+
+				<p:dataTable var="itemCnl" value="#{bean.selectedToTable}"
+					paginator="false" rowKey="#{itemCnl.id}" rows="1"
+					rowIndexVar="rowIndex" widgetVar="patientTableWV" lazy="false">
+
+					<p:column headerText="#{msg.workListCancelPatientSurname}">
+						<h:outputText value="#{itemCnl.patient.surname}" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListCancelPatientName}">
+						<h:outputText value="#{itemCnl.patient.name}" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListCancelPatientBirthDate}">
+						<h:outputText value="#{itemCnl.patient.birthDate}"
+							converter="dateTimeConverter" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListCancelPatientSector}">
+						<h:outputText value="#{itemCnl.asapSectorDescription}" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListCancelPatientStanza}">
+						<h:outputText value="#{itemCnl.examType}" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListCancelPatientAccessNumber}">
+						<h:outputText
+							value="#{itemCnl.radiologyExamRequestItems[0].accessNumber}" />
+					</p:column>
+				</p:dataTable>
+			</p:fieldset>
+
+			<p:fieldset legend="#{msg.workListCancelExam}">
+				<p:dataTable var="examItem" id="cancelExamsTable"
+					value="#{bean.beanWrapper.radExamRequestItemsForCancel}" paginator="false"
+					rowKey="#{examItem.id}" rowIndexVar="rowIndex"
+					widgetVar="examsTableWV" lazy="false">
+
+					<p:column headerText="#{msg.workListCancelExamId}">
+						<h:outputText value="#{examItem.id}" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListCancelExamDescription}">
+						<h:outputText value="#{examItem.radiologyExam.description}" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListCancelExamDate}">
+						<h:outputText
+							value="#{examItem.latestActionDate}"
+							converter="dateTimeConverter" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListCancelExamOra}">
+						<h:outputText converter="dateTimeConverterHHmm"
+							value="#{examItem.latestActionDate}" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListCancelExamSelect}"
+						style="text-align: center;">
+						<p:selectBooleanCheckbox value="#{examItem.selected}">
+							<p:ajax update="@this, :form:table" event="change" />
+						</p:selectBooleanCheckbox>
+					</p:column>
+				</p:dataTable>
+			</p:fieldset>
+
+			<p:fieldset legend="#{msg.workListCancelComment}">
+				<p:inputTextarea label="#{msg.workListCancelComment}"
+					onkeypress="return text_area_limit(this, event, 4000)"
+					onkeyup="text_area_check(this,4000);"
+					style="width:99%;height:65px;" value="#{bean.commentCancel}" />
+			</p:fieldset>
+
+			<h:panelGrid columns="2" columnClasses="label, value"
+				style="text-align: center;width: 100%;">
+				<span><span class="red">*</span>
+					#{msg.workListCancelTemplate}:</span>
+
+				<p:selectOneMenu value="#{bean.modelTemplateIdCancel}"
+					disabled="#{bean.disableTemplates}">
+					<f:selectItems value="#{bean.templates}" />
+				</p:selectOneMenu>
+			</h:panelGrid>
+
+			<div class="btn_line">
+				<p:commandButton value="#{msg.workListCancelViewReport}"
+					action="#{bean.showCancelReport}" id="showReport"
+					update=":form:messages" />
+
+				<p:commandButton value="#{msg.workListCancelDeselect}"
+					update="cancelExamsTable" action="#{bean.deselectToCancel}" />
+
+				<p:commandButton value="#{msg.workListCancelApply}"
+					id="cancelAction" action="#{bean.cancel}"
+					update=":form:messages, :form:table"
+					oncomplete="PF('tableWV').collapseAllRows()"/>
+
+				<p:commandButton value="#{msg.cancel}"
+					onclick="PF('cancelDlgWV').hide();" />
+			</div>
+		</p:dialog>
+
+		<p:dialog resizable="false" position="center" id="annulateDlg"
+			widgetVar="annulateDlgWV" header="#{msg.workListAnnulateDlgTitle}"
+			modal="true" width="700" height="500">
+
+			<p:fieldset legend="#{msg.workListCancelPatientData}">
+
+				<p:dataTable var="itemAnn" value="#{bean.selectedToTable}"
+					paginator="false" rowKey="#{itemAnn.id}" rows="1"
+					rowIndexVar="rowIndex" widgetVar="patientTableWV" lazy="false">
+
+					<p:column headerText="#{msg.workListCancelPatientSurname}">
+						<h:outputText value="#{itemAnn.patient.surname}" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListCancelPatientName}">
+						<h:outputText value="#{itemAnn.patient.name}" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListCancelPatientBirthDate}">
+						<h:outputText value="#{itemAnn.patient.birthDate}"
+							converter="dateTimeConverter" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListCancelPatientSector}">
+						<h:outputText value="#{itemAnn.asapSectorDescription}" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListCancelPatientStanza}">
+						<h:outputText value="#{itemAnn.examType}" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListCancelPatientAccessNumber}">
+						<h:outputText
+							value="#{itemAnn.radiologyExamRequestItems[0].accessNumber}" />
+					</p:column>
+				</p:dataTable>
+			</p:fieldset>
+
+			<p:fieldset legend="#{msg.workListCancelExam}">
+				<p:dataTable var="examItem" id="annulateExamsTable"
+					value="#{bean.beanWrapper.radExamRequestItemsForAnnula}" paginator="false"
+					rowKey="#{examItem.id}" rowIndexVar="rowIndex"
+					widgetVar="examsTableWV" lazy="false">
+
+					<p:column headerText="#{msg.workListCancelExamId}">
+						<h:outputText value="#{examItem.id}" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListCancelExamDescription}">
+						<h:outputText value="#{examItem.radiologyExam.description}" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListCancelExamDate}">
+						<h:outputText
+							value="#{examItem.latestActionDate}"
+							converter="dateTimeConverter" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListCancelExamOra}">
+						<h:outputText converter="dateTimeConverterHHmm"
+							value="#{examItem.latestActionDate}" />
+					</p:column>
+
+					<p:column headerText="#{msg.workListCancelExamSelect}"
+						style="text-align: center;">
+						<p:selectBooleanCheckbox value="#{examItem.selected}">
+							<p:ajax update="@this" event="change" />
+						</p:selectBooleanCheckbox>
+					</p:column>
+				</p:dataTable>
+			</p:fieldset>
+
+			<p:fieldset legend="#{msg.workListCancelComment}">
+				<p:inputTextarea label="#{msg.workListCancelComment}"
+					onkeypress="return text_area_limit(this, event, 255)"
+					onkeyup="text_area_check(this,255);" style="width:99%"
+					value="#{bean.commentAnnulate}" />
+			</p:fieldset>
+
+			<h:panelGrid columns="2" columnClasses="label, value"
+				style="text-align: center;width: 100%;">
+				<span><span class="red">*</span>
+					#{msg.workListCancelTemplate}:</span>
+
+				<p:selectOneMenu value="#{bean.modelTemplateIdAnnulate}"
+					disabled="#{bean.disableTemplates}">
+					<f:selectItems value="#{bean.templates}" />
+				</p:selectOneMenu>
+			</h:panelGrid>
+
+			<div class="btn_line">
+				<p:commandButton value="#{msg.workListCancelViewReport}"
+					action="#{bean.showAnnulateReport}" id="showAnnulateReport"
+					update=":form:messages" />
+
+				<p:commandButton value="#{msg.workListCancelDeselect}"
+					update="annulateExamsTable" action="#{bean.deselectToCancel}" />
+
+				<p:commandButton value="#{msg.workListCancelApply}"
+					id="annulateAction" action="#{bean.annulate}"
+					update=":form:messages, :form:table"
+					oncomplete="PF('tableWV').collapseAllRows()"/>
+
+				<p:commandButton value="#{msg.cancel}"
+					onclick="PF('annulateDlgWV').hide();" />
+			</div>
+		</p:dialog>
+
+		<p:dialog widgetVar="templates" resizable="false"
+			header="#{msg.docTemplates}" modal="true">
+
+			<p:selectOneMenu value="#{bean.selectedTemplateId}"
+				id="selectedTemplateId" style="width:150px;">
+				<f:selectItems value="#{bean.templates}" />
+			</p:selectOneMenu>
+
+			<div class="btn_line">
+				<p:commandButton value="#{msg.ok}" ajax="false"
+					action="#{bean.printReport}" onclick="PF('templates').hide()" />
+				<p:commandButton value="#{msg.cancel}"
+					onclick="PF('templates').hide()" />
+			</div>
+		</p:dialog>
+		
+		<h:inputHidden value="#{bean.currentTablePage}" id="currentTablePage" />
+		<p:remoteCommand name="onPaging" action="#{bean.actionOnPaging}" />
+
+		<script type="text/javascript">
+			function change(id, checked) {
+				$("." + id).attr('checked', checked);
+			}
+
+			function checkSelectedAll(id) {
+				var res = true;
+
+				jQuery.each($("." + id), function(idx, elem) {
+					var checked = $(elem).attr('checked');
+					if (checked == null || !checked) {
+						res = false;
+					}
+				});
+
+				return res;
+			}
+
+			function handleSelection(id, allId, checked) {
+				var all = checkSelectedAll(id);
+				var was = $("." + allId).attr('checked');
+				if (was == null) {
+					was = false;
+				}
+
+				if (was != all) {
+					change(allId, checked);
+				}
+			}
+			
+			function handlePaging() {
+				var currentPage = PF('tableWV').paginator.getCurrentPage();
+				$('#currentTablePage').val(currentPage);
+				onPaging();
+			}
+		</script>
+	</ui:define>
+
+</ui:composition>
+</html>

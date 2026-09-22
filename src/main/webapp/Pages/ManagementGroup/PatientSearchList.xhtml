@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/resources/tpl/Admin/LazyListTabBase.xhtml">
+	<ui:param name="list_title" value="#{msg.patientsGestione}" />
+	<ui:param name="renderTitle" value="false" />
+	<ui:param name="bean" value="#{patientSearchListBean}" />
+	<ui:param name="showTable" value="true" />
+	<ui:param name="renderMenu" value="false" />
+	<ui:param name="centerPartStyleClass" value="false" />
+
+	<ui:define name="list_body">
+
+		<h:inputHidden id="makeSearch" value="#{bean.makeSearch}" />
+
+		<p:remoteCommand name="updatePatientsPanel" update="dlgPatients_panel"
+			oncomplete="PF('patientsTableWV').getPaginator().setPage(0);renderFragment();" />
+
+		<p:outputPanel id="dlgPatients_panel">
+			<div class="table_panel ui-widget-header ui-corner-all">
+
+				<h:panelGrid columns="4" styleClass="grid search_grid"
+					columnClasses="label_4,value,label_4,value"
+					style="margin-bottom: 0px; width: 1000px">
+
+					<span class="search_group">#{msg.patientSurname}: </span>
+					<p:inputText styleClass="search_group" id="patientSurname"
+						onkeyup="return searchOnEnter(event, 'loadPatients');"
+						onkeypress="numbers_letters_only('#patientSurname'); return stopOnEnter(event);"
+						maxlength="100" value="#{bean.patientSurname}" />
+
+					<span class="search_group">#{msg.patientName}: </span>
+					<p:inputText styleClass="search_group" id="patientName"
+						onkeyup="return searchOnEnter(event, 'loadPatients');"
+						onkeypress="numbers_letters_only('#patientName'); return stopOnEnter(event);"
+						maxlength="100" value="#{bean.patientName}" />
+
+					<span class="search_group">#{msg.patientBirthDate}: </span>
+					<p:datePicker id="patientBirthDate" styleClass="search_group"
+								  pattern="dd/MM/yyyy" locale="it"
+								  showIcon="true" showOnFocus="false"
+								  monthNavigator="true" yearNavigator="select"
+								  onblur="check_date(this)" focusOnSelect="true"
+								  onkeyup="return searchOnEnter(event, 'loadPatients');"
+								  onkeypress="numbers_letters_only('#patientBirthDate'); return stopOnEnter(event);"
+								  value="#{bean.patientBirthDate}"/>
+
+					<span class="search_group">#{msg.patientFiscalCode}: </span>
+					<p:inputText styleClass="search_group" id="patientFiscalCode"
+						autocomplete="false"
+						onkeyup="return searchOnEnter(event, 'loadPatients');"
+						onkeypress="numbers_letters_only('#patientFiscalCode'); return stopOnEnter(event);"
+						maxlength="100" value="#{bean.patientFiscalCode}" />
+				</h:panelGrid>
+
+				<div align="right" style="margin-right: 300px">
+					<p:commandButton icon="ui-icon-circle-zoomin"
+						value="#{msg.patientSearchListSearchPatient}" id="loadPatients"
+						action="#{bean.searchPatients}" update="messages, makeSearch">
+					</p:commandButton>
+
+					<p:commandButton icon="ui-icon-circle-plus"
+						value="#{msg.patientSearchListAddNewPatient}" id="newPatient"
+						action="#{bean.addPatient}" />
+				</div>
+			</div>
+
+			<div class="js-block hidden">
+				<p:outputPanel id="dialogPanel"
+					rendered="#{showTable}">
+
+					<p:dataTable var="item" value="#{bean.lazyModel}"
+						id="patientsTable" paginator="true" rowKey="#{item.id}" rows="10"
+						selection="#{bean.patient}" selectionMode="single" lazy="true"
+						rowsPerPageTemplate="10,20,50"
+						emptyMessage="#{msg.noRecordsFound}"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						widgetVar="patientsTableWV" style="text-align: center">
+						<p:ajax event="rowSelect"
+							listener="#{patientSearchListBean.requestCreation}" />
+
+						<p:column sortBy="#{item.name}" filterBy="#{item.name}"
+							headerText="#{msg.patientName}" filterMatchMode="contains">
+							<h:outputText style="font-weight:bold" value="#{item.name}" />
+						</p:column>
+
+						<p:column sortBy="#{item.surname}" filterBy="#{item.surname}"
+							headerText="#{msg.patientSurname}" filterMatchMode="contains">
+							<h:outputText style="font-weight:bold" value="#{item.surname}" />
+						</p:column>
+
+						<p:column sortBy="#{item.birthDate}" filterBy="#{item.birthDate}"
+							headerText="#{msg.patientBirthDate}">
+							<h:outputText value="#{item.birthDate}"
+								converter="dateTimeConverter" />
+						</p:column>
+
+						<p:column sortBy="#{item.birthCity.description}"
+							filterBy="#{item.birthCity.description}"
+							filterMatchMode="contains" headerText="#{msg.patientBirthCity}">
+							<h:outputText value="#{item.birthCity.description}" />
+						</p:column>
+
+						<p:column sortBy="#{item.fiscalCode}"
+							filterBy="#{item.fiscalCode}" filterMatchMode="contains"
+							headerText="#{msg.patientFiscalCode}">
+							<h:outputText value="#{item.fiscalCode}" />
+						</p:column>
+					</p:dataTable>
+				</p:outputPanel>
+			</div>
+		</p:outputPanel>
+
+		<script type="text/javascript">
+			function renderFragment() {
+				var v = $('#makeSearch').val();
+				if (v == 'true') {
+					$(".js-block").each(function() {
+						$(this).toggleClass("hidden");
+					});
+				}
+			}
+			(jQuery);
+		</script>
+	</ui:define>
+</ui:composition>
+</html>

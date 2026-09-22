@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/resources/tpl/Admin/EditBase.xhtml">
+	<ui:param name="edit_title" value="#{msg.editSector}" />
+	<ui:param name="bean" value="#{sectorEditBean}" />
+
+	<ui:define name="edit_body">
+
+		<style type="text/css">
+.ui-chkbox-all {
+	display: none !important;
+}
+</style>
+		<p:fieldset legend="#{msg.general}">
+
+			<h:panelGrid columns="2" columnClasses="label, value"
+				styleClass="grid0">
+				<span>#{msg.code}:</span>
+				<p:inputText id="code" maxlength="8" value="#{bean.sectorCode}"
+					disabled="true" label="#{msg.code}" />
+
+				<span>#{msg.sectorIstat}:</span>
+				<p:inputText id="istat" value="#{bean.entity.istat}" maxlength="8"
+					onkeypress="return numbers_only(this, event, 8, 0)"
+					onkeyup="check_numbers(this,8,0);" label="#{msg.sectorIstat}">
+				</p:inputText>
+
+				<span><span class="red">*</span>#{msg.sectorCdr}:</span>
+				<p:inputText id="sectorCdr" value="#{bean.entity.cdr}" maxlength="8"
+					label="#{msg.sectorCdr}"
+					onkeypress="numbers_letters_only('#sectorCdr');" />
+
+				<span><span class="red">*</span> #{msg.sectorAccNumPrefix}:
+				</span>
+				<p:inputText id="accNumbPrefix" maxlength="3"
+							 value="#{bean.entity.accNumPrefix}"
+							 label="#{msg.sectorAccNumPrefix}"
+							 onkeypress="numbers_letters_only('#accNumbPrefix');" />
+
+				<span><span class="red">*</span> #{msg.description}:</span>
+				<p:inputTextarea id="description" label="#{msg.description}"
+					onkeypress="return text_area_limit(this, event, 255)"
+					onkeyup="text_area_check(this,255);" maxLength="255"
+					autoResize="false" value="#{bean.entity.description}" />
+
+				<span>#{msg.editAppSettingsURLWEASIS}:</span>
+				<p:inputText id="weasis" maxlength="255"
+							 value="#{bean.entity.weasisUrl}" />
+
+				<span>#{msg.editAppSettingsCodiceAffinityDomain}:</span>
+				<p:inputText id="CodiceAffinityDomain" maxlength="255"
+							 value="#{bean.entity.codeAffinityDomain}" />
+
+				<span>#{msg.sectorSendingApp}:</span>
+				<p:inputText id="sendingApp" maxlength="255"
+							 value="#{bean.entity.sendingApp}" />
+
+				<span>#{msg.sectorDocumentTypeCode}:</span>
+				<p:inputText id="documentTypeCode" maxlength="255"
+							 value="#{bean.entity.documentTypeCode}" />
+				<span>#{msg.sectorDocumentFormatCode}:</span>
+				<p:inputText id="documentFormatCode" maxlength="255"
+							 value="#{bean.entity.documentFormatCode}" />
+			</h:panelGrid>
+
+		</p:fieldset>
+
+		<p:fieldset legend="#{msg.sectorDicomWorklistSettings}">
+			<h:panelGrid columns="2" columnClasses="label, value" cellpadding="3"
+				cellspacing="0" styleClass="grid dynamicgrid">
+
+				<span>#{msg.sectorDicomUsage}:</span>
+				<p:selectBooleanCheckbox widgetVar="showDicomSettingsWV"
+					value="#{bean.showDicomSettings}">
+					<p:ajax update=":form:panelDicom" />
+				</p:selectBooleanCheckbox>
+			</h:panelGrid>
+
+			<p:outputPanel id="panelDicom">
+				<h:panelGrid columns="2" columnClasses="label, value"
+					rendered="#{bean.showDicomSettings}" cellpadding="3"
+					cellspacing="0" styleClass="grid">
+					<span><span class="red">*</span>#{msg.sectorDICOMHost}:</span>
+					<p:inputText id="dicomHost" label="#{msg.sectorDICOMHost}"
+						value="#{bean.entity.sectorDICOMHost}" maxlength="100" />
+
+					<span><span class="red">*</span>#{msg.sectorDicomPort}:</span>
+					<p:inputText id="dicomPort" maxlength="5"
+						label="#{msg.sectorDicomPort}"
+						value="#{bean.entity.sectorDICOMPort}"
+						onkeypress="return numbers_only(this, event, 5, 0)"
+						onkeyup="check_numbers(this,5)" />
+
+					<span><span class="red">*</span>#{msg.sectorDICOMAETitle}:</span>
+					<p:inputText id="dicomAetitle"
+						value="#{bean.entity.sectorDICOMAETitle}"
+						label="#{msg.sectorDICOMAETitle}" maxlength="20"
+						onkeypress="numbers_letters_only('#dicomAetitle');" />
+
+				</h:panelGrid>
+			</p:outputPanel>
+
+		</p:fieldset>
+	</ui:define>
+
+</ui:composition>

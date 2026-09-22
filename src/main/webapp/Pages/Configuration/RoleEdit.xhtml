@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="/resources/tpl/Admin/EditBase.xhtml">
+	<ui:param name="edit_title" value="#{msg.editRole}" />
+	<ui:param name="bean" value="#{roleEditBean}" />
+
+	<ui:define name="edit_body">
+		<p:tabView id="tabs">
+			<p:tab title="#{msg.roleTabGeneral}" id="tabGeneralSettings">
+				<p:fieldset legend="#{msg.general}">
+					<h:panelGrid columns="2" columnClasses="label, value"
+						styleClass="grid">
+						<span><span class="red">*</span> #{msg.roleName}:</span>
+						<p:inputText id="name" maxlength="40" label="#{msg.roleName}"
+							value="#{bean.entity.name}"
+							onkeypress="numbers_letters_only('#name');" />
+					</h:panelGrid>
+				</p:fieldset>
+			</p:tab>
+
+			<p:tab title="#{msg.roleTabRoleRights}" id="tabRolePermissions">
+				<p:dataTable var="item" id="table" value="#{bean.permissions}"
+					styleClass="checkDatatable"
+					filteredValue="#{bean.permissionsFiltered}"
+					emptyMessage="#{msg.noRecordsFound}" paginator="false"
+					rowKey="#{item.id}" lazy="false">
+
+					<p:column
+						styleClass="#{empty item.module.parent ? 'sub_header ui-state-default' : ''}">
+						<f:facet name="header">
+							<h:outputText value="#{msg.rolePermissionName}" />
+						</f:facet>
+						<h:outputText value="#{item.module}" />
+					</p:column>
+
+					<p:column
+						styleClass="#{empty item.module.parent ? 'sub_header ui-state-default data' : 'data'}">
+						<f:facet name="header">
+							<h:outputText value="#{msg.roleCanList}" />
+						</f:facet>
+						<h:selectBooleanCheckbox value="#{item.canList}"
+							onclick="onCheck(this, 1)" />
+					</p:column>
+
+					<p:column
+						styleClass="#{empty item.module.parent ? 'sub_header ui-state-default data' : 'data'}">
+						<f:facet name="header">
+							<h:outputText value="#{msg.roleCanView}" />
+						</f:facet>
+						<h:selectBooleanCheckbox value="#{item.canView}"
+							onclick="onCheck(this, 2)" />
+					</p:column>
+
+					<p:column
+						styleClass="#{empty item.module.parent ? 'sub_header ui-state-default data' : 'data'}">
+						<f:facet name="header">
+							<h:outputText value="#{msg.roleCanCreate}" />
+						</f:facet>
+						<h:selectBooleanCheckbox value="#{item.canCreate}"
+							onclick="onCheck(this, 3)" />
+					</p:column>
+
+					<p:column
+						styleClass="#{empty item.module.parent ? 'sub_header ui-state-default data' : 'data'}">
+						<f:facet name="header">
+							<h:outputText value="#{msg.roleCanEdit}" />
+						</f:facet>
+						<h:selectBooleanCheckbox value="#{item.canEdit}"
+							onclick="onCheck(this, 4)" />
+					</p:column>
+
+					<p:column
+						styleClass="#{empty item.module.parent ? 'sub_header ui-state-default data' : 'data'}">
+						<f:facet name="header">
+							<h:outputText value="#{msg.roleCanDelete}" />
+						</f:facet>
+						<h:selectBooleanCheckbox value="#{item.canDelete}"
+							onclick="onCheck(this, 5)" />
+					</p:column>
+				</p:dataTable>
+			</p:tab>
+
+			<p:tab title="#{msg.roleSpecialPersmissions}">
+				<p:dataTable var="item" id="table_specAction"
+					emptyMessage="#{msg.noRecordsFound}"
+					value="#{bean.specPermissionsAction}" paginator="false"
+					rowKey="#{item.specialPermissionType}" selectionMode="single"
+					selection="#{bean.selectedSpecPermition}" lazy="false">
+
+					<p:ajax event="rowSelect" listener="#{roleEditBean.selectOne}"
+						update="table_specAction" />
+
+					<p:column style="width:18px">
+						<f:facet name="header">
+							<p:selectBooleanCheckbox
+								value="#{bean.selectAllSpecPermitionAction}">
+								<p:ajax update="table_specAction" event="change" />
+							</p:selectBooleanCheckbox>
+						</f:facet>
+						<p:selectBooleanCheckbox value="#{item.selected}">
+							<p:ajax update="table_specAction" event="change" />
+						</p:selectBooleanCheckbox>
+					</p:column>
+
+					<p:column headerText="#{msg.roleSpecialPersmissionNameAction}">
+						<h:outputText value="#{item}" />
+					</p:column>
+				</p:dataTable>
+
+				<p:dataTable var="item" id="table_specPage"
+					emptyMessage="#{msg.noRecordsFound}"
+					value="#{bean.specPermissionsPageAvailability}" paginator="false"
+					rowKey="#{item.specialPermissionType}" selectionMode="single"
+					selection="#{bean.selectedSpecPermition}" lazy="false">
+
+					<p:ajax event="rowSelect" listener="#{roleEditBean.selectOne}"
+						update="table_specPage" />
+
+					<p:column style="width:18px">
+						<f:facet name="header">
+							<p:selectBooleanCheckbox
+								value="#{bean.selectAllSpecPermitionAccess}">
+								<p:ajax update="table_specPage" event="change" />
+							</p:selectBooleanCheckbox>
+						</f:facet>
+						<p:selectBooleanCheckbox value="#{item.selected}">
+							<p:ajax update="table_specPage" event="change" />
+						</p:selectBooleanCheckbox>
+					</p:column>
+
+					<p:column headerText="#{msg.roleSpecialPersmissionNamePage}">
+						<h:outputText value="#{item}" />
+					</p:column>
+				</p:dataTable>
+			</p:tab>
+
+
+			<p:tab title="#{msg.roleExamTypeSetting}" id="tabExamTypeSettings">
+
+				<p:dataTable var="item" id="examTypeSettingsTable"
+					emptyMessage="#{msg.noRecordsFound}"
+					value="#{bean.examTypePermissionWrapperList}" paginator="false"
+					rowKey="#{item.examType.id}" lazy="false">
+
+					<p:column headerText="#{msg.roleExamTypeSettingExamTypes}">
+						<h:outputText value="#{item.examType.description}" />
+					</p:column>
+
+					<p:column headerText="#{msg.roleExamTypeSettingPermission}">
+						<p:triStateCheckbox value="#{item.state}" />
+					</p:column>
+
+				</p:dataTable>
+
+			</p:tab>
+
+			<script type="text/javascript">
+				function onCheck(component, column) {
+					var tbody = component.parentNode.parentNode.parentNode.parentNode;
+					var id = parseInt(component.parentNode.parentNode.parentNode.attributes['data-ri'].nodeValue);
+
+					if (component.parentNode.parentNode.className.split(' ')[0] == "sub_header") {
+						id++;
+						var item = tbody.rows[id];
+						while (item.cells[column].className.split(' ')[0] != "sub_header") {
+							item.childNodes[column].firstChild.firstChild.checked = component.checked;
+							id++;
+							item = tbody.rows[id];
+						}
+					} else {
+						id--;
+						var item = tbody.rows[id];
+						while (item.childNodes[column].className.split(' ')[0] != "sub_header") {
+							id--;
+							item = tbody.rows[id];
+						}
+						item.childNodes[column].firstChild.firstChild.checked = false;
+					}
+				}
+			</script>
+
+		</p:tabView>
+	</ui:define>
+</ui:composition>

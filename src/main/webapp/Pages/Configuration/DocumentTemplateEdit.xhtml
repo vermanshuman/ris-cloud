@@ -1,0 +1,335 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/resources/tpl/Admin/EditBase.xhtml">
+
+    <ui:param name="edit_title" value="#{msg.docTemplatesEdit}"/>
+    <ui:param name="bean" value="#{documentTemplateEditBean}"/>
+    <ui:param name="save_oncomplete" value="onCompleteSave();"/>
+
+    <ui:define name="body">
+        <script src="#{facesContext.externalContext.requestContextPath}/resources/spellchecker/spell.js"
+                type="text/javascript"></script>
+        <script src="#{facesContext.externalContext.requestContextPath}/resources/ckeditor/ckeditor.js"
+                type="text/javascript"></script>
+        <script src="#{facesContext.externalContext.requestContextPath}/resources/ckeditor/adapters/jquery.js"
+                type="text/javascript"></script>
+
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+                $("#headerOutputPanel").removeClass('hidden');
+                $("#footerOutputPanel").removeClass('hidden');
+
+                initializeCkEditor('headerEditor');
+                initializeCkEditor('bodyEditor');
+                initializeCkEditor('footerEditor');
+            });
+
+            function initializeCkEditor(editorId) {
+                destroyCkEditorIfNeeded(editorId);
+
+                const editorSelector = '#' + editorId;
+                const editorJq = $(editorSelector);
+                if (editorJq.length === 0) {
+                    console.error(`Textarea with id '${editorId}' not found.`);
+                    return;
+                }
+
+                const configPath = "#{resource['javascript/configCKEditor.js']}";
+                const cssPath = "#{resource['javascript/CKEditorStyle.css']}";
+                const editorConfig = {
+                    customConfig: configPath, contentsCss: cssPath,
+                    width: 'auto'
+                };
+                editorJq.ckeditor(function () {
+                    removeAllTooltips('#form_panel');
+                    tryHideHeaderFast();
+                    tryHideFooterFast();
+
+                }, editorConfig);
+            }
+
+            function destroyCkEditorIfNeeded(editorId) {
+                const editor = CKEDITOR.instances[editorId];
+                if (editor) {
+                    try {
+                        editor.destroy(true);
+                    } catch (e) {
+                        console.log('Error while destroying old Editor instance', e);
+                    }
+                }
+            }
+
+            function showHeader() {
+                if (PF('enableHeaderWV').input.is(':checked')) {
+                    $("#headerOutputPanel").show("slow");
+                } else {
+                    $("#headerOutputPanel").hide(1000);
+                }
+            }
+
+            function showBottom() {
+                if (PF('enableFooterWV').input.is(':checked')) {
+                    $("#footerOutputPanel").show("slow");
+                } else {
+                    $("#footerOutputPanel").hide(1000);
+                }
+            }
+
+            function tryHideHeaderFast() {
+                if (!PF('enableHeaderWV').input.is(':checked')) {
+                    $("#headerOutputPanel").hide();
+                }
+            }
+
+            function tryHideFooterFast() {
+                if (!PF('enableFooterWV').input.is(':checked')) {
+                    $("#footerOutputPanel").hide();
+                }
+            }
+
+            function onCompleteSave() {
+                var array = $('.not_valid');
+                var validHeader = true;
+                var validBody = true;
+                var validFooter = true;
+                for (var i = 0; array.length > i; i++) {
+                    if (array[i].id == "headerValidator") {
+                        $("#header_parent").addClass('not_valid');
+                        validHeader = false;
+                    } else if (array[i].id == "bodyValidator") {
+                        $("#body_parent").addClass('not_valid');
+                        validBody = false;
+                    } else if (array[i].id == "footerValidator") {
+                        $("#footer_parent").addClass('not_valid');
+                        validFooter = false;
+                    }
+                }
+
+                if (validHeader) {
+                    $("#header_parent").removeClass('not_valid');
+                    $("#header_parent").attr("title", "");
+                }
+                if (validBody) {
+                    $("#body_parent").removeClass('not_valid');
+                    $("#body_parent").attr("title", "");
+                }
+                if (validFooter) {
+                    $("#footer_parent").removeClass('not_valid');
+                    $("#footer_parent").attr("title", "");
+                }
+            }
+
+            function insertTagTo(id) {
+                var tag = document.getElementById('insertTag').value;
+                if (CKEDITOR.instances[id] &amp;&amp; tag != null &amp;&amp; tag.length > 0) {
+                    CKEDITOR.instances[id].insertText(tag);
+                }
+            }
+        </script>
+
+        <h:form id="form" prependId="false" enctype="multipart/form-data">
+
+            <div style="display: none">
+                <p:inputText id="headerValidator" label="#{msg.docTemplatesHeader}"/>
+                <p:inputText id="bodyValidator" label="#{msg.docTemplatesBody}"/>
+                <p:inputText id="footerValidator" label="#{msg.docTemplatesFooter}"/>
+            </div>
+
+            <ui:fragment
+                    rendered="#{empty showRightPart ? false : showRightPart}">
+                <div class="right_part"></div>
+            </ui:fragment>
+
+            <div class="content">
+                <p:outputPanel id="form_panel">
+
+                    <p:panel header="#{edit_title}">
+                        <h:inputHidden id="insertTag" value="#{bean.insertTag}"/>
+
+                        <p:fieldset legend="#{msg.general}">
+                            <p:panel id="panelSettings">
+
+                                <ui:include src="/resources/tpl/common/ValidationMessages.xhtml"/>
+
+                                <h:panelGrid columns="4" id="mainPanel"
+                                             columnClasses="label_4, value, label_4, value"
+                                             styleClass="grid">
+                                    <span><span class="red">*</span>#{msg.docTemplatesName}:</span>
+                                    <p:inputText id="name" value="#{bean.entity.name}"
+                                                 maxlength="20" label="#{msg.docTemplatesName}"
+                                                 onkeypress="numbers_letters_only('#name');"/>
+
+                                    <span><span class="red">*</span>#{msg.docTemplatesModelType}:</span>
+                                    <p:selectOneMenu id="modelType" value="#{bean.modelType}"
+                                                     label="#{msg.docTemplatesModelType}">
+                                        <f:selectItems value="#{bean.modelTypes}"/>
+                                    </p:selectOneMenu>
+
+                                    <span><span class="red">*</span>#{msg.docTemplatesPageWidth}:</span>
+                                    <p:spinner maxlength="4" id="spinnerPageWidth"
+                                               label="#{msg.docTemplatesPageWidth}"
+                                               value="#{bean.entity.width}" stepFactor="1"
+                                               onkeyup="check_numbers(this, 4, 0);"
+                                               onkeypress="return numbers_only(this, event, 4, 0)"/>
+
+                                    <span><span class="red">*</span>#{msg.docTemplatesPageHeight}:</span>
+                                    <p:spinner maxlength="4" id="spinnerPageHeight"
+                                               label="#{msg.docTemplatesPageHeight}"
+                                               value="#{bean.entity.height}" stepFactor="1"
+                                               onkeyup="check_numbers(this, 4, 0);"
+                                               onkeypress="return numbers_only(this, event, 4, 0)"/>
+
+                                    <span><span class="red">*</span>#{msg.docTemplatesMarginTop}</span>
+                                    <p:spinner maxlength="4" id="spinnerMarginTop"
+                                               label="#{msg.docTemplatesMarginTop}"
+                                               value="#{bean.entity.marginTop}" stepFactor="1"
+                                               onkeyup="check_numbers(this, 4, 0);"
+                                               onkeypress="return numbers_only(this, event, 4, 0)"/>
+
+                                    <span><span class="red">*</span>#{msg.docTemplatesMarginBottom}</span>
+                                    <p:spinner maxlength="4" id="spinnerMarginBottom"
+                                               label="#{msg.docTemplatesMarginBottom}"
+                                               value="#{bean.entity.marginBottom}" stepFactor="1"
+                                               onkeyup="check_numbers(this, 4, 0);"
+                                               onkeypress="return numbers_only(this, event, 4, 0)"/>
+
+                                    <span><span class="red">*</span>#{msg.docTemplatesMarginLeft}</span>
+                                    <p:spinner maxlength="4" id="spinnerMarginLeft"
+                                               label="#{msg.docTemplatesMarginLeft}"
+                                               value="#{bean.entity.marginLeft}" stepFactor="1"
+                                               onkeyup="check_numbers(this, 4, 0);"
+                                               onkeypress="return numbers_only(this, event, 4, 0)"/>
+
+                                    <span><span class="red">*</span>#{msg.docTemplatesMarginRight}</span>
+                                    <p:spinner maxlength="4" id="spinnerMarginRight"
+                                               label="#{msg.docTemplatesMarginRight}"
+                                               value="#{bean.entity.marginRight}" stepFactor="1"
+                                               onkeyup="check_numbers(this, 4, 0);"
+                                               onkeypress="return numbers_only(this, event, 4, 0)"/>
+
+                                    <span>#{msg.docTemplatesEnableHeader}</span>
+                                    <p:selectBooleanCheckbox id="enableHeader"
+                                                             widgetVar="enableHeaderWV" value="#{bean.entity.header}"
+                                                             onchange="showHeader();"/>
+
+                                    <span>#{msg.docTemplatesEnableFooter}</span>
+                                    <p:selectBooleanCheckbox id="enableFooter"
+                                                             widgetVar="enableFooterWV" value="#{bean.entity.footer}"
+                                                             onchange="showBottom();"/>
+                                </h:panelGrid>
+
+                                <center>
+                                    <p:outputPanel id="headerOutputPanel" styleClass="hidden">
+
+                                        <p:separator id="headerSeparator"
+                                                     style="width:100%;height:10px"/>
+
+                                        <h:outputText id="headerLabel"
+                                                      value="#{msg.docTemplatesHeader}:"/>
+                                        <br/>
+
+                                        <h:panelGrid id="gridHeader" columns="2">
+                                            <span><span class="red">*</span>#{msg.docTemplatesHeaderHeight}:</span>
+
+                                            <p:spinner maxlength="4" id="spinnerHeaderHeight"
+                                                       label="#{msg.docTemplatesHeaderHeight}"
+                                                       value="#{bean.entity.headerHeight}" stepFactor="1"
+                                                       onkeyup="check_numbers(this, 4, 0);"
+                                                       onkeypress="return numbers_only(this, event, 4, 0)"/>
+                                        </h:panelGrid>
+
+                                        <h:panelGrid id="gridHeaderNew" columns="2">
+                                            <p:selectOneMenu value="#{bean.selectedTagHeader}">
+                                                <f:selectItems value="#{bean.tagsEx}"/>
+                                            </p:selectOneMenu>
+                                            <p:commandButton action="#{bean.addTagHeader}"
+                                                             update="insertTag" oncomplete="insertTagTo('headerEditor')"
+                                                             value="#{msg.docTemplatesAddTag}" immediate="false"/>
+                                        </h:panelGrid>
+
+                                        <div id="headerPanel">
+                                            <p:inputTextarea id="headerEditor" value="#{bean.entity.headerContent}"/>
+                                        </div>
+
+                                    </p:outputPanel>
+
+                                    <p:separator style="width:100%;height:10px"/>
+
+                                    #{msg.docTemplatesBody}: <br/>
+                                    <center>
+                                        <h:panelGrid id="gridBody" columns="2">
+                                            <p:selectOneMenu value="#{bean.selectedTag}">
+                                                <f:selectItems value="#{bean.tags}"/>
+                                            </p:selectOneMenu>
+
+                                            <p:commandButton action="#{bean.addTagBody}"
+                                                             update="insertTag" oncomplete="insertTagTo('bodyEditor')"
+                                                             value="#{msg.docTemplatesAddTag}" immediate="false"/>
+                                        </h:panelGrid>
+                                    </center>
+                                    <br/>
+
+                                    <div id="bodyPanel">
+                                        <p:inputTextarea id="bodyEditor" value="#{bean.entity.bodyContent}"/>
+                                    </div>
+
+                                    <p:outputPanel id="footerOutputPanel" styleClass="hidden">
+                                        <p:separator id="footerSeparator"
+                                                     style="width:100%;height:10px"/>
+
+                                        <h:outputText id="footerLabel"
+                                                      value="#{msg.docTemplatesFooter}:"/>
+                                        <br/>
+
+                                        <center>
+                                            <h:panelGrid id="gridFooter" columns="2">
+                                                <span><span class="red">*</span>#{msg.docTemplatesFooterHeight}:</span>
+
+                                                <p:spinner maxlength="4" id="spinnerFooterHeight"
+                                                           label="#{msg.docTemplatesFooterHeight}"
+                                                           value="#{bean.entity.footerHeight}" stepFactor="1"/>
+                                            </h:panelGrid>
+
+                                            <h:panelGrid id="gridFooterNew" columns="2">
+                                                <p:selectOneMenu value="#{bean.selectedTagFooter}">
+                                                    <f:selectItems value="#{bean.tagsEx}"/>
+                                                </p:selectOneMenu>
+
+                                                <p:commandButton action="#{bean.addTagFooter}"
+                                                                 update="insertTag" oncomplete="insertTagTo('footerEditor')"
+                                                                 value="#{msg.docTemplatesAddTag}" immediate="false"/>
+                                            </h:panelGrid>
+                                        </center>
+
+                                        <div id="footerPanel">
+                                            <p:inputTextarea id="footerEditor" value="#{bean.entity.footerContent}"/>
+                                        </div>
+                                    </p:outputPanel>
+                                </center>
+                            </p:panel>
+                        </p:fieldset>
+
+                        <p:outputPanel id="btn_line">
+                            <div class="btn_line">
+                                <p:commandButton action="#{bean.pageSave}" value="#{msg.save}"
+                                                 oncomplete="#{save_oncomplete}" icon="ui-icon-disk"
+                                                 update="mainPanel, messages, spinnerHeaderHeight, spinnerFooterHeight, headerValidator, bodyValidator, footerValidator"/>
+
+                                <p:commandButton action="#{bean.goBack}" value="#{msg.cancel}"
+                                                 icon="ui-icon-circle-close"/>
+                            </div>
+                        </p:outputPanel>
+                    </p:panel>
+                </p:outputPanel>
+
+                <p:growl id="messages" showDetail="true" globalOnly="true"/>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

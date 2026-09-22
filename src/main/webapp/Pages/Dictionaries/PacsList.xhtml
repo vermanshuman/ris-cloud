@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/resources/tpl/Admin/LazyListBase.xhtml">
+	<ui:param name="list_title" value="#{msg.pacsList}" />
+	<ui:param name="bean" value="#{pascListBean}" />
+
+	<ui:define name="columns">
+		<p:column sortBy="#{item.name}" filterBy="#{item.name}"
+			headerText="#{msg.pacsName}" filterMatchMode="contains">
+			<h:outputText value="#{item.name}" />
+		</p:column>
+
+		<p:column sortBy="#{item.iPHostPacs}" filterBy="#{item.iPHostPacs}"
+			headerText="#{msg.pacsIpAddress}" filterMatchMode="contains">
+			<h:outputText value="#{item.iPHostPacs}" />
+		</p:column>
+
+		<p:column sortBy="#{item.portHostPacs}"
+			filterBy="#{item.port_host_pacs}" headerText="#{msg.pacsPort}"
+			filterMatchMode="contains">
+			<h:outputText value="#{item.portHostPacs}" />
+		</p:column>
+
+		<p:column sortBy="#{item.aetPacs}" filterBy="#{item.aetPacs}"
+			headerText="#{msg.pacsAET}" filterMatchMode="contains">
+			<h:outputText value="#{item.aetPacs}" />
+		</p:column>
+
+		<p:column sortBy="#{item.dicomPort}" filterBy="#{item.dicom_port}"
+			headerText="#{msg.pacsDicomPort}" filterMatchMode="contains">
+			<h:outputText value="#{item.dicomPort}" />
+		</p:column>
+
+		<p:column sortBy="#{item.hospital}" filterBy="#{item.hospital.description}"
+			headerText="#{msg.pacsHospital}" filterMatchMode="contains">
+			<h:outputText value="#{item.hospital}" />
+		</p:column>
+
+		<p:column sortBy="#{item.pacsType}" filterBy="#{item.pacsType}"
+			headerText="#{msg.pacsType}" filterMatchMode="contains">
+			<h:outputText value="#{item.pacsType}" />
+		</p:column>
+
+		<p:column headerText="#{msg.userSector}" filterMatchMode="contains"
+			sortBy="#{item.sector.id}" filterBy="#{item.sector.description}">
+			<h:outputText value="#{item.sector}" />
+		</p:column>
+
+	</ui:define>
+
+</ui:composition>
+</html>

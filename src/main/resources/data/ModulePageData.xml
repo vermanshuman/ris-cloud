@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE something>
+<module_page>
+	<data_entry>
+		<page_type>DICTIONARY_LIST</page_type>
+		<module_code entity_field="code">DICTIONARY</module_code>
+	</data_entry>
+	<data_entry>
+		<page_type>ROLE_LIST</page_type>
+		<module_code entity_field="code">PGR</module_code>
+	</data_entry>
+	<data_entry>
+		<page_type>USER_LIST</page_type>
+		<module_code entity_field="code">PGU</module_code>
+	</data_entry>
+	<data_entry>
+		<page_type>EVENT_CALENDAR_LIST</page_type>
+		<module_code entity_field="code">PGC</module_code>
+	</data_entry>
+	<data_entry>
+		<page_type>DOCUMENT_TEMPLATE_LIST</page_type>
+		<module_code entity_field="code">PGT</module_code>
+	</data_entry>
+	<data_entry>
+		<page_type>INSTANCE_PHASES_LIST</page_type>
+		<module_code entity_field="code">PGP</module_code>
+	</data_entry>
+	<data_entry>
+		<page_type>PATIENT_LIST</page_type>
+		<module_code entity_field="code">PGPA</module_code>
+	</data_entry>
+	<data_entry>
+		<page_type>SECTOR_LIST</page_type>
+		<module_code entity_field="code">PDS</module_code>
+	</data_entry>
+	<data_entry>
+		<page_type>HOSPITAL_LIST</page_type>
+		<module_code entity_field="code">PDH</module_code>
+	</data_entry>
+	<data_entry>
+		<page_type>RADIOLOGY_EXAM_LIST</page_type>
+		<module_code entity_field="code">PDRE</module_code>
+	</data_entry>
+	<data_entry>
+		<page_type>EXAM_TYPE_LIST</page_type>
+		<module_code entity_field="code">PDET</module_code>
+	</data_entry>
+	<data_entry>
+		<page_type>DIAGNOSTIC_LIST</page_type>
+		<module_code entity_field="code">PDD</module_code>
+	</data_entry>
+	<data_entry>
+		<page_type>PACKAGE_LIST</page_type>
+		<module_code entity_field="code">PDP</module_code>
+	</data_entry>
+	<data_entry>
+		<page_type>URGENCY_LIST</page_type>
+		<module_code entity_field="code">PDU</module_code>
+	</data_entry>
+	<data_entry>
+		<page_type>OSIRIX_LIST</page_type>
+		<module_code entity_field="code">PDO</module_code>
+	</data_entry>
+	<data_entry>
+		<page_type>DVD_PRODUCER_LIST</page_type>
+		<module_code entity_field="code">PDDP</module_code>
+	</data_entry>
+	<data_entry>
+		<page_type>PACS_LIST</page_type>
+		<module_code entity_field="code">PDPACS</module_code>
+	</data_entry>
+	<data_entry>
+		<page_type>APPLICATION_SETTINGS</page_type>
+		<module_code entity_field="code">PSC</module_code>
+	</data_entry>
+	<data_entry>
+		<page_type>MONITORING_VIEW</page_type>
+		<module_code entity_field="code">PM</module_code>
+	</data_entry>
+	<data_entry>
+		<page_type>PATIENT_SEARCH</page_type>
+		<module_code entity_field="code">PSP</module_code>
+	</data_entry>
+	<data_entry>
+		<page_type>WORKLIST</page_type>
+		<module_code entity_field="code">PW</module_code>
+	</data_entry>
+	<data_entry>
+		<page_type>WAITINGLIST_REGISTRATION_LIST</page_type>
+		<module_code entity_field="code">PWL</module_code>
+	</data_entry>
+	<data_entry>
+		<page_type>TEMPLATE_DOCUMENT_MODEL_LIST</page_type>
+		<module_code entity_field="code">PDTDM</module_code>
+	</data_entry>
+	<data_entry>
+		<page_type>RADIOLOGY_EXAM_REQUEST</page_type>
+		<module_code entity_field="code">PRER</module_code>
+	</data_entry>
+	<data_entry>
+		<page_type>DATE_CONFIRMATION_VIEW</page_type>
+		<module_code entity_field="code">PDCV</module_code>
+	</data_entry>
+	<data_entry>
+		<page_type>DOCUMENT_GENERATION</page_type>
+		<module_code entity_field="code">PDG</module_code>
+	</data_entry>
+	<data_entry>
+		<page_type>REPORT_SEARCH</page_type>
+		<module_code entity_field="code">RS</module_code>
+	</data_entry>
+	<data_entry>
+		<page_type>DIRECT_RESERVATION_LIST</page_type>
+		<module_code entity_field="code">PDDR</module_code>
+	</data_entry>
+</module_page>

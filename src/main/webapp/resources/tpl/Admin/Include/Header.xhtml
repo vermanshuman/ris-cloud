@@ -1,0 +1,127 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form>		
+		<p:remoteCommand name="updateMenuItem" update=":menuItemHidden" />
+
+		<ui:fragment rendered="#{!empty sessionBean.currentUser and empty showHeaderPart ? true : showHeaderPart}">
+			<div class="header">
+
+				<ui:fragment rendered="#{not request.getParameterMap().containsKey('password_expired')}">
+					<ui:fragment
+							rendered="#{empty showDocGenerationMenu ? true : showDocGenerationMenu}">
+						<ul class="top_menu" style="width: #{sessionBean.currentUser.showStatisticMenu ? '510px' : '430px'};">
+							<li class="patient_search"><a
+									href="#{facesContext.externalContext.requestContextPath}/management_group/patient_search_list/"
+									id="patientSearch"></a></li>
+
+							<li class="worklist"><a
+									href="#{facesContext.externalContext.requestContextPath}/Pages/ManagementGroup/WorkList.jsf"
+									id="worklist"></a></li>
+
+							<li class="waiting_list"><a
+									href="#{facesContext.externalContext.requestContextPath}/management_group/waitinglist_registration_list/"
+									id="waitingList"></a></li>
+
+							<li class="search"><a
+									href="#{facesContext.externalContext.requestContextPath}/management_group/report_search_list/"
+									id="search"></a></li>
+
+							<li class="settings"><a
+									href="#{facesContext.externalContext.requestContextPath}/configuration/application_settings_edit/"
+									id="settings"></a></li>
+
+							<ui:fragment
+									rendered="#{sessionBean.currentUser.showStatisticMenu}">
+								<li class="statistic"><a
+										href="#{sessionBean.currentUser.statisticUrl}" target="_blank"
+										id="statistic"></a></li>
+							</ui:fragment>
+						</ul>
+					</ui:fragment>
+					<ui:fragment
+							rendered="#{empty showDocGenerationMenu ? false : !showDocGenerationMenu}">
+
+						<p:remoteCommand name="callLeavePage" action="#{bean.leavePage}"
+										 update=":form:messages" />
+
+						<ul class="top_menu">
+							<li class="patient_search"><p:commandLink
+									onclick="submitReportEditorText();"
+									oncomplete="callLeavePage();">
+								<f:setPropertyActionListener target="#{bean.linkToRedirect}"
+															 value="PATIENT_SEARCH" />
+								<f:setPropertyActionListener target="#{bean.requestedToLeave}"
+															 value="#{true}" />
+							</p:commandLink></li>
+
+							<li class="worklist"><p:commandLink
+									onclick="submitReportEditorText();"
+									oncomplete="callLeavePage();">
+								<f:setPropertyActionListener target="#{bean.linkToRedirect}"
+															 value="WORKLIST" />
+								<f:setPropertyActionListener target="#{bean.requestedToLeave}"
+															 value="#{true}" />
+							</p:commandLink></li>
+
+							<li class="waiting_list"><p:commandLink
+									onclick="submitReportEditorText();"
+									oncomplete="callLeavePage();">
+								<f:setPropertyActionListener target="#{bean.linkToRedirect}"
+															 value="WAITINGLIST_REGISTRATION_LIST" />
+								<f:setPropertyActionListener target="#{bean.requestedToLeave}"
+															 value="#{true}" />
+							</p:commandLink></li>
+
+							<li class="search"><p:commandLink id="search"
+															  onclick="submitReportEditorText();"
+															  oncomplete="callLeavePage();">
+								<f:setPropertyActionListener target="#{bean.linkToRedirect}"
+															 value="REPORT_SEARCH" />
+								<f:setPropertyActionListener target="#{bean.requestedToLeave}"
+															 value="#{true}" />
+							</p:commandLink></li>
+
+							<li class="settings"><p:commandLink
+									onclick="submitReportEditorText();"
+									oncomplete="callLeavePage();">
+								<f:setPropertyActionListener target="#{bean.linkToRedirect}"
+															 value="APPLICATION_SETTINGS" />
+								<f:setPropertyActionListener target="#{bean.requestedToLeave}"
+															 value="#{true}" />
+							</p:commandLink></li>
+
+						</ul>
+					</ui:fragment>
+				</ui:fragment>
+
+				<ul class="user_menu">
+					<li><a class="name"
+						href="#{facesContext.externalContext.requestContextPath}/configuration/user_profile_view/">
+							#{sessionBean.currentUser.fullname} </a></li>
+
+					<li><span style="padding: 5px 0px;">|</span><a class="logout"
+						href="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout">#{msg.logout}</a>
+					</li>
+				</ul>
+
+				<p:ajaxStatus style=" margin-top: 8px;"
+					onsuccess="fixExpandRow(); fixCalendarInput();">
+					<f:facet name="start">
+						<p:graphicImage value="/resources/images/ajax-loader.gif" />
+					</f:facet>
+
+					<f:facet name="complete">
+						<h:outputText value="" />
+					</f:facet>
+				</p:ajaxStatus>
+				<div class="clear" style="float: none;"></div>
+			</div>
+
+		</ui:fragment>
+
+	</h:form>
+</ui:composition>

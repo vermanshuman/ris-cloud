@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:param name="bean" value="#{supportBean}" />
+
+<h:head>
+	<title>Support</title>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+</h:head>
+
+<h:body>
+	<f:view locale="#{localizeBean.locale}">
+		<h:form id="form">
+			<h:panelGrid columns="3" styleClass="grid">
+					<p:outputLabel value="Site version:" />
+				
+					<p:outputLabel>
+						<b>#{supportBean.siteVersion}</b>
+					</p:outputLabel>
+				
+					<p:outputLabel value="" />
+				
+					<p:outputLabel value="Password for migration:" />
+				
+					<p:inputText value="#{bean.password}" maxlength="20"
+						type="password" id="password" />
+				
+					<p:commandButton action="#{bean.login}" value="Check password"
+						update="migrateFromOldButton, password" />
+			</h:panelGrid>
+			<br />
+
+			<p:commandButton value="#{msg.editAppSettingsMigrateDBFromOldButton}"
+				action="#{bean.migrateDBfromOld}"
+				update="migrateDBStatusFromOld, migrateFromOldButton"
+				disabled="#{bean.disableMigration}" id="migrateFromOldButton" />
+
+			<p:outputLabel value="#{bean.migrateDBStatusFromOld}"
+				id="migrateDBStatusFromOld" />
+			<br />
+
+			<ui:remove>
+				<p:commandButton
+					value="#{msg.editAppSettingsMigrateDBFromCurrentButton}"
+					action="#{bean.migrateDBfromCurrent}"
+					update="migrateDBStatusFromCurrent, migrateFromCurrentButton, migrateFromOldButton"
+					id="migrateFromCurrentButton" />
+				<p:outputLabel value="#{bean.migrateDBStatusFromCurrent}"
+					id="migrateDBStatusFromCurrent" />
+			</ui:remove>
+
+			<br/>
+			<p:commandButton action="Pages/Configuration/XmlFixer.xhtm?faces-redirect=true" value="#{msg.xmlFixerPage}"/>
+
+		</h:form>
+	</f:view>
+</h:body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:composite="http://java.sun.com/jsf/composite" xmlns:f="http://java.sun.com/jsf/core">
+<composite:interface name="selectManyMenu">
+    <composite:attribute name="selectionBean" type="it.nexera.ris.web.beans.wrappers.logic.SelectManyMenuWrapper" required="true" />
+    <composite:attribute name="widgetPrefix" required="true" />
+</composite:interface>
+<composite:implementation>
+    <p:outputPanel id="tagContent">
+        <h:panelGrid columns="3" columnClasses="top_col,center_col,top_col" styleClass="grid">
+            <p:fieldset legend="#{msg.selectManyMenuSourceTitle}" style="padding:5px;" styleClass="droppable-element" id="available">
+
+                <p:dataTable var="item" id="source" value="#{cc.attrs.selectionBean.source}"
+                             filteredValue="#{cc.attrs.selectionBean.sourceFiltered}" paginator="true"
+                             rowKey="#{item.id}" rows="10" pageLinks="5"
+                             selectionMode="multiple" paginatorAlwaysVisible="true"
+                             selection="#{cc.attrs.selectionBean.sourceSelected}" widgetVar="#{cc.attrs.widgetPrefix}sourceWV" lazy="false"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+                    <p:column style="width:20px">
+                        <h:outputText styleClass="ui-icon ui-icon-arrow-4 source_drag_icon"/>
+                    </p:column>
+                    <p:columns var="columnInstance" value="#{cc.children}">
+                        <f:facet name="header">
+                            <h:outputText value="#{columnInstance.headerText}" />
+                        </f:facet>
+                        <h:outputText value="#{columnInstance.children[0].value}" rendered="#{not empty columnInstance.children}" />
+                    </p:columns>
+                </p:dataTable>
+            </p:fieldset>
+
+            <p:outputPanel>
+                <p:commandButton icon="ui-icon-arrow-1-e"
+                                 oncomplete="filtering#{cc.clientId}();" action="#{cc.attrs.selectionBean.add}" id="btnAdd"/>
+                <br/>
+
+                <p:commandButton icon="ui-icon-arrowstop-1-e"
+                                 oncomplete="filtering#{cc.clientId}();" action="#{cc.attrs.selectionBean.addAll}" id="btnAddAll"/>
+                <br/>
+
+                <p:commandButton icon="ui-icon-arrow-1-w"
+                                 oncomplete="filtering#{cc.clientId}();" action="#{cc.attrs.selectionBean.remove}" id="btnRemove"/>
+                <br/>
+
+                <p:commandButton icon="ui-icon-arrowstop-1-w"
+                                 oncomplete="filtering#{cc.clientId}();" action="#{cc.attrs.selectionBean.removeAll}"
+                                 id="btnRemoveAll"/>
+            </p:outputPanel>
+
+            <p:fieldset legend="#{msg.selectManyMenuTargetTitle}" id="selected"
+                        style="padding:5px;" styleClass="droppable-element">
+                <p:dataTable var="item" id="target" widgetVar="#{cc.attrs.widgetPrefix}targetWV"
+                             value="#{cc.attrs.selectionBean.target}" pageLinks="5"
+                             filteredValue="#{cc.attrs.selectionBean.targetFiltered}" paginator="true"
+                             rowKey="#{item.id}" rows="10" paginatorAlwaysVisible="true"
+                             selectionMode="multiple" selection="#{cc.attrs.selectionBean.targetSelected}" lazy="false"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                    <p:columns var="columnInstance" value="#{cc.children}">
+                        <f:facet name="header">
+                            <h:outputText value="#{columnInstance.headerText}" />
+                        </f:facet>
+                        <h:outputText value="#{columnInstance.children[0].value}" rendered="#{not empty columnInstance.children}" />
+                    </p:columns>
+                </p:dataTable>
+            </p:fieldset>
+
+            <p:remoteCommand name="updateSourceDroppable#{cc.clientId}"
+                             actionListener="#{cc.attrs.selectionBean.changeShowSourceDroppable}"
+                             oncomplete="filtering#{cc.clientId}();"/>
+
+            <p:remoteCommand name="updateTargetDroppable#{cc.clientId}"
+                             actionListener="#{cc.attrs.selectionBean.changeShowTargetDroppable}"
+                             oncomplete="filtering#{cc.clientId}();"/>
+
+            <p:ajaxStatus oncomplete="addHandlerToSourceTable#{cc.clientId}(); addHandlerToTargetTable#{cc.clientId}();"/>
+
+            <script type="text/javascript">
+                //TODO ВЫНЕСТИ К ЕБЕНЯМ, ЗАЕБАЛ!
+                $(document).ready(function () {
+                    addHandlerToSourceTable#{cc.clientId}();
+                    addHandlerToTargetTable#{cc.clientId}();
+                });
+
+                function addHandlerToSourceTable#{cc.clientId}() {
+                    $(".ui-icon.ui-icon-arrow-4.source_drag_icon")
+                        .mousedown(function () {
+                            updateSourceDroppable#{cc.clientId}();
+                        });
+                    bindDragAndDrop#{cc.clientId}();
+                }
+
+                function addHandlerToTargetTable#{cc.clientId}() {
+                    $(".ui-icon.ui-icon-arrow-4.target_drag_icon")
+                        .mousedown(function () {
+                            updateTargetDroppable#{cc.clientId}();
+                        });
+                    bindDragAndDrop#{cc.clientId}();
+                }
+
+                function bindDragAndDrop#{cc.clientId}() {
+                    let tagElement = document.getElementById("#{cc.clientId}:tagContent");
+                    $(tagElement).find(".source_drag_icon").draggable({
+                        revert: true,
+                        cursor: 'crosshair',
+                        helper: "clone"
+                    });
+                    $(tagElement).find(".droppable-element").droppable({
+                        drop: function(event, ui) {
+                            let intoTarget = event.target.id.includes('selected');
+                            drop#{cc.clientId}([
+                                {name: 'id', value: $(ui.draggable[0]).parents("tr:first").attr('data-rk')},
+                                {name: 'intoTarget', value: intoTarget}
+                            ]);
+                        }
+                    });
+                }
+
+                function handleDrop(event, ui) {
+                    ui.draggable.fadeOut("fast");
+                }
+            </script>
+        </h:panelGrid>
+        <p:remoteCommand name="drop#{cc.clientId}" action="#{cc.attrs.selectionBean.onDrop}" oncomplete="filtering#{cc.clientId}();" />
+        <p:remoteCommand name="filtering#{cc.clientId}"
+                         update="#{cc.clientId}"
+                         oncomplete="PF('#{cc.attrs.widgetPrefix}sourceWV').filter(); PF('#{cc.attrs.widgetPrefix}sourceWV').paginator.setPage(0);
+                         PF('#{cc.attrs.widgetPrefix}targetWV').filter(); PF('#{cc.attrs.widgetPrefix}targetWV').paginator.setPage(0);
+                         bindDragAndDrop#{cc.clientId}();"/>
+    </p:outputPanel>
+</composite:implementation>
+</html>

@@ -1,0 +1,38 @@
+# Maven
+target/
+pom.xml.releaseBackup
+release.properties
+
+# IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Eclipse / NetBeans
+.classpath
+.project
+.settings/
+nbproject/
+build/
+
+# Compiled / packaged
+*.class
+*.war
+*.ear
+*.jar
+!src/main/webapp/WEB-INF/lib/*.jar
+
+# Logs
+*.log
+*.log.gz
+logs/
+
+# Local environment config (keep the .template)
+src/main/resources/hibernate.cfg.xml
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini

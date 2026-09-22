@@ -1,0 +1,13 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/tpl/EditBase.xhtml">
+<ui:param name="heading" value="#{msg.accessDenied}" />
+	<ui:param name="heading_top" value="#{msg.accessDenied}" />
+	<ui:define name="edit_body">
+		<div align = "center" class="form_content">
+					<h1>...<h:outputText value="#{msg.accessDenied}"/>...</h1>
+				</div>
+	</ui:define>
+</ui:composition>

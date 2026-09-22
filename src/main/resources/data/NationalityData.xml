@@ -1,0 +1,1424 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE something>
+<nationality>
+	<data_entry>
+		<code>999301</code>
+		<description>AFGHANISTAN</description>
+		<asl_region entity_field="code">301</asl_region>
+		<cfis>Z200</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999201</code>
+		<description>ALBANIA</description>
+		<asl_region entity_field="code">201</asl_region>
+		<cfis>Z100</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999401</code>
+		<description>ALGERIA</description>
+		<asl_region entity_field="code">401</asl_region>
+		<cfis>Z301</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999202</code>
+		<description>ANDORRA</description>
+		<asl_region entity_field="code">202</asl_region>
+		<cfis>Z101</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999402</code>
+		<description>ANGOLA</description>
+		<asl_region entity_field="code">402</asl_region>
+		<cfis>Z302</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999502</code>
+		<description>ANGUILLA (ISOLA)</description>
+		<asl_region entity_field="code">502</asl_region>
+		<cfis>Z529</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999503</code>
+		<description>ANTIGUA E BARBUDA</description>
+		<asl_region entity_field="code">503</asl_region>
+		<cfis>Z532</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999504</code>
+		<description>ANTILLE OLANDESI</description>
+		<asl_region entity_field="code">504</asl_region>
+		<cfis>Z501</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999302</code>
+		<description>ARABIA SAUDITA</description>
+		<asl_region entity_field="code">302</asl_region>
+		<cfis>Z203</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999602</code>
+		<description>ARGENTINA</description>
+		<asl_region entity_field="code">602</asl_region>
+		<cfis>Z600</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999358</code>
+		<description>ARMENIA</description>
+		<asl_region entity_field="code">358</asl_region>
+		<cfis>Z252</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999359</code>
+		<description>ARZEBAIGIAN</description>
+		<asl_region entity_field="code">359</asl_region>
+		<cfis>Z253</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999701</code>
+		<description>AUSTRALIA</description>
+		<asl_region entity_field="code">701</asl_region>
+		<cfis>Z700</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999203</code>
+		<description>AUSTRIA</description>
+		<asl_region entity_field="code">203</asl_region>
+		<cfis>Z102</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999505</code>
+		<description>BAHAMAS</description>
+		<asl_region entity_field="code">505</asl_region>
+		<cfis>Z502</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999304</code>
+		<description>BAHREIN</description>
+		<asl_region entity_field="code">304</asl_region>
+		<cfis>Z204</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999305</code>
+		<description>BANGLADESH</description>
+		<asl_region entity_field="code">305</asl_region>
+		<cfis>Z249</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999506</code>
+		<description>BARBADOS</description>
+		<asl_region entity_field="code">506</asl_region>
+		<cfis>Z522</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999206</code>
+		<description>BELGIO</description>
+		<asl_region entity_field="code">206</asl_region>
+		<cfis>Z103</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999507</code>
+		<description>BELIZE</description>
+		<asl_region entity_field="code">507</asl_region>
+		<cfis>Z512</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999406</code>
+		<description>BENIN</description>
+		<asl_region entity_field="code">406</asl_region>
+		<cfis>Z314</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999508</code>
+		<description>BERMUDA (ISOLE)</description>
+		<asl_region entity_field="code">508</asl_region>
+		<cfis>Z400</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999306</code>
+		<description>BHUTAN</description>
+		<asl_region entity_field="code">306</asl_region>
+		<cfis>Z205</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999256</code>
+		<description>BIELORUSSIA</description>
+		<asl_region entity_field="code">256</asl_region>
+		<cfis>Z139</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999604</code>
+		<description>BOLIVIA</description>
+		<asl_region entity_field="code">604</asl_region>
+		<cfis>Z601</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999252</code>
+		<description>BOSNIA-ERZEGOVINA</description>
+		<asl_region entity_field="code">252</asl_region>
+		<cfis>Z153</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999408</code>
+		<description>BOTSWANA</description>
+		<asl_region entity_field="code">408</asl_region>
+		<cfis>Z358</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999605</code>
+		<description>BRASILE</description>
+		<asl_region entity_field="code">605</asl_region>
+		<cfis>Z602</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999309</code>
+		<description>BRUNEI</description>
+		<asl_region entity_field="code">309</asl_region>
+		<cfis>Z207</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999209</code>
+		<description>BULGARIA</description>
+		<asl_region entity_field="code">209</asl_region>
+		<cfis>Z104</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999409</code>
+		<description>BURKINA FASO</description>
+		<asl_region entity_field="code">409</asl_region>
+		<cfis>Z354</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999410</code>
+		<description>BURUNDI</description>
+		<asl_region entity_field="code">410</asl_region>
+		<cfis>Z305</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999310</code>
+		<description>CAMBOGIA</description>
+		<asl_region entity_field="code">310</asl_region>
+		<cfis>Z208</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999411</code>
+		<description>CAMERUN</description>
+		<asl_region entity_field="code">411</asl_region>
+		<cfis>Z306</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999509</code>
+		<description>CANADA</description>
+		<asl_region entity_field="code">509</asl_region>
+		<cfis>Z401</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999413</code>
+		<description>CAPO VERDE</description>
+		<asl_region entity_field="code">413</asl_region>
+		<cfis>Z307</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999511</code>
+		<description>CAYMAN (ISOLE)</description>
+		<asl_region entity_field="code">511</asl_region>
+		<cfis>Z530</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999312</code>
+		<description>CHRISTMAS (ISOLA)</description>
+		<asl_region entity_field="code">312</asl_region>
+		<cfis>Z702</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999415</code>
+		<description>CIAD</description>
+		<asl_region entity_field="code">415</asl_region>
+		<cfis>Z309</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999606</code>
+		<description>CILE</description>
+		<asl_region entity_field="code">606</asl_region>
+		<cfis>Z603</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999314</code>
+		<description>CINA</description>
+		<asl_region entity_field="code">314</asl_region>
+		<cfis>Z210</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999315</code>
+		<description>CIPRO</description>
+		<asl_region entity_field="code">315</asl_region>
+		<cfis>Z211</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999246</code>
+		<description>CITTA' DEL VATICANO</description>
+		<asl_region entity_field="code">246</asl_region>
+		<cfis>Z106</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999318</code>
+		<description>COCOS (ISOLE)</description>
+		<asl_region entity_field="code">318</asl_region>
+		<cfis>Z212</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999608</code>
+		<description>COLOMBIA</description>
+		<asl_region entity_field="code">608</asl_region>
+		<cfis>Z604</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999417</code>
+		<description>COMORE</description>
+		<asl_region entity_field="code">417</asl_region>
+		<cfis>Z310</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999418</code>
+		<description>CONGO</description>
+		<asl_region entity_field="code">418</asl_region>
+		<cfis>Z311</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999463</code>
+		<description>CONGO</description>
+		<asl_region entity_field="code">463</asl_region>
+	</data_entry>
+	<data_entry>
+		<code>999702</code>
+		<description>COOK (ISOLE)</description>
+		<asl_region entity_field="code">702</asl_region>
+		<cfis>Z703</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999319</code>
+		<description>COREA DEL NORD</description>
+		<asl_region entity_field="code">319</asl_region>
+		<cfis>Z214</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999320</code>
+		<description>COREA DEL SUD</description>
+		<asl_region entity_field="code">320</asl_region>
+		<cfis>Z213</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999404</code>
+		<description>COSTA D'AVORIO</description>
+		<asl_region entity_field="code">404</asl_region>
+		<cfis>Z313</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999513</code>
+		<description>COSTA RICA</description>
+		<asl_region entity_field="code">513</asl_region>
+		<cfis>Z503</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999250</code>
+		<description>CROAZIA</description>
+		<asl_region entity_field="code">250</asl_region>
+		<cfis>Z149</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999514</code>
+		<description>CUBA</description>
+		<asl_region entity_field="code">514</asl_region>
+		<cfis>Z504</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999212</code>
+		<description>DANIMARCA</description>
+		<asl_region entity_field="code">212</asl_region>
+		<cfis>Z107</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999515</code>
+		<description>DOMINICA</description>
+		<asl_region entity_field="code">515</asl_region>
+		<cfis>Z526</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999609</code>
+		<description>ECUADOR</description>
+		<asl_region entity_field="code">609</asl_region>
+		<cfis>Z605</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999419</code>
+		<description>EGITTO</description>
+		<asl_region entity_field="code">419</asl_region>
+		<cfis>Z336</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999517</code>
+		<description>EL SALVADOR</description>
+		<asl_region entity_field="code">517</asl_region>
+		<cfis>Z506</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999322</code>
+		<description>EMIRATI ARABI UNITI</description>
+		<asl_region entity_field="code">322</asl_region>
+		<cfis>Z215</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999466</code>
+		<description>ERITREA</description>
+		<asl_region entity_field="code">466</asl_region>
+		<cfis>Z368</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999247</code>
+		<description>ESTONIA</description>
+		<asl_region entity_field="code">247</asl_region>
+		<cfis>Z144</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999420</code>
+		<description>ETIOPIA</description>
+		<asl_region entity_field="code">420</asl_region>
+		<cfis>Z315</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999213</code>
+		<description>FAER OER(ISOLE)</description>
+		<asl_region entity_field="code">213</asl_region>
+		<cfis>Z108</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999703</code>
+		<description>FIGI</description>
+		<asl_region entity_field="code">703</asl_region>
+		<cfis>Z704</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999323</code>
+		<description>FILIPPINE</description>
+		<asl_region entity_field="code">323</asl_region>
+		<cfis>Z216</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999214</code>
+		<description>FINLANDIA</description>
+		<asl_region entity_field="code">214</asl_region>
+		<cfis>Z109</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999215</code>
+		<description>FRANCIA</description>
+		<asl_region entity_field="code">215</asl_region>
+		<cfis>Z110</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999421</code>
+		<description>GABON</description>
+		<asl_region entity_field="code">421</asl_region>
+		<cfis>Z316</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999422</code>
+		<description>GAMBIA</description>
+		<asl_region entity_field="code">422</asl_region>
+		<cfis>Z317</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999360</code>
+		<description>GEORGIA</description>
+		<asl_region entity_field="code">360</asl_region>
+		<cfis>Z254</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999216</code>
+		<description>GERMANIA</description>
+		<asl_region entity_field="code">216</asl_region>
+		<cfis>Z112</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999423</code>
+		<description>GHANA</description>
+		<asl_region entity_field="code">423</asl_region>
+		<cfis>Z318</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999518</code>
+		<description>GIAMAICA</description>
+		<asl_region entity_field="code">518</asl_region>
+		<cfis>Z507</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999326</code>
+		<description>GIAPPONE</description>
+		<asl_region entity_field="code">326</asl_region>
+		<cfis>Z219</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999218</code>
+		<description>GIBILTERRA</description>
+		<asl_region entity_field="code">218</asl_region>
+		<cfis>Z113</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999424</code>
+		<description>GIBUTI</description>
+		<asl_region entity_field="code">424</asl_region>
+		<cfis>Z361</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999327</code>
+		<description>GIORDANIA</description>
+		<asl_region entity_field="code">327</asl_region>
+		<cfis>Z220</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999219</code>
+		<description>GRAN BRETAGNA</description>
+		<asl_region entity_field="code">219</asl_region>
+		<cfis>Z114</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999220</code>
+		<description>GRECIA</description>
+		<asl_region entity_field="code">220</asl_region>
+		<cfis>Z115</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999519</code>
+		<description>GRENADA</description>
+		<asl_region entity_field="code">519</asl_region>
+		<cfis>Z524</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999520</code>
+		<description>GROENLANDIA</description>
+		<asl_region entity_field="code">520</asl_region>
+		<cfis>Z402</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999521</code>
+		<description>GUADALUPA</description>
+		<asl_region entity_field="code">521</asl_region>
+		<cfis>Z508</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999613</code>
+		<description>GUAIANA FRANCESE</description>
+		<asl_region entity_field="code">613</asl_region>
+		<cfis>Z607</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999523</code>
+		<description>GUATEMALA</description>
+		<asl_region entity_field="code">523</asl_region>
+		<cfis>Z509</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999425</code>
+		<description>GUINEA</description>
+		<asl_region entity_field="code">425</asl_region>
+		<cfis>Z319</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999426</code>
+		<description>GUINEA BISSAU</description>
+		<asl_region entity_field="code">426</asl_region>
+		<cfis>Z320</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999427</code>
+		<description>GUINEA EQUATORIALE</description>
+		<asl_region entity_field="code">427</asl_region>
+		<cfis>Z321</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999612</code>
+		<description>GUYANA</description>
+		<asl_region entity_field="code">612</asl_region>
+		<cfis>Z606</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999524</code>
+		<description>HAITI</description>
+		<asl_region entity_field="code">524</asl_region>
+		<cfis>Z510</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999525</code>
+		<description>HONDURAS</description>
+		<asl_region entity_field="code">525</asl_region>
+		<cfis>Z511</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999330</code>
+		<description>INDIA</description>
+		<asl_region entity_field="code">330</asl_region>
+		<cfis>Z222</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999331</code>
+		<description>INDONESIA</description>
+		<asl_region entity_field="code">331</asl_region>
+		<cfis>Z223</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999332</code>
+		<description>IRAN</description>
+		<asl_region entity_field="code">332</asl_region>
+		<cfis>Z224</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999333</code>
+		<description>IRAQ</description>
+		<asl_region entity_field="code">333</asl_region>
+		<cfis>Z225</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999706</code>
+		<description>IRIAN OCCIDENTALE</description>
+		<asl_region entity_field="code">706</asl_region>
+		<cfis>Z707</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999722</code>
+		<description>ISOLA DI PASQUA</description>
+		<asl_region entity_field="code">722</asl_region>
+		<cfis>Z721</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999610</code>
+		<description>ISOLE FALKLAND</description>
+		<asl_region entity_field="code">610</asl_region>
+		<cfis>Z609</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999711</code>
+		<description>ISOLE MARIANNE</description>
+		<asl_region entity_field="code">711</asl_region>
+		<cfis>Z710</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999714</code>
+		<description>ISOLE MIDWAY</description>
+		<asl_region entity_field="code">714</asl_region>
+		<cfis>Z712</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999729</code>
+		<description>ISOLE TOKELAU</description>
+		<asl_region entity_field="code">729</asl_region>
+		<cfis>Z727</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999734</code>
+		<description>ISOLE WALLIS E FUTUNA</description>
+		<asl_region entity_field="code">734</asl_region>
+		<cfis>Z729</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999334</code>
+		<description>ISRAELE</description>
+		<asl_region entity_field="code">334</asl_region>
+		<cfis>Z226</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999356</code>
+		<description>KAZAKISTAN</description>
+		<asl_region entity_field="code">356</asl_region>
+		<cfis>Z255</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999428</code>
+		<description>KENIA</description>
+		<asl_region entity_field="code">428</asl_region>
+		<cfis>Z322</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999361</code>
+		<description>KIRGHIZISTAN</description>
+		<asl_region entity_field="code">361</asl_region>
+		<cfis>Z256</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999708</code>
+		<description>KIRIBATI</description>
+		<asl_region entity_field="code">708</asl_region>
+		<cfis>Z731</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999272</code>
+		<description>KOSOVO</description>
+		<asl_region entity_field="code">272</asl_region>
+		<cfis>Z160</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999335</code>
+		<description>KUWAIT</description>
+		<asl_region entity_field="code">335</asl_region>
+		<cfis>Z227</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999336</code>
+		<description>LAOS</description>
+		<asl_region entity_field="code">336</asl_region>
+		<cfis>Z228</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999429</code>
+		<description>LESOTHO</description>
+		<asl_region entity_field="code">429</asl_region>
+		<cfis>Z359</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999248</code>
+		<description>LETTONIA</description>
+		<asl_region entity_field="code">248</asl_region>
+		<cfis>Z145</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999337</code>
+		<description>LIBANO</description>
+		<asl_region entity_field="code">337</asl_region>
+		<cfis>Z229</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999430</code>
+		<description>LIBERIA</description>
+		<asl_region entity_field="code">430</asl_region>
+		<cfis>Z325</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999431</code>
+		<description>LIBIA</description>
+		<asl_region entity_field="code">431</asl_region>
+		<cfis>Z326</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999225</code>
+		<description>LIECHTENSTEIN</description>
+		<asl_region entity_field="code">225</asl_region>
+		<cfis>Z119</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999249</code>
+		<description>LITUANIA</description>
+		<asl_region entity_field="code">249</asl_region>
+		<cfis>Z146</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999226</code>
+		<description>LUSSEMBURGO</description>
+		<asl_region entity_field="code">226</asl_region>
+		<cfis>Z120</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999338</code>
+		<description>MACAO</description>
+		<asl_region entity_field="code">338</asl_region>
+		<cfis>Z231</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999253</code>
+		<description>MACEDONIA</description>
+		<asl_region entity_field="code">253</asl_region>
+		<cfis>Z148</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999432</code>
+		<description>MADAGASCAR</description>
+		<asl_region entity_field="code">432</asl_region>
+		<cfis>Z327</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999434</code>
+		<description>MALAWI</description>
+		<asl_region entity_field="code">434</asl_region>
+		<cfis>Z328</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999340</code>
+		<description>MALAYSIA</description>
+		<asl_region entity_field="code">340</asl_region>
+		<cfis>Z247</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999339</code>
+		<description>MALDIVE</description>
+		<asl_region entity_field="code">339</asl_region>
+		<cfis>Z232</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999435</code>
+		<description>MALI</description>
+		<asl_region entity_field="code">435</asl_region>
+		<cfis>Z329</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999227</code>
+		<description>MALTA</description>
+		<asl_region entity_field="code">227</asl_region>
+		<cfis>Z121</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999228</code>
+		<description>MAN (ISOLA)</description>
+		<asl_region entity_field="code">228</asl_region>
+		<cfis>Z122</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999709</code>
+		<description>MAQUARIE (ISOLE)</description>
+		<asl_region entity_field="code">709</asl_region>
+		<cfis>Z708</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999436</code>
+		<description>MAROCCO</description>
+		<asl_region entity_field="code">436</asl_region>
+		<cfis>Z330</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999712</code>
+		<description>MARSHALL</description>
+		<asl_region entity_field="code">712</asl_region>
+		<cfis>Z711</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999526</code>
+		<description>MARTINICA</description>
+		<asl_region entity_field="code">526</asl_region>
+		<cfis>Z513</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999437</code>
+		<description>MAURITANIA</description>
+		<asl_region entity_field="code">437</asl_region>
+		<cfis>Z331</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999438</code>
+		<description>MAURITIUS</description>
+		<asl_region entity_field="code">438</asl_region>
+		<cfis>Z332</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999439</code>
+		<description>MAYOTTE (ISOLA)</description>
+		<asl_region entity_field="code">439</asl_region>
+		<cfis>Z360</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999527</code>
+		<description>MESSICO</description>
+		<asl_region entity_field="code">527</asl_region>
+		<cfis>Z514</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999713</code>
+		<description>MICRONESIA STATI FEDERATI</description>
+		<asl_region entity_field="code">713</asl_region>
+		<cfis>Z735</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999254</code>
+		<description>MOLDOVA</description>
+		<asl_region entity_field="code">254</asl_region>
+		<cfis>Z140</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999341</code>
+		<description>MONGOLIA</description>
+		<asl_region entity_field="code">341</asl_region>
+		<cfis>Z233</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999270</code>
+		<description>MONTENEGRO</description>
+		<asl_region entity_field="code">270</asl_region>
+		<cfis>Z159</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999528</code>
+		<description>MONTSERRAT</description>
+		<asl_region entity_field="code">528</asl_region>
+		<cfis>Z531</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999440</code>
+		<description>MOZAMBICO</description>
+		<asl_region entity_field="code">440</asl_region>
+		<cfis>Z333</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999307</code>
+		<description>MYANMAR (EX BIRMANIA)</description>
+		<asl_region entity_field="code">307</asl_region>
+		<cfis>Z206</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999441</code>
+		<description>NAMIBIA</description>
+		<asl_region entity_field="code">441</asl_region>
+		<cfis>Z300</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999715</code>
+		<description>NAURU</description>
+		<asl_region entity_field="code">715</asl_region>
+		<cfis>Z713</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999342</code>
+		<description>NEPAL</description>
+		<asl_region entity_field="code">342</asl_region>
+		<cfis>Z234</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999529</code>
+		<description>NICARAGUA</description>
+		<asl_region entity_field="code">529</asl_region>
+		<cfis>Z515</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999442</code>
+		<description>NIGER</description>
+		<asl_region entity_field="code">442</asl_region>
+		<cfis>Z334</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999443</code>
+		<description>NIGERIA</description>
+		<asl_region entity_field="code">443</asl_region>
+		<cfis>Z335</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999716</code>
+		<description>NIUE (ISOLA)</description>
+		<asl_region entity_field="code">716</asl_region>
+		<cfis>Z714</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999717</code>
+		<description>NORFOLK (ISOLE)</description>
+		<asl_region entity_field="code">717</asl_region>
+		<cfis>Z715</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999230</code>
+		<description>NORMANNE (ISOLE)</description>
+		<asl_region entity_field="code">230</asl_region>
+		<cfis>Z124</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999231</code>
+		<description>NORVEGIA</description>
+		<asl_region entity_field="code">231</asl_region>
+		<cfis>Z125</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999718</code>
+		<description>NUOVA CALEDONIA (ISOLE)</description>
+		<asl_region entity_field="code">718</asl_region>
+		<cfis>Z716</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999719</code>
+		<description>NUOVA ZELANDA</description>
+		<asl_region entity_field="code">719</asl_region>
+		<cfis>Z719</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999343</code>
+		<description>OMAN</description>
+		<asl_region entity_field="code">343</asl_region>
+		<cfis>Z235</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999232</code>
+		<description>PAESI BASSI</description>
+		<asl_region entity_field="code">232</asl_region>
+		<cfis>Z126</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999344</code>
+		<description>PAKISTAN</description>
+		<asl_region entity_field="code">344</asl_region>
+		<cfis>Z236</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999720</code>
+		<description>PALAU</description>
+		<asl_region entity_field="code">720</asl_region>
+		<cfis>Z734</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999530</code>
+		<description>PANAMA</description>
+		<asl_region entity_field="code">530</asl_region>
+		<cfis>Z516</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999510</code>
+		<description>PANAMA ZONA DEL CANALE</description>
+		<asl_region entity_field="code">510</asl_region>
+		<cfis>Z517</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999721</code>
+		<description>PAPUASIA NUOVA GUINEA</description>
+		<asl_region entity_field="code">721</asl_region>
+		<cfis>Z730</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999614</code>
+		<description>PARAGUAY</description>
+		<asl_region entity_field="code">614</asl_region>
+		<cfis>Z610</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999615</code>
+		<description>PERU'</description>
+		<asl_region entity_field="code">615</asl_region>
+		<cfis>Z611</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999723</code>
+		<description>PITCAIRN (ISOLA)</description>
+		<asl_region entity_field="code">723</asl_region>
+		<cfis>Z722</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999724</code>
+		<description>POLINESIA FRANCESE</description>
+		<asl_region entity_field="code">724</asl_region>
+		<cfis>Z723</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999233</code>
+		<description>POLONIA</description>
+		<asl_region entity_field="code">233</asl_region>
+		<cfis>Z127</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999234</code>
+		<description>PORTOGALLO</description>
+		<asl_region entity_field="code">234</asl_region>
+		<cfis>Z128</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999229</code>
+		<description>PRINCIPATO DI MONACO</description>
+		<asl_region entity_field="code">229</asl_region>
+		<cfis>Z123</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999531</code>
+		<description>PUERTO RICO</description>
+		<asl_region entity_field="code">531</asl_region>
+		<cfis>Z518</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999345</code>
+		<description>QATAR</description>
+		<asl_region entity_field="code">345</asl_region>
+		<cfis>Z237</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999257</code>
+		<description>REPUBBLICA CECA</description>
+		<asl_region entity_field="code">257</asl_region>
+		<cfis>Z156</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999414</code>
+		<description>REPUBBLICA CENTRAFRICANA</description>
+		<asl_region entity_field="code">414</asl_region>
+		<cfis>Z308</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999516</code>
+		<description>REPUBBLICA DOMINICANA</description>
+		<asl_region entity_field="code">516</asl_region>
+		<cfis>Z505</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999454</code>
+		<description>REPUBBLICA SUDAFRICANA</description>
+		<asl_region entity_field="code">454</asl_region>
+		<cfis>Z347</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999235</code>
+		<description>ROMANIA</description>
+		<asl_region entity_field="code">235</asl_region>
+		<cfis>Z129</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999446</code>
+		<description>RUANDA</description>
+		<asl_region entity_field="code">446</asl_region>
+		<cfis>Z338</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999245</code>
+		<description>RUSSIA</description>
+		<asl_region entity_field="code">245</asl_region>
+		<cfis>Z154</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999534</code>
+		<description>SAINT KITTS E NEVIS</description>
+		<asl_region entity_field="code">534</asl_region>
+		<cfis>Z533</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999535</code>
+		<description>SAINT PIERRE ET MIQUELON (ISOLE)</description>
+		<asl_region entity_field="code">535</asl_region>
+		<cfis>Z403</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999533</code>
+		<description>SAINT VINCENT E GRENADINE</description>
+		<asl_region entity_field="code">533</asl_region>
+		<cfis>Z528</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999725</code>
+		<description>SALOMONE</description>
+		<asl_region entity_field="code">725</asl_region>
+	</data_entry>
+	<data_entry>
+		<code>999727</code>
+		<description>SAMOA</description>
+		<asl_region entity_field="code">727</asl_region>
+		<cfis>Z726</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999726</code>
+		<description>SAMOA AMERICANE (ISOLE)</description>
+		<asl_region entity_field="code">726</asl_region>
+		<cfis>Z725</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999236</code>
+		<description>SAN MARINO</description>
+		<asl_region entity_field="code">236</asl_region>
+		<cfis>Z130</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999532</code>
+		<description>SANTA LUCIA</description>
+		<asl_region entity_field="code">532</asl_region>
+		<cfis>Z527</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999447</code>
+		<description>SANT'ELENA</description>
+		<asl_region entity_field="code">447</asl_region>
+		<cfis>Z340</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999448</code>
+		<description>SAO TOME E PRINCIPE</description>
+		<asl_region entity_field="code">448</asl_region>
+		<cfis>Z341</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999450</code>
+		<description>SENEGAL</description>
+		<asl_region entity_field="code">450</asl_region>
+		<cfis>Z343</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999999</code>
+		<description>SENZA FISSA DIMORA/NON DEFINITO</description>
+		<asl_region entity_field="code">999</asl_region>
+	</data_entry>
+	<data_entry>
+		<code>999271</code>
+		<description>SERBIA</description>
+		<asl_region entity_field="code">271</asl_region>
+		<cfis>Z158</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999449</code>
+		<description>SEYCHELLES</description>
+		<asl_region entity_field="code">449</asl_region>
+		<cfis>Z342</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999451</code>
+		<description>SIERRA LEONE</description>
+		<asl_region entity_field="code">451</asl_region>
+		<cfis>Z344</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999346</code>
+		<description>SINGAPORE</description>
+		<asl_region entity_field="code">346</asl_region>
+		<cfis>Z248</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999348</code>
+		<description>SIRIA</description>
+		<asl_region entity_field="code">348</asl_region>
+		<cfis>Z240</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999255</code>
+		<description>SLOVACCHIA</description>
+		<asl_region entity_field="code">255</asl_region>
+		<cfis>Z155</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999251</code>
+		<description>SLOVENIA</description>
+		<asl_region entity_field="code">251</asl_region>
+		<cfis>Z150</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999453</code>
+		<description>SOMALIA</description>
+		<asl_region entity_field="code">453</asl_region>
+		<cfis>Z345</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999239</code>
+		<description>SPAGNA</description>
+		<asl_region entity_field="code">239</asl_region>
+		<cfis>Z131</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999311</code>
+		<description>SRI LANKA</description>
+		<asl_region entity_field="code">311</asl_region>
+		<cfis>Z209</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999536</code>
+		<description>STATI UNITI D'AMERICA</description>
+		<asl_region entity_field="code">536</asl_region>
+		<cfis>Z404</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999455</code>
+		<description>SUDAN</description>
+		<asl_region entity_field="code">455</asl_region>
+		<cfis>Z348</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999616</code>
+		<description>SURINAME</description>
+		<asl_region entity_field="code">616</asl_region>
+		<cfis>Z608</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999240</code>
+		<description>SVEZIA</description>
+		<asl_region entity_field="code">240</asl_region>
+		<cfis>Z132</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999241</code>
+		<description>SVIZZERA</description>
+		<asl_region entity_field="code">241</asl_region>
+		<cfis>Z133</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999456</code>
+		<description>SWAZILAND</description>
+		<asl_region entity_field="code">456</asl_region>
+		<cfis>Z349</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999362</code>
+		<description>TAGIKISTAN</description>
+		<asl_region entity_field="code">362</asl_region>
+		<cfis>Z257</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999363</code>
+		<description>TAIWAN</description>
+		<asl_region entity_field="code">363</asl_region>
+		<cfis>Z217</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999457</code>
+		<description>TANZANIA</description>
+		<asl_region entity_field="code">457</asl_region>
+		<cfis>Z357</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999324</code>
+		<description>TERRITORIO DI GAZA</description>
+		<asl_region entity_field="code">324</asl_region>
+		<cfis>Z218</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999349</code>
+		<description>THAILANDIA</description>
+		<asl_region entity_field="code">349</asl_region>
+		<cfis>Z241</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999458</code>
+		<description>TOGO</description>
+		<asl_region entity_field="code">458</asl_region>
+		<cfis>Z351</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999730</code>
+		<description>TONGA</description>
+		<asl_region entity_field="code">730</asl_region>
+		<cfis>Z728</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999617</code>
+		<description>TRINIDAD E TOBAGO</description>
+		<asl_region entity_field="code">617</asl_region>
+		<cfis>Z612</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999460</code>
+		<description>TUNISIA</description>
+		<asl_region entity_field="code">460</asl_region>
+		<cfis>Z352</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999351</code>
+		<description>TURCHIA</description>
+		<asl_region entity_field="code">351</asl_region>
+		<cfis>Z243</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999364</code>
+		<description>TURKMENISTAN</description>
+		<asl_region entity_field="code">364</asl_region>
+		<cfis>Z258</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999537</code>
+		<description>TURKS E CAICOS (ISOLE)</description>
+		<asl_region entity_field="code">537</asl_region>
+		<cfis>Z519</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999731</code>
+		<description>TUVALU</description>
+		<asl_region entity_field="code">731</asl_region>
+		<cfis>Z732</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999243</code>
+		<description>UCRAINA</description>
+		<asl_region entity_field="code">243</asl_region>
+		<cfis>Z138</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999461</code>
+		<description>UGANDA</description>
+		<asl_region entity_field="code">461</asl_region>
+		<cfis>Z353</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999244</code>
+		<description>UNGHERIA</description>
+		<asl_region entity_field="code">244</asl_region>
+		<cfis>Z134</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999618</code>
+		<description>URUGUAY</description>
+		<asl_region entity_field="code">618</asl_region>
+		<cfis>Z613</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999357</code>
+		<description>UZBEKISTAN</description>
+		<asl_region entity_field="code">357</asl_region>
+		<cfis>Z259</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999732</code>
+		<description>VANUATU</description>
+		<asl_region entity_field="code">732</asl_region>
+		<cfis>Z733</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999619</code>
+		<description>VENEZUELA</description>
+		<asl_region entity_field="code">619</asl_region>
+		<cfis>Z614</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999538</code>
+		<description>VERGINI AMERICANE (ISOLE)</description>
+		<asl_region entity_field="code">538</asl_region>
+		<cfis>Z520</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999539</code>
+		<description>VERGINI BRITANNICHE (ISOLE)</description>
+		<asl_region entity_field="code">539</asl_region>
+		<cfis>Z525</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999353</code>
+		<description>VIETNAM</description>
+		<asl_region entity_field="code">353</asl_region>
+		<cfis>Z251</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999354</code>
+		<description>YEMEN</description>
+		<asl_region entity_field="code">354</asl_region>
+		<cfis>Z246</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999464</code>
+		<description>ZAMBIA</description>
+		<asl_region entity_field="code">464</asl_region>
+		<cfis>Z355</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999465</code>
+		<description>ZIMBABWE</description>
+		<asl_region entity_field="code">465</asl_region>
+		<cfis>Z337</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999221</code>
+		<description>IRLANDA</description>
+		<asl_region entity_field="code">221</asl_region>
+		<cfis>Z116</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999223</code>
+		<description>ISLANDA</description>
+		<asl_region entity_field="code">223</asl_region>
+		<cfis>Z117</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999445</code>
+		<description>ISOLA DELLA RIUNIONE</description>
+		<asl_region entity_field="code">445</asl_region>
+		<cfis>Z324</cfis>
+	</data_entry>
+	<data_entry>
+		<code>999704</code>
+		<description>ISOLA DI GUAM</description>
+		<asl_region entity_field="code">704</asl_region>
+		<cfis>Z706</cfis>
+	</data_entry>
+	<data_entry>
+		<description>ITALIA</description>
+	</data_entry>
+	<data_entry>
+		<code>999901</code>
+		<description>UNIONE SOVIETICA</description>
+	</data_entry>
+</nationality>

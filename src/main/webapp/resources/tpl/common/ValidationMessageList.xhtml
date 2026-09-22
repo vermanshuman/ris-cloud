@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+	<h:panelGroup>
+
+		<h:panelGroup rendered="#{!empty bean.exceptions}" layout="block"
+			styleClass="ui-messages ui-widget">
+			<div class="ui-messages-error ui-corner-all">
+				<a onclick="$(this).parent().slideUp();return false;"
+					class="ui-messages-close" href="#"><span
+					class="ui-icon ui-icon-close"></span></a> <span
+					class="ui-messages-error-icon"></span>
+				<ul>
+					<li><span class="ui-messages-error-summary">#{val.validationFailed}</span></li>
+					<ui:repeat value="#{bean.exceptions}" var="exception">
+						<span class="ui-messages-error-detail"> <h:outputText
+								value="#{exception}" escape="false" />#{errorAction}
+						</span>
+						<br />
+					</ui:repeat>
+					<p:commandLink rendered="#{not empty command_link_value}"
+						onclick="#{command_link_action}" value="#{command_link_value}" />
+				</ul>
+			</div>
+		</h:panelGroup>
+
+	</h:panelGroup>
+</ui:composition>

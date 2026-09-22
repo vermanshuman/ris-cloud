@@ -1,0 +1,1800 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE something>
+<asl>
+	<data_entry>
+		<code>50120</code>
+		<description>VERONA</description>
+		<address>VIA VALVERDE, 42</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>50121</code>
+		<description>LEGNAGO</description>
+		<address>VIA GIANELLA 1</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>50122</code>
+		<description>BUSSOLENGO</description>
+		<address>VILLA SPINOLA</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>60101</code>
+		<description>TRIESTINA</description>
+		<address>VIA DEL FARNETO 3</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>60102</code>
+		<description>ISONTINA</description>
+		<address>VIA VITTORIO VENETO 24</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>60103</code>
+		<description>ALTO FRIULI</description>
+		<address>P.ZA PORTUZZA, 1</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>60104</code>
+		<description>MEDIO FRIULI</description>
+		<address>VIA COLUGNA 50</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>60105</code>
+		<description>BASSA FRIULANA</description>
+		<address>VIA NATISONE-FRAZ. JALMICCO</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>60106</code>
+		<description>FRIULI OCCIDENTALE</description>
+		<address>VIA DELLA VECCHIA CERAMICA</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>70101</code>
+		<description>IMPERIESE</description>
+		<address>VIA AURELIA, 97</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>70102</code>
+		<description>SAVONESE</description>
+		<address>VIA PALEOCAPA 22</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>70103</code>
+		<description>GENOVESE</description>
+		<address>VIA G. MAGGIO 6</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>70104</code>
+		<description>CHIAVARESE</description>
+		<address>VIA C.B.GHIO 9</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>70105</code>
+		<description>SPEZZINO</description>
+		<address>VIA XXIV MAGGIO 139</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>80101</code>
+		<description>PIACENZA</description>
+		<address>VIA TAVERNA, 49</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>80102</code>
+		<description>PARMA</description>
+		<address>VIALE CONFORTI 21</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>80103</code>
+		<description>REGGIO EMILIA</description>
+		<address>VIA AMENDOLA 2</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>80104</code>
+		<description>MODENA</description>
+		<address>VIA S.G.DEL CANTONE 23</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>80105</code>
+		<description>BOLOGNA</description>
+		<address>VIA CASTIGLIONE 29</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>80106</code>
+		<description>IMOLA</description>
+		<address>VIA AMENDOLA 2</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>80109</code>
+		<description>FERRARA</description>
+		<address>VIA A.CASSOLI 30</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>80110</code>
+		<description>RAVENNA</description>
+		<address>VIA A. DE GASPERI 8</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>80111</code>
+		<description>FORLI'</description>
+		<address>CORSO REPUBBLICA 171/D</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>80112</code>
+		<description>CESENA</description>
+		<address>C.SO GARIBALDI 12</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>80113</code>
+		<description>RIMINI</description>
+		<address>VIA DUCALE 5</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>90101</code>
+		<description>MASSA CARRARA</description>
+		<address>VIA DON MINZONI 3</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>90102</code>
+		<description>LUCCA</description>
+		<address>V. PER S.ALESSIO M.S. QUIRI</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>90103</code>
+		<description>PISTOIA</description>
+		<address>VIALE MATTEOTTI 35</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>90104</code>
+		<description>PRATO</description>
+		<address>VIALE DELLA REPUBBLICA 240</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>90105</code>
+		<description>PISA</description>
+		<address>VIA ZAMENHOF 1</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>90106</code>
+		<description>LIVORNO</description>
+		<address>VIA MONTEROTONDO 49</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>90107</code>
+		<description>SIENA</description>
+		<address>VIA ROMA 75/76</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>90108</code>
+		<description>AREZZO</description>
+		<address>VIA FONTE VENEZIANA 8</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>90109</code>
+		<description>GROSSETO</description>
+		<address>VIA MONTELEONI 6/B</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>90110</code>
+		<description>FIRENZE</description>
+		<address>P.ZZA S.MARIA NUOVA 1</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>90111</code>
+		<description>EMPOLI</description>
+		<address>P.ZZA XXIV LUGLIO 1</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>90112</code>
+		<description>VERSILIA</description>
+		<address>VIA VETRAIA 5</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>90701</code>
+		<description>ESTAV CENTRO TOSCANA</description>
+		<address>VIALE MICHELANGIOLO 41</address>
+		<start_date>01.01.2007 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>90702</code>
+		<description>ESTAV NORD OVEST TOSCANA</description>
+		<address>VIA ZAMENHOF 1</address>
+		<start_date>01.01.2007 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>90703</code>
+		<description>ESTAV SUD EST TOSCANA</description>
+		<address>STRADA LE SCOTTE 14</address>
+		<start_date>01.01.2007 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>100101</code>
+		<description>CITTA' DI CASTELLO</description>
+		<address>C.SO VITTORIO EMANUELE 2</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>100102</code>
+		<description>PERUGIA</description>
+		<address>VIA GUERRA</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>100103</code>
+		<description>FOLIGNO</description>
+		<address>VIA FRANCO CIRI 25</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>100204</code>
+		<description>TERNI</description>
+		<address>VIA G. DI VITTORIO 2</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>110101</code>
+		<description>PESARO</description>
+		<address>VIA SABBATINI 22</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>03.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>110102</code>
+		<description>URBINO</description>
+		<address>VIA PUCCINOTTI 33</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>03.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>110103</code>
+		<description>FANO</description>
+		<address>VIA CECCARINI 38</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>03.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>110104</code>
+		<description>SENIGALLIA</description>
+		<address>VIA B. CELLINI 13</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>03.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>110105</code>
+		<description>JESI</description>
+		<address>VIA GALLODORO 68</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>03.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>110106</code>
+		<description>FABRIANO</description>
+		<address>V. MARTIRI DELLA LIBERTA` 5</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>03.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>110107</code>
+		<description>ANCONA</description>
+		<address>VIA XXV APRILE 30</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>03.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>110108</code>
+		<description>CIVITANOVA MARCHE</description>
+		<address>P.ZZA GARIBALDI 8 (EX-OSP.)</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>03.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>110109</code>
+		<description>MACERATA</description>
+		<address>VIA BELVEDERE SANZIO 1</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>03.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>110110</code>
+		<description>CAMERINO</description>
+		<address>VIA XX SETTEMBRE</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>03.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>110111</code>
+		<description>FERMO</description>
+		<address>VIA STRABBONE 2</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>03.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>110112</code>
+		<description>S. BENEDETTO DEL TRONTO</description>
+		<address>VIA L. MANARA</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>03.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>110113</code>
+		<description>ASCOLI PICENO</description>
+		<address>V.LE DELLA RIMEMBRANZA</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>03.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>110201</code>
+		<description>ASUR - MARCHE</description>
+		<address>VIA CADUTI DEL LAVORO, 40</address>
+		<start_date>04.01.2007 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>120101</code>
+		<description>ROMA A</description>
+		<address>VIA ARIOSTO 3</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>120102</code>
+		<description>ROMA B</description>
+		<address>VIA F. MEDA 35</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>120103</code>
+		<description>ROMA C</description>
+		<address>VIA AMBA ARADAM 9</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>120104</code>
+		<description>ROMA D</description>
+		<address>VIA PORTUENSE 332</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>120105</code>
+		<description>ROMA E</description>
+		<address>B.GO S. SPIRITO 3</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>120106</code>
+		<description>ROMA F</description>
+		<address>VIA TERME DI TRAIANO</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>120107</code>
+		<description>ROMA G</description>
+		<address>VIA PARROZZANI 3</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>120108</code>
+		<description>ROMA H</description>
+		<address>B.GO GARIBALDI 12</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>120109</code>
+		<description>VITERBO</description>
+		<address>VIA SAN LORENZO 101</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>120110</code>
+		<description>RIETI</description>
+		<address>VIA MATTEUCCI 9</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>120111</code>
+		<description>LATINA</description>
+		<address>L.GO A. CELLI 8</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>120112</code>
+		<description>FROSINONE</description>
+		<address>VIALE A. FABI</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>130101</code>
+		<description>AVEZZANO/SULMONA</description>
+		<address>C.SO UMBERTO I 35</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>09.30.2010 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>130102</code>
+		<description>CHIETI</description>
+		<address>V. DEI MARTIRI LANCIANESI 1</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>09.30.2010 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>130103</code>
+		<description>LANCIANO/VASTO</description>
+		<address>V.LE CAPPUCCINI 43</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>09.30.2010 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>130104</code>
+		<description>L'AQUILA</description>
+		<address>VIA XX SETTEMBRE 26</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>09.30.2010 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>130105</code>
+		<description>PESCARA</description>
+		<address>VIA MICHELANGELO 18</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>09.30.2010 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>130106</code>
+		<description>TERAMO</description>
+		<address>CIRC.NE RAGUSA 1</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>09.30.2010 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>130201</code>
+		<description>AVEZZANO/SULMONA/L'AQUILA</description>
+		<address>C.SO UMBERTO I 35</address>
+		<start_date>01.01.2010 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>130202</code>
+		<description>LANCIANO/VASTO/CHIETI</description>
+		<address>V. DEI MARTIRI LANCIANESI 1</address>
+		<start_date>01.01.2010 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>130203</code>
+		<description>PESCARA</description>
+		<address>V.LE CAPPUCCINI 43</address>
+		<start_date>01.01.2010 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>130204</code>
+		<description>TERAMO</description>
+		<address>VIA XX SETTEMBRE 26</address>
+		<start_date>01.01.2010 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>140101</code>
+		<description>ALTO MOLISE</description>
+		<address>VIA MARCONI 22</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>03.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>140102</code>
+		<description>PENTRIA</description>
+		<address>C/O OSP. - LARGO CAPPUCCINI</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>03.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>140103</code>
+		<description>CENTRO MOLISE</description>
+		<address>VIA PETRELLA 1</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>03.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>140104</code>
+		<description>BASSO MOLISE</description>
+		<address>C.SO UMBERTO I 56</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>03.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>140201</code>
+		<description>ASREM - MOLISE</description>
+		<address>VIA PETRELLA 1</address>
+		<start_date>04.01.2007 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>150101</code>
+		<description>AVELLINO 1</description>
+		<address>P.ZZA MAZZINI</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>06.30.2009 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>150102</code>
+		<description>AVELLINO 2</description>
+		<address>VIA DEGLI IMBIMBO 4</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>06.30.2009 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>150103</code>
+		<description>BENEVENTO 1</description>
+		<address>VIA DELL`ANGELO 1</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>06.30.2009 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>150104</code>
+		<description>CASERTA 1</description>
+		<address>C.SO TRIESTE 271</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>06.30.2009 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>150105</code>
+		<description>CASERTA 2</description>
+		<address>VIA LINGUITI 54</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>06.30.2009 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>150106</code>
+		<description>NAPOLI 1</description>
+		<address>VIA DON BOSCO 4/F</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>06.30.2009 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>150107</code>
+		<description>NAPOLI 2</description>
+		<address>VIA CAMPANA 250</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>06.30.2009 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>150108</code>
+		<description>NAPOLI 3</description>
+		<address>VIA V. EMANUELE III 3</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>06.30.2009 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>150109</code>
+		<description>NAPOLI 4</description>
+		<address>VIA MAMELI 62</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>06.30.2009 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>150110</code>
+		<description>NAPOLI 5</description>
+		<address>VIA NUOVE TERME</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>06.30.2009 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>150111</code>
+		<description>SALERNO 1</description>
+		<address>VIA F. RICCO 50</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>06.30.2009 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>150112</code>
+		<description>SALERNO 2</description>
+		<address>VIA NIZZA 146</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>06.30.2009 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>150113</code>
+		<description>SALERNO 3</description>
+		<address>P.ZZA SANTA CATERINA</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>06.30.2009 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>150201</code>
+		<description>ASL AVELLINO</description>
+		<address>Via degli Imbimbo 10/12</address>
+		<start_date>07.01.2009 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>150202</code>
+		<description>ASL BENEVENTO</description>
+		<address>VIA ODERISIO 1</address>
+		<start_date>07.01.2009 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>150203</code>
+		<description>ASL CASERTA</description>
+		<address>VIA UNITA' ITALIANA 28</address>
+		<start_date>07.01.2009 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>150204</code>
+		<description>NUOVA ASL NAPOLI 1 CENTRO</description>
+		<address>Centro Direzionale Isola F/9</address>
+		<start_date>07.01.2009 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>150205</code>
+		<description>NUOVA ASL NAPOLI 2 NORD</description>
+		<address>Via Corrado Alvaro 8</address>
+		<start_date>07.01.2009 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>150206</code>
+		<description>NUOVA ASL NAPOLI 3 SUD</description>
+		<address>C.so Alcide De Gasperi 167</address>
+		<start_date>07.01.2009 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>150207</code>
+		<description>ASL SALERNO</description>
+		<address>VIA NIZZA 146</address>
+		<start_date>07.01.2009 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>30306</code>
+		<description>A.S.L. DELLA PROVINCIA DI LODI</description>
+		<address>P.ZZA OSPEDALE, 1</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>30307</code>
+		<description>A.S.L. DELLA PROVINCIA DI MANTOVA</description>
+		<address>VIA TRENTO, 6</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>30308</code>
+		<description>A.S.L. DELLA CITTA' DI MILANO</description>
+		<address>C.SO ITALIA, 19</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>30309</code>
+		<description>A.S.L. DELLA PROVINCIA DI MILANO 1</description>
+		<address>VIA CANDIANI, 2</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>30310</code>
+		<description>A.S.L. DELLA PROVINCIA DI MILANO 2</description>
+		<address>VIA VIII GIUGNO, 69</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>30311</code>
+		<description>A.S.L. DELLA PROVINCIA DI MILANO 3</description>
+		<address>VIA BOITO, 2</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>30312</code>
+		<description>A.S.L. DELLA PROVINCIA DI PAVIA</description>
+		<address>VIALE INDIPENDENZA, 3</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>30313</code>
+		<description>A.S.L. DELLA PROVINCIA DI SONDRIO</description>
+		<address>VIA NAZARIO SAURO, 33</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>30314</code>
+		<description>A.S.L. DELLA PROVINCIA DI VARESE</description>
+		<address>VIA OTTORINO ROSSI, 9</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>30315</code>
+		<description>A.S.L. DI VALLECAMONICA-SEBINO</description>
+		<address>VIA NISSOLINA 2</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>41101</code>
+		<description>AZIENDA SANITARIA DI BOLZANO</description>
+		<address>VIA BOHLER 5</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>03.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>41102</code>
+		<description>AZIENDA SANITARIA DI MERANO</description>
+		<address>VIA A. HOFER 44</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>03.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>41103</code>
+		<description>AZIENDA SANITARIA DI BRESSANONE</description>
+		<address>VIA DANTE 51</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>03.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>41104</code>
+		<description>AZIENDA SANITARIA DI BRUNICO</description>
+		<address>VIA OSPEDALE 11</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>03.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>41201</code>
+		<description>AZIENDA SANITARIA DELLA P.A. DI BOLZANO</description>
+		<address>VIA CASSA DI RISPARMIO, 4</address>
+		<start_date>04.01.2007 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>42101</code>
+		<description>TRENTO</description>
+		<address>VIA DE GASPERI, 79</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>50101</code>
+		<description>BELLUNO</description>
+		<address>VIA FELTRE 57</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>50102</code>
+		<description>FELTRE</description>
+		<address>VIA C.RIZZARDA 21</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>50103</code>
+		<description>BASSANO DEL GRAPPA</description>
+		<address>VIA CARDUCCI 2</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>50104</code>
+		<description>THIENE</description>
+		<address>VIA RASA 9</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>50105</code>
+		<description>ARZIGNANO</description>
+		<address>VIA TRENTO 4</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>50106</code>
+		<description>VICENZA</description>
+		<address>V.LE RODOLFI 37</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>50107</code>
+		<description>PIEVE DI SOLIGO</description>
+		<address>VIA LUBIN 22</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>50108</code>
+		<description>ASOLO</description>
+		<address>VIA FORESTUZZO 19-C/O OSPED</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>50109</code>
+		<description>TREVISO</description>
+		<address>BORGO CAVALLI 42</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>50110</code>
+		<description>S. DONA' DI PIAVE</description>
+		<address>P.ZZA DE GASPERI 5</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>50112</code>
+		<description>VENEZIANA</description>
+		<address>VIA OSPEDALE 9</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>50113</code>
+		<description>MIRANO</description>
+		<address>VIA CASTELLANTICO 21</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>50114</code>
+		<description>CHIOGGIA</description>
+		<address>VIA PEGASO 17</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>50115</code>
+		<description>CITTADELLA</description>
+		<address>VIA CASA DI RICOVERO 40</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>50116</code>
+		<description>PADOVA</description>
+		<address>VIA E. DEGLI SCROVEGNI 14</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>50117</code>
+		<description>ESTE</description>
+		<address>VIA SALUTE 14/B</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>50118</code>
+		<description>ROVIGO</description>
+		<address>V.LE DELLA PACE 5</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>50119</code>
+		<description>ADRIA</description>
+		<address>VIA BADINI 23</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>160101</code>
+		<description>BA/1</description>
+		<address>VIA DON STURZO 36</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>03.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>160102</code>
+		<description>BA/2</description>
+		<address>C.SO CAVOUR 9</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>03.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>160103</code>
+		<description>BA/3</description>
+		<address>P.ZZA DE NAPOLI 5</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>03.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>160104</code>
+		<description>BA/4</description>
+		<address>P.ZZA G. CESARE 11</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>03.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>160105</code>
+		<description>BA/5</description>
+		<address>VIA CARAFA</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>03.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>160106</code>
+		<description>AUSL BR</description>
+		<address>VIA DALMAZIA 13</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>160107</code>
+		<description>FG/1</description>
+		<address>VIA CASTIGLIONE 8</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>03.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>160108</code>
+		<description>FG/2</description>
+		<address>P.ZZA DELLE MIMOSE</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>03.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>160109</code>
+		<description>FG/3</description>
+		<address>P.ZZA LIBERTA` 1</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>03.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>160110</code>
+		<description>LE/1</description>
+		<address>VIA MIGLIETTA 5 EX OPIS</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>03.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>160111</code>
+		<description>LE/2</description>
+		<address>VIA CARDUCCI</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>03.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>160112</code>
+		<description>AUSL TA</description>
+		<address>VIALE VIRGILIO 31</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>160113</code>
+		<description>AUSL BARLETTA/ANDRIA/TRANI</description>
+		<address>VIA FORNACI, 201</address>
+		<start_date>04.01.2007 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>160114</code>
+		<description>AUSL BA</description>
+		<address>LUNGOMARE STARITA, 6</address>
+		<start_date>04.01.2007 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>160115</code>
+		<description>AUSL FG</description>
+		<address>PIAZZA LIBERTA', 1</address>
+		<start_date>04.01.2007 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>160116</code>
+		<description>AUSL LE</description>
+		<address>VIA MIGLIETTA, 5</address>
+		<start_date>04.01.2007 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>170101</code>
+		<description>VENOSA</description>
+		<address>VIA ROMA 187</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>02.28.2009 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>170102</code>
+		<description>POTENZA</description>
+		<address>VIA F. TORRACA 2</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>02.28.2009 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>170103</code>
+		<description>LAGONEGRO</description>
+		<address>VIA G. FORTUNATO</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>02.28.2009 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>170104</code>
+		<description>MATERA</description>
+		<address>VIA MONTESCAGLIOSO</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>02.28.2009 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>170105</code>
+		<description>MONTALBANO JONICO</description>
+		<address>VIALE DEI CADUTI 27</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>02.28.2009 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>170201</code>
+		<description>AZIENDA SANITARIA LOCALE DI POTENZA ASP</description>
+		<address>VIA TORRACA 2</address>
+		<start_date>01.01.2009 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>170202</code>
+		<description>AZIENDA SANITARIA LOCALE DI MATERA ASM</description>
+		<address>VIA MONTESCAGLIOSO 20</address>
+		<start_date>01.01.2009 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>180101</code>
+		<description>PAOLA</description>
+		<address>VIA PROMINTESTA</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>180102</code>
+		<description>CASTROVILLARI</description>
+		<address>CTR. SCHIAVELLO-PAL. TOCCI</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>180103</code>
+		<description>ROSSANO</description>
+		<address>VIALE DELLA REPUBBLICA</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>180104</code>
+		<description>COSENZA</description>
+		<address>VIALE DEGLI ALIMENA 8</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>180105</code>
+		<description>CROTONE</description>
+		<address>CORSO MESSINA 25</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>180106</code>
+		<description>LAMEZIA TERME</description>
+		<address>VIA LORIEDO 17</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>180107</code>
+		<description>CATANZARO</description>
+		<address>VIA VINICIO CORTESE 25</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>180108</code>
+		<description>VIBO VALENTIA</description>
+		<address>VIA DE MARIA-PAL. GRILLO</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>180109</code>
+		<description>LOCRI</description>
+		<address>CTR. VERGA</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>180110</code>
+		<description>PALMI</description>
+		<address>CTR. TORRE</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>180111</code>
+		<description>REGGIO CALABRIA</description>
+		<address>VIA VITTORIO VENETO 58</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>180201</code>
+		<description>A.S.P. COSENZA</description>
+		<address>VIALE DEGLI ALIMENA 8</address>
+		<start_date>01.01.2008 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>180202</code>
+		<description>A.S.P. CROTONE</description>
+		<address>VIA CORIGLIANO 1</address>
+		<start_date>01.01.2008 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>180203</code>
+		<description>A.S.P. CATANZARO</description>
+		<address>VIA VINICIO CORTESE 25</address>
+		<start_date>01.01.2008 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>180204</code>
+		<description>A.S.P. VIBO VALENTIA</description>
+		<address>VIA DANTE ALIGHIERI 1</address>
+		<start_date>01.01.2008 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>180205</code>
+		<description>A.S.P. REGGIO CALABRIA</description>
+		<address>VIA SANT'ANNA II TRONCO 18/P</address>
+		<start_date>01.01.2008 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>190101</code>
+		<description>AGRIGENTO</description>
+		<address>VIA MANZONI 140</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>09.30.2010 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>190102</code>
+		<description>CALTANISSETTA</description>
+		<address>VIA CUSMANO</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>09.30.2010 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>190103</code>
+		<description>CATANIA</description>
+		<address>VIA S. MARIA LA GRANDE 5</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>09.30.2010 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>190104</code>
+		<description>ENNA</description>
+		<address>VIALE DIAZ 23</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>09.30.2010 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>190105</code>
+		<description>MESSINA</description>
+		<address>VIA DEL VESPRO 289</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>09.30.2010 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>190106</code>
+		<description>PALERMO</description>
+		<address>VIA G. CUSMANO 24</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>09.30.2010 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>190107</code>
+		<description>RAGUSA</description>
+		<address>P.ZZA IGEA 1</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>09.30.2010 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>190108</code>
+		<description>SIRACUSA</description>
+		<address>C.SO GELONE 17</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>09.30.2010 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>190109</code>
+		<description>TRAPANI</description>
+		<address>VIA MAZZINI 1</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>09.30.2010 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>190201</code>
+		<description>ASP AGRIGENTO</description>
+		<address>VIA MANZONI 140</address>
+		<start_date>01.01.2010 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>190202</code>
+		<description>ASP CALTANISSETTA</description>
+		<address>VIA CUSMANO</address>
+		<start_date>01.01.2010 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>190203</code>
+		<description>ASP CATANIA</description>
+		<address>VIA S. MARIA LA GRANDE 5</address>
+		<start_date>01.01.2010 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>190204</code>
+		<description>ASP ENNA</description>
+		<address>VIALE DIAZ 23</address>
+		<start_date>01.01.2010 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>190205</code>
+		<description>ASP MESSINA</description>
+		<address>VIA DEL VESPRO 289</address>
+		<start_date>01.01.2010 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>190206</code>
+		<description>ASP PALERMO</description>
+		<address>VIA G. CUSMANO 24</address>
+		<start_date>01.01.2010 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>190207</code>
+		<description>ASP RAGUSA</description>
+		<address>P.ZZA IGEA 1</address>
+		<start_date>01.01.2010 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>190208</code>
+		<description>ASP SIRACUSA</description>
+		<address>C.SO GELONE 17</address>
+		<start_date>01.01.2010 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>190209</code>
+		<description>ASP TRAPANI</description>
+		<address>VIA MAZZINI 1</address>
+		<start_date>01.01.2010 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>200101</code>
+		<description>SASSARI</description>
+		<address>VIA ZANFARINO 44</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>200102</code>
+		<description>OLBIA</description>
+		<address>VIALE ALDO MORO</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>200103</code>
+		<description>NUORO</description>
+		<address>VIA A. DEMURTAS 1</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>200104</code>
+		<description>LANUSEI</description>
+		<address>VIA PISCINAS 5</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>200105</code>
+		<description>ORISTANO</description>
+		<address>VIA CARDUCCI</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>200106</code>
+		<description>SANLURI</description>
+		<address>VIA C. FELICE</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>200107</code>
+		<description>CARBONIA</description>
+		<address>VIA DALMAZIA</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>200108</code>
+		<description>CAGLIARI</description>
+		<address>VIA LO FRASSO 11</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10101</code>
+		<description>TORINO I</description>
+		<address>VIA S. SECONDO 29</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10102</code>
+		<description>TORINO II</description>
+		<address>VIA TOFANE 71</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10103</code>
+		<description>TORINO III</description>
+		<address>CORSO SVIZZERA, 164</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10104</code>
+		<description>TORINO IV</description>
+		<address>VIA DELL`ARRIVORE 25</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10105</code>
+		<description>COLLEGNO</description>
+		<address>VIA MARTIRI XXX APRILE 30</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10106</code>
+		<description>CIRIE'</description>
+		<address>VIA BATTITORE 7</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10107</code>
+		<description>CHIVASSO</description>
+		<address>VIA PO 11</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10108</code>
+		<description>CHIERI</description>
+		<address>VIA SAN DOMENICO 19/21</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10109</code>
+		<description>IVREA</description>
+		<address>VIA ALDISIO 2</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10110</code>
+		<description>PINEROLO</description>
+		<address>V.CONVENTO S.FRANCESCO 1</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10111</code>
+		<description>VERCELLI</description>
+		<address>C.SO MARIO ABBIATE 21</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10112</code>
+		<description>BIELLA</description>
+		<address>VIA MARCONI 23</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10113</code>
+		<description>NOVARA</description>
+		<address>VIA DEI MILLE 2</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10114</code>
+		<description>OMEGNA</description>
+		<address>VIA MAZZINI 96</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10115</code>
+		<description>CUNEO</description>
+		<address>VIA BOGGIO 12</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10116</code>
+		<description>MONDOVI'</description>
+		<address>VIA S. PIO V 6/7</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10117</code>
+		<description>SAVIGLIANO</description>
+		<address>VIA OSPEDALE 14</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10118</code>
+		<description>ALBA</description>
+		<address>VIA ROMITA, 6</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10119</code>
+		<description>ASTI</description>
+		<address>VIA ORFANATROFIO 15/17</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10120</code>
+		<description>ALESSANDRIA</description>
+		<address>VIA VENEZIA, 6</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10121</code>
+		<description>CASALE MONFERRATO</description>
+		<address>VIALE GIOLITTI 2</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10122</code>
+		<description>NOVI LIGURE</description>
+		<address>VIA EDILIO RAGGIO 12</address>
+		<obsolete>1</obsolete>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.2007 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10201</code>
+		<description>TORINO 1</description>
+		<address>VIA S.SECONDO 29</address>
+		<start_date>01.01.2008 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10202</code>
+		<description>TORINO 2</description>
+		<address>CORSO SVIZZERA 164</address>
+		<start_date>01.01.2008 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10203</code>
+		<description>TORINO 3</description>
+		<address>VIA MARTIRI XXX APRILE 30</address>
+		<start_date>01.01.2008 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10204</code>
+		<description>TORINO 4</description>
+		<address>VIA ALDISIO 2</address>
+		<start_date>01.01.2008 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10205</code>
+		<description>TORINO 5</description>
+		<address>VIA SAN DOMENICO 21</address>
+		<start_date>01.01.2008 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10206</code>
+		<description>VERCELLI</description>
+		<address>C.SO MARIO ABBIATE 21</address>
+		<start_date>01.01.2008 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10207</code>
+		<description>BIELLA</description>
+		<address>VIA MARCONI 23</address>
+		<start_date>01.01.2008 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10208</code>
+		<description>NOVARA</description>
+		<address>VIA DEI MILLE 2</address>
+		<start_date>01.01.2008 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10209</code>
+		<description>VERBANO/CUSIO/OSSOLA</description>
+		<address>VIA MAZZINI 117</address>
+		<start_date>01.01.2008 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10210</code>
+		<description>CUNEO 1</description>
+		<address>VIA OSPEDALI 14</address>
+		<start_date>01.01.2008 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10211</code>
+		<description>CUNEO 2</description>
+		<address>VIA VIDA 10</address>
+		<start_date>01.01.2008 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10212</code>
+		<description>ASTI</description>
+		<address>VIA ORFANATROFIO 15/17</address>
+		<start_date>01.01.2008 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>10213</code>
+		<description>ALESSANDRIA</description>
+		<address>VIALE GIOLITTI 2</address>
+		<start_date>01.01.2008 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>20101</code>
+		<description>AOSTA</description>
+		<address>VIA GUIDO REY 1</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>30301</code>
+		<description>A.S.L. DELLA PROVINCIA DI BERGAMO</description>
+		<address>VIA GALLICOCIOLI, 4</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>30302</code>
+		<description>A.S.L. DELLA PROVINCIA DI BRESCIA</description>
+		<address>VIA DELLA VALLE, 40</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>30303</code>
+		<description>A.S.L. DELLA PROVINCIA DI COMO</description>
+		<address>VIA PESSINA, 6</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>30304</code>
+		<description>A.S.L. DELLA PROVINCIA DI CREMONA</description>
+		<address>VIALE PO, 12</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+	<data_entry>
+		<code>30305</code>
+		<description>A.S.L. DELLA PROVINCIA DI LECCO</description>
+		<address>VIA TONALE, 26</address>
+		<start_date>01.01.2005 00:00:00</start_date>
+		<end_date>12.31.9999 00:00:00</end_date>
+	</data_entry>
+</asl>

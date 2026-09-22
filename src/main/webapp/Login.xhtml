@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:p="http://primefaces.org/ui"
+				template="/resources/tpl/Admin/Main.xhtml">
+	<ui:param name="bean" value="#{loginBean}" />
+	<ui:param name="renderMenu" value="false" />
+	<ui:param name="showHeaderPart" value="false" />
+	<ui:param name="centerPartStyleClass" value="true" />
+	<ui:define name="body">
+		<h:form id="form" prependId="false">
+
+			<div class="content login_form">
+
+				<p:outputPanel id="login_panel" styleClass="center_login">
+					<h2>#{msg.loginHeader}</h2>
+
+					<h:panelGrid columns="3" columnClasses="label, value, btn_col"
+						styleClass="grid">
+
+						<h:column>
+							<span>#{msg.userPart}</span>
+							<span>#{msg.namePart}</span>
+						</h:column>
+						<p:inputText id="j_username" value="#{loginBean.username}"
+							label="#{msg.login}" maxlength="20" />
+						<h:column></h:column>
+
+						<h:column>
+							<span>#{msg.passPart}</span>
+							<span>#{msg.wordPart}</span>
+						</h:column>
+						<p:password id="password" feedback="false" label="#{msg.password}"
+							onkeyup="document.getElementById('j_password').value = this.value"
+							value="#{loginBean.password}" maxlength="40" />
+						<h:column>
+							<p:commandButton update=":form"
+								onclick="document.getElementById('j_password').value = document.getElementById('password').value"
+								id="login" ajax="false" action="#{loginBean.doLogin}"
+								value="#{msg.login}" />
+						</h:column>
+					</h:panelGrid>
+					<h:inputHidden id="j_password"></h:inputHidden>
+
+					<div style="width: 100%; text-align: center;" class="red">
+						<h:outputText value="#{msg.sessionExpired}"
+							rendered="#{param.reason == 'expired'}" />
+					</div>
+				</p:outputPanel>
+				<ui:include src="/resources/tpl/common/ValidationMessages.xhtml" />
+				<p:growl id="messages" showDetail="true" globalOnly="true" life="3000"/>
+			</div>
+			<script type="text/javascript">
+
+				$(document).ready(function() {
+						$('#j_username').focus();
+				});
+			</script>
+		</h:form>
+	</ui:define>
+</ui:composition>

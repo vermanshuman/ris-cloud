@@ -1,0 +1,65 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags"
+	xmlns:p="http://primefaces.org/ui">
+
+	<div
+		class="action_btn ui-panel-titlebar ui-widget-header ui-corner-all">
+		<h:outputLink id="left_btn">
+			<span>#{empty menuHeader ? msg.menu : menuHeader}</span>
+			<p:button onclick="return false;" icon="ui-icon-triangle-1-w">
+			</p:button>
+		</h:outputLink>
+	</div>
+
+	<h:form id="dictionaryForm">
+		<p:menu rendered="#{!empty menuBean.model}" id="subMenu"
+			styleClass="sub_menu" model="#{menuBean.model}" />
+	</h:form>
+
+	<ui:fragment binding="#{menuBean.mainMenu}" />
+
+	<script type="text/javascript">
+		PreGetSideMenuCookie("sideMenu");
+
+		var item = $('#main_menu').find('ul').find('a');
+
+		$(document).ready(function() {
+			$('.ui-icon-minusthick').click(function(e) {
+				addHideListener(e, $(this));
+			});
+			$('.ui-icon-plusthick').click(function(e) {
+				addShowListener(e, $(this));
+			});
+			$('.main_menu').find('.draggable').mouseover(function() {
+				$(this).addClass('ui-state-hover');
+			}).mouseout(function() {
+				$(this).removeClass('ui-state-hover');
+			});
+			$('.main_menu').find('.sub_menu').mouseover(function() {
+				$(this).addClass('ui-state-hover');
+			}).mouseout(function() {
+				$(this).removeClass('ui-state-hover');
+			});
+		});
+		function addHideListener(e, component) {
+			SetCookie(e.target.parentNode.parentNode.parentNode.id, 'true');
+			component.removeClass('ui-icon-minusthick');
+			component.addClass('ui-icon-plusthick');
+			component.click(function(e) {
+				addShowListener(e, component)
+			});
+		}
+		function addShowListener(e, component) {
+			SetCookie(e.target.parentNode.parentNode.parentNode.id, 'false');
+			component.removeClass('ui-icon-plusthick');
+			component.addClass('ui-icon-minusthick');
+			component.click(function(e) {
+				addHideListener(e, component)
+			});
+		}
+	</script>
+
+</ui:composition>

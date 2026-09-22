@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/resources/tpl/Admin/EditBase.xhtml">
+	<ui:param name="edit_title" value="#{msg.editPacs}" />
+	<ui:param name="bean" value="#{pacsEditBean}" />
+
+	<ui:define name="edit_body">
+
+		<style type="text/css">
+.ui-chkbox-all {
+	display: none !important;
+}
+</style>
+		<p:fieldset legend="#{msg.general}">
+
+			<h:panelGrid columns="2" columnClasses="label, value"
+				styleClass="grid0">
+
+				<span><span class="red">*</span> #{msg.pacsName}:</span>
+				<p:inputText id="name" value="#{bean.entity.name}" maxlength="45"
+					label="#{msg.pacsName}">
+				</p:inputText>
+
+				<span><span class="red">*</span> #{msg.pacsIpAddress}:</span>
+				<p:inputText id="ipAddress" value="#{bean.entity.iPHostPacs}"
+					maxlength="25" label="#{msg.pacsIpAddress}">
+				</p:inputText>
+
+				<span><span class="red">*</span>#{msg.pacsPort}:</span>
+				<p:inputText id="port" value="#{bean.entity.portHostPacs}"
+					maxlength="5" onkeypress="return numbers_only(this, event, 5, 0)"
+					onkeyup="check_numbers(this,5,0)" label="#{msg.pacsPort}" />
+
+				<span><span class="red">*</span> #{msg.pacsAET}:</span>
+				<p:inputTextarea id="aet" value="#{bean.entity.aetPacs}"
+					maxlength="45" onkeypress="return text_area_limit(this, event, 45)"
+					onkeyup="text_area_check(this,255);" maxLength="45"
+					autoResize="true" label="#{msg.pacsAET}">
+				</p:inputTextarea>
+
+				<span><span class="red">*</span> #{msg.pacsDicomPort}:</span>
+				<p:inputText id="dicomPort" value="#{bean.entity.dicomPort}"
+					onkeypress="return numbers_only(this, event, 5, 0)"
+					onkeyup="check_numbers(this,5,0)" maxlength="5"
+					label="#{msg.pacsDicomPort}">
+				</p:inputText>
+
+				<span><span class="red">*</span> #{msg.pacsHospital}: </span>
+				<p:selectOneMenu id="hospitals" value="#{bean.selectedHospital}"
+					label="#{msg.pacsHospital}">
+					<p:ajax listener="#{pacsEditBean.hospitalChange}" update="sectors" />
+					<f:selectItems value="#{bean.hospitals}" />
+				</p:selectOneMenu>
+
+				<span><span class="red">*</span> #{msg.pacsType}:</span>
+				<p:selectOneMenu id="pacsTypes" tabindex="3"
+					value="#{bean.entity.pacsType}" label="#{msg.pacsType}"
+					style="height:23px">
+					<f:selectItems value="#{bean.pacsTypes}" />
+				</p:selectOneMenu>
+
+				<span><span class="red">*</span> #{msg.userSector}:</span>
+				<p:selectOneMenu id="sectors" value="#{bean.selectedSector}"
+					label="#{msg.userSector}">
+					<f:selectItems value="#{bean.sectors}" id="sector"/>
+				</p:selectOneMenu>
+
+			</h:panelGrid>
+
+		</p:fieldset>
+	</ui:define>
+
+</ui:composition>
