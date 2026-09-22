@@ -6,7 +6,7 @@
 
     <groupId>nexera</groupId>
     <artifactId>RIS</artifactId>
-    <version>380</version>
+    <version>382</version>
     <packaging>war</packaging>
     <name>RIS Maven Webapp</name>
 
