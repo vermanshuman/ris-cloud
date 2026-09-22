@@ -575,10 +575,12 @@ public class DocumentGeneration extends EntityListPageBean<IndexedEntity>
 
         List<Long> ids = new ArrayList<Long>();
 
-        for (RadExamRequestItemWrapper wrap : this
-                .getAllRequestsItemsWrappers()) {
-            if (!ids.contains(wrap.getRequestId())) {
-                ids.add(wrap.getRequestId());
+        List<RadExamRequestItemWrapper> wrappers = this.getAllRequestsItemsWrappers();
+        if (wrappers != null) {
+            for (RadExamRequestItemWrapper wrap :wrappers) {
+                if (!ids.contains(wrap.getRequestId())) {
+                    ids.add(wrap.getRequestId());
+                }
             }
         }
 

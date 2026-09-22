@@ -661,8 +661,7 @@
                                             action="#{bean.chooseDocumentUnblocking}" update="messages"/>
 
                                 <p:menuitem value="#{msg.pdfGenerationCloseReport}"
-                                            disabled="#{!bean.canCloseReport || !bean.userEqualToClosingDoc ||
-									bean.disableButtonsAndFieldsInReportedCase || bean.disableButtonsAndFieldsInSignedCase}"
+
                                             action="#{bean.chooseTemplate}" update="messages">
                                     <f:setPropertyActionListener
                                             target="#{bean.currentStateToGeneratePdf}" value="REPORTED"/>
@@ -816,7 +815,7 @@
                             </p:commandButton>
 
                             <p:commandButton value="#{msg.pdfGenerationCloseReport}"
-                                             disabled="#{!bean.canCloseReport || !bean.userEqualToClosingDoc || bean.disableButtonsAndFieldsInReportedCase || bean.disableButtonsAndFieldsInSignedCase}"
+
                                              icon="ui-icon-locked" action="#{bean.chooseTemplate}"
                                              update="messages">
                                 <f:setPropertyActionListener

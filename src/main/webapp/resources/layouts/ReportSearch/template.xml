@@ -13,10 +13,10 @@
     <!-- data e ora di produzione del documento -->
     <effectiveTime value="%FILE_ENTITY_CREATE_DATE%" />
     <!-- livello di riservatezza del documento -->
-    <confidentialityCode  code="%CONFIDENTIALITY_CODE%" codeSystem="2.16.840.1.113883.5.25" codeSystemName="Confidentility" />
+    <confidentialityCode  code="%CONFIDENTIALITY_CODE%" codeSystem="2.16.840.1.113883.5.25" codeSystemName="HL7 Confidentiality" displayName="Normal" />
     <languageCode code="it-IT" />
     <!--trattandosi della prima versione del documento, id e sedId coincidono-->
-    <setId root="2.16.840.1.113883.2.9.2.150903" extension="%FILE_ENTITY_ID%" assigningAuthorityName="A.O.R.N OSPEDALI DEI COLLI Monaldi - Cotugno - C.T.O" displayable="true"/>
+    <setId root="2.16.840.1.113883.2.9.2.150903.4.4" extension="%FILE_ENTITY_ID%" assigningAuthorityName="A.O.R.N OSPEDALI DEI COLLI Monaldi - Cotugno - C.T.O" displayable="true"/>
     <versionNumber value="%FILE_ENTITY_VERSION%" />
     <!-- dati identificativi del paziente -->
     <recordTarget>
@@ -24,21 +24,13 @@
             <!-- Codice Fiscale -->
             <id root="%FIRST_ROOT_CODE%" extension="%PATIENT_FISCAL_CODE%" assigningAuthorityName="%FIRST_HOSPITAL_NAME%" />
             <id root="%SECOND_ROOT_CODE%" extension="%EXTERNAL_PATIENT_CODE%" assigningAuthorityName="A.O.R.N OSPEDALI DEI COLLI Monaldi - Cotugno - C.T.O" />
-            <!-- Identificativo interno alla Struttura -->
-            <addr use="H">
-                <country></country>
-                <county>%PATIENT_COUNTY%</county>
-                <city>%PATIENT_CITY%</city>
-                <postalCode>%PATIENT_CAP%</postalCode>
-                <streetAddressLine>%PATIENT_ADDRESS%</streetAddressLine>
-            </addr>
             <!-- Nome e Cognomei del Paziente -->
             <patient>
                 <name>
                     <family>%PATIENT_SURNAME%</family>
                     <given>%PATIENT_NAME%</given>
                 </name>
-                <administrativeGenderCode code="%PATIENT_SEX_TYPE%" codeSystem="2.16.840.1.113883.5.1" />
+                <administrativeGenderCode code="%PATIENT_SEX_TYPE%" codeSystem="2.16.840.1.113883.5.1" codeSystemName="HL7 AdministrativeGender" displayName="%PATIENT_SEX_DISPLAY_NAME%" />
                 <birthTime value="%PATIENT_BIRTH_DATE%" />
                 <birthplace>
                     <place>
@@ -55,23 +47,29 @@
     <!-- Autore del documento-->
     <author>
         <time value="%FILE_ENTITY_CREATE_DATE%" />
-        <assignedAuthor>
-            <id assigningAuthorityName="Ministero Economia e Finanze" displayable="true"
+        <assignedAuthor classCode="ASSIGNED">
+            <id assigningAuthorityName="MEF" displayable="true"
                 extension="%USER_FISCAL_CODE%" root="2.16.840.1.113883.2.9.4.3.2" />
             <telecom use="HP" value="mailto:assignedauthor@mail.com"/>
+            <telecom use="HP" value="mailto:[PEC_AUTORE]"/>
+            <telecom use="WP" value="tel:[TELEFONO_AUTORE]"/>
             <assignedPerson>
                 <name>
                     <given>%USER_FIRST_NAME%</given>
                     <family>%USER_LAST_NAME%</family>
                 </name>
             </assignedPerson>
+            <representedOrganization>
+                <id root="2.16.840.1.113883.2.9.4.1.1" extension="150903" assigningAuthorityName="Ministero della Salute"/>
+                <name>A.O.R.N OSPEDALI DEI COLLI Monaldi - Cotugno - C.T.O</name>
+            </representedOrganization>
         </assignedAuthor>
     </author>
     <!-- Riporta i dati dell'incaricato alla conservazione legale del documento-->
     <custodian>
         <assignedCustodian>
             <representedCustodianOrganization>
-                <id assigningAuthorityName="Ministero della Salute"  extension="150903" root="2.16.840.1.113883.2.9.2.150903" />
+                <id assigningAuthorityName="Ministero della Salute" extension="150903" root="2.16.840.1.113883.2.9.4.1.1" />
                 <name>A.O.R.N OSPEDALI DEI COLLI Monaldi - Cotugno - C.T.O</name>
             </representedCustodianOrganization>
         </assignedCustodian>
@@ -93,11 +91,12 @@
     </legalAuthenticator>
     <!-- identificativi delle prescrizioni.-->
     <inFulfillmentOf>
-        <order>
-            <id %IN_FULFILLMENT_OF_ID_CONTENT% />
-            <!-- {root}.27 of accession number added based on organizational policy -->
+        <order classCode="ACT" moodCode="RQO">
+            <id extension="%REQUEST_ACCESS_NUMBER%" root="2.16.840.1.113883.2.9.2.150903" />
+            <priorityCode code="R" codeSystem="2.16.840.1.113883.5.7" codeSystemName="HL7 ActPriority" displayName="Normale"/>
         </order>
     </inFulfillmentOf>
+%IN_FULFILLMENT_OF_ELECTRONIC_RECIPE%
     <componentOf>
         <encompassingEncounter>
             <code code="AMB"/>
@@ -121,7 +120,7 @@
     </componentOf>
     <component>
         <structuredBody classCode="DOCBODY" moodCode="EVN">
-            <component>
+            <component typeCode="COMP">
                 <section ID="ESAME_ESEGUITO">
                     <code code="55111-9" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Descrizioni attuale procedure di imaging" />
                     <title>Esame Eseguito</title>
@@ -139,7 +138,7 @@
                     </text>
 %ITEM_LIST%         </section>
             </component>
-            <component>
+            <component typeCode="COMP">
                 <section ID="REFERTO">
                     <code code="18782-3" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Rilievo - Radiologia" />
                     <title>Referto</title>

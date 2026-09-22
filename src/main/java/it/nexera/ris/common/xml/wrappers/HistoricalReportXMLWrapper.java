@@ -107,7 +107,7 @@ public class HistoricalReportXMLWrapper {
                     setExamDescription(item.getRadiologyExam().getDescription());
                 }
                 sb.append(template
-                        .replaceAll("%EXAM_CODE%", item.getRadiologyExam().getRegionalCode())
+                        .replaceAll("%EXAM_CODE%", item.getRadiologyExam().getCode())
                         .replaceAll("%EXAM_DESCRIPTION%", item.getRadiologyExam().getDescription())
                         .replaceAll("%ENTRY_ROW_ID%", "Esame" + (r+1))
                         .replaceAll("%REQUEST_PERFORM_DATE%", getPerformDateRequest()));
@@ -335,6 +335,17 @@ public class HistoricalReportXMLWrapper {
         }
 
         return userFiscalCode;
+    }
+
+    @CdaTag(CdaTags.PATIENT_SEX_DISPLAY_NAME)
+    public String getSexTypeDisplayName() {
+        String sex = getSexType();
+        if ("M".equalsIgnoreCase(sex)) {
+            return "MASCHIO";
+        } else if ("F".equalsIgnoreCase(sex)) {
+            return "FEMMINA";
+        }
+        return "";
     }
 
     public void setUserFiscalCode(String userFiscalCode) {
@@ -725,10 +736,16 @@ public class HistoricalReportXMLWrapper {
                 ResourcesHelper.getString("searchGenerateXmlNotHiddenDocument");
     }
 
-    @CdaTag(CdaTags.IN_FULFILLMENT_OF_ID_CONTENT)
-    public String getInFulfillmentOf() {
-        return ValidationHelper.isNullOrEmpty(getElectronicRecipeNumber()) ?
-                String.format(ResourcesHelper.getString("searchGenerateXmlIdTagDefault"), getAccessNumberRequest()) :
-                String.format(ResourcesHelper.getString("searchGenerateXmlIdTagForElectronicRecipe"), getElectronicRecipeNumber());
+    @CdaTag(CdaTags.IN_FULFILLMENT_OF_ELECTRONIC_RECIPE)
+    public String getInFulfillmentOfElectronicRecipe() {
+        if (ValidationHelper.isNullOrEmpty(getElectronicRecipeNumber())) {
+            return "";
+        }
+        return "    <inFulfillmentOf>\n"
+                + "        <order classCode=\"ACT\" moodCode=\"RQO\">\n"
+                + "            <id " + String.format(ResourcesHelper.getString("searchGenerateXmlIdTagForElectronicRecipe"), getElectronicRecipeNumber()) + " />\n"
+                + "            <priorityCode code=\"R\" codeSystem=\"2.16.840.1.113883.5.7\" codeSystemName=\"HL7 ActPriority\" displayName=\"Normale\"/>\n"
+                + "        </order>\n"
+                + "    </inFulfillmentOf>\n";
     }
 }
